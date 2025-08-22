@@ -1,71 +1,76 @@
-# React + TypeScript + Vite
-tailwindcss@3.4.17 (versão estável)
+# M5 Max Produções
 
+Site oficial da M5 Max Produções - Especialistas em fogos de artifício profissionais há 40 anos.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Sobre o Projeto
 
-Currently, two official plugins are available:
+Este é o site institucional da M5 Max Produções, desenvolvido para apresentar nossos serviços de pirotecnia profissional, incluindo shows sincronizados, chá revelação e kits DIY.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tecnologias Utilizadas
 
-## Expanding the ESLint configuration
+- **Vite** - Build tool e dev server
+- **React** - Framework JavaScript
+- **TypeScript** - Tipagem estática
+- **Tailwind CSS** - Framework CSS
+- **shadcn/ui** - Componentes UI
+- **Lucide React** - Ícones
+- **React Router** - Roteamento
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Desenvolvimento
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Pré-requisitos
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- Node.js (versão 18 ou superior)
+- npm ou yarn
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Instalação
+
+```bash
+# Clone o repositório
+git clone [URL_DO_REPOSITORIO]
+
+# Navegue para o diretório
+cd m5max
+
+# Instale as dependências
+npm install
+
+# Execute o servidor de desenvolvimento
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Scripts Disponíveis
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# Desenvolvimento
+npm run dev
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Build de produção
+npm run build
+
+# Build de desenvolvimento
+npm run build:dev
+
+# Lint do código
+npm run lint
+
+# Preview da build
+npm run preview
 ```
+
+## Estrutura do Projeto
+
+```
+src/
+├── components/     # Componentes React
+├── pages/          # Páginas da aplicação
+├── hooks/          # Custom hooks
+├── lib/            # Utilitários
+└── assets/         # Imagens e arquivos estáticos
+```
+
+## Contato
+
+M5 Max Produções  
+Telefone: (11) 99999-9999  
+Email: contato@m5max.com.br
