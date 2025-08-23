@@ -1,10 +1,10 @@
-import { Shield, Music, Users, Award } from "lucide-react";
+import { Shield, Zap, Crown, Users } from "lucide-react";
 
 const differentials = [
   {
-    icon: Music,
-    title: "Sincronização com Música",
-    description: "Sistema avançado de sincronização que garante perfeita harmonia entre som e pirotecnia",
+    icon: Zap,
+    title: "Equipamentos de Última Geração",
+    description: "Tecnologia profissional avançada com sistemas eletrônicos de ignição e controle remoto",
     color: "fire-orange"
   },
   {
@@ -14,7 +14,7 @@ const differentials = [
     color: "tech-blue"
   },
   {
-    icon: Award,
+    icon: Crown,
     title: "40 Anos de Experiência",
     description: "Quatro décadas de expertise em pirotecnia profissional e eventos marcantes",
     color: "fire-gold"

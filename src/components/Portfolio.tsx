@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Star, Play, Quote } from "lucide-react";
+import { Star, Quote } from "lucide-react";
 
 const clients = [
   { name: "Iate Clube", logo: "🏖️" },
@@ -58,17 +58,15 @@ const Portfolio = () => {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Video Case */}
           <div className="space-y-6">
-            <div className="relative bg-gradient-to-br from-fire-orange to-fire-red rounded-2xl overflow-hidden aspect-video group cursor-pointer shadow-fire">
-              <div className="absolute inset-0 bg-black/20" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="bg-white/90 backdrop-blur-sm p-4 rounded-full group-hover:bg-white group-hover:scale-110 transition-bounce">
-                  <Play className="w-8 h-8 text-fire-orange ml-1" />
-                </div>
-              </div>
-              <div className="absolute bottom-4 left-4 text-white">
-                <div className="text-sm font-medium">Case de Sucesso</div>
-                <div className="text-lg font-bold">Réveillon 2024 - Santos</div>
-              </div>
+            <div className="relative bg-gradient-to-br from-fire-orange to-fire-red rounded-2xl overflow-hidden aspect-video shadow-fire">
+              <iframe 
+                src="https://www.youtube.com/embed/AY1CF0LRKUw?rel=0&showinfo=0&modestbranding=1" 
+                title="Shows Pirotécnicos M5 Max - Festa do Mimosa 2025"
+                className="w-full h-full"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
             </div>
             
             <Button variant="tech" size="lg" className="w-full">

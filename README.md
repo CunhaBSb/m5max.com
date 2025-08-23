@@ -1,76 +1,39 @@
-# M5 Max Produções
+```sh
+# Step 1: Clone the repository using the project's Git URL.
+git clone <YOUR_GIT_URL>
 
-Site oficial da M5 Max Produções - Especialistas em fogos de artifício profissionais há 40 anos.
+# Step 2: Navigate to the project directory.
+cd <YOUR_PROJECT_NAME>
 
-## Sobre o Projeto
+# Step 3: Install the necessary dependencies.
+npm i
 
-Este é o site institucional da M5 Max Produções, desenvolvido para apresentar nossos serviços de pirotecnia profissional, incluindo shows sincronizados, chá revelação e kits DIY.
-
-## Tecnologias Utilizadas
-
-- **Vite** - Build tool e dev server
-- **React** - Framework JavaScript
-- **TypeScript** - Tipagem estática
-- **Tailwind CSS** - Framework CSS
-- **shadcn/ui** - Componentes UI
-- **Lucide React** - Ícones
-- **React Router** - Roteamento
-
-## Desenvolvimento
-
-### Pré-requisitos
-
-- Node.js (versão 18 ou superior)
-- npm ou yarn
-
-### Instalação
-
-```bash
-# Clone o repositório
-git clone [URL_DO_REPOSITORIO]
-
-# Navegue para o diretório
-cd m5max
-
-# Instale as dependências
-npm install
-
-# Execute o servidor de desenvolvimento
+# Step 4: Start the development server with auto-reloading and an instant preview.
 npm run dev
 ```
 
-### Scripts Disponíveis
+**Edit a file directly in GitHub**
 
-```bash
-# Desenvolvimento
-npm run dev
+- Navigate to the desired file(s).
+- Click the "Edit" button (pencil icon) at the top right of the file view.
+- Make your changes and commit the changes.
 
-# Build de produção
-npm run build
+**Use GitHub Codespaces**
 
-# Build de desenvolvimento
-npm run build:dev
+- Navigate to the main page of your repository.
+- Click on the "Code" button (green button) near the top right.
+- Select the "Codespaces" tab.
+- Click on "New codespace" to launch a new Codespace environment.
+- Edit files directly within the Codespace and commit and push your changes once you're done.
 
-# Lint do código
-npm run lint
+## What technologies are used for this project?
 
-# Preview da build
-npm run preview
-```
+This project is built with:
 
-## Estrutura do Projeto
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
 
-```
-src/
-├── components/     # Componentes React
-├── pages/          # Páginas da aplicação
-├── hooks/          # Custom hooks
-├── lib/            # Utilitários
-└── assets/         # Imagens e arquivos estáticos
-```
 
-## Contato
-
-M5 Max Produções  
-Telefone: (11) 99999-9999  
-Email: contato@m5max.com.br

@@ -1,8 +1,40 @@
 import { Button } from "@/components/ui/button";
 import { Sparkles, Phone, MessageSquare } from "lucide-react";
+import { useAppStore } from "@/store/appStore";
+import { useAnalytics } from "@/hooks/useAnalytics";
+import { generateWhatsAppURL, getWhatsAppMessage } from "@/utils/whatsapp";
 import heroFireworks from "@/assets/hero-fireworks.jpg";
 
 const Hero = () => {
+  const { openConversionModal, attribution } = useAppStore();
+  const { trackWhatsAppClick } = useAnalytics();
+
+  const handleOrçamentoClick = () => {
+    openConversionModal({
+      source: 'hero',
+      audience: 'general',
+      page: 'home'
+    });
+  };
+
+  const handleWhatsAppClick = () => {
+    const message = getWhatsAppMessage('general');
+    const url = generateWhatsAppURL(
+      message,
+      attribution?.utm,
+      { audience: 'general', source: 'hero' }
+    );
+
+    trackWhatsAppClick({
+      audience: 'general',
+      source: 'hero',
+      message_template: message,
+      phone_number: '556182735575'
+    });
+
+    window.open(url, '_blank');
+  };
+
   return (
     <section className="relative min-h-screen flex items-center gradient-hero overflow-hidden pt-16 md:pt-20">
       {/* Background Image with Overlay */}
@@ -15,8 +47,8 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/60 to-transparent" />
       </div>
       
-      {/* Floating Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Floating Elements - Hidden on Mobile */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none hidden md:block">
         {[...Array(8)].map((_, i) => (
           <div
             key={i}
@@ -47,7 +79,7 @@ const Hero = () => {
               </h1>
               
               <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground max-w-lg mx-auto lg:mx-0 leading-relaxed">
-                Sincronização com música • Segurança certificada • Equipe Blaster habilitada para eventos inesquecíveis
+                Equipamentos profissionais de última geração • Segurança certificada • Equipe Blaster habilitada para eventos inesquecíveis
               </p>
             </div>
 
@@ -56,6 +88,7 @@ const Hero = () => {
                 variant="hero" 
                 size="lg"
                 className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto"
+                onClick={handleOrçamentoClick}
               >
                 <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
                 Solicitar Orçamento
@@ -65,6 +98,7 @@ const Hero = () => {
                 variant="whatsapp" 
                 size="lg"
                 className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto"
+                onClick={handleWhatsAppClick}
               >
                 <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5" />
                 WhatsApp Direto
@@ -88,15 +122,15 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Logo/Visual Element */}
+          {/* Logo/Visual Element - Simplified on Mobile */}
           <div className="relative order-first lg:order-last">
-            <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto float-animation">
+            <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto md:float-animation">
               <img
-                src="/logo.png"
+                src="/m5max-logo.png"
                 alt="M5 Max Produções"
                 className="w-full h-auto"
               />
-              <div className="absolute inset-0 gradient-sparkle opacity-50 rounded-full animate-pulse" />
+              <div className="absolute inset-0 gradient-sparkle opacity-50 rounded-full animate-pulse hidden md:block" />
             </div>
           </div>
         </div>

@@ -7,8 +7,8 @@ const faqs = [
     answer: "Sim, somos totalmente licenciados e certificados. Fornecemos toda a documentação necessária e ajudamos com o processo de licenciamento junto aos órgãos competentes."
   },
   {
-    question: "Como funciona a sincronização com música?",
-    answer: "Utilizamos sistema digital avançado que permite sincronizar cada efeito pirotécnico com momentos específicos da música, criando um espetáculo perfeitamente harmonizado."
+    question: "Como funcionam os equipamentos profissionais?",
+    answer: "Utilizamos equipamentos eletrônicos de última geração com sistemas de ignição remota, garantindo máxima segurança e precisão nos efeitos pirotécnicos."
   },
   {
     question: "Qual a antecedência necessária para contratar?",

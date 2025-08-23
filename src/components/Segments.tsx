@@ -1,6 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Building2, Heart, Sparkles } from "lucide-react";
+import { useNavigate } from 'react-router-dom';
+import { useAppStore } from '@/store/appStore';
+import { useAnalytics } from '@/hooks/useAnalytics';
 import genderReveal from "@/assets/gender-reveal.jpg";
 import diyKits from "@/assets/diy-kits.jpg";
 import heroFireworks from "@/assets/hero-fireworks.jpg";
@@ -8,11 +11,13 @@ import heroFireworks from "@/assets/hero-fireworks.jpg";
 const segments = [
   {
     title: "Shows Pirotécnicos para Eventos",
-    description: "Espetáculos profissionais para prefeituras, clubes e grandes produtoras com sincronização musical",
+    description: "Espetáculos profissionais para prefeituras, clubes e grandes produtoras com equipamentos de última geração",
     image: heroFireworks,
     icon: Building2,
     audience: "B2B",
-    features: ["Sincronização com música", "Equipe especializada", "Licenças incluídas"]
+    audienceType: 'b2b' as const,
+    route: '/shows-pirotecnicos',
+    features: ["Equipamentos profissionais", "Equipe especializada", "Licenças incluídas"]
   },
   {
     title: "Chá Revelação com Fogos",
@@ -20,6 +25,8 @@ const segments = [
     image: genderReveal,
     icon: Heart,
     audience: "Famílias",
+    audienceType: 'cha' as const,
+    route: '/cha-revelacao',
     features: ["Cores personalizadas", "Totalmente seguro", "Momento inesquecível"]
   },
   {
@@ -28,11 +35,37 @@ const segments = [
     image: diyKits,
     icon: Sparkles,
     audience: "Consumidores",
+    audienceType: 'kits' as const,
+    route: '/kits',
     features: ["Fácil de usar", "Manual incluído", "Certificação INMETRO"]
   }
 ];
 
 const Segments = () => {
+  const navigate = useNavigate();
+  const { openConversionModal } = useAppStore();
+  const { trackPageView } = useAnalytics();
+
+  const handleSegmentClick = (segment: typeof segments[0]) => {
+    // Track the click
+    trackPageView({
+      page_title: segment.title,
+      page_location: segment.route,
+      page_category: segment.audienceType
+    });
+
+    // Navigate to the specific page
+    navigate(segment.route);
+  };
+
+  const handleCTAClick = (segment: typeof segments[0]) => {
+    openConversionModal({
+      source: 'segments',
+      audience: segment.audienceType,
+      page: 'home'
+    });
+  };
+
   return (
     <section className="py-20 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -53,7 +86,8 @@ const Segments = () => {
             return (
               <Card 
                 key={index} 
-                className="group hover:shadow-elegant transition-smooth border-0 bg-card/50 backdrop-blur-sm overflow-hidden"
+                className="group hover:shadow-elegant transition-smooth border-0 bg-card/50 backdrop-blur-sm overflow-hidden cursor-pointer"
+                onClick={() => handleSegmentClick(segment)}
               >
                 <div className="relative h-48 overflow-hidden">
                   <img
@@ -94,6 +128,10 @@ const Segments = () => {
                   <Button 
                     variant="cta" 
                     className="w-full"
+                    onClick={(e) => {
+                      e.stopPropagation(); // Prevent card click
+                      handleCTAClick(segment);
+                    }}
                   >
                     Solicitar Orçamento
                   </Button>
