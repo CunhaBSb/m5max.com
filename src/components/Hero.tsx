@@ -3,7 +3,7 @@ import { Sparkles, Phone, MessageSquare } from "lucide-react";
 import { useAppStore } from "@/store/appStore";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import { generateWhatsAppURL, getWhatsAppMessage } from "@/utils/whatsapp";
-import heroFireworks from "@/assets/hero-fireworks.jpg";
+import heroFireworks from "@/assets/header/wallpaperleque.webp";
 
 const Hero = () => {
   const { openConversionModal, attribution } = useAppStore();
@@ -29,14 +29,14 @@ const Hero = () => {
       audience: 'general',
       source: 'hero',
       message_template: message,
-      phone_number: '556182735575'
+      phone_number: '5561982735575'
     });
 
     window.open(url, '_blank');
   };
 
   return (
-    <section className="relative min-h-screen flex items-center gradient-hero overflow-hidden pt-16 md:pt-20">
+    <section className="relative min-h-screen flex items-center gradient-hero overflow-hidden pt-14 md:pt-16">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img
@@ -88,7 +88,7 @@ const Hero = () => {
             <div className="flex justify-center py-4">
               <div className="relative w-full max-w-48 sm:max-w-56">
                 <img
-                  src="/m5max-logo.png"
+                  src="/m5logo.svg"
                   alt="M5 Max Produções"
                   className="w-full h-auto"
                 />
@@ -197,7 +197,7 @@ const Hero = () => {
           <div className="hidden lg:block relative">
             <div className="relative w-full max-w-md mx-auto float-animation">
               <img
-                src="/m5max-logo.png"
+                src="/m5logo.svg"
                 alt="M5 Max Produções"
                 className="w-full h-auto"
               />

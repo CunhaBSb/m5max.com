@@ -17,7 +17,7 @@ export const generateWhatsAppURL = (
   utms?: UTMParams,
   context?: { audience: AudienceType, source: string }
 ): string => {
-  const phone = '556182735575';
+  const phone = '5561982735575';
   const encodedMessage = encodeURIComponent(message);
   
   let url = `https://wa.me/${phone}?text=${encodedMessage}`;

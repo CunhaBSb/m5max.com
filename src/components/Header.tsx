@@ -77,11 +77,11 @@ const Header = () => {
     <>
       <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 md:h-20">
+          <div className="flex items-center justify-between h-14 md:h-16">
             {/* Logo */}
             <button onClick={() => navigate("/")} className="flex items-center gap-3 hover:opacity-80 transition-smooth">
               <img
-                src="/m5max-logo.png"
+                src="/m5logo.svg"
                 alt="M5 Max Produções"
                 className="w-8 h-8 md:w-10 md:h-10"
               />
@@ -144,7 +144,7 @@ const Header = () => {
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => window.open('https://wa.me/5511999999999', '_blank')}
+                  onClick={() => window.open('https://wa.me/5561982735575', '_blank')}
                   className="flex items-center gap-2"
                 >
                   <MessageSquare className="w-4 h-4" />
@@ -175,7 +175,7 @@ const Header = () => {
                     {/* Logo */}
                     <div className="flex items-center gap-3 pb-6 border-b border-border">
                       <img
-                        src="/m5max-logo.png"
+                        src="/m5logo.svg"
                         alt="M5 Max Produções"
                         className="w-10 h-10"
                       />
@@ -219,7 +219,7 @@ const Header = () => {
                         variant="outline"
                         className="w-full flex items-center gap-2"
                         onClick={() => {
-                          window.open('https://wa.me/5511999999999', '_blank');
+                          window.open('https://wa.me/5561982735575', '_blank');
                           setIsOpen(false);
                         }}
                       >

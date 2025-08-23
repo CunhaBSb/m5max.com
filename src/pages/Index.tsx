@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import Segments from "@/components/Segments";
+import Services from "@/components/services";
 import Differentials from "@/components/Differentials";
 import Portfolio from "@/components/Portfolio";
 import LeadMagnet from "@/components/LeadMagnet";
@@ -17,7 +17,7 @@ const Index = () => {
       </div>
       <SectionSeparator variant="gradient" />
       <div id="servicos">
-        <Segments />
+        <Services />
       </div>
       <SectionSeparator variant="default" />
       <div id="portfolio">

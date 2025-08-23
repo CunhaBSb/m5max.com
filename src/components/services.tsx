@@ -4,15 +4,15 @@ import { Building2, Heart, Sparkles } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '@/store/appStore';
 import { useAnalytics } from '@/hooks/useAnalytics';
-import genderReveal from "@/assets/gender-reveal.jpg";
-import diyKits from "@/assets/diy-kits.jpg";
-import heroFireworks from "@/assets/hero-fireworks.jpg";
+import show from "@/assets/services/show.webp";
+import cha from "@/assets/services/cha.webp";
+import kits from "@/assets/services/kits.webp";
 
 const segments = [
   {
     title: "Shows Pirotécnicos para Eventos",
     description: "Espetáculos profissionais para prefeituras, clubes e grandes produtoras com equipamentos de última geração",
-    image: heroFireworks,
+    image: show,
     icon: Building2,
     audience: "B2B",
     audienceType: 'b2b' as const,
@@ -22,7 +22,7 @@ const segments = [
   {
     title: "Chá Revelação com Fogos",
     description: "Momentos únicos e emocionantes para revelar o sexo do bebê com segurança e beleza",
-    image: genderReveal,
+    image: cha,
     icon: Heart,
     audience: "Famílias",
     audienceType: 'cha' as const,
@@ -32,7 +32,7 @@ const segments = [
   {
     title: "Kits DIY para Festas",
     description: "Kits completos para Réveillon, aniversários e celebrações íntimas com segurança garantida",
-    image: diyKits,
+    image: kits,
     icon: Sparkles,
     audience: "Consumidores",
     audienceType: 'kits' as const,
@@ -41,7 +41,7 @@ const segments = [
   }
 ];
 
-const Segments = () => {
+const Services = () => {
   const navigate = useNavigate();
   const { openConversionModal } = useAppStore();
   const { trackPageView } = useAnalytics();
@@ -146,4 +146,4 @@ const Segments = () => {
   );
 };
 
-export default Segments;
+export default Services;

@@ -5,25 +5,29 @@ const differentials = [
     icon: Zap,
     title: "Equipamentos de Última Geração",
     description: "Tecnologia profissional avançada com sistemas eletrônicos de ignição e controle remoto",
-    color: "fire-orange"
+    iconBgClass: "bg-fire-orange",
+    iconColorClass: "text-white"
   },
   {
     icon: Shield,
     title: "Segurança Certificada",
     description: "Todos os produtos certificados pelo INMETRO com protocolos rigorosos de segurança",
-    color: "tech-blue"
+    iconBgClass: "bg-blue-600",
+    iconColorClass: "text-white"
   },
   {
     icon: Crown,
     title: "40 Anos de Experiência",
     description: "Quatro décadas de expertise em pirotecnia profissional e eventos marcantes",
-    color: "fire-gold"
+    iconBgClass: "bg-fire-gold",
+    iconColorClass: "text-slate-900"
   },
   {
     icon: Users,
     title: "Equipe Blaster Habilitada",
     description: "Profissionais certificados e especializados em manuseio seguro de materiais pirotécnicos",
-    color: "fire-red"
+    iconBgClass: "bg-fire-red",
+    iconColorClass: "text-white"
   }
 ];
 
@@ -50,8 +54,8 @@ const Differentials = () => {
                 key={index}
                 className="group bg-card/80 backdrop-blur-sm p-6 rounded-2xl shadow-elegant hover:shadow-fire transition-smooth text-center"
               >
-                <div className={`w-12 h-12 mx-auto mb-4 bg-${differential.color} bg-opacity-10 rounded-full flex items-center justify-center group-hover:scale-110 transition-bounce`}>
-                  <Icon className={`w-6 h-6 text-${differential.color}`} />
+                <div className={`w-14 h-14 mx-auto mb-6 rounded-full flex items-center justify-center group-hover:scale-110 transition-bounce shadow-lg ${differential.iconBgClass}`}>
+                  <Icon className={`w-7 h-7 ${differential.iconColorClass}`} />
                 </div>
                 
                 <h3 className="text-lg font-bold mb-3 group-hover:text-fire-orange transition-smooth">

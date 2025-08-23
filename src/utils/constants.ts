@@ -3,14 +3,16 @@ export const COMPANY_INFO = {
   fullName: 'M5 Max Produções Pirotécnicas Ltda',
   tagline: 'Pirotecnia Profissional com Equipamentos de Última Geração',
   experienceYears: 40,
-  phone: '(61) 8273-5575',
-  whatsapp: '556182735575',
-  email: 'contato@m5max.com.br',
+  phone: '(61) 98273-5575',
+  whatsapp: '5561982735575',
+  email: 'fogosm5.max@gmail.com',
   address: {
-    city: 'Brasília',
-    state: 'DF',
-    country: 'Brasil'
+    city: 'Luziânia',
+    state: 'GO',
+    country: 'Brasil',
+    fullAddress: 'AV. GOVERNADOR HENRIQUE SANTILLO QD. 53 LT 03 – JOFRE PARADA'
   },
+  cnpj: '04.286.098/0001-46',
   social: {
     youtube: 'https://www.youtube.com/@FogosM5Max',
     instagram: '@m5maxproducoes',

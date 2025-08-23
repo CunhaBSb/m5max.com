@@ -13,7 +13,7 @@ const Footer = () => {
             <div className="space-y-4">
               <div className="flex items-center gap-2">
                 <img
-                  src="/m5max-logo.png"
+                  src="/m5logo.svg"
                   alt="M5 Max Produções"
                   className="w-10 h-10 invert"
                 />
@@ -69,15 +69,15 @@ const Footer = () => {
               <div className="space-y-2 text-xs opacity-70">
                 <div className="flex items-center gap-2">
                   <Phone className="w-3 h-3" />
-                  <span>(11) 99999-9999</span>
+                  <span>(61) 98273-5575</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Mail className="w-3 h-3" />
-                  <span>contato@m5max.com.br</span>
+                  <span>fogosm5.max@gmail.com</span>
                 </div>
                 <div className="flex items-start gap-2">
                   <MapPin className="w-3 h-3 mt-0.5" />
-                  <span>São Paulo - SP<br />Atendemos todo Brasil</span>
+                  <span>Luziânia - GO<br />Atendemos todo Brasil</span>
                 </div>
               </div>
             </div>
@@ -114,7 +114,7 @@ const Footer = () => {
             © 2024 M5 Max Produções. Todos os direitos reservados.
           </div>
           <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-4 text-center">
-            <span>CNPJ: 00.000.000/0001-00</span>
+            <span>CNPJ: 04.286.098/0001-46</span>
             <span className="hidden sm:inline">|</span>
             <span>Licença INMETRO: ABC-123456</span>
           </div>

@@ -68,16 +68,16 @@ const FAQ = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a 
-              href="https://wa.me/5511999999999" 
+              href="https://wa.me/5561982735575" 
               className="inline-flex items-center gap-2 text-fire-orange hover:text-fire-red transition-smooth font-semibold text-sm"
             >
-              📱 WhatsApp: (11) 99999-9999
+              📱 WhatsApp: (61) 98273-5575
             </a>
             <a 
-              href="mailto:contato@m5max.com.br"
+              href="mailto:fogosm5.max@gmail.com"
               className="inline-flex items-center gap-2 text-fire-orange hover:text-fire-red transition-smooth font-semibold text-sm"
             >
-              ✉️ contato@m5max.com.br
+              ✉️ fogosm5.max@gmail.com
             </a>
           </div>
         </div>

@@ -190,7 +190,7 @@ const KitsForm: React.FC<KitsFormProps> = ({ form }) => {
               <FormItem>
                 <FormLabel>Telefone/WhatsApp</FormLabel>
                 <FormControl>
-                  <Input placeholder="(11) 99999-9999" {...field} />
+                  <Input placeholder="(61) 98273-5575" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
