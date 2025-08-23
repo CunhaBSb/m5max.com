@@ -20,34 +20,34 @@ const testimonial = {
 
 const Portfolio = () => {
   return (
-    <section className="py-20 bg-background">
+    <section className="py-16 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+        <div className="text-center mb-12">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
             <span className="text-foreground">Portfólio e</span>
             <br />
             <span className="text-fire-gradient">Clientes Satisfeitos</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto">
             Conheça alguns dos eventos memoráveis que ajudamos a criar
           </p>
         </div>
 
         {/* Client Logos */}
-        <div className="mb-16">
-          <h3 className="text-center text-lg font-semibold text-muted-foreground mb-8">
+        <div className="mb-12">
+          <h3 className="text-center text-sm font-semibold text-muted-foreground mb-6">
             Confiado por grandes nomes do mercado
           </h3>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 sm:gap-6 lg:gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 sm:gap-4 lg:gap-6">
             {clients.map((client, index) => (
               <div 
                 key={index}
-                className="bg-card/50 p-6 rounded-lg text-center hover:shadow-elegant transition-smooth group"
+                className="bg-card/50 p-4 rounded-lg text-center hover:shadow-elegant transition-smooth group"
               >
-                <div className="text-3xl mb-2 group-hover:scale-110 transition-bounce">
+                <div className="text-2xl mb-1 group-hover:scale-110 transition-bounce">
                   {client.logo}
                 </div>
-                <div className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-smooth">
+                <div className="text-xs font-medium text-muted-foreground group-hover:text-foreground transition-smooth">
                   {client.name}
                 </div>
               </div>
@@ -55,9 +55,9 @@ const Portfolio = () => {
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-center">
           {/* Video Case */}
-          <div className="space-y-6">
+          <div className="space-y-4">
             <div className="relative bg-gradient-to-br from-fire-orange to-fire-red rounded-2xl overflow-hidden aspect-video shadow-fire">
               <iframe 
                 src="https://www.youtube.com/embed/AY1CF0LRKUw?rel=0&showinfo=0&modestbranding=1" 
@@ -69,36 +69,36 @@ const Portfolio = () => {
               />
             </div>
             
-            <Button variant="tech" size="lg" className="w-full">
+            <Button variant="tech" size="default" className="w-full">
               Ver Mais Projetos
             </Button>
           </div>
 
           {/* Testimonial */}
           <Card className="border-0 shadow-elegant bg-card/80 backdrop-blur-sm">
-            <CardContent className="p-8 space-y-6">
-              <div className="flex items-center gap-1 mb-4">
+            <CardContent className="p-6 space-y-4">
+              <div className="flex items-center gap-1 mb-3">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-fire-gold text-fire-gold" />
+                  <Star key={i} className="w-4 h-4 fill-fire-gold text-fire-gold" />
                 ))}
               </div>
               
               <div className="relative">
-                <Quote className="absolute -top-2 -left-2 w-8 h-8 text-fire-orange/30" />
-                <blockquote className="text-lg leading-relaxed pl-6">
+                <Quote className="absolute -top-1 -left-1 w-6 h-6 text-fire-orange/30" />
+                <blockquote className="text-sm leading-relaxed pl-4">
                   "{testimonial.text}"
                 </blockquote>
               </div>
               
-              <div className="flex items-center gap-4 pt-4 border-t border-border">
-                <div className="w-12 h-12 bg-fire-orange/10 rounded-full flex items-center justify-center">
-                  <span className="text-fire-orange font-bold text-lg">
+              <div className="flex items-center gap-3 pt-3 border-t border-border">
+                <div className="w-10 h-10 bg-fire-orange/10 rounded-full flex items-center justify-center">
+                  <span className="text-fire-orange font-bold text-sm">
                     {testimonial.author.charAt(0)}
                   </span>
                 </div>
                 <div>
-                  <div className="font-semibold">{testimonial.author}</div>
-                  <div className="text-sm text-muted-foreground">
+                  <div className="font-semibold text-sm">{testimonial.author}</div>
+                  <div className="text-xs text-muted-foreground">
                     {testimonial.position}, {testimonial.company}
                   </div>
                 </div>

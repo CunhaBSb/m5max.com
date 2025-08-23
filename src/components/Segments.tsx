@@ -67,20 +67,20 @@ const Segments = () => {
   };
 
   return (
-    <section className="py-20 bg-background">
+    <section className="py-16 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+        <div className="text-center mb-12">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
             <span className="text-foreground">Soluções para Cada</span>
             <br />
             <span className="text-fire-gradient">Tipo de Celebração</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-base text-muted-foreground max-w-2xl mx-auto">
             Da grande produção ao momento íntimo, temos a solução perfeita para seu evento
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
           {segments.map((segment, index) => {
             const Icon = segment.icon;
             return (
@@ -89,37 +89,37 @@ const Segments = () => {
                 className="group hover:shadow-elegant transition-smooth border-0 bg-card/50 backdrop-blur-sm overflow-hidden cursor-pointer"
                 onClick={() => handleSegmentClick(segment)}
               >
-                <div className="relative h-48 overflow-hidden">
+                <div className="relative h-40 overflow-hidden">
                   <img
                     src={segment.image}
                     alt={segment.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-smooth"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                  <div className="absolute top-4 right-4 bg-fire-orange/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold text-white">
+                  <div className="absolute top-3 right-3 bg-fire-orange/90 backdrop-blur-sm px-2 py-1 rounded-full text-xs font-semibold text-white">
                     {segment.audience}
                   </div>
-                  <div className="absolute bottom-4 left-4">
-                    <div className="bg-white/90 backdrop-blur-sm p-2 rounded-lg">
-                      <Icon className="w-6 h-6 text-fire-orange" />
+                  <div className="absolute bottom-3 left-3">
+                    <div className="bg-white/90 backdrop-blur-sm p-1.5 rounded-lg">
+                      <Icon className="w-5 h-5 text-fire-orange" />
                     </div>
                   </div>
                 </div>
 
-                <CardHeader className="space-y-4">
-                  <CardTitle className="text-xl font-bold group-hover:text-fire-orange transition-smooth">
+                <CardHeader className="space-y-3 p-4">
+                  <CardTitle className="text-lg font-bold group-hover:text-fire-orange transition-smooth">
                     {segment.title}
                   </CardTitle>
-                  <CardDescription className="text-base leading-relaxed">
+                  <CardDescription className="text-sm leading-relaxed">
                     {segment.description}
                   </CardDescription>
                 </CardHeader>
 
-                <CardContent className="space-y-6">
-                  <ul className="space-y-2">
+                <CardContent className="space-y-4 p-4 pt-0">
+                  <ul className="space-y-1.5">
                     {segment.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <div className="w-1.5 h-1.5 bg-fire-orange rounded-full" />
+                      <li key={featureIndex} className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <div className="w-1 h-1 bg-fire-orange rounded-full" />
                         {feature}
                       </li>
                     ))}
@@ -127,6 +127,7 @@ const Segments = () => {
 
                   <Button 
                     variant="cta" 
+                    size="sm"
                     className="w-full"
                     onClick={(e) => {
                       e.stopPropagation(); // Prevent card click

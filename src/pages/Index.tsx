@@ -6,6 +6,7 @@ import Portfolio from "@/components/Portfolio";
 import LeadMagnet from "@/components/LeadMagnet";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
+import SectionSeparator from "@/components/SectionSeparator";
 
 const Index = () => {
   return (
@@ -14,18 +15,23 @@ const Index = () => {
       <div id="hero">
         <Hero />
       </div>
+      <SectionSeparator variant="gradient" />
       <div id="servicos">
         <Segments />
       </div>
+      <SectionSeparator variant="default" />
       <div id="portfolio">
         <Portfolio />
       </div>
+      <SectionSeparator variant="minimal" />
       <div id="diferenciais">
         <Differentials />
       </div>
+      <SectionSeparator variant="gradient" />
       <div id="faq">
         <FAQ />
       </div>
+      <SectionSeparator variant="minimal" />
       <div id="contato">
         <Footer />
       </div>

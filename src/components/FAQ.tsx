@@ -26,56 +26,56 @@ const faqs = [
 
 const FAQ = () => {
   return (
-    <section className="py-20 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
-        <div className="text-center mb-16">
-          <div className="flex items-center justify-center gap-2 text-fire-orange mb-4">
-            <HelpCircle className="w-6 h-6" />
-            <span className="font-semibold uppercase tracking-wide">Dúvidas Frequentes</span>
+    <section className="py-16 bg-background">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl">
+        <div className="text-center mb-12">
+          <div className="flex items-center justify-center gap-2 text-fire-orange mb-3">
+            <HelpCircle className="w-5 h-5" />
+            <span className="font-semibold uppercase tracking-wide text-sm">Dúvidas Frequentes</span>
           </div>
           
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
             <span className="text-foreground">Tire Suas</span>
             <br />
             <span className="text-fire-gradient">Dúvidas</span>
           </h2>
           
-          <p className="text-xl text-muted-foreground">
+          <p className="text-base text-muted-foreground">
             Encontre respostas para as perguntas mais comuns sobre nossos serviços
           </p>
         </div>
 
-        <Accordion type="single" collapsible className="space-y-4">
+        <Accordion type="single" collapsible className="space-y-3">
           {faqs.map((faq, index) => (
             <AccordionItem 
               key={index} 
               value={`item-${index}`}
-              className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg px-6 py-2"
+              className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg px-4 py-1"
             >
-              <AccordionTrigger className="text-left font-semibold hover:text-fire-orange transition-smooth">
+              <AccordionTrigger className="text-left font-semibold hover:text-fire-orange transition-smooth text-sm">
                 {faq.question}
               </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground leading-relaxed pt-4">
+              <AccordionContent className="text-muted-foreground leading-relaxed pt-3 text-sm">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>
 
-        <div className="text-center mt-12">
-          <p className="text-muted-foreground mb-4">
+        <div className="text-center mt-10">
+          <p className="text-muted-foreground mb-3 text-sm">
             Ainda tem dúvidas? Entre em contato conosco!
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a 
               href="https://wa.me/5511999999999" 
-              className="inline-flex items-center gap-2 text-fire-orange hover:text-fire-red transition-smooth font-semibold"
+              className="inline-flex items-center gap-2 text-fire-orange hover:text-fire-red transition-smooth font-semibold text-sm"
             >
               📱 WhatsApp: (11) 99999-9999
             </a>
             <a 
               href="mailto:contato@m5max.com.br"
-              className="inline-flex items-center gap-2 text-fire-orange hover:text-fire-red transition-smooth font-semibold"
+              className="inline-flex items-center gap-2 text-fire-orange hover:text-fire-red transition-smooth font-semibold text-sm"
             >
               ✉️ contato@m5max.com.br
             </a>
