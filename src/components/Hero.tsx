@@ -63,74 +63,145 @@ const Hero = () => {
       </div>
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          {/* Content */}
-          <div className="space-y-6 sm:space-y-8 text-center lg:text-left">
-            <div className="space-y-3 sm:space-y-4">
-              <div className="flex items-center gap-2 text-fire-orange font-semibold justify-center lg:justify-start text-sm sm:text-base">
-                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5" />
+        <div className="lg:grid lg:grid-cols-2 lg:gap-8 lg:gap-12 lg:items-center">
+          {/* Mobile Layout */}
+          <div className="lg:hidden space-y-6 text-center">
+            {/* Header Content */}
+            <div className="space-y-3">
+              <div className="flex items-center gap-2 text-fire-orange font-semibold justify-center text-xs sm:text-sm">
+                <Sparkles className="w-4 h-4" />
                 40 ANOS DE EXPERIÊNCIA
               </div>
               
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
+              <h1 className="text-2xl sm:text-3xl font-bold leading-tight">
                 <span className="text-foreground">Fogos de Artifício</span>
                 <br />
                 <span className="text-fire-gradient">Profissionais</span>
               </h1>
               
-              <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground max-w-lg mx-auto lg:mx-0 leading-relaxed">
+              <p className="text-sm sm:text-base text-muted-foreground max-w-sm mx-auto leading-relaxed">
                 Equipamentos profissionais de última geração • Segurança certificada • Equipe Blaster habilitada para eventos inesquecíveis
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
+            {/* Centered Logo */}
+            <div className="flex justify-center py-4">
+              <div className="relative w-full max-w-48 sm:max-w-56">
+                <img
+                  src="/m5max-logo.png"
+                  alt="M5 Max Produções"
+                  className="w-full h-auto"
+                />
+              </div>
+            </div>
+
+            {/* Buttons */}
+            <div className="flex flex-col gap-2 sm:gap-3">
               <Button 
                 variant="hero" 
-                size="lg"
-                className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto"
+                size="default"
+                className="flex items-center gap-2 w-full"
                 onClick={handleOrçamentoClick}
               >
-                <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
+                <Phone className="w-4 h-4" />
                 Solicitar Orçamento
               </Button>
               
               <Button 
                 variant="whatsapp" 
-                size="lg"
-                className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto"
+                size="default"
+                className="flex items-center gap-2 w-full"
                 onClick={handleWhatsAppClick}
               >
-                <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5" />
+                <MessageSquare className="w-4 h-4" />
                 WhatsApp Direto
               </Button>
             </div>
 
             {/* Trust Indicators */}
-            <div className="grid grid-cols-3 gap-4 sm:gap-6 pt-6 sm:pt-8 border-t border-border">
+            <div className="grid grid-cols-3 gap-3 pt-4 border-t border-border">
               <div className="text-center">
-                <div className="text-xl sm:text-2xl font-bold text-fire-orange">40+</div>
-                <div className="text-xs sm:text-sm text-muted-foreground">Anos de Experiência</div>
+                <div className="text-lg sm:text-xl font-bold text-fire-orange">40+</div>
+                <div className="text-xs text-muted-foreground">Anos de Experiência</div>
               </div>
               <div className="text-center">
-                <div className="text-xl sm:text-2xl font-bold text-fire-orange">500+</div>
-                <div className="text-xs sm:text-sm text-muted-foreground">Eventos Realizados</div>
+                <div className="text-lg sm:text-xl font-bold text-fire-orange">500+</div>
+                <div className="text-xs text-muted-foreground">Eventos Realizados</div>
               </div>
               <div className="text-center">
-                <div className="text-xl sm:text-2xl font-bold text-fire-orange">100%</div>
-                <div className="text-xs sm:text-sm text-muted-foreground">Segurança Certificada</div>
+                <div className="text-lg sm:text-xl font-bold text-fire-orange">100%</div>
+                <div className="text-xs text-muted-foreground">Segurança Certificada</div>
               </div>
             </div>
           </div>
 
-          {/* Logo/Visual Element - Simplified on Mobile */}
-          <div className="relative order-first lg:order-last">
-            <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto md:float-animation">
+          {/* Desktop Layout */}
+          <div className="hidden lg:block space-y-6 text-left">
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 text-fire-orange font-semibold justify-start text-sm">
+                <Sparkles className="w-4 h-4" />
+                40 ANOS DE EXPERIÊNCIA
+              </div>
+              
+              <h1 className="text-4xl xl:text-5xl font-bold leading-tight">
+                <span className="text-foreground">Fogos de Artifício</span>
+                <br />
+                <span className="text-fire-gradient">Profissionais</span>
+              </h1>
+              
+              <p className="text-lg text-muted-foreground max-w-lg leading-relaxed">
+                Equipamentos profissionais de última geração • Segurança certificada • Equipe Blaster habilitada para eventos inesquecíveis
+              </p>
+            </div>
+
+            <div className="flex gap-3">
+              <Button 
+                variant="hero" 
+                size="default"
+                className="flex items-center gap-2"
+                onClick={handleOrçamentoClick}
+              >
+                <Phone className="w-4 h-4" />
+                Solicitar Orçamento
+              </Button>
+              
+              <Button 
+                variant="whatsapp" 
+                size="default"
+                className="flex items-center gap-2"
+                onClick={handleWhatsAppClick}
+              >
+                <MessageSquare className="w-4 h-4" />
+                WhatsApp Direto
+              </Button>
+            </div>
+
+            {/* Trust Indicators */}
+            <div className="grid grid-cols-3 gap-4 pt-6 border-t border-border">
+              <div className="text-center">
+                <div className="text-xl font-bold text-fire-orange">40+</div>
+                <div className="text-xs text-muted-foreground">Anos de Experiência</div>
+              </div>
+              <div className="text-center">
+                <div className="text-xl font-bold text-fire-orange">500+</div>
+                <div className="text-xs text-muted-foreground">Eventos Realizados</div>
+              </div>
+              <div className="text-center">
+                <div className="text-xl font-bold text-fire-orange">100%</div>
+                <div className="text-xs text-muted-foreground">Segurança Certificada</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop Logo */}
+          <div className="hidden lg:block relative">
+            <div className="relative w-full max-w-md mx-auto float-animation">
               <img
                 src="/m5max-logo.png"
                 alt="M5 Max Produções"
                 className="w-full h-auto"
               />
-              <div className="absolute inset-0 gradient-sparkle opacity-50 rounded-full animate-pulse hidden md:block" />
+              <div className="absolute inset-0 gradient-sparkle opacity-50 rounded-full animate-pulse" />
             </div>
           </div>
         </div>
