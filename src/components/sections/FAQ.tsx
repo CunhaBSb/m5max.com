@@ -34,13 +34,13 @@ const FAQ = () => {
             <span className="font-semibold uppercase tracking-wide text-sm">Dúvidas Frequentes</span>
           </div>
           
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
+          <h2 className="text-xl md:text-2xl lg:text-3xl font-bold mb-4">
             <span className="text-foreground">Tire Suas</span>
             <br />
             <span className="text-fire-gradient">Dúvidas</span>
           </h2>
           
-          <p className="text-base text-muted-foreground">
+          <p className="text-sm text-muted-foreground">
             Encontre respostas para as perguntas mais comuns sobre nossos serviços
           </p>
         </div>
@@ -52,10 +52,10 @@ const FAQ = () => {
               value={`item-${index}`}
               className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg px-4 py-1"
             >
-              <AccordionTrigger className="text-left font-semibold hover:text-fire-orange transition-smooth text-sm">
+              <AccordionTrigger className="text-left font-semibold hover:text-fire-orange transition-smooth text-xs">
                 {faq.question}
               </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground leading-relaxed pt-3 text-sm">
+              <AccordionContent className="text-muted-foreground leading-relaxed pt-3 text-xs">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>
@@ -63,19 +63,19 @@ const FAQ = () => {
         </Accordion>
 
         <div className="text-center mt-10">
-          <p className="text-muted-foreground mb-3 text-sm">
+          <p className="text-muted-foreground mb-3 text-xs">
             Ainda tem dúvidas? Entre em contato conosco!
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a 
               href="https://wa.me/5561982735575" 
-              className="inline-flex items-center gap-2 text-fire-orange hover:text-fire-red transition-smooth font-semibold text-sm"
+              className="inline-flex items-center gap-2 text-fire-orange hover:text-fire-red transition-smooth font-semibold text-xs"
             >
               📱 WhatsApp: (61) 98273-5575
             </a>
             <a 
               href="mailto:fogosm5.max@gmail.com"
-              className="inline-flex items-center gap-2 text-fire-orange hover:text-fire-red transition-smooth font-semibold text-sm"
+              className="inline-flex items-center gap-2 text-fire-orange hover:text-fire-red transition-smooth font-semibold text-xs"
             >
               ✉️ fogosm5.max@gmail.com
             </a>

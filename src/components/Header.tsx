@@ -39,14 +39,6 @@ const Header = () => {
 
   const navigation = [
     { 
-      name: "Início", 
-      href: "#hero" 
-    },
-    { 
-      name: "FogosM5", 
-      href: "#apresentacao"
-    },
-    { 
       name: "Shows Pirotécnicos", 
       href: "#servicos"
     },

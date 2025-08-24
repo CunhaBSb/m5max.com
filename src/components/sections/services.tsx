@@ -53,15 +53,15 @@ const Services = () => {
   };
 
   return (
-    <section className="py-5 bg-background" style={{ transform: "scale(0.9)" }}>
+    <section className="py-20 bg-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6">
             <span className="text-foreground">Shows Pirotécnicos</span>
             <br />
             <span className="text-fire-gradient">Profissionais</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-base text-muted-foreground max-w-3xl mx-auto">
             Especialistas em grandes espetáculos para eventos corporativos, formaturas, casamentos e festivais com 40 anos de experiência.
           </p>
         </div>
@@ -72,7 +72,7 @@ const Services = () => {
             return (
               <Card 
                 key={index} 
-                className="group flex flex-col h-full bg-card/50 backdrop-blur-sm border border-white/10 rounded-xl cursor-pointer transition-all duration-300 hover:border-fire-orange/50 hover:shadow-strong-fire"
+                className="group flex flex-col h-full bg-card/50 backdrop-blur-sm border border-white/10 rounded-xl cursor-pointer transition-all duration-300 hover:border-fire-orange/50"
                 onClick={() => handleSegmentClick(segment)}
               >
                 <div className="relative aspect-w-4 aspect-h-3 overflow-hidden rounded-t-xl">
@@ -81,7 +81,7 @@ const Services = () => {
                     alt={segment.title}
                     width={800}
                     height={600}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                   <div className="absolute top-4 right-4 bg-fire-orange/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-white tracking-wider">
@@ -94,9 +94,9 @@ const Services = () => {
                   </div>
                 </div>
 
-                <div className="flex flex-col flex-grow p-6">
+                <div className="flex flex-col flex-grow p-4">
                   <CardHeader className="p-0">
-                    <CardTitle className="text-xl font-bold text-white group-hover:text-fire-orange transition-colors duration-300">
+                    <CardTitle className="text-lg font-bold text-white group-hover:text-fire-orange transition-colors duration-300">
                       {segment.title}
                     </CardTitle>
                     <CardDescription className="text-muted-foreground mt-2">
