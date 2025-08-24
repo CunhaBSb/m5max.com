@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Hero from "@/components/sections/Hero";
+import FogosM5Presentation from "@/components/sections/FogosM5Presentation";
 import Services from "@/components/sections/services";
 import Differentials from "@/components/sections/Differentials";
 import LeadMagnet from "@/components/sections/LeadMagnet";
@@ -14,6 +15,10 @@ const Index = () => {
       <div id="hero">
         <Hero />
       </div>
+      <div id="apresentacao">
+        <FogosM5Presentation />
+      </div>
+      <SectionSeparator variant="vintage" />
       <div id="servicos">
         <Services />
       </div>

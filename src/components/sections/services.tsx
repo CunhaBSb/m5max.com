@@ -1,43 +1,41 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Building2, Heart, Sparkles } from "lucide-react";
+import { Building2, Calendar, Star } from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 import { useAnalytics } from '@/hooks/useAnalytics';
 
 // Using public assets
 const show = "/assets/desktop/show.webp";
-const cha = "/assets/desktop/cha.webp";
-const kits = "/assets/desktop/kits.webp";
 
 const segments = [
   {
-    title: "Shows Pirotécnicos para Eventos",
-    description: "Espetáculos profissionais para prefeituras, clubes e grandes produtoras com equipamentos de última geração.",
+    title: "Eventos Corporativos",
+    description: "Shows pirotécnicos espetaculares para lançamentos de produtos, convenções empresariais e confraternizações.",
     image: show,
     icon: Building2,
-    audience: "B2B",
+    audience: "Corporativo",
     audienceType: 'b2b' as const,
     route: '/shows-pirotecnicos',
-    features: ["Equipamentos profissionais", "Equipe especializada", "Licenças incluídas"]
+    features: ["Planejamento executivo", "Equipe especializada", "Licenças incluídas"]
   },
   {
-    title: "Chá Revelação com Fogos",
-    description: "Momentos únicos e emocionantes para revelar o sexo do bebê com segurança e beleza.",
-    image: cha,
-    icon: Heart,
-    audience: "Famílias",
-    audienceType: 'cha' as const,
-    route: '/cha-revelacao',
-    features: ["Cores personalizadas", "Totalmente seguro", "Momento inesquecível"]
+    title: "Formaturas & Casamentos",
+    description: "Espetáculos únicos e emocionantes para celebrar momentos especiais com segurança e beleza.",
+    image: show,
+    icon: Calendar,
+    audience: "Eventos Sociais",
+    audienceType: 'b2b' as const,
+    route: '/shows-pirotecnicos',
+    features: ["Roteiro personalizado", "Segurança certificada", "Momento inesquecível"]
   },
   {
-    title: "Kits DIY para Festas",
-    description: "Kits completos para Réveillon, aniversários e celebrações íntimas com segurança garantida.",
-    image: kits,
-    icon: Sparkles,
-    audience: "Consumidores",
-    audienceType: 'kits' as const,
-    route: '/kits',
-    features: ["Fácil de usar", "Manual incluído", "Certificação INMETRO"]
+    title: "Réveillon & Festivais",
+    description: "Shows espetaculares para Réveillon 2025, festivais e grandes eventos com sincronização musical perfeita.",
+    image: show,
+    icon: Star,
+    audience: "Grandes Eventos",
+    audienceType: 'b2b' as const,
+    route: '/shows-pirotecnicos',
+    features: ["Réveillon 2025", "Sincronização musical", "Cobertura nacional"]
   }
 ];
 
@@ -59,12 +57,12 @@ const Services = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-            <span className="text-foreground">Soluções para Cada</span>
+            <span className="text-foreground">Shows Pirotécnicos</span>
             <br />
-            <span className="text-fire-gradient">Tipo de Celebração</span>
+            <span className="text-fire-gradient">Profissionais</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Da grande produção ao momento íntimo, temos a solução perfeita para transformar seu evento em uma memória inesquecível.
+            Especialistas em grandes espetáculos para eventos corporativos, formaturas, casamentos e festivais com 40 anos de experiência.
           </p>
         </div>
 

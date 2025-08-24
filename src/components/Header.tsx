@@ -43,13 +43,12 @@ const Header = () => {
       href: "#hero" 
     },
     { 
-      name: "Serviços", 
-      href: "#servicos",
-      dropdown: [
-        { name: "Shows Pirotécnicos", href: "/shows-pirotecnicos", description: "Eventos profissionais" },
-        { name: "Chá Revelação", href: "/cha-revelacao", description: "Kits especiais para bebês" },
-        { name: "Kits DIY", href: "/kits", description: "Para festas caseiras" }
-      ]
+      name: "FogosM5", 
+      href: "#apresentacao"
+    },
+    { 
+      name: "Shows Pirotécnicos", 
+      href: "#servicos"
     },
     { 
       name: "Empresa", 

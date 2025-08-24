@@ -112,19 +112,19 @@ const Hero = () => {
           {/* Mobile Layout */}
           <div className="lg:hidden space-y-6 text-center">
             <div className="space-y-3">
-              <div className="flex items-center gap-2 text-white font-semibold justify-center text-xs sm:text-sm drop-shadow-lg bg-black/20 px-4 py-2 rounded-full backdrop-blur-sm">
-                <Sparkles className="w-4 h-4 text-yellow-400" />
-                40 ANOS DE EXPERIÊNCIA
+              <div className="flex items-center gap-2 text-white font-semibold justify-center text-xs sm:text-sm drop-shadow-lg bg-gradient-to-r from-fire-orange/30 to-fire-red/30 px-4 py-2 rounded-full backdrop-blur-sm border border-fire-orange/40">
+                <Sparkles className="w-4 h-4 text-yellow-400 animate-pulse" />
+                TEMPORADA RÉVEILLON 2025 - FECHAMENTO EM TODO BRASIL
               </div>
               
               <h1 className="text-2xl sm:text-3xl font-bold leading-tight drop-shadow-lg">
-                <span className="text-white">Fogos de Artifício</span>
+                <span className="text-white">Shows Pirotécnicos</span>
                 <br />
-                <span className="text-fire-gradient">Para Todos os Momentos</span>
+                <span className="text-fire-gradient">Profissionais</span>
               </h1>
               
               <p className="text-sm sm:text-base text-white/90 max-w-sm mx-auto leading-relaxed font-medium drop-shadow-lg">
-                Especialistas em shows pirotécnicos, chás de revelação e kits personalizados para suas celebrações especiais
+                Especialistas em espetáculos pirotécnicos para eventos corporativos, formaturas, casamentos e festivais
               </p>
             </div>
 
@@ -151,19 +151,27 @@ const Hero = () => {
               </Button>
             </div>
 
-            {/* Service Categories */}
-            <div className="grid grid-cols-3 gap-2 pt-4">
-              <div className="bg-gradient-to-b from-fire-orange/20 to-fire-red/20 backdrop-blur-sm border border-fire-orange/30 rounded-xl p-3 text-center hover:scale-105 transition-transform duration-300">
-                <div className="text-sm sm:text-base font-bold text-fire-orange mb-1">Shows</div>
-                <div className="text-xs text-white/90 leading-tight">Pirotécnicos</div>
+            {/* Professional Highlights */}
+            <div className="pt-4 space-y-3">
+              <div className="grid grid-cols-2 gap-2">
+                <div className="bg-gradient-to-b from-fire-orange/20 to-fire-red/20 backdrop-blur-sm border border-fire-orange/30 rounded-lg p-3 text-center hover:scale-105 transition-all duration-300">
+                  <div className="text-xs font-bold text-fire-orange mb-1">Equipe</div>
+                  <div className="text-xs text-white/90">Profissional</div>
+                </div>
+                <div className="bg-gradient-to-b from-fire-gold/20 to-yellow-600/20 backdrop-blur-sm border border-fire-gold/30 rounded-lg p-3 text-center hover:scale-105 transition-all duration-300">
+                  <div className="text-xs font-bold text-fire-gold mb-1">Líder</div>
+                  <div className="text-xs text-white/90">40 Anos</div>
+                </div>
               </div>
-              <div className="bg-gradient-to-b from-fire-gold/20 to-yellow-600/20 backdrop-blur-sm border border-fire-gold/30 rounded-xl p-3 text-center hover:scale-105 transition-transform duration-300">
-                <div className="text-sm sm:text-base font-bold text-fire-gold mb-1">Kits</div>
-                <div className="text-xs text-white/90 leading-tight">Autônomos</div>
-              </div>
-              <div className="bg-gradient-to-b from-pink-500/20 to-rose-500/20 backdrop-blur-sm border border-pink-400/30 rounded-xl p-3 text-center hover:scale-105 transition-transform duration-300">
-                <div className="text-sm sm:text-base font-bold text-pink-400 mb-1">Chá</div>
-                <div className="text-xs text-white/90 leading-tight">Revelação</div>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="bg-gradient-to-b from-green-500/20 to-emerald-600/20 backdrop-blur-sm border border-green-400/30 rounded-lg p-3 text-center hover:scale-105 transition-all duration-300">
+                  <div className="text-xs font-bold text-green-400 mb-1">Segurança</div>
+                  <div className="text-xs text-white/90">Primeiro Lugar</div>
+                </div>
+                <div className="bg-gradient-to-b from-blue-500/20 to-cyan-600/20 backdrop-blur-sm border border-blue-400/30 rounded-lg p-3 text-center hover:scale-105 transition-all duration-300">
+                  <div className="text-xs font-bold text-blue-400 mb-1">Equipamentos</div>
+                  <div className="text-xs text-white/90">Última Geração</div>
+                </div>
               </div>
             </div>
           </div>
@@ -171,19 +179,19 @@ const Hero = () => {
           {/* Desktop Layout */}
           <div className="hidden lg:block space-y-6 text-left max-w-2xl">
             <div className="space-y-4">
-              <div className="flex items-center gap-2 text-white font-semibold justify-start text-sm drop-shadow-lg bg-black/20 px-4 py-2 rounded-full backdrop-blur-sm w-fit">
-                <Sparkles className="w-4 h-4 text-yellow-400" />
-                40 ANOS DE EXPERIÊNCIA
+              <div className="flex items-center gap-2 text-white font-semibold justify-start text-sm drop-shadow-lg bg-gradient-to-r from-fire-orange/30 to-fire-red/30 px-4 py-2 rounded-full backdrop-blur-sm w-fit border border-fire-orange/40">
+                <Sparkles className="w-4 h-4 text-yellow-400 animate-pulse" />
+                TEMPORADA RÉVEILLON 2025 - FECHAMENTO EM TODO BRASIL
               </div>
               
               <h1 className="text-4xl xl:text-5xl font-bold leading-tight drop-shadow-lg">
-                <span className="text-white">Fogos de Artifício</span>
+                <span className="text-white">Shows Pirotécnicos</span>
                 <br />
-                <span className="text-fire-gradient">Para Todos os Momentos</span>
+                <span className="text-fire-gradient">Profissionais</span>
               </h1>
               
               <p className="text-lg text-white/90 max-w-lg leading-relaxed font-medium drop-shadow-lg">
-                Especialistas em shows pirotécnicos, chás de revelação e kits personalizados para suas celebrações especiais
+                Especialistas em espetáculos pirotécnicos para eventos corporativos, formaturas, casamentos e festivais
               </p>
             </div>
 
@@ -209,19 +217,27 @@ const Hero = () => {
               </Button>
             </div>
 
-            {/* Service Categories */}
-            <div className="grid grid-cols-3 gap-4 pt-6">
-              <div className="bg-gradient-to-b from-fire-orange/20 to-fire-red/20 backdrop-blur-sm border border-fire-orange/30 rounded-xl p-4 text-center hover:scale-105 transition-all duration-300 cursor-pointer group">
-                <div className="text-lg font-bold text-fire-orange mb-2 group-hover:text-fire-red transition-colors">Shows</div>
-                <div className="text-sm text-white/90 leading-tight">Pirotécnicos</div>
+            {/* Professional Highlights */}
+            <div className="pt-6 space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-gradient-to-b from-fire-orange/20 to-fire-red/20 backdrop-blur-sm border border-fire-orange/30 rounded-xl p-4 text-center hover:scale-105 transition-all duration-300 group">
+                  <div className="text-sm font-bold text-fire-orange mb-2 group-hover:text-fire-red transition-colors">Equipe Profissional</div>
+                  <div className="text-sm text-white/90">Especialistas certificados</div>
+                </div>
+                <div className="bg-gradient-to-b from-fire-gold/20 to-yellow-600/20 backdrop-blur-sm border border-fire-gold/30 rounded-xl p-4 text-center hover:scale-105 transition-all duration-300 group">
+                  <div className="text-sm font-bold text-fire-gold mb-2 group-hover:text-yellow-400 transition-colors">Líder Pirotécnico</div>
+                  <div className="text-sm text-white/90">40 anos de experiência</div>
+                </div>
               </div>
-              <div className="bg-gradient-to-b from-fire-gold/20 to-yellow-600/20 backdrop-blur-sm border border-fire-gold/30 rounded-xl p-4 text-center hover:scale-105 transition-all duration-300 cursor-pointer group">
-                <div className="text-lg font-bold text-fire-gold mb-2 group-hover:text-yellow-400 transition-colors">Kits</div>
-                <div className="text-sm text-white/90 leading-tight">Autônomos</div>
-              </div>
-              <div className="bg-gradient-to-b from-pink-500/20 to-rose-500/20 backdrop-blur-sm border border-pink-400/30 rounded-xl p-4 text-center hover:scale-105 transition-all duration-300 cursor-pointer group">
-                <div className="text-lg font-bold text-pink-400 mb-2 group-hover:text-pink-300 transition-colors">Chá</div>
-                <div className="text-sm text-white/90 leading-tight">Revelação</div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-gradient-to-b from-green-500/20 to-emerald-600/20 backdrop-blur-sm border border-green-400/30 rounded-xl p-4 text-center hover:scale-105 transition-all duration-300 group">
+                  <div className="text-sm font-bold text-green-400 mb-2 group-hover:text-green-300 transition-colors">Segurança em 1º Lugar</div>
+                  <div className="text-sm text-white/90">Protocolos rigorosos</div>
+                </div>
+                <div className="bg-gradient-to-b from-blue-500/20 to-cyan-600/20 backdrop-blur-sm border border-blue-400/30 rounded-xl p-4 text-center hover:scale-105 transition-all duration-300 group">
+                  <div className="text-sm font-bold text-blue-400 mb-2 group-hover:text-blue-300 transition-colors">Equipamentos</div>
+                  <div className="text-sm text-white/90">Última geração</div>
+                </div>
               </div>
             </div>
           </div>
