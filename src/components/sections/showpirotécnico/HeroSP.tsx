@@ -4,7 +4,6 @@ import { Sparkles, Phone, MessageSquare } from "lucide-react";
 import { useAppStore } from "@/store/appStore";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import { generateWhatsAppURL, getWhatsAppMessage } from "@/utils/whatsapp";
-import heroFireworks from "@/assets/header/wallpaperleque.webp";
 
 const Hero = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -50,7 +49,7 @@ const Hero = () => {
     );
 
     trackWhatsAppClick({
-      audience: 'general',
+      audience: 'b2b',
       source: 'hero',
       message_template: message,
       phone_number: '5561982735575'
@@ -61,6 +60,8 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center gradient-hero overflow-hidden pt-14 md:pt-16">
+      {/* Vignette Effect - Bottom Fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background via-background/80 to-transparent z-20 pointer-events-none" />
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         {/* Desktop Video */}
@@ -85,7 +86,7 @@ const Hero = () => {
               setIsLoading(false);
             }}
           >
-            <source src="https://psvmzrzezgkklfjshhua.supabase.co/storage/v1/object/public/papel%20de%20parede/herom5.webm" type="video/webm" />
+            <source src="https://psvmzrzezgkklfjshhua.supabase.co/storage/v1/object/public/papel%20de%20parede/Herowallpaper.webm" type="video/webm" />
           </video>
         )}
 
@@ -115,12 +116,11 @@ const Hero = () => {
           </video>
         )}
 
-        {/* Fallback Background Image */}
+        {/* Fallback Background */}
         <div 
-          className="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-1000 ease-in-out"
+          className="absolute inset-0 w-full h-full bg-gradient-to-br from-gray-900 to-black transition-opacity duration-1000 ease-in-out"
           style={{ 
-            backgroundImage: `url(${heroFireworks})`,
-            opacity: videoLoaded ? 0 : 0.3
+            opacity: videoLoaded ? 0 : 0.5
           }}
         />
 
@@ -132,21 +132,6 @@ const Hero = () => {
           <div className="absolute inset-0 bg-black/20 backdrop-blur-sm transition-opacity duration-500" />
         )}
       </div>
-      
-      {/* Floating Elements - Hidden on Mobile */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none hidden md:block">
-        {[...Array(8)].map((_, i) => (
-          <div
-            key={i}
-            className={`absolute w-2 h-2 bg-fire-gold rounded-full sparkle-animation opacity-60`}
-            style={{
-              left: `${20 + (i * 10)}%`,
-              top: `${30 + (i * 5)}%`,
-              animationDelay: `${i * 0.3}s`
-            }}
-          />
-        ))}
-      </div>
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-center lg:justify-start min-h-[80vh]">
@@ -154,19 +139,19 @@ const Hero = () => {
           <div className="lg:hidden space-y-6 text-center">
             {/* Header Content */}
             <div className="space-y-3">
-              <div className="flex items-center gap-2 text-fire-orange font-semibold justify-center text-xs sm:text-sm">
-                <Sparkles className="w-4 h-4" />
+              <div className="flex items-center gap-2 text-white font-semibold justify-center text-xs sm:text-sm drop-shadow-lg bg-black/20 px-4 py-2 rounded-full backdrop-blur-sm">
+                <Sparkles className="w-4 h-4 text-yellow-400" />
                 40 ANOS DE EXPERIÊNCIA
               </div>
               
-              <h1 className="text-2xl sm:text-3xl font-bold leading-tight">
-                <span className="text-foreground">Fogos de Artifício</span>
+              <h1 className="text-2xl sm:text-3xl font-bold leading-tight drop-shadow-lg">
+                <span className="text-white">Fogos de Artifício</span>
                 <br />
                 <span className="text-fire-gradient">Profissionais</span>
               </h1>
               
-              <p className="text-sm sm:text-base text-muted-foreground max-w-sm mx-auto leading-relaxed">
-                Equipamentos profissionais de última geração • Segurança certificada • Equipe Blaster habilitada para eventos inesquecíveis
+              <p className="text-sm sm:text-base text-white/90 max-w-sm mx-auto leading-relaxed font-medium drop-shadow-lg">
+                Tecnologia pirotécnica avançada com certificação internacional e equipe técnica especializada
               </p>
             </div>
 
@@ -214,19 +199,19 @@ const Hero = () => {
           {/* Desktop Layout */}
           <div className="hidden lg:block space-y-6 text-left max-w-2xl">
             <div className="space-y-4">
-              <div className="flex items-center gap-2 text-fire-orange font-semibold justify-start text-sm">
-                <Sparkles className="w-4 h-4" />
+              <div className="flex items-center gap-2 text-white font-semibold justify-start text-sm drop-shadow-lg bg-black/20 px-4 py-2 rounded-full backdrop-blur-sm w-fit">
+                <Sparkles className="w-4 h-4 text-yellow-400" />
                 40 ANOS DE EXPERIÊNCIA
               </div>
               
-              <h1 className="text-4xl xl:text-5xl font-bold leading-tight">
-                <span className="text-foreground">Fogos de Artifício</span>
+              <h1 className="text-4xl xl:text-5xl font-bold leading-tight drop-shadow-lg">
+                <span className="text-white">Fogos de Artifício</span>
                 <br />
                 <span className="text-fire-gradient">Profissionais</span>
               </h1>
               
-              <p className="text-lg text-muted-foreground max-w-lg leading-relaxed">
-                Equipamentos profissionais de última geração • Segurança certificada • Equipe Blaster habilitada para eventos inesquecíveis
+              <p className="text-lg text-white/90 max-w-lg leading-relaxed font-medium drop-shadow-lg">
+                Tecnologia pirotécnica avançada com certificação internacional e equipe técnica especializada
               </p>
             </div>
 

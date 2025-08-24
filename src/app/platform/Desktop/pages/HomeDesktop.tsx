@@ -1,9 +1,8 @@
 import HeroDesktop from "../components/HeroDesktop";
 import ServicesDesktop from "../components/ServicesDesktop";
-import Differentials from "@/components/Differentials";
-import FogosM5 from "@/components/FogosM5";
-import LeadMagnet from "@/components/LeadMagnet";
-import FAQ from "@/components/FAQ";
+import Differentials from "@/components/sections/Differentials";
+import LeadMagnet from "@/components/sections/LeadMagnet";
+import FAQ from "@/components/sections/FAQ";
 import SectionSeparator from "@/components/SectionSeparator";
 
 const HomeDesktop = () => {
@@ -15,10 +14,6 @@ const HomeDesktop = () => {
       <SectionSeparator variant="gradient" />
       <div id="servicos">
         <ServicesDesktop />
-      </div>
-      <SectionSeparator variant="default" />
-      <div id="portfolio">
-        <FogosM5 />
       </div>
       <SectionSeparator variant="minimal" />
       <div id="diferenciais">

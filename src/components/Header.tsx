@@ -1,18 +1,41 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Menu, Phone, MessageSquare, Sun, Moon, ChevronDown } from "lucide-react";
-import { useTheme } from "next-themes";
+import { Menu, Phone, MessageSquare, ChevronDown } from "lucide-react";
 import ContactModal from "./ContactModal";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
+
+  // Handle scroll behavior
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY < 100) {
+        // Always show when near top
+        setIsVisible(true);
+      } else if (currentScrollY < lastScrollY) {
+        // Scrolling up
+        setIsVisible(true);
+      } else {
+        // Scrolling down
+        setIsVisible(false);
+      }
+      
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
   const navigation = [
     { 
@@ -75,29 +98,19 @@ const Header = () => {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
+      <header className={`fixed top-0 left-0 right-0 z-50 bg-background/20 backdrop-blur-sm border-b border-border/10 transition-transform duration-300 ease-in-out ${
+        isVisible ? 'translate-y-0' : '-translate-y-full'
+      }`}>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Mobile Layout */}
           <div className="lg:hidden flex items-center justify-between h-14 md:h-16">
-            {/* Theme Toggle - Left */}
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              className="w-8 h-8 md:w-10 md:h-10"
-            >
-              <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-              <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-              <span className="sr-only">Alternar tema</span>
-            </Button>
-
-            {/* Centered Logo */}
+            {/* Logo - Left aligned on mobile */}
             <button 
               onClick={() => navigate("/")} 
-              className="flex items-center gap-3 hover:opacity-80 transition-smooth absolute left-1/2 transform -translate-x-1/2"
+              className="flex items-center gap-3 hover:opacity-80 transition-smooth"
             >
               <img
-                src="/m5logo.svg"
+                src="/fogosm5.svg"
                 alt="M5 Max Produções"
                 className="w-8 h-8 md:w-10 md:h-10"
               />
@@ -199,7 +212,7 @@ const Header = () => {
             {/* Logo */}
             <button onClick={() => navigate("/")} className="flex items-center gap-3 hover:opacity-80 transition-smooth">
               <img
-                src="/m5logo.svg"
+                src="/fogosm5.svg"
                 alt="M5 Max Produções"
                 className="w-8 h-8 md:w-10 md:h-10"
               />
@@ -245,18 +258,6 @@ const Header = () => {
 
             {/* Desktop Actions */}
             <div className="flex items-center gap-2 md:gap-4">
-              {/* Theme Toggle */}
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="w-8 h-8 md:w-10 md:h-10"
-              >
-                <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                <span className="sr-only">Alternar tema</span>
-              </Button>
-
               {/* Contact Buttons - Desktop */}
               <div className="flex items-center gap-2">
                 <Button

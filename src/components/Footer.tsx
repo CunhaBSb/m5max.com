@@ -6,6 +6,27 @@ const Footer = () => {
   return (
     <footer className="bg-slate-950 text-slate-300">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        {/* CTA Section */}
+        <div className="py-6 lg:py-8 text-center">
+          <h3 className="text-lg sm:text-xl font-bold mb-3">
+            Pronto para criar um evento <span className="text-fire-orange">inesquecível</span>?
+          </h3>
+          <p className="text-sm sm:text-base opacity-70 mb-4 lg:mb-6 px-4">
+            Solicite seu orçamento agora e transforme sua celebração em um espetáculo
+          </p>
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center px-4">
+            <Button variant="fire" size="default" className="bg-fire-orange hover:bg-fire-red flex items-center gap-2">
+              <MessageSquare className="w-4 h-4" />
+              WhatsApp Direto
+            </Button>
+            <Button variant="outline" size="default" className="border-slate-600 text-slate-300 bg-transparent hover:bg-slate-800 hover:border-slate-500 flex items-center gap-2">
+              <Phone className="w-4 h-4" />
+              Solicitar Orçamento
+            </Button>
+          </div>
+        </div>
+
+        <Separator className="bg-slate-800" />
         {/* Main Footer Content */}
         <div className="py-12">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
@@ -81,28 +102,6 @@ const Footer = () => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        <Separator className="bg-slate-800" />
-
-        {/* CTA Section */}
-        <div className="py-6 lg:py-8 text-center">
-          <h3 className="text-lg sm:text-xl font-bold mb-3">
-            Pronto para criar um evento <span className="text-fire-gold">inesquecível</span>?
-          </h3>
-          <p className="text-sm sm:text-base opacity-70 mb-4 lg:mb-6 px-4">
-            Solicite seu orçamento agora e transforme sua celebração em um espetáculo
-          </p>
-          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center px-4">
-            <Button variant="fire" size="default" className="bg-fire-orange hover:bg-fire-red flex items-center gap-2">
-              <MessageSquare className="w-4 h-4" />
-              WhatsApp Direto
-            </Button>
-            <Button variant="outline" size="default" className="border-slate-600 text-slate-300 bg-transparent hover:bg-slate-800 hover:border-slate-500 flex items-center gap-2">
-              <Phone className="w-4 h-4" />
-              Solicitar Orçamento
-            </Button>
           </div>
         </div>
 

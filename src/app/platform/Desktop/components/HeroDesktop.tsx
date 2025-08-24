@@ -17,7 +17,7 @@ const HeroDesktop = () => {
   const handleOrçamentoClick = () => {
     openConversionModal({
       source: 'hero_desktop',
-      audience: 'general',
+      audience: 'b2b',
       page: 'home'
     });
   };
@@ -31,7 +31,7 @@ const HeroDesktop = () => {
     );
 
     trackWhatsAppClick({
-      audience: 'general',
+      audience: 'b2b',
       source: 'hero_desktop',
       message_template: message,
       phone_number: '5561982735575'
@@ -61,7 +61,7 @@ const HeroDesktop = () => {
         setHasStarted(true);
         trackVideoEvent('start', {
           video_title: 'Hero Fireworks Desktop',
-          video_provider: 'local',
+          video_provider: 'custom',
           video_duration: video.duration || 0
         });
       }
@@ -73,7 +73,7 @@ const HeroDesktop = () => {
       if (video.currentTime >= video.duration * 0.5) {
         trackVideoEvent('progress_50', {
           video_title: 'Hero Fireworks Desktop',
-          video_provider: 'local',
+          video_provider: 'custom',
           video_duration: video.duration
         });
       }
@@ -82,7 +82,7 @@ const HeroDesktop = () => {
     const handleEnded = () => {
       trackVideoEvent('complete', {
         video_title: 'Hero Fireworks Desktop',
-        video_provider: 'local',
+        video_provider: 'custom',
         video_duration: video.duration
       });
     };
