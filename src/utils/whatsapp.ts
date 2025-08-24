@@ -46,7 +46,7 @@ export const generateWhatsAppURL = (
 
 export const getWhatsAppMessage = (
   audience: AudienceType,
-  formData?: any
+  formData?: Record<string, unknown>
 ): string => {
   switch (audience) {
     case 'b2b':

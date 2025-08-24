@@ -58,8 +58,7 @@
     },
     "gemini-cli": {
       "command": "npx",
-      "args": ["-y", "gemini-mcp-tool"],
-      "env": {}
+      "args": ["-y", "gemini-mcp-tool"]
     }
   }
 }

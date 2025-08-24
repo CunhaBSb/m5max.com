@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Sparkles, Phone, MessageSquare } from "lucide-react";
 import { useAppStore } from "@/store/appStore";
@@ -6,8 +7,31 @@ import { generateWhatsAppURL, getWhatsAppMessage } from "@/utils/whatsapp";
 import heroFireworks from "@/assets/header/wallpaperleque.webp";
 
 const Hero = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  const videoRef = useRef<HTMLVideoElement>(null);
   const { openConversionModal, attribution } = useAppStore();
   const { trackWhatsAppClick } = useAnalytics();
+
+  // Detect mobile/tablet
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Initialize loading state based on device
+  useEffect(() => {
+    // Reset video state when device type changes
+    setVideoLoaded(false);
+    setIsLoading(true);
+  }, [isMobile]);
 
   const handleOrçamentoClick = () => {
     openConversionModal({
@@ -37,14 +61,76 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center gradient-hero overflow-hidden pt-14 md:pt-16">
-      {/* Background Image with Overlay */}
+      {/* Video Background */}
       <div className="absolute inset-0 z-0">
-        <img
-          src={heroFireworks}
-          alt="Professional fireworks display"
-          className="w-full h-full object-cover opacity-30"
+        {/* Desktop Video */}
+        {!isMobile && (
+          <video
+            ref={videoRef}
+            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out"
+            style={{ opacity: videoLoaded ? 1 : 0 }}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            onCanPlayThrough={() => {
+              console.log('Hero desktop2 video loaded');
+              setVideoLoaded(true);
+              setIsLoading(false);
+            }}
+            onError={() => {
+              console.warn('Hero desktop2 video failed, using fallback');
+              setVideoLoaded(false);
+              setIsLoading(false);
+            }}
+          >
+            <source src="https://psvmzrzezgkklfjshhua.supabase.co/storage/v1/object/public/papel%20de%20parede/herom5.webm" type="video/webm" />
+          </video>
+        )}
+
+        {/* Mobile Video */}
+        {isMobile && (
+          <video
+            ref={videoRef}
+            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-in-out"
+            style={{ opacity: videoLoaded ? 1 : 0 }}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            onCanPlayThrough={() => {
+              console.log('Hero P2.Mobile video loaded');
+              setVideoLoaded(true);
+              setIsLoading(false);
+            }}
+            onError={() => {
+              console.warn('Hero P2.Mobile video failed, using fallback');
+              setVideoLoaded(false);
+              setIsLoading(false);
+            }}
+          >
+            <source src="https://psvmzrzezgkklfjshhua.supabase.co/storage/v1/object/public/papel%20de%20parede/P2.Mobile.webm" type="video/webm" />
+          </video>
+        )}
+
+        {/* Fallback Background Image */}
+        <div 
+          className="absolute inset-0 w-full h-full bg-cover bg-center transition-opacity duration-1000 ease-in-out"
+          style={{ 
+            backgroundImage: `url(${heroFireworks})`,
+            opacity: videoLoaded ? 0 : 0.3
+          }}
         />
+
+        {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/60 to-transparent" />
+        
+        {/* Subtle Loading Overlay */}
+        {isLoading && (
+          <div className="absolute inset-0 bg-black/20 backdrop-blur-sm transition-opacity duration-500" />
+        )}
       </div>
       
       {/* Floating Elements - Hidden on Mobile */}
@@ -63,7 +149,7 @@ const Hero = () => {
       </div>
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="lg:grid lg:grid-cols-2 lg:gap-8 lg:gap-12 lg:items-center">
+        <div className="flex items-center justify-center lg:justify-start min-h-[80vh]">
           {/* Mobile Layout */}
           <div className="lg:hidden space-y-6 text-center">
             {/* Header Content */}
@@ -84,16 +170,6 @@ const Hero = () => {
               </p>
             </div>
 
-            {/* Centered Logo */}
-            <div className="flex justify-center py-4">
-              <div className="relative w-full max-w-48 sm:max-w-56">
-                <img
-                  src="/m5logo.svg"
-                  alt="M5 Max Produções"
-                  className="w-full h-auto"
-                />
-              </div>
-            </div>
 
             {/* Buttons */}
             <div className="flex flex-col gap-2 sm:gap-3">
@@ -136,7 +212,7 @@ const Hero = () => {
           </div>
 
           {/* Desktop Layout */}
-          <div className="hidden lg:block space-y-6 text-left">
+          <div className="hidden lg:block space-y-6 text-left max-w-2xl">
             <div className="space-y-4">
               <div className="flex items-center gap-2 text-fire-orange font-semibold justify-start text-sm">
                 <Sparkles className="w-4 h-4" />
@@ -193,17 +269,6 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Desktop Logo */}
-          <div className="hidden lg:block relative">
-            <div className="relative w-full max-w-md mx-auto float-animation">
-              <img
-                src="/m5logo.svg"
-                alt="M5 Max Produções"
-                className="w-full h-auto"
-              />
-              <div className="absolute inset-0 gradient-sparkle opacity-50 rounded-full animate-pulse" />
-            </div>
-          </div>
         </div>
       </div>
     </section>

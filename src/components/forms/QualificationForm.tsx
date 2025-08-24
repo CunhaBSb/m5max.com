@@ -11,7 +11,7 @@ import KitsForm from './KitsForm';
 
 interface QualificationFormProps {
   audience: AudienceType;
-  onSubmit: (data: any) => void;
+  onSubmit: (data: Record<string, unknown>) => void;
   onCancel: () => void;
   initialData?: Partial<FormData>;
 }
@@ -40,7 +40,7 @@ const QualificationForm: React.FC<QualificationFormProps> = ({
     defaultValues: initialData || {}
   });
 
-  const calculateLeadScore = (data: any): number => {
+  const calculateLeadScore = (data: Record<string, unknown>): number => {
     let score = 0;
 
     if (audience === 'b2b') {
@@ -86,7 +86,7 @@ const QualificationForm: React.FC<QualificationFormProps> = ({
     return Math.min(score, 100); // Cap at 100
   };
 
-  const handleSubmit = (data: any) => {
+  const handleSubmit = (data: Record<string, unknown>) => {
     const leadScore = calculateLeadScore(data);
     onSubmit({ ...data, leadScore });
   };

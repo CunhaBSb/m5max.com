@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 interface UseLazyImageOptions {
   rootMargin?: string;
@@ -99,16 +99,14 @@ export const LazyImage: React.FC<LazyImageProps> = ({
     }
   }, [error, onError]);
 
-  return (
-    <img
-      ref={imgRef}
-      src={lazySrc}
-      alt={alt}
-      className={`transition-opacity duration-300 ${
-        isLoaded ? 'opacity-100' : 'opacity-70'
-      } ${className || ''}`}
-      loading="lazy"
-      {...props}
-    />
-  );
+  return React.createElement('img', {
+    ref: imgRef,
+    src: lazySrc,
+    alt: alt,
+    className: `transition-opacity duration-300 ${
+      isLoaded ? 'opacity-100' : 'opacity-70'
+    } ${className || ''}`,
+    loading: "lazy" as const,
+    ...props
+  });
 };

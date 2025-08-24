@@ -1,0 +1,39 @@
+import HeroMobile from "../components/HeroMobile";
+import ServicesMobile from "../components/ServicesMobile";
+import Differentials from "@/components/Differentials";
+import FogosM5 from "@/components/FogosM5";
+import LeadMagnet from "@/components/LeadMagnet";
+import FAQ from "@/components/FAQ";
+import SectionSeparator from "@/components/SectionSeparator";
+
+const HomeMobile = () => {
+  return (
+    <main className="min-h-screen">
+      <div id="hero">
+        <HeroMobile />
+      </div>
+      <SectionSeparator variant="gradient" />
+      <div id="servicos">
+        <ServicesMobile />
+      </div>
+      <SectionSeparator variant="default" />
+      <div id="portfolio">
+        <FogosM5 />
+      </div>
+      <SectionSeparator variant="minimal" />
+      <div id="diferenciais">
+        <Differentials />
+      </div>
+      <SectionSeparator variant="gradient" />
+      <div id="faq">
+        <FAQ />
+      </div>
+      <SectionSeparator variant="minimal" />
+      <div id="contato">
+        <LeadMagnet />
+      </div>
+    </main>
+  );
+};
+
+export default HomeMobile;

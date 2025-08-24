@@ -2,7 +2,6 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Services from "@/components/services";
 import Differentials from "@/components/Differentials";
-import Portfolio from "@/components/Portfolio";
 import LeadMagnet from "@/components/LeadMagnet";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
@@ -18,10 +17,6 @@ const Index = () => {
       <SectionSeparator variant="gradient" />
       <div id="servicos">
         <Services />
-      </div>
-      <SectionSeparator variant="default" />
-      <div id="portfolio">
-        <Portfolio />
       </div>
       <SectionSeparator variant="minimal" />
       <div id="diferenciais">

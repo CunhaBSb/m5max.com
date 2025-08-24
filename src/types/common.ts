@@ -13,7 +13,7 @@ export interface InteractiveComponentProps extends BaseComponentProps {
 export interface TrackingProps {
   analytics?: {
     event: string;
-    properties?: Record<string, any>;
+    properties?: Record<string, unknown>;
   };
 }
 

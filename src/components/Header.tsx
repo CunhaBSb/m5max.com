@@ -77,9 +77,25 @@ const Header = () => {
     <>
       <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-14 md:h-16">
-            {/* Logo */}
-            <button onClick={() => navigate("/")} className="flex items-center gap-3 hover:opacity-80 transition-smooth">
+          {/* Mobile Layout */}
+          <div className="lg:hidden flex items-center justify-between h-14 md:h-16">
+            {/* Theme Toggle - Left */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              className="w-8 h-8 md:w-10 md:h-10"
+            >
+              <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              <span className="sr-only">Alternar tema</span>
+            </Button>
+
+            {/* Centered Logo */}
+            <button 
+              onClick={() => navigate("/")} 
+              className="flex items-center gap-3 hover:opacity-80 transition-smooth absolute left-1/2 transform -translate-x-1/2"
+            >
               <img
                 src="/m5logo.svg"
                 alt="M5 Max Produções"
@@ -90,86 +106,15 @@ const Header = () => {
                 <div className="text-xs text-muted-foreground -mt-1">Produções</div>
               </div>
             </button>
-
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-8">
-              {navigation.map((item) => (
-                item.dropdown ? (
-                  <DropdownMenu key={item.name}>
-                    <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-foreground hover:text-fire-orange transition-smooth">
-                      {item.name}
-                      <ChevronDown className="w-4 h-4" />
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-64">
-                      {item.dropdown.map((dropdownItem) => (
-                        <DropdownMenuItem
-                          key={dropdownItem.name}
-                          onClick={() => handleNavigation(dropdownItem.href)}
-                          className="flex flex-col items-start p-4 cursor-pointer"
-                        >
-                          <div className="font-medium">{dropdownItem.name}</div>
-                          <div className="text-xs text-muted-foreground">{dropdownItem.description}</div>
-                        </DropdownMenuItem>
-                      ))}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                ) : (
-                  <button
-                    key={item.name}
-                    onClick={() => handleNavigation(item.href)}
-                    className="text-sm font-medium text-foreground hover:text-fire-orange transition-smooth"
-                  >
-                    {item.name}
-                  </button>
-                )
-              ))}
-            </nav>
-
-            {/* Actions */}
-            <div className="flex items-center gap-2 md:gap-4">
-              {/* Theme Toggle */}
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="w-8 h-8 md:w-10 md:h-10"
-              >
-                <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                <span className="sr-only">Alternar tema</span>
-              </Button>
-
-              {/* Contact Buttons - Desktop */}
-              <div className="hidden md:flex items-center gap-2">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => window.open('https://wa.me/5561982735575', '_blank')}
-                  className="flex items-center gap-2"
-                >
-                  <MessageSquare className="w-4 h-4" />
-                  <span className="hidden lg:inline">WhatsApp</span>
+            
+            {/* Mobile Menu - Right */}
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="w-8 h-8 md:w-10 md:h-10">
+                  <Menu className="h-5 w-5" />
+                  <span className="sr-only">Abrir menu</span>
                 </Button>
-                
-                <Button
-                  variant="fire"
-                  size="sm"
-                  onClick={() => setIsContactModalOpen(true)}
-                  className="flex items-center gap-2"
-                >
-                  <Phone className="w-4 h-4" />
-                  <span className="hidden lg:inline">Orçamento</span>
-                </Button>
-              </div>
-
-              {/* Mobile Menu */}
-              <Sheet open={isOpen} onOpenChange={setIsOpen}>
-                <SheetTrigger asChild className="lg:hidden">
-                  <Button variant="ghost" size="icon" className="w-8 h-8 md:w-10 md:h-10">
-                    <Menu className="h-5 w-5" />
-                    <span className="sr-only">Abrir menu</span>
-                  </Button>
-                </SheetTrigger>
+              </SheetTrigger>
                 <SheetContent side="right" className="w-80">
                   <div className="flex flex-col h-full">
                     {/* Logo */}
@@ -247,6 +192,93 @@ const Header = () => {
                   </div>
                 </SheetContent>
               </Sheet>
+          </div>
+
+          {/* Desktop Layout */}
+          <div className="hidden lg:flex items-center justify-between h-14 md:h-16">
+            {/* Logo */}
+            <button onClick={() => navigate("/")} className="flex items-center gap-3 hover:opacity-80 transition-smooth">
+              <img
+                src="/m5logo.svg"
+                alt="M5 Max Produções"
+                className="w-8 h-8 md:w-10 md:h-10"
+              />
+              <div>
+                <div className="font-bold text-lg text-fire-gradient">M5 Max</div>
+                <div className="text-xs text-muted-foreground -mt-1">Produções</div>
+              </div>
+            </button>
+
+            {/* Desktop Navigation */}
+            <nav className="flex items-center gap-8">
+              {navigation.map((item) => (
+                item.dropdown ? (
+                  <DropdownMenu key={item.name}>
+                    <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-foreground hover:text-fire-orange transition-smooth">
+                      {item.name}
+                      <ChevronDown className="w-4 h-4" />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-64">
+                      {item.dropdown.map((dropdownItem) => (
+                        <DropdownMenuItem
+                          key={dropdownItem.name}
+                          onClick={() => handleNavigation(dropdownItem.href)}
+                          className="flex flex-col items-start p-4 cursor-pointer"
+                        >
+                          <div className="font-medium">{dropdownItem.name}</div>
+                          <div className="text-xs text-muted-foreground">{dropdownItem.description}</div>
+                        </DropdownMenuItem>
+                      ))}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                ) : (
+                  <button
+                    key={item.name}
+                    onClick={() => handleNavigation(item.href)}
+                    className="text-sm font-medium text-foreground hover:text-fire-orange transition-smooth"
+                  >
+                    {item.name}
+                  </button>
+                )
+              ))}
+            </nav>
+
+            {/* Desktop Actions */}
+            <div className="flex items-center gap-2 md:gap-4">
+              {/* Theme Toggle */}
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                className="w-8 h-8 md:w-10 md:h-10"
+              >
+                <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                <span className="sr-only">Alternar tema</span>
+              </Button>
+
+              {/* Contact Buttons - Desktop */}
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => window.open('https://wa.me/5561982735575', '_blank')}
+                  className="flex items-center gap-2"
+                >
+                  <MessageSquare className="w-4 h-4" />
+                  <span className="hidden lg:inline">WhatsApp</span>
+                </Button>
+                
+                <Button
+                  variant="fire"
+                  size="sm"
+                  onClick={() => setIsContactModalOpen(true)}
+                  className="flex items-center gap-2"
+                >
+                  <Phone className="w-4 h-4" />
+                  <span className="hidden lg:inline">Orçamento</span>
+                </Button>
+              </div>
             </div>
           </div>
         </div>

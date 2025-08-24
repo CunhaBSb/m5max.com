@@ -115,7 +115,6 @@ const ShowsPirotecnicosPage = () => {
         <meta name="keywords" content="shows pirotécnicos, fogos de artifício, réveillon, casamentos, festivais, eventos corporativos, pirotecnia profissional" />
       </Helmet>
 
-      <Header />
       <main className="min-h-screen bg-background">
         {/* Hero Section */}
         <section className="relative py-20 md:py-32 overflow-hidden">
@@ -277,7 +276,6 @@ const ShowsPirotecnicosPage = () => {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   );
 };

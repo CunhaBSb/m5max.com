@@ -22,7 +22,8 @@ export default defineConfig(() => ({
       "@/store": path.resolve(__dirname, "./src/store"),
       "@/data": path.resolve(__dirname, "./src/data"),
       "@/assets": path.resolve(__dirname, "./src/assets"),
-      "@/lib": path.resolve(__dirname, "./src/lib")
+      "@/lib": path.resolve(__dirname, "./src/lib"),
+      "@/app": path.resolve(__dirname, "./src/app")
     },
   },
   define: {

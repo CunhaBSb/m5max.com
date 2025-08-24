@@ -116,7 +116,6 @@ const KitsPage = () => {
         <meta name="keywords" content="kits fogos artifício, fogos caseiros, réveillon casa, aniversário fogos, DIY pirotecnia" />
       </Helmet>
 
-      <Header />
       <main className="min-h-screen bg-background">
         {/* Hero Section */}
         <section className="relative py-20 md:py-32 overflow-hidden">
@@ -423,7 +422,6 @@ const KitsPage = () => {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   );
 };

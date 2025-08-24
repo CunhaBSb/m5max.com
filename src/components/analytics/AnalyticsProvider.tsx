@@ -31,21 +31,23 @@ export const AnalyticsProvider: React.FC<AnalyticsProviderProps> = ({ children }
 
     // Inicializar Meta Pixel se consentido
     if (config.metaPixelId && consent.ad_storage === 'granted') {
-      !function(f,b,e,v,n,t,s)
-      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-      n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t,s)}(window, document,'script',
-      'https://connect.facebook.net/en_US/fbevents.js');
+      // Simple Meta Pixel initialization
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://connect.facebook.net/en_US/fbevents.js';
+      document.head.appendChild(script);
 
-      if (window.fbq) {
-        window.fbq('init', config.metaPixelId);
-        window.fbq('track', 'PageView');
+      // Initialize dataLayer for fbq if not exists
+      if (!window.fbq) {
+        window.fbq = function(...args) {
+          (window.fbq.queue = window.fbq.queue || []).push(args);
+        };
       }
+
+      window.fbq('init', config.metaPixelId);
+      window.fbq('track', 'PageView');
     }
-  }, []);
+  }, [consent.ad_storage]);
 
   // Atualizar consent quando mudado
   useEffect(() => {

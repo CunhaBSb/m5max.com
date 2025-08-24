@@ -141,7 +141,6 @@ const ChaRevelacaoPage = () => {
         <meta name="keywords" content="chá revelação, fogos coloridos, pó colorido, rosa azul, revelação sexo bebê, controle remoto" />
       </Helmet>
 
-      <Header />
       <main className="min-h-screen bg-background">
         {/* Hero Section */}
         <section className="relative py-20 md:py-32 overflow-hidden">
@@ -417,7 +416,6 @@ const ChaRevelacaoPage = () => {
           </div>
         </section>
       </main>
-      <Footer />
     </>
   );
 };

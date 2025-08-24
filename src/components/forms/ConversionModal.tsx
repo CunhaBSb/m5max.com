@@ -60,7 +60,7 @@ const ConversionModal: React.FC<ConversionModalProps> = ({
     });
   };
 
-  const handleFormSubmit = (data: any) => {
+  const handleFormSubmit = (data: Record<string, unknown>) => {
     console.log('Form submitted:', data);
     trackFormEvent('submit', {
       form_type: audience,
