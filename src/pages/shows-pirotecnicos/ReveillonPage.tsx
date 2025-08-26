@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { useAppStore } from '@/store/appStore';
-import { useAnalytics } from '@/hooks/useAnalytics';
+import { Button } from '@/shared/components/ui/button';
+import { Card } from '@/shared/components/ui/card';
+import { Badge } from '@/shared/components/ui/badge';
+import { useAppStore } from '@/shared/store/appStore';
+import { useAnalytics } from '@/shared/hooks/useAnalytics';
 import { 
   Calendar, 
   Clock, 

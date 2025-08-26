@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/shared/components/ui/button";
+import { Card, CardContent } from "@/shared/components/ui/card";
 import { FileCheck, Download, Shield, CheckCircle } from "lucide-react";
 
 const checklist_items = [
@@ -84,10 +84,10 @@ const LeadMagnet = () => {
                     </div>
                     
                     {/* Floating checkmarks */}
-                    <div className="absolute -top-2 -right-2 w-8 h-8 bg-fire-orange rounded-full flex items-center justify-center sparkle-animation">
+                    <div className="absolute -top-2 -right-2 w-8 h-8 bg-fire-orange rounded-full flex items-center justify-center gentle-glow">
                       <CheckCircle className="w-5 h-5 text-white" />
                     </div>
-                    <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-fire-gold rounded-full flex items-center justify-center sparkle-animation" style={{animationDelay: '0.5s'}}>
+                    <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-fire-gold rounded-full flex items-center justify-center gentle-glow" style={{animationDelay: '0.5s'}}>
                       <CheckCircle className="w-4 h-4 text-white" />
                     </div>
                   </div>

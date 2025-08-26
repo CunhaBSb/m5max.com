@@ -8,78 +8,81 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 98%;
-    --foreground: 220 15% 20%;
+    /* Force dark theme only - M5Max uses only dark mode */
+    --background: 220 15% 8%;
+    --foreground: 0 0% 95%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 220 15% 20%;
+    --card: 220 15% 10%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 15% 20%;
+    --popover: 220 15% 10%;
+    --popover-foreground: 0 0% 95%;
 
     --primary: 15 85% 55%;
     --primary-foreground: 0 0% 100%;
     --primary-glow: 25 95% 65%;
 
-    --secondary: 210 25% 95%;
-    --secondary-foreground: 220 15% 25%;
+    --secondary: 220 15% 15%;
+    --secondary-foreground: 0 0% 90%;
 
-    --muted: 210 20% 96%;
-    --muted-foreground: 215 15% 50%;
+    --muted: 220 15% 15%;
+    --muted-foreground: 220 10% 60%;
 
     --accent: 45 100% 70%;
-    --accent-foreground: 220 15% 20%;
+    --accent-foreground: 220 15% 8%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 210 20% 92%;
-    --input: 210 20% 94%;
+    --border: 220 15% 20%;
+    --input: 220 15% 15%;
     --ring: 15 85% 55%;
 
     --radius: 0.75rem;
 
-    /* M5 Max Design System - Fireworks inspired colors */
-    --fire-red: 0 85% 58%;
-    --fire-orange: 15 85% 55%;
-    --fire-gold: 45 100% 65%;
+    /* M5 Max Design System - Dark mode colors */
+    --fire-red: 0 85% 60%;
+    --fire-orange: 15 85% 58%;
+    --fire-gold: 45 100% 70%;
     --fire-yellow: 50 100% 75%;
     
-    --tech-blue: 210 45% 45%;
-    --tech-blue-light: 210 35% 85%;
+    --tech-blue: 210 45% 50%;
+    --tech-blue-light: 210 35% 75%;
     
-    --metal-silver: 210 15% 85%;
-    --metal-platinum: 210 10% 92%;
+    --metal-silver: 220 10% 25%;
+    --metal-platinum: 220 10% 15%;
     
-    /* Gradients */
+    /* Dark mode gradients */
     --gradient-fire: linear-gradient(135deg, hsl(var(--fire-red)), hsl(var(--fire-orange)), hsl(var(--fire-gold)));
     --gradient-tech: linear-gradient(135deg, hsl(var(--tech-blue)), hsl(var(--tech-blue-light)));
     --gradient-hero: linear-gradient(135deg, hsl(var(--background)), hsl(var(--metal-platinum)));
-    --gradient-sparkle: radial-gradient(circle, hsl(var(--fire-gold) / 0.3), transparent);
+    --gradient-sparkle: radial-gradient(circle, hsl(var(--fire-gold) / 0.2), transparent);
     
     /* Shadows */
     --shadow-fire: 0 10px 30px -5px hsl(var(--fire-orange) / 0.3);
     --shadow-tech: 0 8px 25px -8px hsl(var(--tech-blue) / 0.2);
     --shadow-elegant: 0 4px 20px -4px hsl(220 15% 20% / 0.1);
     
-    /* Animations */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    /* Professional Spacing System */
+    --spacing-section: 5rem; /* 80px - between major sections */
+    --spacing-component: 2.5rem; /* 40px - between components */
+    --spacing-element: 1.5rem; /* 24px - between elements */
+    --spacing-separator-minimal: 0.75rem; /* 12px - minimal separation */
+    --spacing-separator-subtle: 1rem; /* 16px - subtle separation */
+    --spacing-separator-standard: 1.5rem; /* 24px - standard separation */
+    --spacing-separator-emphasis: 2rem; /* 32px - emphasis separation */
 
-    --sidebar-background: 0 0% 98%;
+    /* Refined Animations */
+    --transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -149,6 +152,10 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground overflow-x-hidden;
+  }
+  
+  html {
+    @apply dark;
   }
   
   /* Mobile-first responsive container */
@@ -225,21 +232,38 @@ All colors MUST be HSL.
     -webkit-text-fill-color: transparent;
   }
   
-  .sparkle-animation {
-    animation: sparkle 2s ease-in-out infinite;
+  /* Professional Spacing Utilities */
+  .section-spacing {
+    padding-top: var(--spacing-section);
+    padding-bottom: var(--spacing-section);
   }
   
-  @keyframes sparkle {
-    0%, 100% { opacity: 0.7; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.05); }
+  .component-spacing {
+    padding-top: var(--spacing-component);
+    padding-bottom: var(--spacing-component);
   }
   
-  .float-animation {
-    animation: float 3s ease-in-out infinite;
+  .element-spacing {
+    padding-top: var(--spacing-element);
+    padding-bottom: var(--spacing-element);
   }
   
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
+  /* Refined Animations - Reduced intensity */
+  .subtle-pulse {
+    animation: subtle-pulse 3s ease-in-out infinite;
+  }
+  
+  @keyframes subtle-pulse {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+  }
+  
+  .gentle-glow {
+    animation: gentle-glow 4s ease-in-out infinite;
+  }
+  
+  @keyframes gentle-glow {
+    0%, 100% { box-shadow: 0 0 5px hsl(var(--fire-orange) / 0.2); }
+    50% { box-shadow: 0 0 10px hsl(var(--fire-orange) / 0.4); }
   }
 }

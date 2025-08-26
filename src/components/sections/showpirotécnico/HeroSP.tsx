@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/shared/components/ui/button";
 import { Sparkles, Phone, MessageSquare } from "lucide-react";
 import { useAppStore } from "@/store/appStore";
 import { useAnalytics } from "@/hooks/useAnalytics";
