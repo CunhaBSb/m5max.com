@@ -4,25 +4,17 @@ import { Sparkles, Phone, MessageSquare } from "lucide-react";
 import { useAppStore } from "@/shared/store/appStore";
 import { useAnalytics } from "@/shared/hooks/useAnalytics";
 import { generateWhatsAppURL, getWhatsAppMessage } from "@/shared/lib/whatsapp";
+import { useIsDesktop } from "@/shared/hooks/useIsDesktop";
+import { heroContent } from "../data/homeContent";
 
 const Hero = () => {
-  const [isMobile, setIsMobile] = useState(false);
+  const isDesktop = useIsDesktop();
+  const isMobile = isDesktop === false;
   const [videoLoaded, setVideoLoaded] = useState(false);
   
   const videoRef = useRef<HTMLVideoElement>(null);
   const { openConversionModal, attribution } = useAppStore();
   const { trackWhatsAppClick } = useAnalytics();
-
-  // Optimized mobile detection
-  const checkMobile = useCallback(() => {
-    setIsMobile(window.innerWidth < 1024);
-  }, []);
-
-  useEffect(() => {
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, [checkMobile]);
 
   // Reset video state when device changes
   useEffect(() => {
@@ -64,8 +56,8 @@ const Hero = () => {
   }, []);
 
   const videoSrc = isMobile 
-    ? "https://psvmzrzezgkklfjshhua.supabase.co/storage/v1/object/public/papel%20de%20parede/P2.Mobile.webm"
-    : "https://psvmzrzezgkklfjshhua.supabase.co/storage/v1/object/public/papel%20de%20parede/Herowallpaper.webm";
+    ? heroContent.video.mobile
+    : heroContent.video.desktop;
 
   return (
     <section className="relative min-h-screen flex items-center gradient-hero overflow-hidden pt-14 md:pt-16">

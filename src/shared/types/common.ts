@@ -17,7 +17,7 @@ export interface TrackingProps {
   };
 }
 
-export type AudienceType = 'b2b' | 'cha' | 'kits' | 'general';
+export type AudienceType = 'b2b' | 'general';
 
 export type ConversionSource = 'header' | 'hero' | 'cta' | 'exit-intent' | 'floating' | 'footer';
 
@@ -27,7 +27,7 @@ export interface Product {
   description: string;
   price?: string;
   features: string[];
-  audience: 'cha' | 'kits';
+  audience: 'b2b';
   category?: string;
   image?: string;
 }
@@ -39,7 +39,7 @@ export interface CaseStudy {
   videoId: string;
   thumbnail: string;
   tags: string[];
-  audience: 'b2b' | 'cha' | 'kits';
+  audience: 'b2b';
   date: string;
   location?: string;
 }

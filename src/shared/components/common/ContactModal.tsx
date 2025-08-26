@@ -93,11 +93,10 @@ Mensagem: ${formData.message}`;
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="show-profissional">Show Pirotécnico Profissional</SelectItem>
-                <SelectItem value="cha-revelacao">Chá Revelação</SelectItem>
-                <SelectItem value="kit-diy">Kit DIY</SelectItem>
                 <SelectItem value="casamento">Casamento</SelectItem>
                 <SelectItem value="reveillon">Réveillon</SelectItem>
                 <SelectItem value="corporativo">Evento Corporativo</SelectItem>
+                <SelectItem value="festival">Festival/Evento Público</SelectItem>
                 <SelectItem value="outro">Outro</SelectItem>
               </SelectContent>
             </Select>

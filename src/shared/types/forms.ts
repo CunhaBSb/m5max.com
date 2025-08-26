@@ -20,52 +20,7 @@ export const B2BFormSchema = z.object({
 
 export type B2BFormData = z.infer<typeof B2BFormSchema>;
 
-// Chá Revelação Schema
-export const ChaFormSchema = z.object({
-  kitType: z.enum(['basico', 'popular', 'premium']),
-  revealColor: z.enum(['rosa', 'azul', 'surpresa']),
-  eventDate: z.string().min(1, 'Data obrigatória'),
-  guestsCount: z.number().min(1).max(200),
-  venueType: z.enum(['casa', 'salao', 'parque', 'praia']),
-  needsRemoteControl: z.boolean(),
-  needsPersonalization: z.boolean(),
-  contactName: z.string().min(1, 'Nome obrigatório'),
-  contactEmail: z.string().email('Email inválido'),
-  contactPhone: z.string().min(10, 'Telefone inválido'),
-  deliveryAddress: z.object({
-    cep: z.string().min(8, 'CEP inválido'),
-    street: z.string().min(1, 'Endereço obrigatório'),
-    number: z.string().min(1, 'Número obrigatório'),
-    city: z.string().min(1, 'Cidade obrigatória'),
-    state: z.string().min(2, 'Estado obrigatório')
-  })
-});
-
-export type ChaFormData = z.infer<typeof ChaFormSchema>;
-
-// Kits DIY Schema
-export const KitsFormSchema = z.object({
-  kitCategory: z.enum(['reveillon', 'confraternizacao', 'aniversario']),
-  kitSize: z.enum(['pequeno', 'medio', 'grande']),
-  spaceSize: z.enum(['quintal-pequeno', 'quintal-medio', 'area-grande']),
-  eventDate: z.string().min(1, 'Data obrigatória'),
-  isOver18: z.boolean().refine(val => val === true, 'Deve ser maior de 18 anos'),
-  acceptsTerms: z.boolean().refine(val => val === true, 'Deve aceitar os termos'),
-  contactName: z.string().min(1, 'Nome obrigatório'),
-  contactEmail: z.string().email('Email inválido'),
-  contactPhone: z.string().min(10, 'Telefone inválido'),
-  deliveryAddress: z.object({
-    cep: z.string().min(8, 'CEP inválido'),
-    street: z.string().min(1, 'Endereço obrigatório'),
-    number: z.string().min(1, 'Número obrigatório'),
-    city: z.string().min(1, 'Cidade obrigatória'),
-    state: z.string().min(2, 'Estado obrigatório')
-  })
-});
-
-export type KitsFormData = z.infer<typeof KitsFormSchema>;
-
-export type FormData = B2BFormData | ChaFormData | KitsFormData;
+export type FormData = B2BFormData;
 
 export interface FormSubmissionResult {
   success: boolean;
@@ -76,7 +31,7 @@ export interface FormSubmissionResult {
 
 export interface ConversionContext {
   source: string;
-  audience: 'b2b' | 'cha' | 'kits' | 'general';
+  audience: 'b2b' | 'general';
   page?: string;
   productId?: string;
 }

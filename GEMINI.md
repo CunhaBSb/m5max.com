@@ -1,0 +1,239 @@
+# CLAUDE.md - Context Engineering & Operational Rules
+
+## Core Principles (Immutable)
+
+**Plan Mode First**
+- All architectural decisions, refactoring, and multi-file operations start in Plan Mode
+- No code changes until plan is approved
+- Generate numbered action lists with file estimates
+
+**Context Budget Management**  
+- Inject only essential information for current task
+- Summarize before injecting (never paste raw dumps)
+- Use separators: `==== TASK: <name> ====` (start/end)
+- Monitor context usage: prefer fresh session over context bloat
+
+**CLAUDE.md Supremacy**
+- Rules in this file override ad-hoc prompts
+- Update this file only via Plan Mode
+- Changes require explicit approval
+
+## Context Sources (Priority Order)
+
+1. **Project rules** (this file + architecture docs)
+2. **Local code** (only relevant files via Filesystem MCP)
+3. **Tech digests** (docs/tech-digests/*.md - curated summaries)
+4. **Persistent memory** (Memory MCP - k≤5 results only)
+5. **External docs** (Context7 MCP - digest required)
+6. **Analysis output** (docs/analysis/*.md - for complex tasks)
+
+## Tool Integration
+
+### Context7 MCP (Library Documentation)
+**Purpose:** Fetch up-to-date docs for libraries/frameworks
+**Usage Rules:**
+```
+1. Context7:resolve-library-id("<library>")
+2. Context7:get-library-docs("<id>", "<topics>") 
+3. Synthesize to 300-500 words max
+4. Save as docs/tech-digests/<lib>.md
+5. Include: key concepts, 1-2 code snippets, pitfalls, "when to use/avoid"
+```
+
+**Limits:**
+- Max 1 digest per session (avoid context flooding)
+- Always synthesize before injecting context
+- Never use as session buffer
+
+### Memory MCP (Persistent Project Knowledge)
+**Purpose:** Long-term memory for decisions, patterns, and insights
+
+**Entity Schema:**
+```typescript
+{
+  name: string,           // Unique identifier
+  entityType: string,     // "decision" | "pattern" | "bug" | "migration" | "insight"
+  observations: string[]  // Max 3-5 items, 512 words each
+}
+```
+
+**When to Save:**
+- ✅ Architectural decisions and rationale
+- ✅ Code patterns and conventions established
+- ✅ Bug root causes and solutions
+- ✅ Performance optimizations applied
+- ❌ Temporary debugging info
+- ❌ Sensitive data (keys, tokens, PII)
+- ❌ Session-specific context
+
+**Search Protocol:**
+```
+1. mcp__Memory__search_nodes(query, limit=5)
+2. Re-summarize results before context injection
+3. Confirm relevance before using
+```
+
+### Filesystem MCP (Repository Access)
+**Rules:**
+- Read only relevant files for current task
+- Avoid massive directory scans
+- Use specific paths, not wildcards
+- Check file sizes before reading
+
+## Security & Hygiene
+
+**Prohibited:**
+- Never inject PII, API keys, tokens into context or memory
+- No "dangerously-skip-permissions" usage
+- No auto-accept during context acquisition phase
+
+**Required:**
+- Task separators for context isolation
+- Source attribution for all injected content
+- TTL consideration for memory entries
+- Plan Mode for multi-file operations
+
+## Project Architecture (M5 Max)
+
+**Structure:**
+- Feature-first organization: `src/features/<domain>/`
+- Shared utilities: `src/shared/`
+- Platform variants only when truly necessary
+- Single routing: `src/app/router/AppRoutes.tsx`
+
+**Code Standards:**
+- TypeScript strict mode
+- Components in PascalCase
+- Max ~100 LOC per commit
+- Build gates: typecheck + lint + build success
+
+## Session Workflow
+
+### 1. Context Acquisition
+```
+==== TASK: <descriptive-name> ====
+- Identify required context sources (priority order)
+- Load only essential information
+- Summarize before injection
+```
+
+### 2. Planning Phase
+```
+Plan Mode: 
+- Define scope and constraints
+- List files to be modified
+- Estimate complexity and risks
+- Get explicit approval before coding
+```
+
+### 3. Execution
+```
+- Small, atomic commits
+- Test at each milestone (typecheck/lint/build)
+- Document decisions in Memory MCP if significant
+```
+
+### 4. Session Cleanup
+```
+- Save important decisions to Memory MCP
+- Update tech-digests if libraries were researched
+- Clear task separator
+- Archive analysis if complex
+==== END TASK ====
+```
+
+## Quality Gates
+
+**Before Any Code Changes:**
+1. Plan Mode approval required
+2. Context sources identified and loaded
+3. Success criteria defined
+
+**After Implementation:**
+1. TypeScript compilation: `npx tsc --noEmit`
+2. Linting: `npm run lint`
+3. Build test: `npm run build`
+4. Smoke test: verify main routes load
+
+**Before Session End:**
+1. Commit atomic changes
+2. Save architectural decisions to Memory MCP
+3. Update documentation if needed
+
+## File Organization
+
+```
+docs/
+├── tech-digests/          # Context7 library summaries (300-500 words each)
+├── architecture/          # High-level design decisions
+└── analysis/              # Complex analysis outputs
+
+.claude/
+└── (reserved for future commands)
+```
+
+## Context Engineering KPIs
+
+**Target Metrics:**
+- Context efficiency: ≤800 words injected per task
+- Reuse rate: ≥70% of tasks use existing tech-digests
+- Session quality: Plan-to-code ≤10 minutes
+- Build health: 0 broken builds from context contamination
+
+**Warning Signs:**
+- Repeatedly copying large text blocks
+- Context bloat (>80% window usage)
+- Mixing unrelated task contexts
+- Skipping Plan Mode for multi-file changes
+
+## Emergency Protocols
+
+**Context Contamination:**
+1. Use task separators immediately
+2. Start fresh session if necessary
+3. Re-establish clean context from memory/digests
+
+**Build Failures:**
+1. Rollback last changes
+2. Verify in clean working directory
+3. Re-run quality gates
+4. Memory MCP entry for root cause
+
+**Memory MCP Cleanup:**
+- Review entities monthly
+- Remove outdated patterns
+- Consolidate redundant decisions
+- Verify entity relationships
+
+---
+
+## Usage Examples
+
+**Starting New Feature:**
+```
+==== TASK: Implement user authentication ====
+1. Search Memory MCP for auth patterns: mcp__Memory__search_nodes("auth")
+2. Load tech digest: docs/tech-digests/supabase.md
+3. Plan Mode: List components to create/modify
+4. Execute with atomic commits
+5. Save auth pattern to Memory MCP
+==== END TASK ====
+```
+
+**Researching New Library:**
+```
+1. Context7:resolve-library-id("next-auth")
+2. Context7:get-library-docs("/nextauthjs/next-auth", "configuration providers")
+3. Synthesize to docs/tech-digests/next-auth.md
+4. Save digest summary to Memory MCP (optional)
+```
+
+**Architecture Decision:**
+```
+Memory MCP entity:
+- name: "state-management-decision-2025"
+- entityType: "decision"  
+- observations: ["Chose Zustand over Redux for simpler state", "Performance: 40% bundle reduction", "Migration plan: gradual replacement"]
+```
+
+This document represents the operational foundation for all Claude Code sessions on this project. Any deviations require explicit justification and approval.

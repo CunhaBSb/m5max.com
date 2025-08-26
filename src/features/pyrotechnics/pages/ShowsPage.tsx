@@ -6,7 +6,39 @@ import RootLayout from '@/app/layouts/RootLayout';
 import SectionSeparator from '@/shared/components/layout/SectionSeparator';
 import { PyroBanner } from '../components/PyroBanner';
 import { EventTypesGrid } from '../components/EventTypesGrid';
-import { Differentials } from '../components/Differentials';
+import { Shield, Music, Award, Clock } from 'lucide-react';
+import { DifferentialsSection } from '@/shared/components/layout/DifferentialsSection';
+
+const pyroDifferentials = [
+  {
+    icon: Shield,
+    title: 'Equipe Blaster Certificada',
+    description: 'Profissionais habilitados pelo Exército Brasileiro',
+    iconBgClass: 'bg-blue-600',
+    iconColorClass: 'text-white',
+  },
+  {
+    icon: Music,
+    title: 'Sincronização Musical',
+    description: 'Software próprio para sincronização perfeita',
+    iconBgClass: 'bg-fire-red',
+    iconColorClass: 'text-white',
+  },
+  {
+    icon: Award,
+    title: '40+ Anos de Experiência',
+    description: 'Mais de 500 eventos realizados com sucesso',
+    iconBgClass: 'bg-fire-gold',
+    iconColorClass: 'text-slate-900',
+  },
+  {
+    icon: Clock,
+    title: 'Logística Completa',
+    description: 'Licenças, transporte e montagem inclusos',
+    iconBgClass: 'bg-green-600',
+    iconColorClass: 'text-white',
+  },
+];
 import { StatsSection } from '../components/StatsSection';
 import { PyroCallToAction } from '../components/PyroCallToAction';
 
@@ -40,7 +72,11 @@ const ShowsPage = () => {
         </div>
         <SectionSeparator variant="standard" />
         <div className="section-spacing">
-          <Differentials />
+                  <DifferentialsSection 
+          titleComponent={<><span className="text-foreground">Por Que Escolher a</span><br /><span className="text-fire-gradient">M5 Max para seu Evento?</span></>}
+          subtitle="Somos referência nacional em pirotecnia profissional, com diferenciais únicos no mercado."
+          differentials={pyroDifferentials}
+        />
         </div>
         <SectionSeparator variant="subtle" />
         <div className="section-spacing">

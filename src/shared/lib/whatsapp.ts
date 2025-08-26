@@ -3,13 +3,7 @@ import { AudienceType } from '@/shared/types/common';
 
 export const whatsappTemplates = {
   b2b: (eventType: string, city: string, date: string) => 
-    `Olá M5! Quero orçamento para ${eventType} em ${city} dia ${date}.`,
-  
-  cha: (kitType: string, color: string, date: string) => 
-    `Olá M5! Quero kit ${kitType} para chá revelação ${color} dia ${date}.`,
-  
-  kits: (kitCategory: string, size: string, date: string) => 
-    `Olá M5! Quero kit ${kitCategory} tamanho ${size} para ${date}.`
+    `Olá M5! Quero orçamento para ${eventType} em ${city} dia ${date}.`
 };
 
 export const generateWhatsAppURL = (
@@ -58,25 +52,7 @@ export const getWhatsAppMessage = (
           )
         : 'Olá M5! Gostaria de saber mais sobre shows pirotécnicos profissionais.';
     
-    case 'cha':
-      return formData
-        ? whatsappTemplates.cha(
-            formData.kitType || 'kit',
-            formData.revealColor || 'cor',
-            formData.eventDate || 'data'
-          )
-        : 'Olá M5! Gostaria de saber mais sobre kits para chá revelação.';
-    
-    case 'kits':
-      return formData
-        ? whatsappTemplates.kits(
-            formData.kitCategory || 'categoria',
-            formData.kitSize || 'tamanho',
-            formData.eventDate || 'data'
-          )
-        : 'Olá M5! Gostaria de saber mais sobre kits de fogos de artifício.';
-    
     default:
-      return 'Olá M5! Gostaria de saber mais sobre os serviços de pirotecnia.';
+      return 'Olá M5! Gostaria de saber mais sobre shows pirotécnicos e espetáculos de réveillon.';
   }
 };
