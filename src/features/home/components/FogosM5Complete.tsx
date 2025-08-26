@@ -1,22 +1,24 @@
 import { useState, useRef } from "react";
 import { Button } from "@/shared/components/ui/button";
 import { Card, CardContent } from "@/shared/components/ui/card";
+import { Badge } from "@/shared/components/ui/badge";
 import { 
-  Play, 
-  Pause, 
   Shield, 
-  MessageCircle,
-  Calendar,
-  Star,
+  Users, 
+  Eye, 
+  Zap,
   Award,
-  CheckCircle2
+  CheckCircle2,
+  MessageCircle,
+  Play,
+  Pause
 } from "lucide-react";
-import CardsM5 from "./CardsM5";
 
 const FogosM5Complete = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  // Placeholder for video URL - can be replaced when available
   const videoUrl = "";
 
   const handlePlayPause = () => {
@@ -30,94 +32,132 @@ const FogosM5Complete = () => {
     setIsPlaying(!isPlaying);
   };
 
+  const credentials = [
+    {
+      icon: Shield,
+      title: "Certificação INMETRO",
+      description: "Protocolos rigorosos de segurança",
+      color: "text-green-500"
+    },
+    {
+      icon: Users,
+      title: "Equipe Blaster Elite",
+      description: "Profissionais certificados pelo Exército",
+      color: "text-blue-500"
+    },
+    {
+      icon: Eye,
+      title: "Simulação 3D",
+      description: "Visualize antes de acontecer",
+      color: "text-purple-500"
+    },
+    {
+      icon: Zap,
+      title: "Tecnologia Avançada",
+      description: "Ignição remota digital",
+      color: "text-fire-orange"
+    }
+  ];
+
+  const stats = [
+    { value: "40+", label: "Anos de Experiência" },
+    { value: "500+", label: "Eventos Realizados" },
+    { value: "100%", label: "Segurança Garantida" },
+    { value: "#1", label: "No Brasil" }
+  ];
+
   return (
-    <section className="relative py-12 overflow-hidden">
-      {/* Harmonious Background System */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/98 via-background to-background/98" />
+    <section className="relative py-16 lg:py-20 overflow-hidden bg-background">
       
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-1/4 w-[400px] h-[400px] bg-gradient-to-br from-fire-orange/3 via-fire-gold/2 to-transparent rounded-full blur-3xl subtle-pulse opacity-20" />
-        <div className="absolute top-1/3 right-1/4 w-[300px] h-[300px] bg-gradient-to-bl from-fire-orange/2 to-transparent rounded-full blur-3xl opacity-15" />
-        <div className="absolute bottom-1/4 left-1/3 w-[350px] h-[350px] bg-gradient-to-tr from-fire-gold/2 to-transparent rounded-full blur-3xl opacity-10" />
-      </div>
-      
-      <div className="absolute inset-0 opacity-[0.015]" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f97316' fill-opacity='0.3'%3E%3Ccircle cx='8' cy='8' r='0.5'/%3E%3Ccircle cx='40' cy='40' r='0.5'/%3E%3Ccircle cx='72' cy='72' r='0.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-      }} />
-      
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center_top,rgba(249,115,22,0.02),transparent_50%)]" />
-      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-border/20 to-transparent" />
-      <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-border/20 to-transparent" />
-      
-      <div className="container mx-auto px-4 relative z-10 max-w-5xl">
+      <div className="container mx-auto px-4 relative z-10 max-w-6xl">
         {/* Compact Professional Header */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center mb-6">
+          {/* Logo Mark - Smaller and more elegant */}
+          <div className="inline-flex items-center justify-center mb-4">
             <img 
               src="/fogosm5.svg" 
               alt="FogosM5" 
-              className="h-16 w-auto filter drop-shadow-md" 
+              className="h-12 w-auto opacity-90" 
             />
           </div>
           
-          <h1 className="text-4xl lg:text-5xl font-bold tracking-tight mb-4">
-            <span className="bg-gradient-to-r from-fire-orange via-fire-gold to-fire-red bg-clip-text text-transparent">
-              FogosM5
-            </span>
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-6">
+          {/* Main Heading - More concise */}
+          <h2 className="text-3xl lg:text-4xl font-bold mb-3">
+            <span className="text-fire-gradient">FogosM5</span>
+          </h2>
+          
+          {/* Tagline */}
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Transformando momentos em espetáculos inesquecíveis há mais de 40 anos
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-card/80 backdrop-blur-sm border border-border rounded-full text-sm">
-              <CheckCircle2 className="w-3.5 h-3.5 text-green-500" />
-              <span>Certificado INMETRO</span>
-            </div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-card/80 backdrop-blur-sm border border-border rounded-full text-sm">
-              <Award className="w-3.5 h-3.5 text-fire-orange" />
-              <span>40 Anos</span>
-            </div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-card/80 backdrop-blur-sm border border-border rounded-full text-sm">
-              <Shield className="w-3.5 h-3.5 text-blue-500" />
-              <span>100% Seguro</span>
-            </div>
+          {/* Trust Badges - Compact inline */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mt-6">
+            <Badge variant="outline" className="px-2 py-1 text-xs">
+              <CheckCircle2 className="w-3 h-3 mr-1 text-green-500" />
+              Certificado INMETRO
+            </Badge>
+            <Badge variant="outline" className="px-2 py-1 text-xs">
+              <Award className="w-3 h-3 mr-1 text-fire-orange" />
+              Líder Nacional
+            </Badge>
+            <Badge variant="outline" className="px-2 py-1 text-xs">
+              <Shield className="w-3 h-3 mr-1 text-blue-500" />
+              100% Seguro
+            </Badge>
           </div>
         </div>
 
-        {/* Compact Metrics */}
-        <div className="grid grid-cols-4 gap-4 mb-12">
-          {[
-            { icon: Calendar, value: "40+", label: "Anos" },
-            { icon: Star, value: "500+", label: "Eventos" },
-            { icon: Shield, value: "100%", label: "Segurança" },
-            { icon: Award, value: "Nº1", label: "Nacional" }
-          ].map((stat, index) => {
-            const Icon = stat.icon;
-            return (
-              <Card key={index} className="group bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/30 transition-all duration-300">
-                <CardContent className="p-4 text-center">
-                  <div className="w-8 h-8 mx-auto mb-3 bg-primary/10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Icon className="w-4 h-4 text-primary" />
-                  </div>
-                  <div className="text-xl font-bold text-foreground mb-1">
+        {/* Two Column Layout - Content + Visual */}
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-12">
+          {/* Left Column - Key Information */}
+          <div className="space-y-6">
+            {/* Company Introduction */}
+            <div className="prose prose-invert max-w-none">
+              <p className="text-muted-foreground leading-relaxed">
+                A <strong className="text-foreground">M5 Max Produções</strong> é referência nacional 
+                em espetáculos pirotécnicos profissionais. Com equipamentos de última geração e uma 
+                equipe altamente certificada, transformamos eventos em experiências memoráveis.
+              </p>
+            </div>
+
+            {/* Compact Stats Grid */}
+            <div className="grid grid-cols-2 gap-3">
+              {stats.map((stat, index) => (
+                <div key={index} className="bg-card/50 backdrop-blur-sm rounded-lg p-3 border border-border/50">
+                  <div className="text-2xl font-bold text-fire-gradient">
                     {stat.value}
                   </div>
                   <div className="text-xs text-muted-foreground">
                     {stat.label}
                   </div>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
+                </div>
+              ))}
+            </div>
 
-        {/* Professional Video Showcase */}
-        <div className="mb-12">
-          <Card className="relative overflow-hidden bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-sm border-border/50 shadow-xl">
-            <CardContent className="p-0">
-              <div className="relative aspect-video">
-                {videoUrl ? (
+            {/* Key Features - Simplified List */}
+            <div className="space-y-3">
+              {credentials.slice(0, 3).map((credential, index) => (
+                <div key={index} className="flex items-center gap-3">
+                  <div className={`w-6 h-6 rounded-full flex items-center justify-center ${credential.color} bg-background/80`}>
+                    <credential.icon className="w-3 h-3" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-sm font-medium text-foreground">
+                      {credential.title}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Column - Visual Element */}
+          <div className="relative">
+            {videoUrl ? (
+              /* Video Player - If content exists */
+              <Card className="overflow-hidden bg-card/50 backdrop-blur-sm border-border/50">
+                <div className="relative aspect-video">
                   <video
                     ref={videoRef}
                     className="w-full h-full object-cover"
@@ -126,90 +166,117 @@ const FogosM5Complete = () => {
                   >
                     <source src={videoUrl} type="video/mp4" />
                   </video>
-                ) : (
-                  <div className="w-full h-full bg-gradient-to-br from-muted/80 to-muted/40 flex items-center justify-center backdrop-blur-sm">
-                    <div className="text-center p-8">
-                      <div className="relative">
-                        <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-fire-orange to-fire-red rounded-full flex items-center justify-center shadow-lg">
-                          <Play className="w-8 h-8 text-white ml-0.5" />
-                        </div>
-                        <div className="absolute inset-0 w-20 h-20 mx-auto bg-fire-orange/20 rounded-full animate-ping" />
+                  
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    className="absolute inset-0 m-auto w-12 h-12 rounded-full bg-white/90 hover:bg-white"
+                    onClick={handlePlayPause}
+                  >
+                    {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
+                  </Button>
+                </div>
+              </Card>
+            ) : (
+              /* Professional Company Card - When no video */
+              <Card className="bg-gradient-to-br from-card/80 to-card/40 backdrop-blur-sm border-border/50">
+                <CardContent className="p-8">
+                  <div className="space-y-6">
+                    {/* Company Stats Visual */}
+                    <div className="text-center">
+                      <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-fire-orange to-fire-red rounded-2xl mb-4">
+                        <Award className="w-8 h-8 text-white" />
                       </div>
+                      
                       <h3 className="text-xl font-bold text-foreground mb-2">
-                        Vídeo Institucional
+                        Líder em Pirotecnia Profissional
                       </h3>
-                      <p className="text-sm text-muted-foreground max-w-sm mx-auto">
-                        40 anos de expertise em espetáculos pirotécnicos únicos
+                      
+                      <p className="text-sm text-muted-foreground mb-6">
+                        Desde 1983 criando momentos inesquecíveis
                       </p>
+
+                      {/* Achievement Badges */}
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="bg-background/50 rounded-lg p-3">
+                          <div className="w-6 h-6 mx-auto mb-1 flex items-center justify-center bg-fire-orange/20 rounded-full">
+                            <Award className="w-3 h-3 text-fire-orange" />
+                          </div>
+                          <div className="text-xs text-muted-foreground">Top 1 Nacional</div>
+                        </div>
+                        <div className="bg-background/50 rounded-lg p-3">
+                          <div className="w-6 h-6 mx-auto mb-1 flex items-center justify-center bg-fire-orange/20 rounded-full">
+                            <Zap className="w-3 h-3 text-fire-orange" />
+                          </div>
+                          <div className="text-xs text-muted-foreground">500+ Shows</div>
+                        </div>
+                        <div className="bg-background/50 rounded-lg p-3">
+                          <div className="w-6 h-6 mx-auto mb-1 flex items-center justify-center bg-fire-orange/20 rounded-full">
+                            <Shield className="w-3 h-3 text-fire-orange" />
+                          </div>
+                          <div className="text-xs text-muted-foreground">Zero Acidentes</div>
+                        </div>
+                        <div className="bg-background/50 rounded-lg p-3">
+                          <div className="w-6 h-6 mx-auto mb-1 flex items-center justify-center bg-fire-orange/20 rounded-full">
+                            <CheckCircle2 className="w-3 h-3 text-fire-orange" />
+                          </div>
+                          <div className="text-xs text-muted-foreground">5.0 Avaliação</div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                )}
-                
-                {videoUrl && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 hover:opacity-100 transition-all duration-300">
-                    <Button
-                      size="lg"
-                      className="w-16 h-16 rounded-full bg-white/90 hover:bg-white text-black shadow-xl transition-all duration-300 hover:scale-110"
-                      onClick={handlePlayPause}
-                    >
-                      {isPlaying ? (
-                        <Pause className="w-6 h-6" />
-                      ) : (
-                        <Play className="w-6 h-6 ml-0.5" />
-                      )}
-                    </Button>
-                  </div>
-                )}
-              </div>
-            </CardContent>
-          </Card>
+                </CardContent>
+              </Card>
+            )}
+          </div>
         </div>
 
-        <CardsM5 />
-
-        {/* Compact Professional CTA */}
-        <div className="mb-12">
-          <Card className="relative overflow-hidden bg-gradient-to-r from-green-600 to-green-700 border-0 shadow-lg">
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.1),transparent_60%)]" />
-            <CardContent className="relative p-6">
-              <div className="text-center">
-                <div className="inline-flex items-center justify-center w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl mb-4">
-                  <MessageCircle className="w-6 h-6 text-white" />
-                </div>
-                
-                <h3 className="text-2xl font-bold text-white mb-3">
-                  Peça sua simulação 3D gratuita
-                </h3>
-                <p className="text-green-100 mb-6 max-w-lg mx-auto">
-                  Visualize seu evento antes de acontecer. Zero compromisso, máxima qualidade.
-                </p>
-
-                <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-green-100 mb-6">
-                  <div className="flex items-center gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-green-300" />
-                    <span>Gratuita</span>
+        {/* Differentials Grid - Simplified */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+          {credentials.map((credential, index) => {
+            const Icon = credential.icon;
+            return (
+              <Card 
+                key={index} 
+                className="group bg-card border-border hover:bg-card/80 transition-colors"
+              >
+                <CardContent className="p-4 text-center">
+                  <div className={`w-10 h-10 rounded-lg bg-background/80 flex items-center justify-center mx-auto mb-3 ${credential.color}`}>
+                    <Icon className="w-5 h-5" />
                   </div>
-                  <div className="flex items-center gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-green-300" />
-                    <span>Sem compromisso</span>
+                  <div className="text-sm font-semibold text-foreground mb-1">
+                    {credential.title}
                   </div>
-                  <div className="flex items-center gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-green-300" />
-                    <span>40 anos experiência</span>
+                  <div className="text-xs text-muted-foreground">
+                    {credential.description}
                   </div>
-                </div>
-
-                <Button 
-                  size="lg"
-                  className="bg-white hover:bg-green-50 text-green-700 font-semibold px-8 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
-                >
-                  <MessageCircle className="w-5 h-5 mr-2" />
-                  Chamar no WhatsApp
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
+
+        {/* Professional CTA - Clean */}
+        <Card className="bg-primary/10 border-primary/20">
+          <CardContent className="p-6">
+            <div className="text-center space-y-4">
+              <h3 className="text-xl font-bold">
+                Solicite sua Simulação 3D Gratuita
+              </h3>
+              <p className="text-muted-foreground text-sm">
+                Visualize como será seu show pirotécnico antes mesmo de acontecer. 
+                Totalmente gratuito e sem compromisso.
+              </p>
+              <Button 
+                size="lg"
+                className="bg-primary hover:bg-primary/90"
+              >
+                <MessageCircle className="w-4 h-4 mr-2" />
+                Solicitar Simulação
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </section>
   );
