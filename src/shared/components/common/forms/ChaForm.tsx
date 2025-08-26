@@ -10,7 +10,7 @@ import {
 import { Input } from '@/shared/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shared/components/ui/select';
 import { Checkbox } from '@/shared/components/ui/checkbox';
-import { ChaFormData } from '@/types/forms';
+import { ChaFormData } from '@/shared/types/forms';
 
 interface ChaFormProps {
   form: UseFormReturn<ChaFormData>;

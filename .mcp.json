@@ -9,7 +9,7 @@
         "--project-ref=psvmzrzezgkklfjshhua"
       ],
       "env": {
-        "SUPABASE_ACCESS_TOKEN": "sbp_4fd63aeed5ef16522553818b6a10b72ccbad9a78"
+        "SUPABASE_ACCESS_TOKEN": "${SUPABASE_ACCESS_TOKEN}"
       }
     },
     "context7": {
@@ -53,7 +53,7 @@
       "command": "npx",
       "args": ["-y", "firecrawl-mcp"],
       "env": {
-        "FIRECRAWL_API_KEY": "fc-e8d8434e043f407d88822d5b520e0d25"
+        "FIRECRAWL_API_KEY": "${FIRECRAWL_API_KEY}"
       }
     },
     "gemini-cli": {

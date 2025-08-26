@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAnalytics } from '@/shared/hooks/useAnalytics';
+import RootLayout from '@/app/layouts/RootLayout';
 import { KitsMainContent } from '../components/KitsMainContent';
 
 const KitsDIYPage = () => {
@@ -22,11 +23,13 @@ const KitsDIYPage = () => {
         <meta name="keywords" content="kits fogos artifício, fogos caseiros, réveillon casa, aniversário fogos, DIY pirotecnia" />
       </Helmet>
 
-      <main className="min-h-screen bg-background">
-        <div className="section-spacing">
-          <KitsMainContent />
-        </div>
-      </main>
+      <RootLayout>
+        <main className="min-h-screen bg-background">
+          <div className="section-spacing">
+            <KitsMainContent />
+          </div>
+        </main>
+      </RootLayout>
     </>
   );
 };

@@ -1,15 +1,15 @@
 import { ReactNode } from "react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import ConversionModal from "@/components/forms/ConversionModal";
-import ConsentBanner from "@/components/analytics/ConsentBanner";
-import { useAppStore } from "@/store/appStore";
+import Header from "@/shared/components/layout/Header";
+import Footer from "@/shared/components/layout/Footer";
+import ConversionModal from "@/shared/components/common/forms/ConversionModal";
+import ConsentBanner from "@/app/providers/analytics/ConsentBanner";
+import { useAppStore } from "@/shared/store/appStore";
 
-interface RootDesktopLayoutProps {
+interface RootLayoutProps {
   children: ReactNode;
 }
 
-const RootDesktopLayout = ({ children }: RootDesktopLayoutProps) => {
+const RootLayout = ({ children }: RootLayoutProps) => {
   const { conversionModalOpen, closeConversionModal, currentAudience } = useAppStore();
 
   return (
@@ -34,4 +34,4 @@ const RootDesktopLayout = ({ children }: RootDesktopLayoutProps) => {
   );
 };
 
-export default RootDesktopLayout;
+export default RootLayout;

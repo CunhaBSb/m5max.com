@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAppStore } from '@/shared/store/appStore';
 import { useAnalytics } from '@/shared/hooks/useAnalytics';
+import RootLayout from '@/app/layouts/RootLayout';
 import SectionSeparator from '@/shared/components/layout/SectionSeparator';
 import { PyroBanner } from '../components/PyroBanner';
 import { EventTypesGrid } from '../components/EventTypesGrid';
@@ -28,7 +29,8 @@ const ShowsPage = () => {
         <meta name="keywords" content="shows pirotécnicos, fogos de artifício, réveillon, casamentos, festivais, eventos corporativos, pirotecnia profissional" />
       </Helmet>
 
-      <main className="min-h-screen bg-background">
+      <RootLayout>
+        <main className="min-h-screen bg-background">
         <div className="section-spacing">
           <PyroBanner />
         </div>
@@ -48,7 +50,8 @@ const ShowsPage = () => {
         <div className="component-spacing">
           <PyroCallToAction />
         </div>
-      </main>
+        </main>
+      </RootLayout>
     </>
   );
 };

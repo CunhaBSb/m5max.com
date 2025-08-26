@@ -5,7 +5,7 @@ import {
   FormParams, 
   ProductParams,
   DataLayerEvent 
-} from '@/types/analytics';
+} from '@/shared/types/analytics';
 
 declare global {
   interface Window {

@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/shared/components/ui/button";
 import { Sparkles, Phone, MessageSquare } from "lucide-react";
-import { useAppStore } from "@/store/appStore";
-import { useAnalytics } from "@/hooks/useAnalytics";
-import { generateWhatsAppURL, getWhatsAppMessage } from "@/utils/whatsapp";
+import { useAppStore } from "@/shared/store/appStore";
+import { useAnalytics } from "@/shared/hooks/useAnalytics";
+import { generateWhatsAppURL, getWhatsAppMessage } from "@/shared/lib/whatsapp";
 
 const Hero = () => {
   const [isMobile, setIsMobile] = useState(false);

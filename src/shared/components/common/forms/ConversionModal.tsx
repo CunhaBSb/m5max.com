@@ -3,11 +3,11 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/shared/compo
 import { Button } from '@/shared/components/ui/button';
 import { Card } from '@/shared/components/ui/card';
 import { MessageSquare, FileText, X } from 'lucide-react';
-import { useAppStore } from '@/store/appStore';
-import { useAnalytics } from '@/hooks/useAnalytics';
-import { generateWhatsAppURL, getWhatsAppMessage } from '@/utils/whatsapp';
-import { ConversionContext } from '@/types/forms';
-import { AudienceType } from '@/types/common';
+import { useAppStore } from '@/shared/store/appStore';
+import { useAnalytics } from '@/shared/hooks/useAnalytics';
+import { generateWhatsAppURL, getWhatsAppMessage } from '@/shared/lib/whatsapp';
+import { ConversionContext } from '@/shared/types/forms';
+import { AudienceType } from '@/shared/types/common';
 import QualificationForm from './QualificationForm';
 
 interface ConversionModalProps {

@@ -11,7 +11,7 @@ import { Input } from '@/shared/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shared/components/ui/select';
 import { Checkbox } from '@/shared/components/ui/checkbox';
 import { Textarea } from '@/shared/components/ui/textarea';
-import { B2BFormData } from '@/types/forms';
+import { B2BFormData } from '@/shared/types/forms';
 
 interface B2BFormProps {
   form: UseFormReturn<B2BFormData>;

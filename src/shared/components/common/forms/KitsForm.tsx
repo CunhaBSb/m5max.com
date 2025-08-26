@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Checkbox } from '@/shared/components/ui/checkbox';
 import { Alert, AlertDescription } from '@/shared/components/ui/alert';
 import { AlertTriangle } from 'lucide-react';
-import { KitsFormData } from '@/types/forms';
+import { KitsFormData } from '@/shared/types/forms';
 
 interface KitsFormProps {
   form: UseFormReturn<KitsFormData>;

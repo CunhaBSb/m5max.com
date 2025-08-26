@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Card } from '@/shared/components/ui/card';
 import { Button } from '@/shared/components/ui/button';
-import { useAnalytics } from '@/hooks/useAnalytics';
+import { useAnalytics } from '@/shared/hooks/useAnalytics';
 import { Play, Pause, Volume2, VolumeX, Maximize } from 'lucide-react';
 
 interface VideoPlayerProps {

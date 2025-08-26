@@ -7,8 +7,8 @@ import {
   FormParams, 
   ProductParams,
   DataLayerEvent 
-} from '@/types/analytics';
-import { AudienceType } from '@/types/common';
+} from '@/shared/types/analytics';
+import { AudienceType } from '@/shared/types/common';
 
 declare global {
   interface Window {
