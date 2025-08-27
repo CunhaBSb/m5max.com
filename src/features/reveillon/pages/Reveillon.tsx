@@ -5,7 +5,6 @@ import RootLayout from '@/app/layouts/RootLayout';
 import ReveillonHero from '../components/ReveillonHero';
 import TimelineSection from '../components/TimelineSection';
 import ReveillonCallToAction from '../components/ReveillonCallToAction';
-import SectionSeparator from '@/shared/components/layout/SectionSeparator';
 
 const Reveillon = () => {
   const { trackPageView } = useAnalytics();
@@ -29,10 +28,10 @@ const Reveillon = () => {
       <RootLayout>
         <main className="min-h-screen">
           <ReveillonHero />
-          <SectionSeparator variant="curved" />
-          <SectionSeparator variant="vintage" />
+
+
           <TimelineSection />
-          <SectionSeparator variant="minimal" />
+
           <ReveillonCallToAction />
         </main>
       </RootLayout>

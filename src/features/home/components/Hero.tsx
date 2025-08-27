@@ -78,7 +78,7 @@ const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center gradient-hero overflow-hidden pt-14 md:pt-16">
       {/* Vignette Effect */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background via-background/80 to-transparent z-20 pointer-events-none" />
+      
       
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
@@ -113,6 +113,8 @@ const Hero = () => {
 
         {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/60 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background via-background/80 to-transparent z-20 pointer-events-none" />
+        
       </div>
 
       <div className="relative z-30 container mx-auto px-4 sm:px-6 lg:px-8">
@@ -122,7 +124,7 @@ const Hero = () => {
             <div className="space-y-2">
               <div className="inline-flex items-center gap-2 text-white font-semibold text-xs bg-red-500/20 px-3 py-1 rounded-full backdrop-blur-sm border border-red-400/40">
                 <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" />
-                Últimos disponíveis
+                Shows Pirotécnicos
               </div>
               
               <h1 className="text-xl sm:text-2xl font-bold leading-tight drop-shadow-lg">
@@ -204,17 +206,17 @@ const Hero = () => {
             <div className="space-y-4">
               <div className="inline-flex items-center gap-2 text-white font-semibold text-sm bg-red-500/20 px-3 py-1 rounded-full backdrop-blur-sm border border-red-400/40">
                 <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" />
-                Últimos disponíveis
+                Shows Pirotécnicos
               </div>
               
               <h1 className="text-3xl xl:text-4xl font-bold leading-tight drop-shadow-lg">
-                <span className="text-white">Shows Pirotécnicos</span>
+                <span className="text-white">Um espetáculo não se improvisa...</span>
                 <br />
-                <span className="text-fire-gradient">Profissionais</span>
+                <span className="text-fire-gradient">Ele se planeja.</span>
               </h1>
               
               <p className="text-base xl:text-lg text-white/90 drop-shadow-md max-w-lg">
-                4 décadas de experiência garantindo shows espetaculares e 100% seguros
+              Na M5 Max, cada show de fogos é desenhado com segurança, tecnologia e emoção para transformar o seu evento em um momento inesquecível.
               </p>
             </div>
 

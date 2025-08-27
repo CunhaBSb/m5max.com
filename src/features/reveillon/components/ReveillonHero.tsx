@@ -231,13 +231,13 @@ const ReveillonHero = () => {
               </div>
               
               <h1 className="text-3xl xl:text-4xl font-bold leading-tight drop-shadow-lg">
-                <span className="text-white">Réveillon</span>
+                <span className="text-white">A virada que entra para a história...</span>
                 <br />
-                <span className="bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">Inesquecível</span>
+                <span className="bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">Começa no céu.</span>
               </h1>
               
               <p className="text-base xl:text-lg text-white/90 drop-shadow-md max-w-lg">
-                4 décadas de experiência garantindo shows espetaculares e 100% seguros
+              Transforme o Réveillon do seu público em um espetáculo inesquecível com a M5 Max
               </p>
             </div>
 

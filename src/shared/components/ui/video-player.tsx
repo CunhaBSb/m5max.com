@@ -251,28 +251,63 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
               }
             }
             
-            // Try to lock orientation for iOS
-            if (window.DeviceOrientationEvent && 'requestPermission' in window.DeviceOrientationEvent) {
+            // Multiple approaches for iOS landscape orientation
+            setTimeout(() => {
               try {
-                // Request permission first on iOS 13+
-                (window.DeviceOrientationEvent as any).requestPermission();
+                // Method 1: Screen Orientation API
+                if (screen.orientation && 'lock' in screen.orientation) {
+                  (screen.orientation as any).lock('landscape-primary').catch((err: any) => {
+                    console.log('Screen orientation lock failed:', err);
+                    // Try landscape-secondary as fallback
+                    (screen.orientation as any).lock('landscape-secondary').catch(() => {
+                      // Try generic landscape
+                      (screen.orientation as any).lock('landscape').catch(() => {
+                        console.log('All landscape orientations failed');
+                      });
+                    });
+                  });
+                }
+                
+                // Method 2: Legacy webkit orientation (iOS Safari)
+                if ('webkitRequestFullscreen' in document.documentElement) {
+                  const style = document.createElement('style');
+                  style.innerHTML = `
+                    @media screen and (orientation: portrait) {
+                      html, body { 
+                        transform: rotate(90deg);
+                        transform-origin: center center;
+                        width: 100vh;
+                        height: 100vw;
+                        overflow: hidden;
+                      }
+                    }
+                  `;
+                  document.head.appendChild(style);
+                  
+                  // Remove style after 5 seconds
+                  setTimeout(() => {
+                    document.head.removeChild(style);
+                  }, 5000);
+                }
+                
+                // Method 3: Request orientation change via meta viewport
+                const viewport = document.querySelector('meta[name="viewport"]');
+                if (viewport) {
+                  const originalContent = viewport.getAttribute('content');
+                  viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, orientation=landscape');
+                  
+                  // Restore after 3 seconds
+                  setTimeout(() => {
+                    if (originalContent) {
+                      viewport.setAttribute('content', originalContent);
+                    }
+                  }, 3000);
+                }
+                
               } catch (err) {
-                console.log('iOS orientation permission failed:', err);
+                console.log('iOS landscape methods failed:', err);
               }
-            }
-            
-            // Force landscape styles for iOS
-            if (screen.orientation) {
-              try {
-                setTimeout(async () => {
-                  if ('lock' in screen.orientation) {
-                    await (screen.orientation as any).lock('landscape-primary');
-                  }
-                }, 200);
-              } catch (err) {
-                console.log('iOS landscape lock failed:', err);
-              }
-            }
+            }, 300); // Increased delay for iOS
           } else {
             // Android handling
             try {

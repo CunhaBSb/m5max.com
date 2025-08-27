@@ -1,84 +1,37 @@
 import React from 'react';
+import { cn } from '@/shared/lib/utils';
 
 interface SectionSeparatorProps {
-  variant?: 'minimal' | 'subtle' | 'standard' | 'emphasis' | 'gradient' | 'curved' | 'vintage';
+  variant?: 'fire-line' | 'ember-glow' | 'sparkle';
   className?: string;
 }
 
-const SectionSeparator: React.FC<SectionSeparatorProps> = ({ variant = 'minimal', className = '' }) => {
-  const getVariantStyles = () => {
-    switch (variant) {
-      case 'minimal':
-        return 'h-px bg-gradient-to-r from-transparent via-border/20 to-transparent my-0';
-      
-      case 'subtle':
-        return 'h-px bg-gradient-to-r from-transparent via-border/30 to-transparent my-4';
-      
-      case 'standard':
-        return 'h-px bg-gradient-to-r from-transparent via-border/50 to-transparent my-8';
-      
-      case 'emphasis':
-        return 'h-0.5 bg-gradient-to-r from-transparent via-primary/20 to-transparent my-12';
-        
-      case 'gradient':
-        return 'h-1 bg-gradient-to-r from-transparent via-fire-orange/30 to-transparent my-16';
-      
-      case 'curved':
-        return 'relative h-12 my-0 overflow-hidden';
-        
-      case 'vintage':
-        return 'relative h-8 my-8';
-        
-      default:
-        return 'h-px bg-border/20 my-0';
-    }
+const SectionSeparator: React.FC<SectionSeparatorProps> = ({ variant = 'fire-line', className = '' }) => {
+  const baseClasses = 'w-full my-16 lg:my-24';
+
+  const variants = {
+    'fire-line': (
+      <div className={cn(baseClasses, 'h-px bg-gradient-to-r from-transparent via-fire-orange/60 to-transparent', className)} />
+    ),
+    'ember-glow': (
+      <div className={cn(baseClasses, 'h-3 relative', className)}>
+        <div className="absolute inset-0 bg-gradient-to-t from-transparent via-fire-orange/20 to-transparent" />
+      </div>
+    ),
+    'sparkle': (
+      <div className={cn(baseClasses, 'relative h-8 flex items-center justify-center', className)}>
+        <div className="w-48 h-px bg-gradient-to-r from-transparent via-fire-orange/50 to-transparent" />
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center gap-3">
+            <div className="w-1 h-1 bg-fire-orange/50 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }} />
+            <div className="w-1.5 h-1.5 bg-fire-orange/80 rounded-full animate-pulse" />
+            <div className="w-1 h-1 bg-fire-orange/50 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}/>
+        </div>
+        <div className="w-48 h-px bg-gradient-to-l from-transparent via-fire-orange/50 to-transparent" />
+      </div>
+    ),
   };
 
-  // Special curved separator
-  if (variant === 'curved') {
-    return (
-      <div className={`${getVariantStyles()} ${className}`}>
-        <svg 
-          className="absolute inset-0 w-full h-full" 
-          preserveAspectRatio="none" 
-          viewBox="0 0 1200 120"
-        >
-          <path 
-            d="M0,60 Q300,0 600,60 T1200,60 L1200,120 L0,120 Z" 
-            fill="url(#curveGradient)"
-            opacity="0.05"
-          />
-          <defs>
-            <linearGradient id="curveGradient">
-              <stop offset="0%" stopColor="hsl(var(--primary))" />
-              <stop offset="50%" stopColor="hsl(var(--primary))" stopOpacity="0.5" />
-              <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
-    );
-  }
-
-  // Special vintage separator with dots
-  if (variant === 'vintage') {
-    return (
-      <div className={`${getVariantStyles()} ${className} flex items-center justify-center`}>
-        <div className="flex items-center gap-4">
-          <div className="w-24 h-px bg-gradient-to-r from-transparent to-border/30" />
-          <div className="flex gap-2">
-            <div className="w-1 h-1 bg-border/40 rounded-full" />
-            <div className="w-1.5 h-1.5 bg-primary/30 rounded-full" />
-            <div className="w-1 h-1 bg-border/40 rounded-full" />
-          </div>
-          <div className="w-24 h-px bg-gradient-to-l from-transparent to-border/30" />
-        </div>
-      </div>
-    );
-  }
-
-  // Default linear separators
-  return <div className={`${getVariantStyles()} ${className}`} />;
+  return variants[variant] || variants['fire-line'];
 };
 
 export default SectionSeparator;

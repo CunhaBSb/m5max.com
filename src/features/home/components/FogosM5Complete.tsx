@@ -13,7 +13,7 @@ import {
 const FogosM5Complete = () => {
   // URL do vídeo da empresa - substituir quando disponível
   const videoSrc = "https://psvmzrzezgkklfjshhua.supabase.co/storage/v1/object/sign/M5Max/V2.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81ZDUwMmRjNy00OTM1LTQ0OGMtOWExNC1lNjNjMjY1NjQwMzciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNNU1heC9WMi5tcDQiLCJpYXQiOjE3NTYyMzg1MjQsImV4cCI6MjEzNDY3MDUyNH0.P9v2SUKcQUtFf9Fn4SdSg_Bfr3Snh4oJcsaAp5dFt40"; // Adicione a URL do vídeo aqui ou YouTube ID
-  const thumbnailUrl = ""; // Adicione a URL do thumbnail aqui
+  const thumbnailUrl = "/assets/thumbapresentação.webp";
 
   const stats = [
     {
@@ -30,7 +30,7 @@ const FogosM5Complete = () => {
     },
     {
       icon: Users,
-      value: "500+",
+      value: "2000+",
       label: "Eventos Realizados",
       description: "Em todo território nacional"
     },
@@ -43,9 +43,24 @@ const FogosM5Complete = () => {
   ];
 
   return (
-    <section className="relative py-12 lg:py-16 overflow-hidden bg-background">
-      {/* Subtle gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background to-background/95" />
+    <section className="relative py-12 lg:py-16 overflow-hidden bg-gradient-to-b from-background to-black">
+      {/* Simplified Background Layer */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/90 to-black/95" />
+      
+      {/* Optimized Lateral Design System */}
+      <div className="absolute inset-0 opacity-20 pointer-events-none">
+        {/* Left subtle glow */}
+        <div className="absolute left-0 top-1/4 w-64 h-96 bg-gradient-to-r from-fire-orange/12 to-transparent blur-3xl"></div>
+        {/* Right subtle glow */}
+        <div className="absolute right-0 top-1/4 w-64 h-96 bg-gradient-to-l from-fire-orange/12 to-transparent blur-3xl"></div>
+        
+        {/* Center spotlight effect */}
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-full bg-gradient-radial from-white/[0.01] to-transparent"></div>
+        
+        {/* Minimal accent particles */}
+        <div className="absolute top-1/3 left-1/4 w-1 h-1 bg-fire-orange/40 rounded-full animate-pulse"></div>
+        <div className="absolute top-2/3 right-1/4 w-1 h-1 bg-fire-orange/40 rounded-full animate-pulse delay-1000"></div>
+      </div>
       
       <div className="container mx-auto px-4 relative z-10 max-w-5xl">
         {/* Section Header - Compact and Professional */}
@@ -58,150 +73,192 @@ const FogosM5Complete = () => {
           </p>
         </div>
 
-        {/* Video Section - Artistic Focus */}
-        <div className="relative mb-10 max-w-2xl mx-auto">
-          {/* Decorative Background Elements */}
-          <div className="absolute -inset-6 opacity-40">
-            {/* Main gradient glow */}
-            <div className="absolute inset-0 bg-gradient-to-r from-fire-orange/20 via-yellow-400/30 to-fire-orange/20 blur-3xl rounded-3xl"></div>
-            
-            {/* Secondary gradient layers */}
-            <div className="absolute top-4 left-4 right-4 bottom-4 bg-gradient-to-br from-fire-orange/10 via-transparent to-yellow-400/10 blur-2xl rounded-2xl"></div>
-            
-            {/* Accent corners */}
-            <div className="absolute -top-1 -left-1 w-20 h-20 bg-fire-orange/30 blur-xl rounded-full"></div>
-            <div className="absolute -bottom-1 -right-1 w-20 h-20 bg-yellow-400/30 blur-xl rounded-full"></div>
-            
-            {/* Sparkle effects */}
-            <div className="absolute top-1/4 left-1/4 w-4 h-4 bg-fire-orange/60 blur-sm rounded-full animate-pulse"></div>
-            <div className="absolute top-3/4 right-1/4 w-2 h-2 bg-yellow-400/80 blur-sm rounded-full animate-pulse delay-1000"></div>
-            <div className="absolute top-1/2 left-3/4 w-3 h-3 bg-fire-orange/40 blur-sm rounded-full animate-pulse delay-500"></div>
+        {/* Main Content Section - Organized Parallel Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-12 items-center">
+          {/* Left Stats Cards - 2 Cards */}
+          <div className="lg:col-span-1 space-y-4">
+            {stats.slice(0, 2).map((stat, index) => {
+              const Icon = stat.icon;
+              return (
+                <div key={index} className="relative">
+                  {/* Simplified decorative elements */}
+                  <div className="absolute -inset-1 opacity-15">
+                    <div className="absolute inset-0 bg-fire-orange/8 blur-lg rounded-lg"></div>
+                  </div>
+
+                  <Card className="relative z-10 group bg-black/10 backdrop-blur-sm border border-fire-orange/15 shadow-lg shadow-fire-orange/10 hover:shadow-fire-orange/20 transition-all duration-300 hover:bg-black/15">
+                    <CardContent className="relative z-10 p-4">
+                      <div className="flex flex-col items-center text-center space-y-2">
+                        <div className="w-10 h-10 rounded-full bg-fire-orange/15 backdrop-blur-sm flex items-center justify-center group-hover:bg-fire-orange/25 transition-all duration-300">
+                          <Icon className="w-5 h-5 text-fire-orange" />
+                        </div>
+                        
+                        <div className="text-xl font-bold text-white">
+                          {stat.value}
+                        </div>
+                        
+                        <div className="text-sm font-medium text-white/90 leading-tight">
+                          {stat.label}
+                        </div>
+                        
+                        <div className="text-xs text-white/70 leading-tight text-center">
+                          {stat.description}
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              );
+            })}
           </div>
 
-          {/* Video Container with enhanced styling */}
-          <div className="relative z-10">
-            <Card className="overflow-hidden bg-black/10 backdrop-blur-xl border border-fire-orange/20 shadow-2xl shadow-fire-orange/10">
-              {/* Inner glow border */}
-              <div className="absolute inset-0 bg-gradient-to-r from-fire-orange/20 via-transparent to-yellow-400/20 p-[1px] rounded-lg">
-                <div className="w-full h-full bg-black/50 backdrop-blur-sm rounded-lg"></div>
-              </div>
-              
-              <div className="relative z-10">
-                {videoSrc ? (
-                  <VideoPlayer 
-                    src={videoSrc}
-                    title="Conheça Nossa História - M5 Max Produções"
-                    thumbnail={thumbnailUrl}
-                    className="aspect-video"
-                  />
-                ) : (
-                  <div className="aspect-video bg-gradient-to-br from-black/60 via-fire-orange/10 to-black/60 flex items-center justify-center relative overflow-hidden">
-                    {/* Animated background pattern */}
-                    <div className="absolute inset-0 opacity-10">
-                      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_20%,rgba(251,146,60,0.3),transparent_50%)]"></div>
-                      <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_80%,rgba(251,191,36,0.2),transparent_50%)]"></div>
-                    </div>
-                    
-                    <div className="text-center space-y-4 p-8 relative z-10">
-                      <div className="w-16 h-16 mx-auto bg-gradient-to-br from-fire-orange/30 to-yellow-400/30 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg shadow-fire-orange/20">
-                        <Award className="w-8 h-8 text-fire-orange" />
+          {/* Center Video Section */}
+          <div className="lg:col-span-3 relative">
+            {/* Optimized decorative elements */}
+            <div className="absolute -inset-4 opacity-30">
+              <div className="absolute inset-0 bg-fire-orange/15 blur-3xl rounded-2xl"></div>
+              <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-fire-orange/60 rounded-full animate-pulse"></div>
+              <div className="absolute bottom-1/4 right-1/4 w-2 h-2 bg-fire-orange/60 rounded-full animate-pulse delay-1000"></div>
+            </div>
+
+            <div className="relative z-10">
+              <Card className="overflow-hidden bg-black/15 backdrop-blur-sm border border-fire-orange/20 shadow-2xl shadow-fire-orange/15">
+                <div className="relative z-10">
+                  {videoSrc ? (
+                    <VideoPlayer 
+                      src={videoSrc}
+                      title="Conheça Nossa História - M5 Max Produções"
+                      thumbnail={thumbnailUrl}
+                      className="aspect-video"
+                    />
+                  ) : (
+                    <div className="aspect-video bg-gradient-to-br from-black/80 via-fire-orange/10 to-black/80 flex items-center justify-center">
+                      <div className="text-center space-y-4 p-8">
+                        <div className="w-16 h-16 mx-auto bg-fire-orange/20 rounded-full flex items-center justify-center">
+                          <Award className="w-8 h-8 text-fire-orange" />
+                        </div>
+                        <h3 className="text-xl font-bold text-white">Conheça Nossa História</h3>
+                        <p className="text-white/80">
+                          40 anos transformando eventos em espetáculos memoráveis
+                        </p>
                       </div>
-                      <h3 className="text-xl font-bold text-white">Conheça Nossa História</h3>
-                      <p className="text-white/80">
-                        40 anos transformando eventos em espetáculos memoráveis com segurança e tecnologia
-                      </p>
+                    </div>
+                  )}
+                </div>
+              </Card>
+            </div>
+          </div>
+
+          {/* Right Stats Cards - 2 Cards */}
+          <div className="lg:col-span-1 space-y-4">
+            {stats.slice(2, 4).map((stat, index) => {
+              const Icon = stat.icon;
+              return (
+                <div key={index + 2} className="relative">
+                  {/* Simplified decorative elements */}
+                  <div className="absolute -inset-1 opacity-15">
+                    <div className="absolute inset-0 bg-fire-orange/8 blur-lg rounded-lg"></div>
+                  </div>
+
+                  <Card className="relative z-10 group bg-black/10 backdrop-blur-sm border border-fire-orange/15 shadow-lg shadow-fire-orange/10 hover:shadow-fire-orange/20 transition-all duration-300 hover:bg-black/15">
+                    <CardContent className="relative z-10 p-4">
+                      <div className="flex flex-col items-center text-center space-y-2">
+                        <div className="w-10 h-10 rounded-full bg-fire-orange/15 backdrop-blur-sm flex items-center justify-center group-hover:bg-fire-orange/25 transition-all duration-300">
+                          <Icon className="w-5 h-5 text-fire-orange" />
+                        </div>
+                        
+                        <div className="text-xl font-bold text-white">
+                          {stat.value}
+                        </div>
+                        
+                        <div className="text-sm font-medium text-white/90 leading-tight">
+                          {stat.label}
+                        </div>
+                        
+                        <div className="text-xs text-white/70 leading-tight text-center">
+                          {stat.description}
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+      </div>
+      
+      {/* Optimized Full-Width CTA Banner */}
+      <div className="relative w-full mt-8">
+        {/* Simplified background with smooth transition */}
+        <div className="absolute inset-0 -mx-4 lg:-mx-8">
+          <div className="w-full h-full bg-gradient-to-r from-slate-950/95 via-black/90 to-slate-950/95"></div>
+          
+          {/* Minimal decorative elements */}
+          <div className="absolute inset-0 opacity-15 pointer-events-none">
+            <div className="absolute left-0 top-0 w-1/4 h-full bg-gradient-to-r from-fire-orange/10 to-transparent blur-2xl"></div>
+            <div className="absolute right-0 top-0 w-1/4 h-full bg-gradient-to-l from-fire-orange/10 to-transparent blur-2xl"></div>
+            <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-orange/15 to-transparent transform -translate-y-1/2"></div>
+          </div>
+        </div>
+
+        {/* CTA Content Container */}
+        <div className="container mx-auto px-4 relative z-10 max-w-5xl">
+          <div className="relative py-8">
+            <Card className="overflow-hidden bg-black/20 backdrop-blur-sm border border-fire-orange/20 shadow-xl shadow-fire-orange/10">
+              <CardContent className="relative z-10 px-8 py-6">
+                <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
+                  {/* Left Content */}
+                  <div className="text-center lg:text-left space-y-2 lg:flex-1">
+                    <h3 className="text-xl lg:text-2xl font-bold text-white">
+                      Pronto para Criar um Evento Inesquecível?
+                    </h3>
+                    <p className="text-sm lg:text-base text-white/80">
+                      Simulação 3D gratuita do seu show pirotécnico • Orçamento em 24h
+                    </p>
+                  </div>
+                  
+                  {/* Center Actions */}
+                  <div className="flex flex-col sm:flex-row gap-3 lg:flex-shrink-0">
+                    <Button 
+                      size="default"
+                      className="bg-fire-orange hover:bg-fire-orange/90 text-white px-6 py-3 shadow-lg shadow-fire-orange/20 transition-all duration-300 hover:scale-105"
+                    >
+                      <MessageCircle className="w-4 h-4 mr-2" />
+                      Simulação Grátis
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                    
+                    <Button 
+                      size="default"
+                      variant="outline"
+                      className="border-fire-orange/30 bg-white/10 text-white hover:bg-fire-orange/15 hover:border-fire-orange/50 px-6 py-3 transition-all duration-300"
+                    >
+                      Ver Portfólio
+                    </Button>
+                  </div>
+
+                  {/* Right Trust Indicators */}
+                  <div className="flex flex-wrap items-center justify-center lg:justify-end gap-4 text-sm text-white/70 lg:flex-1">
+                    <div className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 bg-green-400 rounded-full" />
+                      <span>24h de resposta</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 bg-green-400 rounded-full" />
+                      <span>100% Grátis</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 bg-green-400 rounded-full" />
+                      <span>Sem compromisso</span>
                     </div>
                   </div>
-                )}
-              </div>
+                </div>
+              </CardContent>
             </Card>
           </div>
         </div>
-
-        {/* Stats Cards - Compact Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-          {stats.map((stat, index) => {
-            const Icon = stat.icon;
-            return (
-              <Card 
-                key={index} 
-                className="group bg-card/20 backdrop-blur-sm border-border/30 hover:border-fire-orange/30 transition-all duration-300 hover:shadow-md hover:bg-card/30"
-              >
-                <CardContent className="p-4">
-                  <div className="flex flex-col items-center text-center space-y-2">
-                    {/* Icon */}
-                    <div className="w-10 h-10 rounded-full bg-fire-orange/10 flex items-center justify-center group-hover:bg-fire-orange/20 transition-colors">
-                      <Icon className="w-5 h-5 text-fire-orange" />
-                    </div>
-                    
-                    {/* Value */}
-                    <div className="text-xl sm:text-2xl font-bold text-foreground">
-                      {stat.value}
-                    </div>
-                    
-                    {/* Label */}
-                    <div className="text-xs sm:text-sm font-medium text-foreground">
-                      {stat.label}
-                    </div>
-                    
-                    {/* Description */}
-                    <div className="text-xs text-muted-foreground hidden sm:block">
-                      {stat.description}
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
-
-        {/* CTA Section - Compact and Focused */}
-        <Card className="bg-gradient-to-r from-fire-orange/5 via-fire-orange/10 to-fire-orange/5 border-fire-orange/20">
-          <CardContent className="p-6 lg:p-8">
-            <div className="max-w-2xl mx-auto text-center space-y-4">
-              <h3 className="text-xl lg:text-2xl font-bold">
-                Pronto para Criar um Evento Inesquecível?
-              </h3>
-              <p className="text-base text-muted-foreground">
-                Simulação 3D gratuita do seu show pirotécnico
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
-                <Button 
-                  size="default"
-                  className="bg-fire-orange hover:bg-fire-orange/90 text-white px-6"
-                >
-                  <MessageCircle className="w-4 h-4 mr-2" />
-                  Simulação Grátis
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-                
-                <Button 
-                  size="default"
-                  variant="outline"
-                  className="border-fire-orange/30 text-fire-orange hover:bg-fire-orange/10 px-6"
-                >
-                  Ver Portfólio
-                </Button>
-              </div>
-
-              <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground pt-2">
-                <div className="flex items-center gap-1">
-                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full" />
-                  <span>Resposta 24h</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full" />
-                  <span>Sem compromisso</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full" />
-                  <span>100% gratuito</span>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </section>
   );
