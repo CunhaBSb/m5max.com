@@ -42,7 +42,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
 }) => {
   // Video states
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false); // Start as false for mobile compatibility
   const [isBuffering, setIsBuffering] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -92,8 +92,10 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
     const handleLoadedData = () => {
       setIsLoading(false);
-      setDuration(video.duration);
-      video.volume = volume;
+      setDuration(video.duration || 0);
+      if (video.volume !== undefined) {
+        video.volume = volume;
+      }
       video.muted = isMuted;
     };
 
@@ -391,13 +393,13 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
           </div>
         )}
 
-        {/* Play Button Overlay */}
-        {!isPlaying && !isLoading && (
+        {/* Play Button Overlay - Always visible when not playing */}
+        {!isPlaying && (
           <div className="absolute inset-0 flex items-center justify-center">
             <Button
               variant="secondary"
               size="lg"
-              className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white border-0 w-16 h-16 rounded-full"
+              className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white border-0 w-16 h-16 rounded-full shadow-lg"
               onClick={togglePlay}
             >
               <Play className="w-8 h-8 ml-1" fill="currentColor" />
