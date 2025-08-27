@@ -6,7 +6,7 @@ import RootLayout from '@/app/layouts/RootLayout';
 import SectionSeparator from '@/shared/components/layout/SectionSeparator';
 import { PyroBanner } from '../components/PyroBanner';
 import { EventTypesGrid } from '../components/EventTypesGrid';
-import { Shield, Music, Award, Clock } from 'lucide-react';
+import { Shield, Eye, Award, Clock } from 'lucide-react';
 import { DifferentialsSection } from '@/shared/components/layout/DifferentialsSection';
 
 const pyroDifferentials = [
@@ -18,16 +18,16 @@ const pyroDifferentials = [
     iconColorClass: 'text-white',
   },
   {
-    icon: Music,
-    title: 'Sincronização Musical',
-    description: 'Software próprio para sincronização perfeita',
+    icon: Eye,
+    title: 'Simulação',
+    description: 'Tenha a prévia do show antes de realizá-lo',
     iconBgClass: 'bg-fire-red',
     iconColorClass: 'text-white',
   },
   {
     icon: Award,
     title: '40+ Anos de Experiência',
-    description: 'Mais de 500 eventos realizados com sucesso',
+    description: 'Mais de 2000 eventos realizados com sucesso',
     iconBgClass: 'bg-fire-gold',
     iconColorClass: 'text-slate-900',
   },

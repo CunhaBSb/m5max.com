@@ -39,16 +39,16 @@ const Header = () => {
 
   const navigation = [
     { 
-      name: "Shows Pirotécnicos", 
-      href: "#servicos"
+      name: "Réveillon", 
+      href: "/reveillon"
     },
     { 
       name: "Empresa", 
-      href: "#diferenciais",
+      href: "#empresa",
       dropdown: [
-        { name: "Diferenciais", href: "#diferenciais", description: "Por que nos escolher" },
-        { name: "Portfólio", href: "#portfolio", description: "Nossos trabalhos" },
-        { name: "FAQ", href: "#faq", description: "Perguntas frequentes" }
+        { name: "Sobre a M5", href: "#empresa", description: "Nossa história e experiência" },
+        { name: "Nossos Serviços", href: "#servicos", description: "O que oferecemos" },
+        { name: "Perguntas Frequentes", href: "#faq", description: "Tire suas dúvidas" }
       ]
     },
     { 
@@ -57,7 +57,7 @@ const Header = () => {
     }
   ];
 
-  const handleNavigation = (href: string, isPage = false) => {
+  const handleNavigation = (href: string) => {
     // Se for uma página específica (inicia com /)
     if (href.startsWith('/')) {
       navigate(href);

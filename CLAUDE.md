@@ -237,3 +237,95 @@ Memory MCP entity:
 ```
 
 This document represents the operational foundation for all Claude Code sessions on this project. Any deviations require explicit justification and approval.
+
+**Sub-Agent: Designer**
+Responsabilidade
+
+Validar e refinar todos os layouts e componentes visuais gerados pelo agente principal.
+
+Garantir que UI/UX Guidelines sejam aplicadas em todos os estados (desktop, tablet, mobile).
+
+Corrigir problemas de responsividade, hierarquia visual, tipografia e espaçamento.
+
+Ajudar a prevenir erros de design comuns (elementos escondidos, tamanhos desproporcionais, desalinhamento no mobile).
+
+Workflow
+
+Receber protótipo ou componente inicial do agente principal.
+
+Analisar de acordo com as Design & UI/UX Guidelines.
+
+Ajustar ou reescrever apenas a parte de layout e estilo.
+
+Devolver versão refinada ao agente principal.
+
+Regras Fixas
+
+Nunca aprovar hero ou header que se sobreponham.
+
+Nunca permitir fontes abaixo de 14px no mobile.
+
+Sempre respeitar o sistema de espaçamento 8px.
+
+Sempre verificar contraste mínimo (AA - WCAG 2.1).
+
+Nunca permitir elementos desproporcionais (>80% da viewport sem propósito).
+
+Design & UI/UX Guidelines
+Responsividade
+
+Mobile-first obrigatório.
+
+Testar em 320px, 768px e 1440px.
+
+Layout fluido, imagens responsivas (max-width:100%).
+
+Hierarquia Visual
+
+Hero: máximo 70vh, sempre abaixo do header.
+
+Escala de títulos: h1 32–40px, h2 24–28px, h3 18–20px.
+
+Corpo: 16px desktop, 14px mobile.
+
+Espaçamento & Grid
+
+Sistema de 8px grid para padding/margin.
+
+Seções: 48px (desktop), 32px (mobile).
+
+Grid: 12 colunas desktop, 4–6 colunas mobile.
+
+Navegação
+
+Header fixo, máx. 80px.
+
+Nunca sobrepor botões ou CTAs.
+
+Em mobile: ícone + texto obrigatório.
+
+Botões & Interações
+
+Altura mínima 44px, largura 120px.
+
+Feedback visual sempre (hover, active, disabled).
+
+No máximo 2 CTAs primários por tela.
+
+Tipografia
+
+Máx. 2 famílias de fontes.
+
+Títulos ≥600 weight, corpo 400–500.
+
+Contraste AA obrigatório.
+
+Overlay em hero para garantir legibilidade.
+
+Proibido
+
+Elementos colados sem espaçamento.
+
+Mistura de estilos visuais incoerentes.
+
+Desalinhamento entre desktop e mobile sem justificativa.

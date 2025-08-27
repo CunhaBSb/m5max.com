@@ -71,7 +71,7 @@ export const useAnalytics = () => {
     }
   };
 
-  const trackVideoEvent = (eventType: 'start' | 'progress_50' | 'complete', params: VideoParams) => {
+  const trackVideoEvent = (eventType: 'start' | 'progress_25' | 'progress_50' | 'progress_75' | 'complete' | 'click_to_play', params: VideoParams) => {
     const eventName = `video_${eventType}`;
     
     pushToDataLayer({
@@ -86,7 +86,9 @@ export const useAnalytics = () => {
     // Meta Pixel video events
     if (typeof window !== 'undefined' && window.fbq) {
       const fbEventName = eventType === 'start' ? 'VideoView' : 
-                         eventType === 'progress_50' ? 'Video50Percent' : 'VideoComplete';
+                         eventType === 'progress_50' ? 'Video50Percent' : 
+                         eventType === 'complete' ? 'VideoComplete' :
+                         eventType === 'click_to_play' ? 'VideoView' : 'VideoProgress';
       window.fbq('track', fbEventName, {
         content_name: params.video_title,
         video_provider: params.video_provider

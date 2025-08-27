@@ -5,7 +5,6 @@ import RootLayout from '@/app/layouts/RootLayout';
 import Hero from '@/features/home/components/Hero';
 import FogosM5Complete from '@/features/home/components/FogosM5Complete';
 import Services from '@/features/home/components/Services';
-import LeadMagnet from '@/features/home/components/LeadMagnet';
 import FAQ from '@/features/home/components/FAQ';
 import SectionSeparator from '@/shared/components/layout/SectionSeparator';
 
@@ -47,7 +46,7 @@ const Home = () => {
           </div>
           <SectionSeparator variant="minimal" />
           <div id="contato">
-            <LeadMagnet />
+           
           </div>
         </main>
       </RootLayout>
