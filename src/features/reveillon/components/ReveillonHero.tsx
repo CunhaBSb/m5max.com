@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Button } from "@/shared/components/ui/button";
 import { VideoPlayer } from "@/shared/components/ui/video-player";
 import { Dialog, DialogContent, DialogTrigger } from "@/shared/components/ui/dialog";
-import { Sparkles, Phone, MessageSquare, Calendar, Play, Shield, Award } from "lucide-react";
+import { MessageSquare, Calendar, Play, Shield, Award } from "lucide-react";
 import { useAppStore } from "@/shared/store/appStore";
 import { useAnalytics } from "@/shared/hooks/useAnalytics";
 import { generateWhatsAppURL, getWhatsAppMessage } from "@/shared/lib/whatsapp";
@@ -118,11 +118,11 @@ const ReveillonHero = () => {
       <div className="relative z-30 container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-center lg:justify-start min-h-[80vh]">
           {/* Mobile Layout */}
-          <div className="lg:hidden space-y-6 text-center">
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 text-white font-semibold justify-center text-xs sm:text-sm drop-shadow-lg bg-gradient-to-r from-yellow-400/30 to-yellow-600/30 px-4 py-2 rounded-full backdrop-blur-sm border border-yellow-400/40">
-                <Sparkles className="w-4 h-4 text-yellow-300 animate-pulse" />
-                RÉVEILLON 2025 - SHOWS ESPETACULARES
+          <div className="lg:hidden space-y-4 text-center">
+            <div className="space-y-2">
+              <div className="inline-flex items-center gap-2 text-white font-semibold text-xs bg-red-500/20 px-3 py-1 rounded-full backdrop-blur-sm border border-red-400/40">
+                <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" />
+                Últimos disponíveis
               </div>
               
               <h1 className="text-xl sm:text-2xl font-bold leading-tight drop-shadow-lg">
@@ -131,46 +131,47 @@ const ReveillonHero = () => {
                 <span className="bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">Inesquecível</span>
               </h1>
               
-              <p className="text-xs sm:text-sm text-white/90 max-w-sm mx-auto leading-relaxed font-medium drop-shadow-lg">
-                Shows pirotécnicos profissionais com 40 anos de experiência. Segurança certificada e qualidade garantida para seu evento corporativo.
+              <p className="text-sm sm:text-base text-white/90 drop-shadow-md">
+                4 décadas de experiência garantindo shows espetaculares e 100% seguros
               </p>
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex flex-col gap-2 sm:gap-3">
+            {/* Action Buttons - Reordered */}
+            <div className="flex flex-col gap-2 pt-2">
               <Button 
-                variant="hero" 
-                size="default"
-                className="flex items-center gap-2 w-full"
-                onClick={handleOrçamentoClick}
+                variant="whatsapp" 
+                size="lg"
+                className="flex items-center justify-center gap-2 w-full text-base font-semibold"
+                onClick={handleWhatsAppClick}
               >
-                <Calendar className="w-4 h-4" />
-                Contratar Show
+                <MessageSquare className="w-5 h-5" />
+                WhatsApp - Resposta Imediata
               </Button>
               
               <Button 
-                variant="whatsapp" 
-                size="default"
-                className="flex items-center gap-2 w-full"
-                onClick={handleWhatsAppClick}
+                variant="hero" 
+                size="lg"
+                className="flex items-center justify-center gap-2 w-full text-base font-semibold"
+                onClick={handleOrçamentoClick}
               >
-                <MessageSquare className="w-4 h-4" />
-                WhatsApp Direto
+                <Calendar className="w-5 h-5" />
+                Solicitar Orçamento Completo
               </Button>
 
               {/* Video Presentation Button */}
               <Dialog open={isVideoModalOpen} onOpenChange={setIsVideoModalOpen}>
                 <DialogTrigger asChild>
                   <Button 
-                    variant="outline"
-                    size="default"
-                    className="flex items-center gap-2 w-full bg-gradient-to-r from-yellow-400/20 to-yellow-600/20 border-yellow-400/50 text-white hover:from-yellow-400/30 hover:to-yellow-600/30 hover:border-yellow-400/70 backdrop-blur-sm shadow-lg hover:shadow-yellow-400/25 transition-all duration-300 group"
+                    variant="ghost"
+                    size="lg"
+                    className="flex items-center justify-center gap-3 w-full bg-gradient-to-r from-slate-800/40 to-slate-900/40 border border-slate-600/30 text-white hover:from-slate-700/50 hover:to-slate-800/50 hover:border-slate-500/40 backdrop-blur-md transition-all duration-300 group relative overflow-hidden"
                     onClick={handleVideoClick}
                   >
-                    <div className="w-4 h-4 rounded-full bg-yellow-400 flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <Play className="w-2.5 h-2.5 text-black fill-current ml-0.5" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700" />
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center shadow-lg group-hover:shadow-yellow-400/30 transition-all">
+                      <Play className="w-4 h-4 text-black fill-current ml-0.5" />
                     </div>
-                    Veja Por Que Somos #1
+                    <span className="text-sm font-semibold">Ver Nossa Expertise</span>
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="max-w-3xl w-[95vw] p-4 sm:p-6">
@@ -224,9 +225,9 @@ const ReveillonHero = () => {
           {/* Desktop Layout */}
           <div className="hidden lg:block space-y-6 text-left max-w-2xl">
             <div className="space-y-4">
-              <div className="flex items-center gap-2 text-white font-semibold justify-start text-sm drop-shadow-lg bg-gradient-to-r from-yellow-400/30 to-yellow-600/30 px-4 py-2 rounded-full backdrop-blur-sm w-fit border border-yellow-400/40">
-                <Sparkles className="w-4 h-4 text-yellow-300 animate-pulse" />
-                RÉVEILLON 2025 - SHOWS ESPETACULARES
+              <div className="inline-flex items-center gap-2 text-white font-semibold text-sm bg-red-500/20 px-3 py-1 rounded-full backdrop-blur-sm border border-red-400/40">
+                <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" />
+                Últimos disponíveis
               </div>
               
               <h1 className="text-3xl xl:text-4xl font-bold leading-tight drop-shadow-lg">
@@ -235,45 +236,46 @@ const ReveillonHero = () => {
                 <span className="bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent">Inesquecível</span>
               </h1>
               
-              <p className="text-base text-white/90 max-w-lg leading-relaxed font-medium drop-shadow-lg">
-                Shows pirotécnicos profissionais com 40 anos de experiência e certificações de segurança. Desperte 2025 com um espetáculo único e totalmente licenciado que seus convidados jamais esquecerão.
+              <p className="text-base xl:text-lg text-white/90 drop-shadow-md max-w-lg">
+                4 décadas de experiência garantindo shows espetaculares e 100% seguros
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-col gap-2 max-w-md">
               <Button 
-                variant="hero" 
-                size="sm"
-                className="flex items-center gap-2"
-                onClick={handleOrçamentoClick}
+                variant="whatsapp" 
+                size="lg"
+                className="flex items-center justify-center gap-2 w-full text-base font-semibold"
+                onClick={handleWhatsAppClick}
               >
-                <Calendar className="w-4 h-4" />
-                Contratar Show
+                <MessageSquare className="w-5 h-5" />
+                WhatsApp - Resposta Imediata
               </Button>
               
               <Button 
-                variant="whatsapp" 
-                size="sm"
-                className="flex items-center gap-2"
-                onClick={handleWhatsAppClick}
+                variant="hero" 
+                size="lg"
+                className="flex items-center justify-center gap-2 w-full text-base font-semibold"
+                onClick={handleOrçamentoClick}
               >
-                <MessageSquare className="w-4 h-4" />
-                WhatsApp Direto
+                <Calendar className="w-5 h-5" />
+                Solicitar Orçamento Completo
               </Button>
 
               {/* Video Presentation Button - Desktop */}
               <Dialog open={isVideoModalOpen} onOpenChange={setIsVideoModalOpen}>
                 <DialogTrigger asChild>
                   <Button 
-                    variant="outline"
-                    size="sm"
-                    className="flex items-center gap-2 bg-gradient-to-r from-yellow-400/20 to-yellow-600/20 border-yellow-400/50 text-white hover:from-yellow-400/30 hover:to-yellow-600/30 hover:border-yellow-400/70 backdrop-blur-sm shadow-lg hover:shadow-yellow-400/25 transition-all duration-300 group"
+                    variant="ghost"
+                    size="lg"
+                    className="flex items-center justify-center gap-3 w-full bg-gradient-to-r from-slate-800/40 to-slate-900/40 border border-slate-600/30 text-white hover:from-slate-700/50 hover:to-slate-800/50 hover:border-slate-500/40 backdrop-blur-md transition-all duration-300 group relative overflow-hidden"
                     onClick={handleVideoClick}
                   >
-                    <div className="w-4 h-4 rounded-full bg-yellow-400 flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <Play className="w-2.5 h-2.5 text-black fill-current ml-0.5" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700" />
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center shadow-lg group-hover:shadow-yellow-400/30 transition-all">
+                      <Play className="w-4 h-4 text-black fill-current ml-0.5" />
                     </div>
-                    Veja Por Que Somos #1
+                    <span className="text-sm font-semibold">Ver Nossa Expertise</span>
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="max-w-3xl w-[95vw] p-4 sm:p-6">
@@ -299,8 +301,8 @@ const ReveillonHero = () => {
               </Dialog>
             </div>
 
-            {/* Professional Badges */}
-            <div className="pt-4 flex items-center justify-start gap-3 flex-wrap">
+            {/* Professional Badges - Left Aligned */}
+            <div className="flex items-center justify-start gap-3 flex-wrap">
               <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-2.5 py-1 rounded-full border border-white/20">
                 <Shield className="w-3 h-3 text-green-400" />
                 <span className="text-xs font-medium text-white">Segurança</span>

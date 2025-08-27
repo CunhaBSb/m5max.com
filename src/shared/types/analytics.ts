@@ -55,6 +55,8 @@ export interface VideoParams {
   video_duration?: number;
   video_current_time?: number;
   video_percent?: number;
+  source?: string;
+  audience?: string;
 }
 
 export interface WhatsAppParams {

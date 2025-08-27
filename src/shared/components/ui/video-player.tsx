@@ -223,7 +223,12 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
     showControlsTemporarily();
   }, [isPlaying, showControlsTemporarily]);
 
-  const handleVolumeChange = useCallback((newVolume: number[]) => {
+  const handleVolumeChange = useCallback((newVolume: number[], e?: Event) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    
     const video = videoRef.current;
     if (!video) return;
 
@@ -261,23 +266,57 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
     showControlsTemporarily();
   }, [duration, showControlsTemporarily]);
 
-  const skip = useCallback((seconds: number) => {
-    const video = videoRef.current;
-    if (!video) return;
 
-    video.currentTime = Math.max(0, Math.min(duration, video.currentTime + seconds));
-    showControlsTemporarily();
-  }, [duration, showControlsTemporarily]);
-
-  const toggleFullscreen = useCallback(() => {
+  const toggleFullscreen = useCallback(async () => {
     const container = containerRef.current;
-    if (!container) return;
+    const video = videoRef.current;
+    if (!container || !video) return;
 
-    if (!document.fullscreenElement) {
-      container.requestFullscreen().catch(console.error);
-    } else {
-      document.exitFullscreen().catch(console.error);
+    try {
+      if (!document.fullscreenElement) {
+        // Mobile-specific fullscreen handling
+        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+          // Try video element fullscreen first for mobile
+          if ('webkitEnterFullscreen' in video) {
+            (video as any).webkitEnterFullscreen();
+          } else if (container.requestFullscreen) {
+            await container.requestFullscreen();
+          } else if ('webkitRequestFullscreen' in container) {
+            await (container as any).webkitRequestFullscreen();
+          }
+          
+          // Force landscape orientation on mobile
+          if (screen.orientation && 'lock' in screen.orientation) {
+            try {
+              await (screen.orientation as any).lock('landscape');
+            } catch (err) {
+              console.log('Orientation lock not supported');
+            }
+          }
+        } else {
+          // Desktop fullscreen
+          await container.requestFullscreen();
+        }
+      } else {
+        if (document.exitFullscreen) {
+          await document.exitFullscreen();
+        } else if ('webkitExitFullscreen' in document) {
+          (document as any).webkitExitFullscreen();
+        }
+        
+        // Unlock orientation when exiting fullscreen
+        if (screen.orientation && 'unlock' in screen.orientation) {
+          try {
+            (screen.orientation as any).unlock();
+          } catch (err) {
+            console.log('Orientation unlock not supported');
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Fullscreen error:', error);
     }
+    
     showControlsTemporarily();
   }, [showControlsTemporarily]);
 
@@ -335,9 +374,9 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
           Your browser does not support the video tag.
         </video>
 
-        {/* Loading Overlay */}
+        {/* Loading Overlay - Hidden on mobile to prevent infinite loading visual */}
         {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+          <div className="absolute inset-0 hidden sm:flex items-center justify-center bg-black/50">
             <div className="text-center space-y-3">
               <Loader2 className="w-12 h-12 animate-spin text-white mx-auto" />
               <p className="text-white text-sm">Carregando vídeo...</p>
@@ -394,46 +433,50 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
               {/* Control Bar */}
               <div className="flex items-center justify-between text-white">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 sm:gap-3">
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={togglePlay}
-                    className="text-white hover:bg-white/20 p-2"
+                    className="text-white hover:bg-white/20 p-1 sm:p-2 h-7 w-7 sm:h-8 sm:w-8"
                   >
-                    {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
+                    {isPlaying ? <Pause className="w-3 h-3 sm:w-4 sm:h-4" /> : <Play className="w-3 h-3 sm:w-4 sm:h-4" />}
                   </Button>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1 sm:gap-2" onClick={(e) => e.stopPropagation()}>
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={toggleMute}
-                      className="text-white hover:bg-white/20 p-2"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleMute();
+                      }}
+                      className="text-white hover:bg-white/20 p-1 sm:p-2 h-7 w-7 sm:h-8 sm:w-8"
                     >
-                      <VolumeIcon className="w-4 h-4" />
+                      <VolumeIcon className="w-3 h-3 sm:w-4 sm:h-4" />
                     </Button>
                     
-                    <div className="w-20">
+                    <div className="w-12 sm:w-16" onClick={(e) => e.stopPropagation()}>
                       <Slider
-                        value={[isMuted ? 0 : volume]}
+                        value={[isMuted ? 0 : volume * 100]}
                         onValueChange={handleVolumeChange}
-                        max={1}
-                        step={0.05}
+                        max={100}
+                        step={5}
                         className="w-full"
                       />
                     </div>
                   </div>
-                </div>
 
-                <div className="flex items-center">
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={toggleFullscreen}
-                    className="text-white hover:bg-white/20 p-2"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleFullscreen();
+                    }}
+                    className="text-white hover:bg-white/20 p-1 sm:p-2 h-7 w-7 sm:h-8 sm:w-8"
                   >
-                    {isFullscreen ? <Minimize className="w-5 h-5" /> : <Maximize className="w-5 h-5" />}
+                    {isFullscreen ? <Minimize className="w-3 h-3 sm:w-4 sm:h-4" /> : <Maximize className="w-3 h-3 sm:w-4 sm:h-4" />}
                   </Button>
                 </div>
               </div>
