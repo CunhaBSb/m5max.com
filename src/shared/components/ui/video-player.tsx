@@ -227,6 +227,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
   // Control functions
   const togglePlay = useCallback(async () => {
     const video = videoRef.current;
+    const container = containerRef.current;
     if (!video) return;
 
     if (isPlaying) {
@@ -235,12 +236,31 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
       try {
         await video.play();
         
-        // Auto-expand to landscape on mobile when play starts
-        if (isMobile && screen.orientation && 'lock' in screen.orientation) {
+        // Auto-fullscreen and landscape on mobile when play starts
+        if (isMobile) {
           try {
-            await (screen.orientation as any).lock('landscape');
+            // First try to enter fullscreen
+            if ('webkitEnterFullscreen' in video) {
+              // iOS Safari specific fullscreen
+              (video as any).webkitEnterFullscreen();
+            } else if (container && container.requestFullscreen) {
+              await container.requestFullscreen();
+            } else if (container && 'webkitRequestFullscreen' in container) {
+              await (container as any).webkitRequestFullscreen();
+            }
+            
+            // Then lock orientation to landscape
+            if (screen.orientation && 'lock' in screen.orientation) {
+              setTimeout(async () => {
+                try {
+                  await (screen.orientation as any).lock('landscape');
+                } catch (err) {
+                  console.log('Landscape lock failed:', err);
+                }
+              }, 100);
+            }
           } catch (err) {
-            console.log('Landscape orientation not supported');
+            console.log('Mobile fullscreen failed:', err);
           }
         }
       } catch (error) {
