@@ -238,29 +238,63 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
         
         // Auto-fullscreen and landscape on mobile when play starts
         if (isMobile) {
-          try {
-            // First try to enter fullscreen
+          // iPhone/iPad specific handling
+          if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            // iOS requires user interaction for fullscreen
             if ('webkitEnterFullscreen' in video) {
-              // iOS Safari specific fullscreen
-              (video as any).webkitEnterFullscreen();
-            } else if (container && container.requestFullscreen) {
-              await container.requestFullscreen();
-            } else if (container && 'webkitRequestFullscreen' in container) {
-              await (container as any).webkitRequestFullscreen();
+              try {
+                setTimeout(() => {
+                  (video as any).webkitEnterFullscreen();
+                }, 50);
+              } catch (err) {
+                console.log('iOS webkitEnterFullscreen failed:', err);
+              }
             }
             
-            // Then lock orientation to landscape
-            if (screen.orientation && 'lock' in screen.orientation) {
-              setTimeout(async () => {
-                try {
-                  await (screen.orientation as any).lock('landscape');
-                } catch (err) {
-                  console.log('Landscape lock failed:', err);
-                }
-              }, 100);
+            // Try to lock orientation for iOS
+            if (window.DeviceOrientationEvent && 'requestPermission' in window.DeviceOrientationEvent) {
+              try {
+                // Request permission first on iOS 13+
+                (window.DeviceOrientationEvent as any).requestPermission();
+              } catch (err) {
+                console.log('iOS orientation permission failed:', err);
+              }
             }
-          } catch (err) {
-            console.log('Mobile fullscreen failed:', err);
+            
+            // Force landscape styles for iOS
+            if (screen.orientation) {
+              try {
+                setTimeout(async () => {
+                  if ('lock' in screen.orientation) {
+                    await (screen.orientation as any).lock('landscape-primary');
+                  }
+                }, 200);
+              } catch (err) {
+                console.log('iOS landscape lock failed:', err);
+              }
+            }
+          } else {
+            // Android handling
+            try {
+              if (container && container.requestFullscreen) {
+                await container.requestFullscreen();
+              } else if (container && 'webkitRequestFullscreen' in container) {
+                await (container as any).webkitRequestFullscreen();
+              }
+              
+              // Lock orientation for Android
+              if (screen.orientation && 'lock' in screen.orientation) {
+                setTimeout(async () => {
+                  try {
+                    await (screen.orientation as any).lock('landscape');
+                  } catch (err) {
+                    console.log('Android landscape lock failed:', err);
+                  }
+                }, 100);
+              }
+            } catch (err) {
+              console.log('Android fullscreen failed:', err);
+            }
           }
         }
       } catch (error) {
