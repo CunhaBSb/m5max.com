@@ -13,10 +13,47 @@
 - Use separators: `==== TASK: <name> ====` (start/end)
 - Monitor context usage: prefer fresh session over context bloat
 
-**CLAUDE.md Supremacy**
-- Rules in this file override ad-hoc prompts
-- Update this file only via Plan Mode
+**Documentation Supremacy**
+- Rules in CLAUDE.md and GEMINI.md override ad-hoc prompts
+- Update these files only via Plan Mode
 - Changes require explicit approval
+
+## Cross-Platform Synchronization (Claude & Gemini)
+
+**Dual-Tool Environment**
+- Both Claude and Gemini tools are used on this project
+- Both must maintain synchronized knowledge base
+- Consistency between tools is critical for project success
+
+**Synchronization Protocol**
+- ✅ **Any update to CLAUDE.md must be replicated in GEMINI.md**
+- ✅ **Any update to GEMINI.md must be replicated in CLAUDE.md** 
+- ✅ **All Memory MCP entities are shared between tools**
+- ✅ **Tech digests must be accessible to both platforms**
+
+**Update Responsibilities**
+```
+When updating architectural decisions:
+1. Update primary document (CLAUDE.md or GEMINI.md)
+2. IMMEDIATELY sync changes to counterpart document
+3. Verify both documents have identical content
+4. Save decision to Memory MCP for cross-session persistence
+```
+
+**Commit Message Format**
+```
+sync: update both CLAUDE.md and GEMINI.md - [brief description]
+
+- Ensures both AI tools have identical context
+- Maintains cross-platform consistency
+```
+
+**Validation Checklist**
+- [ ] Both CLAUDE.md and GEMINI.md have identical Core Principles
+- [ ] Both documents contain same Project Architecture rules
+- [ ] Both documents have same Media Components Guidelines
+- [ ] Both documents have same SPA Deployment Guidelines
+- [ ] Memory MCP entities are accessible to both tools
 
 ## Context Sources (Priority Order)
 
@@ -106,6 +143,13 @@
 - Components in PascalCase
 - Max ~100 LOC per commit
 - Build gates: typecheck + lint + build success
+
+**Media Components Guidelines:**
+- Mobile-first responsive controls (h-7 w-7 sm:h-8 sm:w-8)
+- Event delegation with stopPropagation for nested controls
+- Analytics tracking for engagement milestones (25%, 50%, 75%, complete)
+- Mobile fullscreen requires webkitEnterFullscreen fallback
+- Hide loading animations on mobile (hidden sm:flex pattern)
 
 ## Session Workflow
 
@@ -329,3 +373,9 @@ Elementos colados sem espaçamento.
 Mistura de estilos visuais incoerentes.
 
 Desalinhamento entre desktop e mobile sem justificativa.
+
+**SPA Deployment Guidelines**
+- Always configure server rewrites for client-side routing
+- Vercel: Create vercel.json with rewrites pattern
+- Netlify: Create public/_redirects file
+- Pattern: All routes redirect to /index.html with 200 status

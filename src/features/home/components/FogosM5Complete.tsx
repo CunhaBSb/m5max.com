@@ -43,75 +43,109 @@ const FogosM5Complete = () => {
   ];
 
   return (
-    <section className="relative py-20 lg:py-24 overflow-hidden bg-background">
+    <section className="relative py-12 lg:py-16 overflow-hidden bg-background">
       {/* Subtle gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/98 to-background" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background to-background/95" />
       
-      <div className="container mx-auto px-4 relative z-10 max-w-6xl">
-        {/* Section Header - Clean and Professional */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-4">
+      <div className="container mx-auto px-4 relative z-10 max-w-5xl">
+        {/* Section Header - Compact and Professional */}
+        <div className="text-center mb-8">
+          <h2 className="text-2xl lg:text-3xl font-bold mb-3">
             Conheça a <span className="text-fire-gradient">M5 Max Produções</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Há mais de 40 anos transformando eventos em espetáculos memoráveis
+          <p className="text-base text-muted-foreground max-w-xl mx-auto">
+            40 anos transformando eventos em espetáculos memoráveis
           </p>
         </div>
 
-        {/* Video Section - Main Focus */}
-        <div className="mb-16">
-          <Card className="overflow-hidden bg-card/50 backdrop-blur-sm border-border/50 shadow-xl">
-            {videoSrc ? (
-              <VideoPlayer 
-                src={videoSrc}
-                title="Conheça Nossa História - M5 Max Produções"
-                thumbnail={thumbnailUrl}
-                className="aspect-video"
-              />
-            ) : (
-              <div className="aspect-video bg-gradient-to-br from-card/80 to-card/40 flex items-center justify-center">
-                <div className="text-center space-y-4 p-8">
-                  <div className="w-16 h-16 mx-auto bg-primary/20 rounded-full flex items-center justify-center">
-                    <Award className="w-8 h-8 text-primary" />
-                  </div>
-                  <h3 className="text-xl font-bold">Conheça Nossa História</h3>
-                  <p className="text-muted-foreground">
-                    40 anos transformando eventos em espetáculos memoráveis com segurança e tecnologia
-                  </p>
-                </div>
+        {/* Video Section - Artistic Focus */}
+        <div className="relative mb-10 max-w-2xl mx-auto">
+          {/* Decorative Background Elements */}
+          <div className="absolute -inset-6 opacity-40">
+            {/* Main gradient glow */}
+            <div className="absolute inset-0 bg-gradient-to-r from-fire-orange/20 via-yellow-400/30 to-fire-orange/20 blur-3xl rounded-3xl"></div>
+            
+            {/* Secondary gradient layers */}
+            <div className="absolute top-4 left-4 right-4 bottom-4 bg-gradient-to-br from-fire-orange/10 via-transparent to-yellow-400/10 blur-2xl rounded-2xl"></div>
+            
+            {/* Accent corners */}
+            <div className="absolute -top-1 -left-1 w-20 h-20 bg-fire-orange/30 blur-xl rounded-full"></div>
+            <div className="absolute -bottom-1 -right-1 w-20 h-20 bg-yellow-400/30 blur-xl rounded-full"></div>
+            
+            {/* Sparkle effects */}
+            <div className="absolute top-1/4 left-1/4 w-4 h-4 bg-fire-orange/60 blur-sm rounded-full animate-pulse"></div>
+            <div className="absolute top-3/4 right-1/4 w-2 h-2 bg-yellow-400/80 blur-sm rounded-full animate-pulse delay-1000"></div>
+            <div className="absolute top-1/2 left-3/4 w-3 h-3 bg-fire-orange/40 blur-sm rounded-full animate-pulse delay-500"></div>
+          </div>
+
+          {/* Video Container with enhanced styling */}
+          <div className="relative z-10">
+            <Card className="overflow-hidden bg-black/10 backdrop-blur-xl border border-fire-orange/20 shadow-2xl shadow-fire-orange/10">
+              {/* Inner glow border */}
+              <div className="absolute inset-0 bg-gradient-to-r from-fire-orange/20 via-transparent to-yellow-400/20 p-[1px] rounded-lg">
+                <div className="w-full h-full bg-black/50 backdrop-blur-sm rounded-lg"></div>
               </div>
-            )}
-          </Card>
+              
+              <div className="relative z-10">
+                {videoSrc ? (
+                  <VideoPlayer 
+                    src={videoSrc}
+                    title="Conheça Nossa História - M5 Max Produções"
+                    thumbnail={thumbnailUrl}
+                    className="aspect-video"
+                  />
+                ) : (
+                  <div className="aspect-video bg-gradient-to-br from-black/60 via-fire-orange/10 to-black/60 flex items-center justify-center relative overflow-hidden">
+                    {/* Animated background pattern */}
+                    <div className="absolute inset-0 opacity-10">
+                      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_30%_20%,rgba(251,146,60,0.3),transparent_50%)]"></div>
+                      <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_70%_80%,rgba(251,191,36,0.2),transparent_50%)]"></div>
+                    </div>
+                    
+                    <div className="text-center space-y-4 p-8 relative z-10">
+                      <div className="w-16 h-16 mx-auto bg-gradient-to-br from-fire-orange/30 to-yellow-400/30 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg shadow-fire-orange/20">
+                        <Award className="w-8 h-8 text-fire-orange" />
+                      </div>
+                      <h3 className="text-xl font-bold text-white">Conheça Nossa História</h3>
+                      <p className="text-white/80">
+                        40 anos transformando eventos em espetáculos memoráveis com segurança e tecnologia
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </Card>
+          </div>
         </div>
 
-        {/* Stats Cards - Clean Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        {/* Stats Cards - Compact Grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
           {stats.map((stat, index) => {
             const Icon = stat.icon;
             return (
               <Card 
                 key={index} 
-                className="group bg-card border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg"
+                className="group bg-card/20 backdrop-blur-sm border-border/30 hover:border-fire-orange/30 transition-all duration-300 hover:shadow-md hover:bg-card/30"
               >
-                <CardContent className="p-6">
-                  <div className="flex flex-col items-center text-center space-y-3">
+                <CardContent className="p-4">
+                  <div className="flex flex-col items-center text-center space-y-2">
                     {/* Icon */}
-                    <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                      <Icon className="w-7 h-7 text-primary" />
+                    <div className="w-10 h-10 rounded-full bg-fire-orange/10 flex items-center justify-center group-hover:bg-fire-orange/20 transition-colors">
+                      <Icon className="w-5 h-5 text-fire-orange" />
                     </div>
                     
                     {/* Value */}
-                    <div className="text-3xl font-bold text-foreground">
+                    <div className="text-xl sm:text-2xl font-bold text-foreground">
                       {stat.value}
                     </div>
                     
                     {/* Label */}
-                    <div className="text-sm font-medium text-foreground">
+                    <div className="text-xs sm:text-sm font-medium text-foreground">
                       {stat.label}
                     </div>
                     
                     {/* Description */}
-                    <div className="text-xs text-muted-foreground">
+                    <div className="text-xs text-muted-foreground hidden sm:block">
                       {stat.description}
                     </div>
                   </div>
@@ -121,47 +155,47 @@ const FogosM5Complete = () => {
           })}
         </div>
 
-        {/* CTA Section - Clean and Focused */}
-        <Card className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 border-primary/20">
-          <CardContent className="p-8 lg:p-12">
-            <div className="max-w-3xl mx-auto text-center space-y-6">
-              <h3 className="text-2xl lg:text-3xl font-bold">
+        {/* CTA Section - Compact and Focused */}
+        <Card className="bg-gradient-to-r from-fire-orange/5 via-fire-orange/10 to-fire-orange/5 border-fire-orange/20">
+          <CardContent className="p-6 lg:p-8">
+            <div className="max-w-2xl mx-auto text-center space-y-4">
+              <h3 className="text-xl lg:text-2xl font-bold">
                 Pronto para Criar um Evento Inesquecível?
               </h3>
-              <p className="text-lg text-muted-foreground">
-                Solicite uma simulação 3D gratuita e veja como será seu show pirotécnico antes mesmo de acontecer
+              <p className="text-base text-muted-foreground">
+                Simulação 3D gratuita do seu show pirotécnico
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+              <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
                 <Button 
-                  size="lg"
-                  className="bg-primary hover:bg-primary/90 text-lg px-8"
+                  size="default"
+                  className="bg-fire-orange hover:bg-fire-orange/90 text-white px-6"
                 >
-                  <MessageCircle className="w-5 h-5 mr-2" />
-                  Solicitar Simulação Grátis
-                  <ArrowRight className="w-5 h-5 ml-2" />
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  Simulação Grátis
+                  <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
                 
                 <Button 
-                  size="lg"
+                  size="default"
                   variant="outline"
-                  className="text-lg px-8"
+                  className="border-fire-orange/30 text-fire-orange hover:bg-fire-orange/10 px-6"
                 >
-                  Ver Portfólio Completo
+                  Ver Portfólio
                 </Button>
               </div>
 
-              <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground pt-4">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full" />
-                  <span>Resposta em 24h</span>
+              <div className="flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground pt-2">
+                <div className="flex items-center gap-1">
+                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full" />
+                  <span>Resposta 24h</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full" />
+                <div className="flex items-center gap-1">
+                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full" />
                   <span>Sem compromisso</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full" />
+                <div className="flex items-center gap-1">
+                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full" />
                   <span>100% gratuito</span>
                 </div>
               </div>

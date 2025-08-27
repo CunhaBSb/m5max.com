@@ -223,28 +223,28 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
     showControlsTemporarily();
   }, [isPlaying, showControlsTemporarily]);
 
-  const handleVolumeChange = useCallback((newVolume: number[], e?: Event) => {
-    if (e) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-    
+  const handleVolumeChange = useCallback((newVolume: number[]) => {
     const video = videoRef.current;
     if (!video) return;
 
-    const volumeValue = newVolume[0];
-    video.volume = volumeValue;
-    setVolume(volumeValue);
+    const volumeValue = newVolume[0] / 100; // Convert percentage to decimal
     
-    if (volumeValue === 0) {
-      video.muted = true;
-      setIsMuted(true);
-    } else if (isMuted) {
-      video.muted = false;
-      setIsMuted(false);
+    try {
+      video.volume = volumeValue;
+      setVolume(volumeValue);
+      
+      if (volumeValue === 0) {
+        video.muted = true;
+        setIsMuted(true);
+      } else if (isMuted) {
+        video.muted = false;
+        setIsMuted(false);
+      }
+      
+      showControlsTemporarily();
+    } catch (error) {
+      console.warn('Volume adjustment failed:', error);
     }
-    
-    showControlsTemporarily();
   }, [isMuted, showControlsTemporarily]);
 
   const toggleMute = useCallback(() => {
@@ -405,8 +405,8 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
           </div>
         )}
 
-        {/* Controls Overlay */}
-        {controls && (
+        {/* Controls Overlay - Only show after video has started */}
+        {controls && hasStarted && (
           <div className={cn(
             "absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent transition-opacity duration-300",
             showControls ? "opacity-100" : "opacity-0"
@@ -456,29 +456,31 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
                       <VolumeIcon className="w-3 h-3 sm:w-4 sm:h-4" />
                     </Button>
                     
-                    <div className="w-12 sm:w-16" onClick={(e) => e.stopPropagation()}>
+                    <div className="w-12 sm:w-16" onPointerDown={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
                       <Slider
-                        value={[isMuted ? 0 : volume * 100]}
+                        value={[isMuted ? 0 : Math.round(volume * 100)]}
                         onValueChange={handleVolumeChange}
+                        onValueCommit={handleVolumeChange}
                         max={100}
                         step={5}
                         className="w-full"
                       />
                     </div>
                   </div>
-
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleFullscreen();
-                    }}
-                    className="text-white hover:bg-white/20 p-1 sm:p-2 h-7 w-7 sm:h-8 sm:w-8"
-                  >
-                    {isFullscreen ? <Minimize className="w-3 h-3 sm:w-4 sm:h-4" /> : <Maximize className="w-3 h-3 sm:w-4 sm:h-4" />}
-                  </Button>
                 </div>
+
+                {/* Fullscreen Button - Right Side */}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleFullscreen();
+                  }}
+                  className="text-white hover:bg-white/20 p-1 sm:p-2 h-7 w-7 sm:h-8 sm:w-8"
+                >
+                  {isFullscreen ? <Minimize className="w-3 h-3 sm:w-4 sm:h-4" /> : <Maximize className="w-3 h-3 sm:w-4 sm:h-4" />}
+                </Button>
               </div>
             </div>
           </div>
