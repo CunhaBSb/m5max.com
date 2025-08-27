@@ -48,6 +48,9 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(muted ? 0 : 0.8);
   const [isMuted, setIsMuted] = useState(muted);
+  
+  // Detect mobile device
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showControls, setShowControls] = useState(true);
   
@@ -93,10 +96,19 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
     const handleLoadedData = () => {
       setIsLoading(false);
       setDuration(video.duration || 0);
-      if (video.volume !== undefined) {
-        video.volume = volume;
+      
+      // Set maximum volume on mobile, use controlled volume on desktop
+      if (isMobile) {
+        video.volume = 1.0; // Maximum volume for mobile
+        video.muted = false;
+        setVolume(1.0);
+        setIsMuted(false);
+      } else {
+        if (video.volume !== undefined) {
+          video.volume = volume;
+        }
+        video.muted = isMuted;
       }
-      video.muted = isMuted;
     };
 
     const handleTimeUpdate = () => {
@@ -213,17 +225,30 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
   }, [title, duration, hasStarted, hasTracked25, hasTracked50, hasTracked75, hasTrackedComplete, trackVideoEvent, trackingEvents, volume, isMuted]);
 
   // Control functions
-  const togglePlay = useCallback(() => {
+  const togglePlay = useCallback(async () => {
     const video = videoRef.current;
     if (!video) return;
 
     if (isPlaying) {
       video.pause();
     } else {
-      video.play().catch(console.error);
+      try {
+        await video.play();
+        
+        // Auto-expand to landscape on mobile when play starts
+        if (isMobile && screen.orientation && 'lock' in screen.orientation) {
+          try {
+            await (screen.orientation as any).lock('landscape');
+          } catch (err) {
+            console.log('Landscape orientation not supported');
+          }
+        }
+      } catch (error) {
+        console.error('Play failed:', error);
+      }
     }
     showControlsTemporarily();
-  }, [isPlaying, showControlsTemporarily]);
+  }, [isPlaying, showControlsTemporarily, isMobile]);
 
   const handleVolumeChange = useCallback((newVolume: number[]) => {
     const video = videoRef.current;
@@ -435,17 +460,18 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
               {/* Control Bar */}
               <div className="flex items-center justify-between text-white">
-                <div className="flex items-center gap-2 sm:gap-3">
+                {/* Desktop Controls */}
+                <div className="hidden sm:flex items-center gap-3">
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={togglePlay}
-                    className="text-white hover:bg-white/20 p-1 sm:p-2 h-7 w-7 sm:h-8 sm:w-8"
+                    className="text-white hover:bg-white/20 p-2 h-8 w-8"
                   >
-                    {isPlaying ? <Pause className="w-3 h-3 sm:w-4 sm:h-4" /> : <Play className="w-3 h-3 sm:w-4 sm:h-4" />}
+                    {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
                   </Button>
 
-                  <div className="flex items-center gap-1 sm:gap-2" onClick={(e) => e.stopPropagation()}>
+                  <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
                     <Button
                       variant="ghost"
                       size="sm"
@@ -453,12 +479,12 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
                         e.stopPropagation();
                         toggleMute();
                       }}
-                      className="text-white hover:bg-white/20 p-1 sm:p-2 h-7 w-7 sm:h-8 sm:w-8"
+                      className="text-white hover:bg-white/20 p-2 h-8 w-8"
                     >
-                      <VolumeIcon className="w-3 h-3 sm:w-4 sm:h-4" />
+                      <VolumeIcon className="w-4 h-4" />
                     </Button>
                     
-                    <div className="w-12 sm:w-16" onPointerDown={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
+                    <div className="w-16" onPointerDown={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
                       <Slider
                         value={[isMuted ? 0 : Math.round(volume * 100)]}
                         onValueChange={handleVolumeChange}
@@ -470,6 +496,9 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
                     </div>
                   </div>
                 </div>
+                
+                {/* Mobile - Empty left side (no controls) */}
+                <div className="sm:hidden"></div>
 
                 {/* Fullscreen Button - Right Side */}
                 <Button
