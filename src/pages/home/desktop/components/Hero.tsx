@@ -114,7 +114,22 @@ const Hero = () => {
         {/* Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/60 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background via-background/80 to-transparent z-20 pointer-events-none" />
+      </div>
+
+      {/* Professional Bottom Vignette - Transition to next section */}
+      <div className="absolute bottom-0 left-0 w-full h-24 z-25 pointer-events-none">
+        {/* Main gradient matching next section colors */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent"></div>
         
+        {/* Subtle accent line */}
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-orange/30 to-transparent"></div>
+        
+        {/* Professional fade pattern */}
+        <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-slate-950/95 to-transparent"></div>
+        
+        {/* Side accent gradients */}
+        <div className="absolute bottom-0 left-0 w-1/4 h-full bg-gradient-to-tr from-slate-950/60 via-slate-950/20 to-transparent"></div>
+        <div className="absolute bottom-0 right-0 w-1/4 h-full bg-gradient-to-tl from-slate-950/60 via-slate-950/20 to-transparent"></div>
       </div>
 
       <div className="relative z-30 container mx-auto px-4 sm:px-6 lg:px-8">

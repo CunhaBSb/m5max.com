@@ -4,7 +4,7 @@ import { Button } from "@/shared/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/shared/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/shared/components/ui/dropdown-menu";
 import { Menu, Phone, MessageSquare, ChevronDown } from "lucide-react";
-import ContactModal from "@/shared/components/common/ContactModal";
+import ContactModal from "@/shared/components/modal/ContactModal";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);

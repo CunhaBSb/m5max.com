@@ -4,8 +4,8 @@ import { useAppStore } from '@/shared/store/appStore';
 import { useAnalytics } from '@/shared/hooks/useAnalytics';
 import RootLayout from '@/app/layouts/RootLayout';
 import SectionSeparator from '@/shared/components/layout/SectionSeparator';
-import { PyroBanner } from '../components/PyroBanner';
-import { EventTypesGrid } from '../components/EventTypesGrid';
+import { PyroBanner } from './components/PyroBanner';
+import { EventTypesGrid } from './components/EventTypesGrid';
 import { Shield, Eye, Award, Clock } from 'lucide-react';
 import { DifferentialsSection } from '@/shared/components/layout/DifferentialsSection';
 
@@ -39,8 +39,8 @@ const pyroDifferentials = [
     iconColorClass: 'text-white',
   },
 ];
-import { StatsSection } from '../components/StatsSection';
-import { PyroCallToAction } from '../components/PyroCallToAction';
+import { StatsSection } from './components/StatsSection';
+import { PyroCallToAction } from './components/PyroCallToAction';
 
 const ShowsPage = () => {
   const { trackPageView } = useAnalytics();
@@ -66,11 +66,11 @@ const ShowsPage = () => {
         <div className="section-spacing">
           <PyroBanner />
         </div>
-        <SectionSeparator variant="emphasis" />
+
         <div className="section-spacing">
           <EventTypesGrid />
         </div>
-        <SectionSeparator variant="standard" />
+
         <div className="section-spacing">
                   <DifferentialsSection 
           titleComponent={<><span className="text-foreground">Por Que Escolher a</span><br /><span className="text-fire-gradient">M5 Max para seu Evento?</span></>}
@@ -78,11 +78,11 @@ const ShowsPage = () => {
           differentials={pyroDifferentials}
         />
         </div>
-        <SectionSeparator variant="subtle" />
+
         <div className="section-spacing">
           <StatsSection />
         </div>
-        <SectionSeparator variant="minimal" />
+
         <div className="component-spacing">
           <PyroCallToAction />
         </div>

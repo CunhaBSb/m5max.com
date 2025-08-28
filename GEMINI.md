@@ -132,11 +132,78 @@ sync: update both CLAUDE.md and GEMINI.md - [brief description]
 
 ## Project Architecture (M5 Max)
 
-**Structure:**
-- Feature-first organization: `src/features/<domain>/`
-- Shared utilities: `src/shared/`
-- Platform variants only when truly necessary
-- Single routing: `src/app/router/AppRoutes.tsx`
+### **Desktop/Mobile Bifurcated Architecture**
+
+**Core Structure:**
+```
+src/pages/
+├── <page-name>/
+│   ├── PageName.tsx          // Main container with PlatformSwitch
+│   ├── desktop/
+│   │   ├── PageName.tsx      // Desktop-specific implementation
+│   │   └── components/       // Desktop-specific components
+│   ├── mobile/
+│   │   ├── PageName.tsx      // Mobile-specific implementation
+│   │   └── components/       // Mobile-specific components (if needed)
+│   └── index.ts              // Exports both desktop and mobile versions
+```
+
+**Architecture Principles:**
+- **Desktop First**: Complete desktop implementation before mobile
+- **Platform Detection**: Automatic switching via `useIsDesktop()` hook (1024px breakpoint)
+- **Lazy Loading**: Page containers use `lazy()` imports for performance
+- **Shared Components**: Only truly universal components in `src/shared/`
+
+**Development Rules:**
+
+**✅ REQUIRED:**
+- Every page MUST have both desktop/ and mobile/ versions
+- Main page containers MUST use `PlatformSwitch` component
+- Desktop implementation MUST be completed first
+- Mobile versions can be scaffolds during desktop development
+- Use `Suspense` with loading fallbacks for all page containers
+
+**❌ PROHIBITED:**
+- Direct imports of desktop/ or mobile/ in AppRoutes
+- Platform-specific logic mixed in shared components
+- Responsive classes as primary solution (use separate implementations)
+- Single components trying to handle both desktop and mobile
+
+**File Organization:**
+- `src/pages/<page>/PageName.tsx`: Main container with PlatformSwitch
+- `src/pages/<page>/desktop/`: Complete desktop implementation
+- `src/pages/<page>/mobile/`: Mobile-optimized implementation
+- `src/shared/components/`: Only truly universal components
+- `src/shared/hooks/useIsDesktop.ts`: Platform detection hook
+
+**Export Standards:**
+```typescript
+// pages/<page>/index.ts
+// Main page container (required)
+export { default as PageName } from './PageName';
+
+// Desktop specific (for direct imports if needed)
+export { default as PageNameDesktop } from './desktop/PageName';
+
+// Mobile specific (for direct imports if needed)
+export { default as PageNameMobile } from './mobile/PageName';
+```
+
+**Security & Safety Rules:**
+- **Platform Isolation**: Prevent cross-contamination between desktop/mobile logic
+- **Breakpoint Consistency**: Always use 1024px breakpoint via `useIsDesktop()`
+- **SSR Safety**: All platform detection must handle `null` state during hydration
+- **Performance**: Lazy load platform-specific code to avoid bundle bloat
+
+**Testing Requirements:**
+- Test both desktop and mobile versions independently
+- Verify PlatformSwitch behavior at breakpoint boundaries
+- Ensure no platform-specific imports leak into shared components
+- Validate SSR hydration without layout shift
+
+**Legacy Structure (Deprecated):**
+- Feature-first organization: `src/features/<domain>/` - **DO NOT USE**
+- Platform variants only when truly necessary - **SUPERSEDED by bifurcated architecture**
 
 **Code Standards:**
 - TypeScript strict mode

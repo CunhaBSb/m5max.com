@@ -2,9 +2,13 @@ import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAnalytics } from '@/shared/hooks/useAnalytics';
 import RootLayout from '@/app/layouts/RootLayout';
-import ReveillonHero from '../components/ReveillonHero';
-import TimelineSection from '../components/TimelineSection';
-import ReveillonCallToAction from '../components/ReveillonCallToAction';
+import ReveillonHero from './desktop/components/ReveillonHero';
+import FogosM5Complete from '@/shared/components/layout/FogosM5Complete';
+import TimelineSection from './desktop/components/TimelineSection';
+import ReveillonCallToAction from './desktop/components/ReveillonCallToAction';
+
+
+
 
 const Reveillon = () => {
   const { trackPageView } = useAnalytics();
@@ -29,7 +33,9 @@ const Reveillon = () => {
         <main className="min-h-screen">
           <ReveillonHero />
 
-
+          <div id="empresa">
+            <FogosM5Complete />
+          </div>
           <TimelineSection />
 
           <ReveillonCallToAction />

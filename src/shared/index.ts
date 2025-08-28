@@ -1,7 +1,7 @@
 // Components
 export * from './components/ui';
 export * from './components/layout';
-export * from './components/common';
+export * from './components/modal';
 export { default as PlatformSwitch } from './components/PlatformSwitch';
 
 // Hooks

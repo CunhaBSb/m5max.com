@@ -43,9 +43,15 @@ const FogosM5Complete = () => {
   ];
 
   return (
-    <section className="relative py-12 lg:py-16 overflow-hidden bg-gradient-to-b from-background to-black">
+    <section className="relative py-12 lg:py-16 overflow-hidden bg-gradient-to-b from-slate-950 to-black">
+      {/* Smooth top transition from previous section */}
+      <div className="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-transparent via-slate-950/50 to-slate-950/90 pointer-events-none"></div>
+      
       {/* Simplified Background Layer */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/90 to-black/95" />
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/90 to-black/95" />
+      
+      {/* Smooth bottom transition to next section */}
+      <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-transparent via-black/50 to-black/90 pointer-events-none"></div>
       
       {/* Optimized Lateral Design System */}
       <div className="absolute inset-0 opacity-20 pointer-events-none">

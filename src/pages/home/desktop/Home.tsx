@@ -2,10 +2,10 @@ import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAnalytics } from '@/shared/hooks/useAnalytics';
 import RootLayout from '@/app/layouts/RootLayout';
-import Hero from '@/features/home/components/Hero';
-import FogosM5Complete from '@/features/home/components/FogosM5Complete';
-import Services from '@/features/home/components/Services';
-import FAQ from '@/features/home/components/FAQ';
+import Hero from '@/pages/home/desktop/components/Hero';
+import FogosM5Complete from '@/shared/components/layout/FogosM5Complete';
+import Services from '@/pages/home/desktop/components/Services';
+import FAQ from '@/pages/home/desktop/components/FAQ';
 
 const Home = () => {
   const { trackPageView } = useAnalytics();
