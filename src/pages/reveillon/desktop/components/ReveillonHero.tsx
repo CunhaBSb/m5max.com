@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { Button } from "@/shared/components/ui/button";
 import { VideoPlayer } from "@/shared/components/ui/video-player";
 import { Dialog, DialogContent, DialogTrigger } from "@/shared/components/ui/dialog";
@@ -6,25 +6,15 @@ import { MessageSquare, Calendar, Play, Shield, Award } from "lucide-react";
 import { useAppStore } from "@/shared/store/appStore";
 import { useAnalytics } from "@/shared/hooks/useAnalytics";
 import { generateWhatsAppURL, getWhatsAppMessage } from "@/shared/lib/whatsapp";
-import { useIsDesktop } from "@/shared/hooks/useIsDesktop";
 
 const ReveillonHero = () => {
-  const isDesktop = useIsDesktop();
-  const isMobile = isDesktop === false;
-  const [videoLoaded, setVideoLoaded] = useState(false);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   
-  const videoRef = useRef<HTMLVideoElement>(null);
   const { openConversionModal, attribution } = useAppStore();
   const { trackWhatsAppClick, trackVideoEvent } = useAnalytics();
 
   // Company presentation video - same as homepage
   const presentationVideoSrc = "https://psvmzrzezgkklfjshhua.supabase.co/storage/v1/object/sign/M5Max/V2.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81ZDUwMmRjNy00OTM1LTQ0OGMtOWExNC1lNjNjMjY1NjQwMzciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNNU1heC9WMi5tcDQiLCJpYXQiOjE3NTYyMzg1MjQsImV4cCI6MjEzNDY3MDUyNH0.P9v2SUKcQUtFf9Fn4SdSg_Bfr3Snh4oJcsaAp5dFt40";
-
-  // Reset video state when device changes
-  useEffect(() => {
-    setVideoLoaded(false);
-  }, [isMobile]);
 
   const handleOrçamentoClick = useCallback(() => {
     openConversionModal({

@@ -6,12 +6,9 @@ import { MessageSquare, Calendar, Play, Shield, Award } from "lucide-react";
 import { useAppStore } from "@/shared/store/appStore";
 import { useAnalytics } from "@/shared/hooks/useAnalytics";
 import { generateWhatsAppURL, getWhatsAppMessage } from "@/shared/lib/whatsapp";
-import { useIsDesktop } from "@/shared/hooks/useIsDesktop";
 import { heroContent } from "../data/homeContent";
 
 const Hero = () => {
-  const isDesktop = useIsDesktop();
-  const isMobile = isDesktop === false;
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   
@@ -21,11 +18,6 @@ const Hero = () => {
 
   // Company presentation video - same as Réveillon
   const presentationVideoSrc = "https://psvmzrzezgkklfjshhua.supabase.co/storage/v1/object/sign/M5Max/V2.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81ZDUwMmRjNy00OTM1LTQ0OGMtOWExNC1lNjNjMjY1NjQwMzciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNNU1heC9WMi5tcDQiLCJpYXQiOjE3NTYyMzg1MjQsImV4cCI6MjEzNDY3MDUyNH0.P9v2SUKcQUtFf9Fn4SdSg_Bfr3Snh4oJcsaAp5dFt40";
-
-  // Reset video state when device changes
-  useEffect(() => {
-    setVideoLoaded(false);
-  }, [isMobile]);
 
   const handleOrçamentoClick = useCallback(() => {
     openConversionModal({
@@ -71,12 +63,10 @@ const Hero = () => {
     setVideoLoaded(false);
   }, []);
 
-  const videoSrc = isMobile 
-    ? heroContent.video.mobile
-    : heroContent.video.desktop;
+  const videoSrc = heroContent.video.desktop;
 
   return (
-    <section className="relative min-h-screen flex items-center gradient-hero overflow-hidden pt-14 md:pt-16">
+    <section className="relative min-h-screen flex items-center gradient-hero overflow-hidden pt-16">
       {/* Vignette Effect */}
       
       
@@ -118,119 +108,37 @@ const Hero = () => {
 
       {/* Professional Bottom Vignette - Transition to next section */}
       <div className="absolute bottom-0 left-0 w-full h-24 z-25 pointer-events-none">
-        {/* Main gradient matching next section colors */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent"></div>
+        {/* Main gradient using original background colors */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent"></div>
         
         {/* Subtle accent line */}
         <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-orange/30 to-transparent"></div>
         
         {/* Professional fade pattern */}
-        <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-slate-950/95 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-background/95 to-transparent"></div>
         
         {/* Side accent gradients */}
-        <div className="absolute bottom-0 left-0 w-1/4 h-full bg-gradient-to-tr from-slate-950/60 via-slate-950/20 to-transparent"></div>
-        <div className="absolute bottom-0 right-0 w-1/4 h-full bg-gradient-to-tl from-slate-950/60 via-slate-950/20 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 w-1/4 h-full bg-gradient-to-tr from-background/60 via-background/20 to-transparent"></div>
+        <div className="absolute bottom-0 right-0 w-1/4 h-full bg-gradient-to-tl from-background/60 via-background/20 to-transparent"></div>
       </div>
 
-      <div className="relative z-30 container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-center lg:justify-start min-h-[80vh]">
-          {/* Mobile Layout */}
-          <div className="lg:hidden space-y-4 text-center">
-            <div className="space-y-2">
-              <div className="inline-flex items-center gap-2 text-white font-semibold text-xs bg-red-500/20 px-3 py-1 rounded-full backdrop-blur-sm border border-red-400/40">
-                <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" />
-                Shows Pirotécnicos
-              </div>
-              
-              <h1 className="text-xl sm:text-2xl font-bold leading-tight drop-shadow-lg">
-                <span className="text-white">Shows Pirotécnicos</span>
-                <br />
-                <span className="text-fire-gradient">Profissionais</span>
-              </h1>
-              
-              <p className="text-sm sm:text-base text-white/90 drop-shadow-md">
-                4 décadas de experiência garantindo shows espetaculares e 100% seguros
-              </p>
-            </div>
-
-            {/* Action Buttons - Reordered */}
-            <div className="flex flex-col gap-2 pt-2">
-              <Button 
-                variant="whatsapp" 
-                size="lg"
-                className="flex items-center justify-center gap-2 w-full text-base font-semibold"
-                onClick={handleWhatsAppClick}
-              >
-                <MessageSquare className="w-5 h-5" />
-                WhatsApp - Resposta Imediata
-              </Button>
-              
-              <Button 
-                variant="hero" 
-                size="lg"
-                className="flex items-center justify-center gap-2 w-full text-base font-semibold"
-                onClick={handleOrçamentoClick}
-              >
-                <Calendar className="w-5 h-5" />
-                Solicitar Orçamento Completo
-              </Button>
-
-              {/* Video Presentation Button */}
-              <Dialog open={isVideoModalOpen} onOpenChange={setIsVideoModalOpen}>
-                <DialogTrigger asChild>
-                  <Button 
-                    variant="ghost"
-                    size="lg"
-                    className="flex items-center justify-center gap-3 w-full bg-gradient-to-r from-slate-800/40 to-slate-900/40 border border-slate-600/30 text-white hover:from-slate-700/50 hover:to-slate-800/50 hover:border-slate-500/40 backdrop-blur-md transition-all duration-300 group relative overflow-hidden"
-                    onClick={handleVideoClick}
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700" />
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center shadow-lg group-hover:shadow-yellow-400/30 transition-all">
-                      <Play className="w-4 h-4 text-black fill-current ml-0.5" />
-                    </div>
-                    <span className="text-sm font-semibold">Ver Nossa Expertise</span>
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-3xl w-[95vw] p-4 sm:p-6">
-                  <div className="space-y-3 sm:space-y-4">
-                    <div className="text-center space-y-2">
-                      <h3 className="text-lg sm:text-xl font-bold flex items-center justify-center gap-2">
-                        <Shield className="w-5 h-5 text-green-500" />
-                        Por Que Confiar na M5 Max?
-                        <Award className="w-5 h-5 text-yellow-500" />
-                      </h3>
-                      <p className="text-sm text-muted-foreground">
-                        Descubra como 4 décadas de experiência garantem shows espetaculares e 100% seguros.
-                      </p>
-                    </div>
-                    <VideoPlayer 
-                      src={presentationVideoSrc}
-                      title="Conheça a M5 Max - Segurança e Qualidade"
-                      className="aspect-video"
-                      trackingEvents={true}
-                    />
-                  </div>
-                </DialogContent>
-              </Dialog>
-            </div>
-
-          </div>
-
+      <div className="relative z-30 container mx-auto px-8">
+        <div className="flex items-center justify-start min-h-[80vh]">
           {/* Desktop Layout */}
-          <div className="hidden lg:block space-y-6 text-left max-w-2xl">
+          <div className="space-y-6 text-left max-w-2xl">
             <div className="space-y-4">
               <div className="inline-flex items-center gap-2 text-white font-semibold text-sm bg-red-500/20 px-3 py-1 rounded-full backdrop-blur-sm border border-red-400/40">
                 <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" />
                 Shows Pirotécnicos
               </div>
               
-              <h1 className="text-3xl xl:text-4xl font-bold leading-tight drop-shadow-lg">
+              <h1 className="text-4xl font-bold leading-tight drop-shadow-lg">
                 <span className="text-white">Um espetáculo não se improvisa...</span>
                 <br />
                 <span className="text-fire-gradient">Ele se planeja.</span>
               </h1>
               
-              <p className="text-base xl:text-lg text-white/90 drop-shadow-md max-w-lg">
+              <p className="text-lg text-white/90 drop-shadow-md max-w-lg">
               Na M5 Max, cada show de fogos é desenhado com segurança, tecnologia e emoção para transformar o seu evento em um momento inesquecível.
               </p>
             </div>
@@ -272,10 +180,10 @@ const Hero = () => {
                     <span className="text-sm font-semibold">Ver Nossa Expertise</span>
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-3xl w-[95vw] p-4 sm:p-6">
-                  <div className="space-y-3 sm:space-y-4">
+                <DialogContent className="max-w-3xl w-[95vw] p-6">
+                  <div className="space-y-4">
                     <div className="text-center space-y-2">
-                      <h3 className="text-lg sm:text-xl font-bold flex items-center justify-center gap-2">
+                      <h3 className="text-xl font-bold flex items-center justify-center gap-2">
                         <Shield className="w-5 h-5 text-green-500" />
                         Por Que Confiar na M5 Max?
                         <Award className="w-5 h-5 text-yellow-500" />

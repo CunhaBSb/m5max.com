@@ -4,7 +4,7 @@ import { useAnalytics } from '@/shared/hooks/useAnalytics';
 import RootLayout from '@/app/layouts/RootLayout';
 import Hero from '@/pages/home/desktop/components/Hero';
 import FogosM5Complete from '@/shared/components/layout/FogosM5Complete';
-import Services from '@/pages/home/desktop/components/Services';
+import Services from '@/pages/home/desktop/components/shows';
 import FAQ from '@/pages/home/desktop/components/FAQ';
 
 const Home = () => {

@@ -43,29 +43,24 @@ const FogosM5Complete = () => {
   ];
 
   return (
-    <section className="relative py-12 lg:py-16 overflow-hidden bg-gradient-to-b from-slate-950 to-black">
+    <section className="relative py-12 lg:py-16 overflow-hidden bg-gradient-to-b from-background via-metal-platinum to-background">
       {/* Smooth top transition from previous section */}
-      <div className="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-transparent via-slate-950/50 to-slate-950/90 pointer-events-none"></div>
+      <div className="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-background via-background/80 to-transparent pointer-events-none"></div>
       
-      {/* Simplified Background Layer */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/90 to-black/95" />
+      {/* Refined Background Layer - M5 Max brand colors */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/98 via-metal-platinum/95 to-background" />
       
       {/* Smooth bottom transition to next section */}
-      <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-transparent via-black/50 to-black/90 pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-background via-background/90 to-transparent pointer-events-none"></div>
       
-      {/* Optimized Lateral Design System */}
-      <div className="absolute inset-0 opacity-20 pointer-events-none">
-        {/* Left subtle glow */}
-        <div className="absolute left-0 top-1/4 w-64 h-96 bg-gradient-to-r from-fire-orange/12 to-transparent blur-3xl"></div>
-        {/* Right subtle glow */}
-        <div className="absolute right-0 top-1/4 w-64 h-96 bg-gradient-to-l from-fire-orange/12 to-transparent blur-3xl"></div>
+      {/* Professional Ambient Design */}
+      <div className="absolute inset-0 opacity-15 pointer-events-none">
+        {/* Subtle lateral ambience */}
+        <div className="absolute left-0 top-1/3 w-48 h-64 bg-gradient-to-r from-fire-orange/8 to-transparent blur-2xl"></div>
+        <div className="absolute right-0 top-1/3 w-48 h-64 bg-gradient-to-l from-fire-orange/8 to-transparent blur-2xl"></div>
         
-        {/* Center spotlight effect */}
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-full bg-gradient-radial from-white/[0.01] to-transparent"></div>
-        
-        {/* Minimal accent particles */}
-        <div className="absolute top-1/3 left-1/4 w-1 h-1 bg-fire-orange/40 rounded-full animate-pulse"></div>
-        <div className="absolute top-2/3 right-1/4 w-1 h-1 bg-fire-orange/40 rounded-full animate-pulse delay-1000"></div>
+        {/* Center focus enhancement */}
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-full bg-gradient-radial from-white/[0.008] to-transparent"></div>
       </div>
       
       <div className="container mx-auto px-4 relative z-10 max-w-5xl">
@@ -87,12 +82,12 @@ const FogosM5Complete = () => {
               const Icon = stat.icon;
               return (
                 <div key={index} className="relative">
-                  {/* Simplified decorative elements */}
-                  <div className="absolute -inset-1 opacity-15">
-                    <div className="absolute inset-0 bg-fire-orange/8 blur-lg rounded-lg"></div>
+                  {/* Refined decorative elements */}
+                  <div className="absolute -inset-1 opacity-12">
+                    <div className="absolute inset-0 bg-fire-orange/6 blur-lg rounded-lg"></div>
                   </div>
 
-                  <Card className="relative z-10 group bg-black/10 backdrop-blur-sm border border-fire-orange/15 shadow-lg shadow-fire-orange/10 hover:shadow-fire-orange/20 transition-all duration-300 hover:bg-black/15">
+                  <Card className="relative z-10 group bg-background/5 backdrop-blur-sm border border-fire-orange/12 shadow-lg shadow-fire-orange/8 hover:shadow-fire-orange/15 transition-all duration-300 hover:bg-background/10">
                     <CardContent className="relative z-10 p-4">
                       <div className="flex flex-col items-center text-center space-y-2">
                         <div className="w-10 h-10 rounded-full bg-fire-orange/15 backdrop-blur-sm flex items-center justify-center group-hover:bg-fire-orange/25 transition-all duration-300">
@@ -161,12 +156,12 @@ const FogosM5Complete = () => {
               const Icon = stat.icon;
               return (
                 <div key={index + 2} className="relative">
-                  {/* Simplified decorative elements */}
-                  <div className="absolute -inset-1 opacity-15">
-                    <div className="absolute inset-0 bg-fire-orange/8 blur-lg rounded-lg"></div>
+                  {/* Refined decorative elements */}
+                  <div className="absolute -inset-1 opacity-12">
+                    <div className="absolute inset-0 bg-fire-orange/6 blur-lg rounded-lg"></div>
                   </div>
 
-                  <Card className="relative z-10 group bg-black/10 backdrop-blur-sm border border-fire-orange/15 shadow-lg shadow-fire-orange/10 hover:shadow-fire-orange/20 transition-all duration-300 hover:bg-black/15">
+                  <Card className="relative z-10 group bg-background/5 backdrop-blur-sm border border-fire-orange/12 shadow-lg shadow-fire-orange/8 hover:shadow-fire-orange/15 transition-all duration-300 hover:bg-background/10">
                     <CardContent className="relative z-10 p-4">
                       <div className="flex flex-col items-center text-center space-y-2">
                         <div className="w-10 h-10 rounded-full bg-fire-orange/15 backdrop-blur-sm flex items-center justify-center group-hover:bg-fire-orange/25 transition-all duration-300">
@@ -193,78 +188,6 @@ const FogosM5Complete = () => {
           </div>
         </div>
 
-      </div>
-      
-      {/* Optimized Full-Width CTA Banner */}
-      <div className="relative w-full mt-8">
-        {/* Simplified background with smooth transition */}
-        <div className="absolute inset-0 -mx-4 lg:-mx-8">
-          <div className="w-full h-full bg-gradient-to-r from-slate-950/95 via-black/90 to-slate-950/95"></div>
-          
-          {/* Minimal decorative elements */}
-          <div className="absolute inset-0 opacity-15 pointer-events-none">
-            <div className="absolute left-0 top-0 w-1/4 h-full bg-gradient-to-r from-fire-orange/10 to-transparent blur-2xl"></div>
-            <div className="absolute right-0 top-0 w-1/4 h-full bg-gradient-to-l from-fire-orange/10 to-transparent blur-2xl"></div>
-            <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-orange/15 to-transparent transform -translate-y-1/2"></div>
-          </div>
-        </div>
-
-        {/* CTA Content Container */}
-        <div className="container mx-auto px-4 relative z-10 max-w-5xl">
-          <div className="relative py-8">
-            <Card className="overflow-hidden bg-black/20 backdrop-blur-sm border border-fire-orange/20 shadow-xl shadow-fire-orange/10">
-              <CardContent className="relative z-10 px-8 py-6">
-                <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
-                  {/* Left Content */}
-                  <div className="text-center lg:text-left space-y-2 lg:flex-1">
-                    <h3 className="text-xl lg:text-2xl font-bold text-white">
-                      Pronto para Criar um Evento Inesquecível?
-                    </h3>
-                    <p className="text-sm lg:text-base text-white/80">
-                      Simulação 3D gratuita do seu show pirotécnico • Orçamento em 24h
-                    </p>
-                  </div>
-                  
-                  {/* Center Actions */}
-                  <div className="flex flex-col sm:flex-row gap-3 lg:flex-shrink-0">
-                    <Button 
-                      size="default"
-                      className="bg-fire-orange hover:bg-fire-orange/90 text-white px-6 py-3 shadow-lg shadow-fire-orange/20 transition-all duration-300 hover:scale-105"
-                    >
-                      <MessageCircle className="w-4 h-4 mr-2" />
-                      Simulação Grátis
-                      <ArrowRight className="w-4 h-4 ml-2" />
-                    </Button>
-                    
-                    <Button 
-                      size="default"
-                      variant="outline"
-                      className="border-fire-orange/30 bg-white/10 text-white hover:bg-fire-orange/15 hover:border-fire-orange/50 px-6 py-3 transition-all duration-300"
-                    >
-                      Ver Portfólio
-                    </Button>
-                  </div>
-
-                  {/* Right Trust Indicators */}
-                  <div className="flex flex-wrap items-center justify-center lg:justify-end gap-4 text-sm text-white/70 lg:flex-1">
-                    <div className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 bg-green-400 rounded-full" />
-                      <span>24h de resposta</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 bg-green-400 rounded-full" />
-                      <span>100% Grátis</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 bg-green-400 rounded-full" />
-                      <span>Sem compromisso</span>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
       </div>
     </section>
   );

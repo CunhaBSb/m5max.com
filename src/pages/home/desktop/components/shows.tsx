@@ -54,9 +54,9 @@ const Services = () => {
 
   return (
     <section className="py-20 bg-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-8">
         <div className="text-center mb-16">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6">
+          <h2 className="text-4xl font-bold mb-6">
             <span className="text-foreground">Shows Pirotécnicos</span>
             <br />
             <span className="text-fire-gradient">Profissionais</span>
@@ -66,7 +66,7 @@ const Services = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-3 gap-8">
           {segments.map((segment, index) => {
             const Icon = segment.icon;
             return (
