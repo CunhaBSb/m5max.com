@@ -5,12 +5,15 @@ import PlatformSwitch from '@/shared/components/PlatformSwitch';
 const ReveillonDesktop = lazy(() => import('./desktop/Reveillon'));
 const ReveillonMobile = lazy(() => import('./mobile/Reveillon'));
 
-// Loading fallback component
+// Loading fallback component - discreto
 const PageLoading = () => (
   <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-purple-900 via-blue-900 to-black">
     <div className="text-center">
-      <div className="w-8 h-8 border-4 border-purple-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-      <p className="text-white/70">Carregando Reveillon...</p>
+      <img 
+        src="/m5logo.svg" 
+        alt="M5 Max" 
+        className="w-12 h-12 mx-auto opacity-80 animate-pulse" 
+      />
     </div>
   </div>
 );
