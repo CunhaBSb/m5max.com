@@ -11,7 +11,7 @@ import {
   Sparkles,
   Calendar
 } from 'lucide-react';
-import { FaInstagram as Instagram } from 'react-icons/fa';
+import { FaInstagram as Instagram, FaYoutube as YouTube } from 'react-icons/fa';
 import { useAnalytics } from '@/shared/hooks/useAnalytics';
 import { useAppStore } from '@/shared/store/appStore';
 import { generateWhatsAppURL, getWhatsAppMessage } from '@/shared/lib/whatsapp';
@@ -138,6 +138,54 @@ const InstagramShowcase = () => {
   );
 };
 
+const YouTubeShowcase = () => {
+  const { trackWhatsAppClick } = useAnalytics();
+
+  const handleYouTubeClick = () => {
+    trackWhatsAppClick({
+      audience: 'b2b',
+      source: 'youtube_showcase',
+      message_template: 'Interesse em ver mais vídeos',
+      phone_number: '5561982735575'
+    });
+    window.open('https://youtube.com/@fogosm5', '_blank');
+  };
+
+  return (
+    <Card className="relative overflow-hidden animate-fade-in-up" style={{ animationDelay: '0.5s', animationFillMode: 'both' }}>
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-r from-red-500/10 via-red-600/15 to-red-500/10" />
+      
+      <CardContent className="relative p-8 text-center">
+        <div className="flex items-center justify-center gap-4 mb-6">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-red-600 via-red-500 to-red-400 flex items-center justify-center shadow-lg">
+            <YouTube className="w-8 h-8 text-white" />
+          </div>
+          <div>
+            <h3 className="text-2xl font-bold bg-gradient-to-r from-red-400 via-red-500 to-red-600 bg-clip-text text-transparent">
+              Fogos M5
+            </h3>
+            <p className="text-white/60 text-sm mt-1">Canal no YouTube</p>
+          </div>
+        </div>
+        
+        <p className="text-white/80 mb-8 max-w-md mx-auto leading-relaxed">
+          Assista nossos espetáculos completos, tutoriais e conteúdo exclusivo sobre pirotecnia
+        </p>
+        
+        <Button 
+          onClick={handleYouTubeClick}
+          className="bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white shadow-lg shadow-red-500/25 hover:shadow-red-400/30 border border-red-500/50 hover:border-red-400/60 transition-all duration-300 px-8 py-3 text-base font-semibold group"
+        >
+          <YouTube className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
+          Ver no YouTube
+          <ExternalLink className="w-4 h-4 ml-2" />
+        </Button>
+      </CardContent>
+    </Card>
+  );
+};
+
 const Services = () => {
   const { openConversionModal, attribution } = useAppStore();
   const { trackWhatsAppClick } = useAnalytics();
@@ -218,9 +266,10 @@ const Services = () => {
           />
         </div>
 
-        {/* Instagram Integration */}
-        <div className="mb-16">
+        {/* Social Media Integration */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
           <InstagramShowcase />
+          <YouTubeShowcase />
         </div>
         
         {/* Call to Action */}
