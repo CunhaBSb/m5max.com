@@ -4,11 +4,7 @@ import { Button } from '@/shared/components/ui/button';
 import { YouTubeEmbed } from '@/shared/components/ui/youtube-embed';
 import { Badge } from '@/shared/components/ui/badge';
 import { 
-  ArrowRight, 
   ExternalLink, 
-  Clock, 
-  Users, 
-  Sparkles,
   Calendar
 } from 'lucide-react';
 import { FaInstagram as Instagram, FaYoutube as YouTube } from 'react-icons/fa';
@@ -55,35 +51,14 @@ const ShowcaseVideoCard = ({ youtubeId, title, description, badges, stats }: Sho
         </div>
         
         {/* Card Content */}
-        <CardContent className="p-6 space-y-4">
+        <CardContent className="p-4 space-y-3">
           <div>
-            <h3 className="text-xl font-bold text-white mb-2 group-hover:text-fire-orange transition-colors">
+            <h3 className="text-lg font-bold text-white mb-1 group-hover:text-fire-orange transition-colors">
               {title}
             </h3>
-            <p className="text-white/80 leading-relaxed">{description}</p>
+            <p className="text-white/80 leading-relaxed text-sm">{description}</p>
           </div>
           
-          {/* Stats */}
-          <div className="flex justify-between items-center pt-2 border-t border-white/10">
-            <div className="flex gap-4 text-sm">
-              <div className="flex items-center gap-1">
-                <Clock className="w-4 h-4 text-fire-orange" />
-                <span className="text-white/90">{stats.duration}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <Users className="w-4 h-4 text-green-400" />
-                <span className="text-white/90">{stats.audience}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <Sparkles className="w-4 h-4 text-yellow-400" />
-                <span className="text-white/90">{stats.effects}</span>
-              </div>
-            </div>
-            
-            <Button variant="ghost" size="sm" className="text-fire-orange hover:text-fire-gold hover:bg-fire-orange/10 transition-all">
-              Assistir <ArrowRight className="w-4 h-4 ml-1" />
-            </Button>
-          </div>
         </CardContent>
       </Card>
     </div>
@@ -108,7 +83,7 @@ const InstagramShowcase = () => {
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-pink-500/15 to-orange-500/10" />
       
-      <CardContent className="relative p-8 text-center">
+      <CardContent className="relative p-6 text-center">
         <div className="flex items-center justify-center gap-4 mb-6">
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 via-pink-500 to-orange-500 flex items-center justify-center shadow-lg">
             <Instagram className="w-8 h-8 text-white" />
@@ -156,7 +131,7 @@ const YouTubeShowcase = () => {
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-r from-red-500/10 via-red-600/15 to-red-500/10" />
       
-      <CardContent className="relative p-8 text-center">
+      <CardContent className="relative p-6 text-center">
         <div className="flex items-center justify-center gap-4 mb-6">
           <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-red-600 via-red-500 to-red-400 flex items-center justify-center shadow-lg">
             <YouTube className="w-8 h-8 text-white" />
@@ -217,14 +192,14 @@ const Services = () => {
   };
 
   return (
-    <section className="relative py-16 lg:py-20 overflow-hidden">
+    <section className="relative py-12 lg:py-16 overflow-hidden">
       {/* Background gradients */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-metal-platinum/10 to-background" />
       <div className="absolute inset-0 bg-gradient-to-r from-fire-orange/5 via-transparent to-fire-gold/5" />
       
       <div className="relative container mx-auto px-4 max-w-6xl">
         {/* Header da seção */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           {/* Badge superior */}
           <div className="inline-flex items-center gap-2 text-white font-semibold text-sm bg-fire-orange/20 px-4 py-2 rounded-full backdrop-blur-sm border border-fire-orange/40 mb-6 animate-fade-in-up" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
             <div className="w-2 h-2 bg-fire-orange rounded-full animate-pulse" />
@@ -246,7 +221,7 @@ const Services = () => {
         </div>
 
         {/* Grid principal de showcases */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
           
           {/* YouTube Videos - 2 cards principais */}
           <ShowcaseVideoCard 
@@ -265,47 +240,46 @@ const Services = () => {
             stats={{ duration: "4min", audience: "1500+", effects: "120+" }}
           />
         </div>
-
-        {/* Social Media Integration */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-          <InstagramShowcase />
-          <YouTubeShowcase />
-        </div>
         
         {/* Call to Action */}
-        <div className="text-center animate-fade-in-up" style={{ animationDelay: '0.6s', animationFillMode: 'both' }}>
+        <div className="text-center mb-8 animate-fade-in-up" style={{ animationDelay: '0.6s', animationFillMode: 'both' }}>
           <Card className="relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-fire-orange/10 via-fire-gold/15 to-fire-orange/10" />
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-fire-orange/5 to-transparent" />
             
-            <CardContent className="relative p-8 lg:p-12">
-              <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4">
+            <CardContent className="relative p-6 lg:p-8">
+              <h3 className="text-xl lg:text-2xl font-bold text-white mb-3">
                 Pronto para criar seu espetáculo?
               </h3>
-              <p className="text-white/80 mb-8 max-w-xl mx-auto text-lg leading-relaxed">
+              <p className="text-white/80 mb-6 max-w-lg mx-auto leading-relaxed">
                 Cada evento é único. Vamos planejar algo especial que ficará na memória de todos para sempre.
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
                 <Button 
                   onClick={handleWhatsAppClick}
-                  className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white shadow-lg shadow-green-500/25 hover:shadow-green-400/30 border border-green-500/50 hover:border-green-400/60 transition-all duration-300 px-8 py-3 text-base font-semibold group"
+                  className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white shadow-lg shadow-green-500/25 hover:shadow-green-400/30 border border-green-500/50 hover:border-green-400/60 transition-all duration-300 px-6 py-2.5 text-sm font-semibold group"
                 >
-                  <Instagram className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
-                  Conversar no WhatsApp
+                  💬 Conversar no WhatsApp
                 </Button>
                 
                 <Button 
                   variant="ghost"
                   onClick={handleOrçamentoClick}
-                  className="bg-gradient-to-r from-fire-orange/20 to-fire-gold/20 border-2 border-fire-orange/50 text-white hover:from-fire-orange/30 hover:to-fire-gold/30 hover:border-fire-orange/70 transition-all duration-300 px-8 py-3 text-base font-semibold group"
+                  className="bg-gradient-to-r from-fire-orange/20 to-fire-gold/20 border-2 border-fire-orange/50 text-white hover:from-fire-orange/30 hover:to-fire-gold/30 hover:border-fire-orange/70 transition-all duration-300 px-6 py-2.5 text-sm font-semibold group"
                 >
-                  <Calendar className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
+                  <Calendar className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
                   Solicitar Orçamento
                 </Button>
               </div>
             </CardContent>
           </Card>
+        </div>
+
+        {/* Social Media Integration */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <InstagramShowcase />
+          <YouTubeShowcase />
         </div>
       </div>
     </section>
