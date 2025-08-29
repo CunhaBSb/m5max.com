@@ -28,10 +28,9 @@ interface ShowcaseVideoCardProps {
     audience: string;
     effects: string;
   };
-  thumbnail?: string;
 }
 
-const ShowcaseVideoCard = ({ youtubeId, title, description, badges, stats, thumbnail }: ShowcaseVideoCardProps) => {
+const ShowcaseVideoCard = ({ youtubeId, title, description, badges, stats }: ShowcaseVideoCardProps) => {
 
   return (
     <div className="relative group animate-fade-in-up" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
@@ -45,8 +44,6 @@ const ShowcaseVideoCard = ({ youtubeId, title, description, badges, stats, thumb
             youtubeId={youtubeId}
             title={title}
             className="w-full h-full"
-            trackingEvents={true}
-            thumbnail={thumbnail}
           />
           
           {/* Overlay com badges */}
@@ -227,7 +224,6 @@ const Services = () => {
             description="Show pirotécnico espetacular para celebrar a virada do ano com sincronização perfeita e efeitos únicos"
             badges={["Réveillon", "Corporativo", "Sincronizado"]}
             stats={{ duration: "3min", audience: "2000+", effects: "150+" }}
-            thumbnail="/assets/showcases/thumbnail-reveillon.jpg"
           />
           
           <ShowcaseVideoCard 
@@ -236,7 +232,6 @@ const Services = () => {
             description="Espetáculo completo com queima coordenada e efeitos especiais que marcaram a celebração"
             badges={["Festa", "Premium", "Espetacular"]}
             stats={{ duration: "4min", audience: "1500+", effects: "120+" }}
-            thumbnail="/assets/showcases/thumbnail-mimosa.jpg"
           />
         </div>
 
