@@ -105,39 +105,31 @@ const InstagramShowcase = () => {
 
   return (
     <Card className="relative overflow-hidden animate-fade-in-up" style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
-      {/* Background gradient animado */}
+      {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-pink-500/15 to-orange-500/10" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-500/5 to-transparent animate-pulse" style={{ animationDuration: '3s' }} />
       
       <CardContent className="relative p-8 text-center">
-        <div className="flex items-center justify-center gap-3 mb-4">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 via-pink-500 to-orange-500 flex items-center justify-center shadow-lg">
-            <Instagram className="w-5 h-5 text-white" />
+        <div className="flex items-center justify-center gap-4 mb-6">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 via-pink-500 to-orange-500 flex items-center justify-center shadow-lg">
+            <Instagram className="w-8 h-8 text-white" />
           </div>
-          <h3 className="text-2xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400 bg-clip-text text-transparent">
-            @FogosM5
-          </h3>
+          <div>
+            <h3 className="text-2xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400 bg-clip-text text-transparent">
+              @FogosM5
+            </h3>
+            <p className="text-white/60 text-sm mt-1">Siga nosso Instagram</p>
+          </div>
         </div>
         
-        <p className="text-white/80 mb-6 max-w-md mx-auto leading-relaxed">
+        <p className="text-white/80 mb-8 max-w-md mx-auto leading-relaxed">
           Acompanhe nossos trabalhos diários, bastidores e momentos únicos dos espetáculos que criamos
         </p>
         
-        {/* Grid de preview do Instagram - Placeholder */}
-        <div className="grid grid-cols-3 gap-3 max-w-sm mx-auto mb-6">
-          {[1,2,3,4,5,6].map(i => (
-            <div key={i} className="aspect-square bg-gradient-to-br from-purple-500/20 via-pink-500/20 to-orange-500/20 rounded-lg animate-pulse border border-purple-400/20 flex items-center justify-center" style={{ animationDelay: `${i * 100}ms` }}>
-              <div className="w-4 h-4 rounded-full bg-white/20"></div>
-            </div>
-          ))}
-        </div>
-        
         <Button 
-          variant="ghost" 
           onClick={handleInstagramClick}
-          className="bg-gradient-to-r from-purple-500/20 via-pink-500/20 to-orange-500/20 border-2 border-purple-400/40 text-white hover:from-purple-400/30 hover:via-pink-400/30 hover:to-orange-400/30 hover:border-purple-300/60 backdrop-blur-md transition-all duration-300 shadow-lg shadow-purple-500/20 hover:shadow-purple-400/30 group"
+          className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white shadow-lg shadow-purple-500/25 hover:shadow-purple-400/30 border border-purple-500/50 hover:border-purple-400/60 transition-all duration-300 px-8 py-3 text-base font-semibold group"
         >
-          <Instagram className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
+          <Instagram className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
           Seguir no Instagram
           <ExternalLink className="w-4 h-4 ml-2" />
         </Button>
