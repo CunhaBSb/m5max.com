@@ -6,12 +6,10 @@ import { Badge } from '@/shared/components/ui/badge';
 import { 
   ArrowRight, 
   ExternalLink, 
-  Play, 
   Clock, 
   Users, 
   Sparkles,
-  Calendar,
-  MessageSquare
+  Calendar
 } from 'lucide-react';
 import { FaInstagram as Instagram } from 'react-icons/fa';
 import { useAnalytics } from '@/shared/hooks/useAnalytics';
@@ -47,19 +45,12 @@ const ShowcaseVideoCard = ({ youtubeId, title, description, badges, stats }: Sho
           />
           
           {/* Overlay com badges */}
-          <div className="absolute top-3 left-3 flex flex-wrap gap-2 max-w-[calc(100%-6rem)]">
+          <div className="absolute top-3 left-3 flex flex-wrap gap-2 max-w-[calc(100%-6rem)] pointer-events-none z-10">
             {badges.map(badge => (
               <Badge key={badge} className="bg-fire-orange/90 hover:bg-fire-orange text-white text-xs font-medium shadow-lg backdrop-blur-sm">
                 {badge}
               </Badge>
             ))}
-          </div>
-          
-          {/* Play button overlay */}
-          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/20">
-            <div className="w-16 h-16 rounded-full bg-fire-orange/90 flex items-center justify-center shadow-2xl">
-              <Play className="w-6 h-6 text-white fill-current ml-1" />
-            </div>
           </div>
         </div>
         
@@ -136,7 +127,7 @@ const InstagramShowcase = () => {
         <div className="grid grid-cols-3 gap-3 max-w-sm mx-auto mb-6">
           {[1,2,3,4,5,6].map(i => (
             <div key={i} className="aspect-square bg-gradient-to-br from-purple-500/20 via-pink-500/20 to-orange-500/20 rounded-lg animate-pulse border border-purple-400/20 flex items-center justify-center" style={{ animationDelay: `${i * 100}ms` }}>
-              <Play className="w-4 h-4 text-white/50" />
+              <div className="w-4 h-4 rounded-full bg-white/20"></div>
             </div>
           ))}
         </div>
