@@ -222,7 +222,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
         clearTimeout(controlsTimeoutRef.current);
       }
     };
-  }, [title, duration, hasStarted, hasTracked25, hasTracked50, hasTracked75, hasTrackedComplete, trackVideoEvent, trackingEvents, volume, isMuted]);
+  }, [title, duration, hasStarted, hasTracked25, hasTracked50, hasTracked75, hasTrackedComplete, trackVideoEvent, trackingEvents, volume, isMuted, isMobile]);
 
   // Control functions
   const togglePlay = useCallback(async () => {
@@ -244,7 +244,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
             if ('webkitEnterFullscreen' in video) {
               try {
                 setTimeout(() => {
-                  (video as any).webkitEnterFullscreen();
+                  (video as HTMLVideoElement & { webkitEnterFullscreen: () => void }).webkitEnterFullscreen();
                 }, 50);
               } catch (err) {
                 console.log('iOS webkitEnterFullscreen failed:', err);
@@ -256,12 +256,12 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
               try {
                 // Method 1: Screen Orientation API
                 if (screen.orientation && 'lock' in screen.orientation) {
-                  (screen.orientation as any).lock('landscape-primary').catch((err: any) => {
+                  (screen.orientation as ScreenOrientation & { lock: (orientation: string) => Promise<void> }).lock('landscape-primary').catch((err: Error) => {
                     console.log('Screen orientation lock failed:', err);
                     // Try landscape-secondary as fallback
-                    (screen.orientation as any).lock('landscape-secondary').catch(() => {
+                    (screen.orientation as ScreenOrientation & { lock: (orientation: string) => Promise<void> }).lock('landscape-secondary').catch(() => {
                       // Try generic landscape
-                      (screen.orientation as any).lock('landscape').catch(() => {
+                      (screen.orientation as ScreenOrientation & { lock: (orientation: string) => Promise<void> }).lock('landscape').catch(() => {
                         console.log('All landscape orientations failed');
                       });
                     });
@@ -314,14 +314,14 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
               if (container && container.requestFullscreen) {
                 await container.requestFullscreen();
               } else if (container && 'webkitRequestFullscreen' in container) {
-                await (container as any).webkitRequestFullscreen();
+                await (container as HTMLDivElement & { webkitRequestFullscreen: () => Promise<void> }).webkitRequestFullscreen();
               }
               
               // Lock orientation for Android
               if (screen.orientation && 'lock' in screen.orientation) {
                 setTimeout(async () => {
                   try {
-                    await (screen.orientation as any).lock('landscape');
+                    await (screen.orientation as ScreenOrientation & { lock: (orientation: string) => Promise<void> }).lock('landscape');
                   } catch (err) {
                     console.log('Android landscape lock failed:', err);
                   }
@@ -394,17 +394,17 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
         if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
           // Try video element fullscreen first for mobile
           if ('webkitEnterFullscreen' in video) {
-            (video as any).webkitEnterFullscreen();
+            (video as HTMLVideoElement & { webkitEnterFullscreen: () => void }).webkitEnterFullscreen();
           } else if (container.requestFullscreen) {
             await container.requestFullscreen();
           } else if ('webkitRequestFullscreen' in container) {
-            await (container as any).webkitRequestFullscreen();
+            await (container as HTMLDivElement & { webkitRequestFullscreen: () => Promise<void> }).webkitRequestFullscreen();
           }
           
           // Force landscape orientation on mobile
           if (screen.orientation && 'lock' in screen.orientation) {
             try {
-              await (screen.orientation as any).lock('landscape');
+              await (screen.orientation as ScreenOrientation & { lock: (orientation: string) => Promise<void> }).lock('landscape');
             } catch (err) {
               console.log('Orientation lock not supported');
             }
@@ -417,13 +417,13 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
         if (document.exitFullscreen) {
           await document.exitFullscreen();
         } else if ('webkitExitFullscreen' in document) {
-          (document as any).webkitExitFullscreen();
+          (document as Document & { webkitExitFullscreen: () => void }).webkitExitFullscreen();
         }
         
         // Unlock orientation when exiting fullscreen
         if (screen.orientation && 'unlock' in screen.orientation) {
           try {
-            (screen.orientation as any).unlock();
+            (screen.orientation as ScreenOrientation & { unlock: () => void }).unlock();
           } catch (err) {
             console.log('Orientation unlock not supported');
           }

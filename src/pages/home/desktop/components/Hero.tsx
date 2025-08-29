@@ -11,6 +11,7 @@ import { heroContent } from "../data/homeContent";
 const Hero = () => {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [showSecondaryButtons, setShowSecondaryButtons] = useState(false);
   
   const videoRef = useRef<HTMLVideoElement>(null);
   const { openConversionModal, attribution } = useAppStore();
@@ -64,6 +65,15 @@ const Hero = () => {
   }, []);
 
   const videoSrc = heroContent.video.desktop;
+
+  // Animation for secondary buttons
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSecondaryButtons(true);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <section className="relative min-h-screen flex items-center gradient-hero overflow-hidden pt-16">
@@ -143,81 +153,163 @@ const Hero = () => {
               </p>
             </div>
 
-            <div className="flex flex-col gap-2 max-w-md">
-              <Button 
-                variant="whatsapp" 
-                size="lg"
-                className="flex items-center justify-center gap-2 w-full text-base font-semibold"
-                onClick={handleWhatsAppClick}
-              >
-                <MessageSquare className="w-5 h-5" />
-                WhatsApp - Resposta Imediata
-              </Button>
-              
-              <Button 
-                variant="hero" 
-                size="lg"
-                className="flex items-center justify-center gap-2 w-full text-base font-semibold"
-                onClick={handleOrçamentoClick}
-              >
-                <Calendar className="w-5 h-5" />
-                Solicitar Orçamento Completo
-              </Button>
-
-              {/* Video Presentation Button - Desktop */}
-              <Dialog open={isVideoModalOpen} onOpenChange={setIsVideoModalOpen}>
-                <DialogTrigger asChild>
-                  <Button 
-                    variant="ghost"
-                    size="lg"
-                    className="flex items-center justify-center gap-3 w-full bg-gradient-to-r from-slate-800/40 to-slate-900/40 border border-slate-600/30 text-white hover:from-slate-700/50 hover:to-slate-800/50 hover:border-slate-500/40 backdrop-blur-md transition-all duration-300 group relative overflow-hidden"
-                    onClick={handleVideoClick}
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700" />
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center shadow-lg group-hover:shadow-yellow-400/30 transition-all">
-                      <Play className="w-4 h-4 text-black fill-current ml-0.5" />
-                    </div>
-                    <span className="text-sm font-semibold">Ver Nossa Expertise</span>
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-3xl w-[95vw] p-6">
-                  <div className="space-y-4">
-                    <div className="text-center space-y-2">
-                      <h3 className="text-xl font-bold flex items-center justify-center gap-2">
-                        <Shield className="w-5 h-5 text-green-500" />
-                        Por Que Confiar na M5 Max?
-                        <Award className="w-5 h-5 text-yellow-500" />
-                      </h3>
-                      <p className="text-sm text-muted-foreground">
-                        Descubra como 4 décadas de experiência garantem shows espetaculares e 100% seguros.
+            <div className="flex flex-col gap-4 max-w-md">
+              {/* Primary Button - Ver Nossa Expertise */}
+              <div className="animate-fade-in-up" style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
+                <Dialog open={isVideoModalOpen} onOpenChange={setIsVideoModalOpen}>
+                  <DialogTrigger asChild>
+                    <Button 
+                      variant="ghost"
+                      className="flex items-center justify-center gap-4 w-full h-16 bg-gradient-to-r from-yellow-500/20 via-yellow-400/30 to-yellow-500/20 border-2 border-yellow-400/50 text-white hover:from-yellow-400/30 hover:via-yellow-300/40 hover:to-yellow-400/30 hover:border-yellow-300/70 backdrop-blur-md transition-all duration-300 group relative overflow-hidden shadow-lg shadow-yellow-400/20 hover:shadow-yellow-300/30"
+                      onClick={handleVideoClick}
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-300/10 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700" />
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center shadow-lg group-hover:shadow-yellow-400/50 transition-all group-hover:scale-110">
+                        <Play className="w-5 h-5 text-black fill-current ml-0.5" />
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-base font-bold">Ver Nossa Expertise</span>
+                        <span className="text-xs text-yellow-200/80">40 anos de experiência</span>
+                      </div>
+                    </Button>
+                  </DialogTrigger>
+                <DialogContent className="max-w-2xl w-[90vw] max-h-[90vh] overflow-y-auto p-0 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 border-2 border-yellow-400/30 shadow-2xl shadow-yellow-400/20 rounded-xl">
+                  {/* Header Section */}
+                  <div className="relative px-4 py-3 bg-gradient-to-r from-yellow-500/10 via-yellow-400/15 to-yellow-500/10 border-b border-yellow-400/20">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-300/5 to-transparent" />
+                    <div className="relative text-center space-y-1.5">
+                      <div className="flex items-center justify-center gap-2">
+                        <div className="w-6 h-6 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center shadow-md">
+                          <Shield className="w-3 h-3 text-white" />
+                        </div>
+                        <h3 className="text-lg font-bold text-white">
+                          Por Que Confiar na M5 Max?
+                        </h3>
+                        <div className="w-6 h-6 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center shadow-md">
+                          <Award className="w-3 h-3 text-black" />
+                        </div>
+                      </div>
+                      <p className="text-xs text-gray-300 leading-tight">
+                        <span className="text-yellow-400 font-medium">4 décadas de experiência</span> • <span className="text-green-400 font-medium">100% seguros</span>
                       </p>
                     </div>
-                    <VideoPlayer 
-                      src={presentationVideoSrc}
-                      title="Conheça a M5 Max - Segurança e Qualidade"
-                      className="aspect-video"
-                      trackingEvents={true}
-                    />
+                  </div>
+
+                  {/* Video Section */}
+                  <div className="relative p-4">
+                    <div className="relative rounded-xl overflow-hidden shadow-2xl shadow-black/50 border border-gray-700/50">
+                      <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/10 via-transparent to-green-400/10 pointer-events-none z-10" />
+                      <VideoPlayer 
+                        src={presentationVideoSrc}
+                        title="Conheça a M5 Max - Segurança e Qualidade"
+                        className="aspect-video w-full"
+                        trackingEvents={true}
+                        thumbnail="/assets/thumbapresentação.webp"
+                      />
+                    </div>
+                    
+                    {/* Professional Statistics Cards */}
+                    <div className="flex items-center justify-center gap-2 mt-4">
+                      <div className="bg-gradient-to-br from-yellow-500/15 to-yellow-600/10 border border-yellow-400/30 rounded-lg px-2.5 py-1.5 text-center backdrop-blur-sm shadow-sm">
+                        <div className="text-xs font-bold text-yellow-400">40+</div>
+                        <div className="text-xs text-yellow-200/70">Anos</div>
+                      </div>
+                      
+                      <div className="bg-gradient-to-br from-green-500/15 to-green-600/10 border border-green-400/30 rounded-lg px-2.5 py-1.5 text-center backdrop-blur-sm shadow-sm">
+                        <div className="text-xs font-bold text-green-400">2K+</div>
+                        <div className="text-xs text-green-200/70">Eventos</div>
+                      </div>
+                      
+                      <div className="bg-gradient-to-br from-blue-500/15 to-blue-600/10 border border-blue-400/30 rounded-lg px-2.5 py-1.5 text-center backdrop-blur-sm shadow-sm">
+                        <div className="text-xs font-bold text-blue-400">100%</div>
+                        <div className="text-xs text-blue-200/70">Seguro</div>
+                      </div>
+                    </div>
+
+                    {/* Trust Indicators */}
+                    <div className="flex items-center justify-center gap-6 mt-3">
+                      <div className="flex items-center gap-1.5 text-green-400">
+                        <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                        <span className="text-xs font-medium">Ao Vivo</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 text-yellow-400">
+                        <Shield className="w-3 h-3" />
+                        <span className="text-xs font-medium">Certificado</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 text-blue-400">
+                        <Award className="w-3 h-3" />
+                        <span className="text-xs font-medium">Premiado</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Footer CTA */}
+                  <div className="px-4 pb-4">
+                    <div className="text-center bg-gradient-to-r from-yellow-500/10 via-yellow-400/15 to-yellow-500/10 rounded-lg p-3 border border-yellow-400/20">
+                      <p className="text-sm text-gray-300 mb-1">
+                        Pronto para transformar seu evento?
+                      </p>
+                      <p className="text-xs text-yellow-400 font-medium">
+                        Receba uma proposta personalizada
+                      </p>
+                    </div>
                   </div>
                 </DialogContent>
-              </Dialog>
+                </Dialog>
+              </div>
+
+              {/* Secondary Buttons - Side by side with animation delay */}
+              <div 
+                className={`flex gap-3 transition-all duration-500 ${
+                  showSecondaryButtons 
+                    ? 'opacity-100 transform translate-y-0' 
+                    : 'opacity-0 transform translate-y-2'
+                }`}
+              >
+                {/* WhatsApp Button */}
+                <Button
+                  variant="ghost"
+                  className="flex-1 h-12 bg-gradient-to-r from-green-600/20 via-green-500/30 to-green-600/20 border border-green-500/50 text-white hover:from-green-500/30 hover:via-green-400/40 hover:to-green-500/30 hover:border-green-400/70 backdrop-blur-md transition-all duration-300 group relative overflow-hidden shadow-md shadow-green-500/20"
+                  onClick={handleWhatsAppClick}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-green-400/10 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700" />
+                  <MessageSquare className="w-4 h-4 mr-2" />
+                  <span className="text-sm font-medium">WhatsApp</span>
+                </Button>
+
+                {/* Orçamento Button */}
+                <Button
+                  variant="ghost"
+                  className="flex-1 h-12 bg-gradient-to-r from-blue-600/20 via-blue-500/30 to-blue-600/20 border border-blue-500/50 text-white hover:from-blue-500/30 hover:via-blue-400/40 hover:to-blue-500/30 hover:border-blue-400/70 backdrop-blur-md transition-all duration-300 group relative overflow-hidden shadow-md shadow-blue-500/20"
+                  onClick={handleOrçamentoClick}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-400/10 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700" />
+                  <Calendar className="w-4 h-4 mr-2" />
+                  <span className="text-sm font-medium">Orçamento</span>
+                </Button>
+              </div>
             </div>
 
             {/* Professional Badges - Left Aligned */}
-            <div className="flex items-center justify-start gap-3 flex-wrap">
-              <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-2.5 py-1 rounded-full border border-white/20">
+            <div className="flex items-center justify-start gap-2.5 flex-wrap">
+              <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-2.5 py-1.5 rounded-full border border-green-400/40 text-xs">
                 <Shield className="w-3 h-3 text-green-400" />
-                <span className="text-xs font-medium text-white">Segurança</span>
+                <span className="text-white font-medium">Segurança</span>
               </div>
-              <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-2.5 py-1 rounded-full border border-white/20">
+              
+              <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-2.5 py-1.5 rounded-full border border-yellow-400/40 text-xs">
                 <Award className="w-3 h-3 text-yellow-400" />
-                <span className="text-xs font-medium text-white">Reconhecimento</span>
+                <span className="text-white font-medium">Reconhecimento</span>
               </div>
-              <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-2.5 py-1 rounded-full border border-white/20">
-                <span className="text-xs font-medium text-white">40 Anos</span>
+              
+              <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-2.5 py-1.5 rounded-full border border-blue-400/40 text-xs">
+                <span className="text-blue-400 font-bold">40</span>
+                <span className="text-white font-medium">Anos</span>
               </div>
-              <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-2.5 py-1 rounded-full border border-white/20">
-                <span className="text-xs font-medium text-white">2000+ Eventos</span>
+              
+              <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-2.5 py-1.5 rounded-full border border-purple-400/40 text-xs">
+                <span className="text-purple-400 font-bold">2K+</span>
+                <span className="text-white font-medium">Eventos</span>
               </div>
             </div>
           </div>

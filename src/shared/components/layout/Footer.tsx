@@ -1,6 +1,7 @@
 import { Button } from "@/shared/components/ui/button";
 import { Separator } from "@/shared/components/ui/separator";
-import { MessageSquare, Phone, Mail, MapPin, Instagram, Facebook, Youtube } from "lucide-react";
+import { MessageSquare, Phone, Mail, MapPin, Youtube } from "lucide-react";
+import { FaInstagram as Instagram, FaFacebook as Facebook } from "react-icons/fa";
 
 const Footer = () => {
   return (

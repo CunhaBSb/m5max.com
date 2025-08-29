@@ -10,7 +10,7 @@ import ReveillonCallToAction from './components/ReveillonCallToAction';
 
 
 
-const Reveillon = () => {
+const ReveillonDesktop = () => {
   const { trackPageView } = useAnalytics();
 
   useEffect(() => {
@@ -45,4 +45,4 @@ const Reveillon = () => {
   );
 };
 
-export default Reveillon;
+export default ReveillonDesktop;
