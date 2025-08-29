@@ -222,21 +222,21 @@ const Services = () => {
           
           {/* YouTube Videos - 2 cards principais */}
           <ShowcaseVideoCard 
-            youtubeId="YOUR_YOUTUBE_ID_1" // Substitua pelo ID real do YouTube
-            title="Réveillon Corporativo 2024"
-            description="Espetáculo sincronizado com múltiplos pontos de queima e efeitos especiais coordenados"
-            badges={["Corporativo", "Sincronizado", "Multi-ponto"]}
-            stats={{ duration: "8min", audience: "5000+", effects: "200+" }}
+            youtubeId="xUPt4tZIM-s"
+            title="Réveillon 2025 no Iate Clube de Brasília"
+            description="Show pirotécnico espetacular para celebrar a virada do ano com sincronização perfeita e efeitos únicos"
+            badges={["Réveillon", "Corporativo", "Sincronizado"]}
+            stats={{ duration: "3min", audience: "2000+", effects: "150+" }}
             thumbnail="/assets/showcases/thumbnail-reveillon.jpg"
           />
           
           <ShowcaseVideoCard 
-            youtubeId="YOUR_YOUTUBE_ID_2" // Substitua pelo ID real do YouTube
-            title="Casamento Premium"
-            description="Show íntimo com efeitos personalizados criados especialmente para celebrar o amor do casal"
-            badges={["Casamento", "Premium", "Personalizado"]}
-            stats={{ duration: "5min", audience: "200", effects: "80+" }}
-            thumbnail="/assets/showcases/thumbnail-wedding.jpg"
+            youtubeId="AY1CF0LRKUw"
+            title="Show Pirotécnico Espetacular | Festa do Mimosa 2025"
+            description="Espetáculo completo com queima coordenada e efeitos especiais que marcaram a celebração"
+            badges={["Festa", "Premium", "Espetacular"]}
+            stats={{ duration: "4min", audience: "1500+", effects: "120+" }}
+            thumbnail="/assets/showcases/thumbnail-mimosa.jpg"
           />
         </div>
 
