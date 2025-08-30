@@ -32,14 +32,24 @@ const Home = () => {
             <Hero />
           </div>
 
+          {/* Separador decorativo - Hero para Empresa */}
+          <div className="relative h-px bg-gradient-to-r from-transparent via-fire-orange/20 to-transparent"></div>
           
           <div id="empresa">
             <FogosM5Complete />
           </div>
 
+          {/* Separador decorativo - Empresa para Serviços */}
+          <div className="relative h-px bg-gradient-to-r from-transparent via-fire-gold/30 to-transparent">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent blur-sm"></div>
+          </div>
+
           <div id="servicos">
             <Services />
           </div>
+
+          {/* Separador decorativo - Serviços para FAQ */}
+          <div className="relative h-px bg-gradient-to-r from-transparent via-fire-orange/25 to-transparent"></div>
 
           <div id="faq">
             <FAQ />
