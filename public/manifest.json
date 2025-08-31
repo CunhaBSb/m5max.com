@@ -1,0 +1,106 @@
+{
+  "name": "M5 Max Produções - Fogos de Artifício Profissionais",
+  "short_name": "M5 Max",
+  "description": "Especialistas em fogos de artifício profissionais há 40 anos. Shows pirotécnicos, chá revelação e kits DIY com segurança certificada.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a1a",
+  "theme_color": "#f97316",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "categories": ["business", "entertainment", "events"],
+  "screenshots": [
+    {
+      "src": "/assets/screenshot-wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/screenshot-narrow.png", 
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/m5logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icon-512.png",
+      "sizes": "512x512", 
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png", 
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Shows de Réveillon",
+      "short_name": "Réveillon",
+      "description": "Shows pirotécnicos para Réveillon 2025",
+      "url": "/reveillon",
+      "icons": [
+        {
+          "src": "/assets/shortcut-reveillon.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Contato",
+      "short_name": "Contato", 
+      "description": "Entre em contato conosco",
+      "url": "/#contato",
+      "icons": [
+        {
+          "src": "/assets/shortcut-contact.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "files",
+          "accept": ["image/*", "video/*"]
+        }
+      ]
+    }
+  }
+}

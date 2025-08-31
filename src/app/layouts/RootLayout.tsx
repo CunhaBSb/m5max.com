@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
-import Header from "@/shared/components/layout/Header";
-import Footer from "@/shared/components/layout/Footer";
-import ConversionModal from "@/shared/components/modal/ConversionModal";
+import Header from "@/shared/layout/Header";
+import Footer from "@/shared/layout/Footer";
+import ConversionModal from "@/shared/modal/ConversionModal";
 import ConsentBanner from "@/app/providers/analytics/ConsentBanner";
 import { useAppStore } from "@/shared/store/appStore";
 

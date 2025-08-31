@@ -5,7 +5,7 @@ export const COMPANY_INFO = {
   experienceYears: 40,
   phone: '(61) 98273-5575',
   whatsapp: '5561982735575',
-  email: 'fogosm5.max@gmail.com',
+  email: 'fogos@m5max.com',
   address: {
     city: 'Luziânia',
     state: 'GO',

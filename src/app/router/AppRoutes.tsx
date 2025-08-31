@@ -1,13 +1,13 @@
 import { Routes, Route } from "react-router-dom";
-import { Home } from "@/pages/home";
-import { Reveillon } from "@/pages/reveillon";
-import NotFound from "@/shared/pages/NotFound";
+import HomePage from "@/features/home/pages/HomePage";
+import ReveillonPage from "@/features/reveillon/pages/ReveillonPage";
+import NotFound from "./NotFound";
 
 export default function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/reveillon" element={<Reveillon />} />
+      <Route path="/" element={<HomePage />} />
+      <Route path="/reveillon" element={<ReveillonPage />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

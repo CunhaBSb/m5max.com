@@ -21,7 +21,7 @@ const config: Config = {
   youtubeApiKey: import.meta.env.VITE_YOUTUBE_API_KEY || '',
   siteUrl: import.meta.env.VITE_SITE_URL || 'https://m5max.com',
   siteName: import.meta.env.VITE_SITE_NAME || 'M5 Max Produções',
-  contactEmail: import.meta.env.VITE_CONTACT_EMAIL || 'fogosm5.max@gmail.com',
+  contactEmail: import.meta.env.VITE_CONTACT_EMAIL || 'fogos@m5max.com',
   contactPhone: import.meta.env.VITE_CONTACT_PHONE || '+5561982735575',
   environment: (import.meta.env.VITE_NODE_ENV as Config['environment']) || 'development'
 };

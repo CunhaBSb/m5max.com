@@ -250,6 +250,7 @@ Plan Mode:
 - Update tech-digests if libraries were researched
 - Clear task separator
 - Archive analysis if complex
+- SYNC: Ensure both CLAUDE.md and GEMINI.md are updated
 ==== END TASK ====
 ```
 
@@ -270,6 +271,7 @@ Plan Mode:
 1. Commit atomic changes
 2. Save architectural decisions to Memory MCP
 3. Update documentation if needed
+4. **SYNC: Verify both CLAUDE.md and GEMINI.md are synchronized**
 
 ## File Organization
 

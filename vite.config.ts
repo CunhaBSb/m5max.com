@@ -14,28 +14,51 @@ export default defineConfig(() => ({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: undefined,
+        manualChunks: {
+          // Core React
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          
+          // UI Components (most used)
+          'ui-vendor': ['@radix-ui/react-dialog', '@radix-ui/react-accordion', '@radix-ui/react-dropdown-menu', '@radix-ui/react-popover'],
+          
+          // Forms (heavy but essential)
+          'form-vendor': ['react-hook-form', '@hookform/resolvers', 'zod'],
+          
+          // Icons (lightweight but frequently used)  
+          'icons-vendor': ['lucide-react', 'react-icons'],
+          
+          // Media components (lazy loaded)
+          'media-vendor': ['react-youtube'],
+          
+          // Utilities (shared everywhere)
+          'utils-vendor': ['clsx', 'tailwind-merge', 'class-variance-authority', 'date-fns'],
+          
+          // Modal components (on-demand loading)
+          'modal-vendor': ['@radix-ui/react-select', '@radix-ui/react-checkbox'],
+          
+          // Advanced UI (rarely used initially)
+          'advanced-ui': ['@radix-ui/react-menubar', '@radix-ui/react-context-menu', '@radix-ui/react-navigation-menu']
+        },
       }
     }
   },
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
-      "@/components": path.resolve(__dirname, "./src/components"),
-      "@/pages": path.resolve(__dirname, "./src/pages"),
-      "@/hooks": path.resolve(__dirname, "./src/hooks"),
-      "@/utils": path.resolve(__dirname, "./src/utils"),
-      "@/types": path.resolve(__dirname, "./src/types"),
-      "@/store": path.resolve(__dirname, "./src/store"),
-      "@/data": path.resolve(__dirname, "./src/data"),
-      "@/assets": path.resolve(__dirname, "./src/assets"),
-      "@/lib": path.resolve(__dirname, "./src/lib"),
-      "@/app": path.resolve(__dirname, "./src/app")
+      '@app': path.resolve(__dirname, 'src/app'),
+      '@features': path.resolve(__dirname, 'src/features'),
+      '@shared': path.resolve(__dirname, 'src/shared'),
+      "@": path.resolve(__dirname, "./src")
     },
   },
   define: {
     __GTM_ID__: JSON.stringify(process.env.VITE_GTM_ID),
     __GA4_ID__: JSON.stringify(process.env.VITE_GA4_ID),
     __META_PIXEL_ID__: JSON.stringify(process.env.VITE_META_PIXEL_ID)
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/setupTests.ts',
+    css: true,
   },
 }));

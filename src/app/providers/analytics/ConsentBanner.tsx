@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from '@/shared/components/ui/button';
-import { Card } from '@/shared/components/ui/card';
-import { Badge } from '@/shared/components/ui/badge';
+import { Button } from '@/shared/ui/button';
+import { Card } from '@/shared/ui/card';
+import { Badge } from '@/shared/ui/badge';
 import { useAppStore } from '@/shared/store/appStore';
 import { Shield, Settings, X } from 'lucide-react';
 
