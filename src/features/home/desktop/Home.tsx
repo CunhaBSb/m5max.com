@@ -3,9 +3,9 @@ import { Helmet } from 'react-helmet-async';
 import { useAnalytics } from '@/shared/hooks/useAnalytics';
 import RootLayout from '@/app/layouts/RootLayout';
 import Hero from './components/Hero';
-import FogosM5Complete from '../components/FogosM5Complete';
-import Services from '../components/Services';
-import FAQ from '../components/FAQ';
+import FogosM5Complete from './components/FogosM5Complete';
+import Services from '@/shared/layout/Services';
+import FAQ from './components/FAQ';
 import LazySection from '@/shared/layout/LazySection';
 
 const Home = () => {

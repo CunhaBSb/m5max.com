@@ -5,7 +5,7 @@ import { Button } from '@/shared/ui/button';
 import { Form } from '@/shared/ui/form';
 import { AudienceType } from '@/shared/types/common';
 import { B2BFormSchema, FormData } from '@/shared/types/forms';
-import B2BForm from '@shared/modal/B2BForm';
+import B2BForm from '@/shared/modal/B2BForm';
 
 interface QualificationFormProps {
   audience: AudienceType;

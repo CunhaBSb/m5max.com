@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAnalytics } from '@/shared/hooks/useAnalytics';
-import RootLayout from '@app/layouts/RootLayout';
+import RootLayout from '@/app/layouts/RootLayout';
 import ReveillonHero from '@features/reveillon/desktop/components/ReveillonHero';
-import FogosM5Complete from '@features/reveillon/components/FogosM5Complete';
+import FogosM5Complete from '@features/reveillon/desktop/components/FogosM5Complete';
 import TimelineSection from '@features/reveillon/desktop/components/TimelineSection';
-import Services from '@features/reveillon/components/Services';
-import FAQ from '@features/reveillon/components/FAQ';
+import Services from '@features/reveillon/desktop/components/Services';
+import FAQ from '@features/reveillon/desktop/components/FAQ';
 import LazySection from '@shared/layout/LazySection';
 
 const ReveillonDesktop = () => {

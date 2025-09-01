@@ -3,9 +3,9 @@ import { Helmet } from 'react-helmet-async';
 import { useAnalytics } from '@/shared/hooks/useAnalytics';
 import { useAppStore } from '@/shared/store/appStore';
 import { generateWhatsAppURL, getWhatsAppMessage } from '@/shared/lib/whatsapp';
-import RootLayout from '@app/layouts/RootLayout';
-import TimelineSection from '@features/reveillon/desktop/components/TimelineSection';
-import ReveillonCallToAction from '@features/reveillon/desktop/components/ReveillonCallToAction';
+import RootLayout from '@/app/layouts/RootLayout';
+import TimelineSection from '@features/reveillon/mobile/components/TimelineSection';
+import ReveillonCallToAction from '@features/reveillon/mobile/components/ReveillonCallToAction';
 import { Button } from '@/shared/ui/button';
 import { MessageSquare, Calendar, Sparkles, Star, Clock, Shield, Award } from 'lucide-react';
 

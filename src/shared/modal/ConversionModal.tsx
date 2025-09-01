@@ -8,7 +8,7 @@ import { useAnalytics } from '@/shared/hooks/useAnalytics';
 import { generateWhatsAppURL, getWhatsAppMessage } from '@/shared/lib/whatsapp';
 import { ConversionContext } from '@/shared/types/forms';
 import { AudienceType } from '@/shared/types/common';
-import QualificationForm from '@shared/modal/QualificationForm';
+import QualificationForm from '@/shared/modal/QualificationForm';
 
 interface ConversionModalProps {
   isOpen: boolean;

@@ -13,8 +13,10 @@ docs/
 
 node_modules
 dist
+CLAUDE.md
 dist-ssr
 *.local
+GEMINI.md
 
 # Editor directories and files
 .vscode/*
