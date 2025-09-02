@@ -1,11 +1,11 @@
 import { lazy, Suspense } from 'react';
-import { useIsDesktop } from '@/shared/hooks/useIsDesktop';
+import { PlatformSwitch } from '@/shared/layout/switchers/PlatformSwitch';
 
 // Lazy load desktop and mobile versions
 const HomeDesktop = lazy(() => import('../desktop/Home'));
 const HomeMobile = lazy(() => import('../mobile/Home'));
 
-// SSR-safe loading component
+// Loading fallback component - discreto
 const PageLoading = () => (
   <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-950 to-black">
     <div className="text-center">
@@ -18,23 +18,13 @@ const PageLoading = () => (
   </div>
 );
 
-// Platform-aware content with unified loading
-const HomeContent = () => {
-  const isDesktop = useIsDesktop();
-  
-  // Show loading during platform detection (SSR/hydration safe)
-  if (isDesktop === null) {
-    return <PageLoading />;
-  }
-  
-  // Return appropriate platform component
-  return isDesktop ? <HomeDesktop /> : <HomeMobile />;
-};
-
 const HomePage = () => {
   return (
     <Suspense fallback={<PageLoading />}>
-      <HomeContent />
+      <PlatformSwitch
+        desktop={<HomeDesktop />}
+        mobile={<HomeMobile />}
+      />
     </Suspense>
   );
 };

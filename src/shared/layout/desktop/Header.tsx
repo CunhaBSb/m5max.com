@@ -36,7 +36,7 @@ export const DesktopHeader = ({ navigation, handleNavigation }: DesktopHeaderPro
         </div>
       </button>
 
-      <nav className="flex items-center gap-8">
+      <nav className="flex items-center gap-4">
         {navigation.map((item) => (
           item.dropdown ? (
             <DropdownMenu key={item.name}>

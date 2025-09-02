@@ -189,7 +189,7 @@ export function useServiceWorker(config: ServiceWorkerConfig = {}) {
   const skipWaiting = React.useCallback(() => {
     swManager.skipWaiting();
     setIsUpdateAvailable(false);
-  }, []);
+  }, [swManager]);
 
   const checkForUpdate = React.useCallback(() => {
     swManager.update();

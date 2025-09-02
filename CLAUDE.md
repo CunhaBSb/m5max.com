@@ -1,5 +1,3 @@
-# CLAUDE.md
-
 > **M5 MAX Context Engineering System**: This repository features a comprehensive context engineering architecture designed for zero-assumption development and maximum developer velocity.
 
 ## 🧠 CONTEXT ENGINEERING OVERVIEW
@@ -122,9 +120,10 @@ src/features/<feature>/
 - **Schema-first** validation with automatic TypeScript types
 
 **State Management** (Source: `docs/STATE_MANAGEMENT.md`):
-- **Attribution tracking** for UTM parameters and conversion analytics
-- **GDPR consent** management for analytics compliance
-- **Modal state** management for conversion workflows
+
+- **Attribution tracking** for UTM parameters and conversion analytics - `src/shared/store/appStore.ts:8-11`
+- **GDPR consent** management for analytics compliance - `src/shared/store/appStore.ts:29-36`
+- **Modal state** management for conversion workflows - `src/shared/store/appStore.ts:13,47-52`
 
 ## 🔍 RAPID REFERENCE SYSTEM
 
@@ -185,6 +184,7 @@ src/features/<feature>/
 - **Conversion flow**: Hero → Modal → Form → Scoring → WhatsApp/Email
 
 **Market Focus**:
+
 - **Portuguese-speaking**: Brazilian market with localized content
 - **Event types**: Réveillon, weddings, corporate events, festivals
 - **Safety emphasis**: Professional-grade safety protocols
@@ -215,4 +215,209 @@ src/features/<feature>/
 4. **Quality Integration**: Testing, performance, and optimization strategies built-in
 5. **Business Alignment**: Deep understanding of M5 Max business model and conversion flows
 
-**Always consult the `docs/` directory first for any architectural questions. The comprehensive documentation eliminates guesswork and ensures consistent, high-quality development.**
+## 🔧 MCP INTEGRATION SYSTEM
+
+This project leverages **9 specialized MCP servers** to create the most advanced AI-assisted development environment. Each MCP provides specific capabilities that complement the Context Engineering architecture.
+
+### **Available MCP Servers & Capabilities**
+
+**🗄️ Data & Backend:**
+- **Supabase MCP** - Database operations, migrations, real-time queries, edge functions
+- **Memory MCP** - Project knowledge graph with 25+ entities and 33+ architectural relationships
+
+**📚 Documentation & Analysis:**  
+- **Context7 MCP** - Up-to-date library documentation and code examples
+- **Gemini CLI MCP** - Deep analysis for large codebases, brainstorming, complex reviews
+
+**🔧 Development & Testing:**
+- **Filesystem MCP** - Advanced file operations, directory management, batch processing
+- **Playwright MCP** - Browser automation, E2E testing, UI validation
+- **IDE MCP** - VS Code diagnostics, code execution, development insights
+
+**🚀 Deployment & Collaboration:**
+- **GitHub MCP** - Repository management, PR workflows, issue tracking, code reviews
+- **Firecrawl MCP** - Web content analysis, research, competitive intelligence
+
+### **MCP Best Practices**
+
+**For Large Analysis Tasks (>50 files):**
+```bash
+Use Gemini MCP with larger context window:
+mcp__gemini-cli__ask-gemini --model=gemini-2.5-flash
+```
+
+**For Architectural Decisions:**
+```bash
+1. Query Memory MCP first: mcp__Memory__search_nodes
+2. Cross-reference with docs/
+3. Implement with established patterns
+```
+
+**For Testing (Critical Gap - 2.5% coverage):**
+```bash
+Use Playwright MCP for comprehensive E2E testing:
+mcp__Playwright__playwright_navigate + test workflows
+```
+
+**For Library Research:**
+```bash
+Get latest docs via Context7 MCP:
+mcp__context7__resolve-library-id → mcp__context7__get-library-docs
+```
+
+## 🧠 INTELLIGENT DEVELOPMENT WORKFLOWS
+
+### **MCP-Powered Context Engineering**
+
+**Before Any Development Task:**
+1. **Query Memory MCP** for existing patterns and architectural decisions
+2. **Consult relevant docs/** for established guidelines  
+3. **Use Context7 MCP** for updated library documentation
+4. **Apply Gemini MCP** for complex analysis requiring large context windows
+
+### **Quality Assurance Integration**
+
+**Testing Strategy (Addressing 2.5% Coverage Gap):**
+- **Playwright MCP** for E2E testing automation
+- **GitHub MCP** for PR workflows and code reviews
+- **IDE MCP** for development-time diagnostics and quality checks
+
+**Performance & Build Optimization:**
+- **Filesystem MCP** for batch file operations and build analysis
+- **Gemini MCP** for bundle analysis and optimization recommendations
+- **Supabase MCP** for database performance monitoring
+
+### **Advanced Workflows**
+
+**Feature Development Lifecycle:**
+```mermaid
+graph TD
+    A[Memory MCP Query] --> B[docs/ Consultation]
+    B --> C[Context7 MCP Research]
+    C --> D[Implementation]
+    D --> E[Playwright MCP Testing]
+    E --> F[GitHub MCP PR Creation]
+```
+
+**Research & Analysis Pipeline:**
+```mermaid
+graph TD
+    A[Firecrawl MCP Research] --> B[Gemini MCP Analysis]
+    B --> C[Memory MCP Storage]
+    C --> D[docs/ Update]
+```
+
+## 📚 ENHANCED MEMORY PROTOCOL
+
+### **Memory MCP Integration**
+
+**Triple-Verification System:**
+1. **docs/ System** - Static documentation with `file:line` references
+2. **Memory MCP** - Dynamic project knowledge graph with relationships  
+3. **Source Code** - Ground truth verification
+
+**Memory-Driven Development:**
+- Query `mcp__Memory__search_nodes` before architectural claims
+- Update `mcp__Memory__create_entities` for new patterns/decisions
+- Use `mcp__Memory__add_observations` to evolve understanding
+
+### **Anti-Hallucination 2.0**
+
+**Enhanced Verification Protocol:**
+```
+✅ CORRECT: "Platform detection at 1024px - src/shared/hooks/useIsDesktop.ts:3 + Memory MCP entity: 'Bifurcated Architecture'"
+❌ WRONG: Any claim without triple verification (docs/ + Memory MCP + source)
+```
+
+**Workflow:**
+1. **Claim Formation** - Make architectural statement
+2. **docs/ Verification** - Check static documentation
+3. **Memory MCP Query** - Validate against knowledge graph
+4. **Source Confirmation** - Verify in actual code
+5. **Update Protocol** - Sync any discrepancies across all three sources
+
+## ⚡ MCP QUICK REFERENCE
+
+### **Development Shortcuts**
+
+**Deep Analysis & Reviews:**
+```bash
+# For complex codebase analysis (>50 files)
+mcp__gemini-cli__ask-gemini --model=gemini-2.5-flash "Analyze entire feature architecture @src/features/"
+
+# For brainstorming new features
+mcp__gemini-cli__brainstorm --domain=software --ideaCount=15
+```
+
+**Memory & Context Queries:**
+```bash
+# Check existing patterns before implementation  
+mcp__Memory__search_nodes --query="form validation patterns"
+
+# Cross-reference architectural decisions
+mcp__Memory__open_nodes --names=["Bifurcated Architecture", "Lead Scoring Algorithm"]
+```
+
+**Testing & Quality Assurance:**
+```bash
+# E2E testing for critical user flows
+mcp__Playwright__playwright_navigate --url="localhost:5173"
+mcp__Playwright__playwright_screenshot --name="homepage-test"
+
+# GitHub workflow integration
+mcp__github__create_pull_request --title="Feature Implementation" --head="feature-branch"
+```
+
+**Research & Documentation:**
+```bash
+# Get latest library documentation
+mcp__context7__resolve-library-id --libraryName="react-hook-form"
+mcp__context7__get-library-docs --topic="validation"
+
+# Web research for competitive analysis
+mcp__firecrawl-mcp__firecrawl_search --query="React form libraries 2025"
+```
+
+### **Critical Gap Mitigation**
+
+**Testing Coverage Strategy (Current: 2.5% → Target: 70%):**
+
+**Priority 1 - Business Logic (0% → 60%):**
+```bash
+# Form system testing
+mcp__Playwright__playwright_fill + validation workflows
+# State management testing  
+Test Zustand store mutations and persistence
+# Page component testing
+E2E user journeys for all conversion flows
+```
+
+**Priority 2 - UI Components (2% → 80%):**
+```bash  
+# Component library testing
+45 components → Playwright visual regression testing
+# Responsive behavior testing
+Desktop/mobile bifurcation validation
+```
+
+**Priority 3 - Integration Testing (0% → 50%):**
+```bash
+# Analytics integration testing
+UTM tracking, conversion funnels, GDPR compliance
+# WhatsApp Business integration testing
+Lead scoring and attribution preservation
+```
+
+## 🎯 MCP-ENHANCED DEVELOPMENT APPROACH
+
+**This repository now combines the original Context Engineering system with MCP superpowers:**
+
+1. **Zero Assumption Development** - Every fact triple-verified (docs/ + Memory MCP + source)
+2. **Instant Context Access** - Any question answerable via specialized MCP in <2 minutes  
+3. **Pattern Consistency** - Memory MCP enforces architectural decisions across sessions
+4. **Quality Integration** - Playwright MCP addresses critical testing gap
+5. **Business Alignment** - Supabase MCP enables data-driven decision making
+6. **Research Acceleration** - Firecrawl + Context7 MCPs for external intelligence
+7. **Advanced Analysis** - Gemini MCP for complex reviews without token limits
+
+**Always consult the `docs/` directory first, then leverage appropriate MCPs for enhanced capabilities. The comprehensive documentation + MCP integration eliminates guesswork and ensures consistent, high-quality development.**

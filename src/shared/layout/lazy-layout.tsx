@@ -1,35 +1,10 @@
-import { lazy, Suspense } from 'react';
-import { Loader2 } from 'lucide-react';
+import { lazy } from 'react';
+import { withLayoutLoading } from './lazy-layout-utils';
 
-// Layout-specific loading fallback
-const LayoutFallback = ({ height = 'auto' }: { height?: string }) => (
-  <div className={`flex items-center justify-center py-8 ${height === 'screen' ? 'min-h-screen' : ''}`}>
-    <div className="text-center space-y-3">
-      <Loader2 className="w-8 h-8 animate-spin text-fire-orange mx-auto" />
-      <p className="text-sm text-muted-foreground">Carregando seção...</p>
-    </div>
-  </div>
-);
+// Desktop-specific lazy components
+export const LazyServicesDesktop = withLayoutLoading(lazy(() => import('./desktop/Services')));
+export const LazyFAQDesktop = withLayoutLoading(lazy(() => import('./desktop/FAQ')));
 
-// HOC for layout components with appropriate fallbacks
-function withLayoutLoading<T extends React.ComponentType<object>>(
-  LazyComponent: T,
-  fallbackHeight: string = 'auto'
-) {
-  const WrappedComponent = (props: React.ComponentProps<T>) => (
-    <Suspense fallback={<LayoutFallback height={fallbackHeight} />}>
-      <LazyComponent {...props} />
-    </Suspense>
-  );
-  
-  WrappedComponent.displayName = `LazyLayout(${(LazyComponent as React.ComponentType).displayName || LazyComponent.name})`;
-  return WrappedComponent;
-}
-
-// Export HOC and lazy-loaded components
-export const LazyServices = withLayoutLoading(lazy(() => import('./Services')));
-export const LazyFAQ = withLayoutLoading(lazy(() => import('./FAQ')));
-export const LazyFogosM5Complete = withLayoutLoading(lazy(() => import('./FogosM5Complete')));
-export const LazyFooter = withLayoutLoading(lazy(() => import('./Footer')));
-export const LazyLeadMagnet = withLayoutLoading(lazy(() => import('./LeadMagnet')));
-export const LazyDifferentialsSection = withLayoutLoading(lazy(() => import('./DifferentialsSection')));
+// Mobile-specific lazy components  
+export const LazyServicesMobile = withLayoutLoading(lazy(() => import('./mobile/Services')));
+export const LazyFAQMobile = withLayoutLoading(lazy(() => import('./mobile/FAQ')));

@@ -1,4 +1,4 @@
-import { PlatformSwitch } from "@/shared/PlatformSwitch";
+import { PlatformSwitch } from "./switchers/PlatformSwitch";
 import FooterDesktop from "./desktop/Footer";
 import FooterMobile from "./mobile/Footer";
 

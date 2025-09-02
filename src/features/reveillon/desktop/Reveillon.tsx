@@ -7,7 +7,7 @@ import FogosM5Complete from '@features/reveillon/desktop/components/FogosM5Compl
 import TimelineSection from '@features/reveillon/desktop/components/TimelineSection';
 import Services from '@features/reveillon/desktop/components/Services';
 import FAQ from '@features/reveillon/desktop/components/FAQ';
-import LazySection from '@shared/layout/LazySection';
+import LazySection from '@/shared/layout/LazySection';
 
 const ReveillonDesktop = () => {
   const { trackPageView } = useAnalytics();

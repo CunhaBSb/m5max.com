@@ -5,7 +5,7 @@ import { useAppStore } from '@/shared/store/appStore';
 import { generateWhatsAppURL, getWhatsAppMessage } from '@/shared/lib/whatsapp';
 import RootLayout from '@/app/layouts/RootLayout';
 import FogosM5Complete from './components/FogosM5Complete';
-import Services from '@/shared/layout/Services';
+import { ServicesMobile } from '@/shared/layout';
 import FAQ from './components/FAQ';
 import Hero from './components/Hero';
 
@@ -65,7 +65,7 @@ const HomeMobile = () => {
           </div>
 
           <div id="servicos">
-            <Services />
+            <ServicesMobile />
           </div>
 
           <div id="faq">

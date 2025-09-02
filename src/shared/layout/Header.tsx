@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { PlatformSwitch } from "@/shared/PlatformSwitch";
+import { PlatformSwitch } from "./switchers/PlatformSwitch";
 import { DesktopHeader } from "./desktop/Header";
 import { MobileHeader } from "./mobile/Header";
 
@@ -75,7 +75,7 @@ const Header = () => {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 bg-background/20 backdrop-blur-sm border-b border-border/10 transition-transform duration-300 ease-in-out ${
       isVisible ? 'translate-y-0' : '-translate-y-full'
-    } transform scale-[1.15] origin-top`}>
+    }`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <PlatformSwitch
           desktop={<DesktopHeader navigation={navigation} handleNavigation={handleNavigation} />}

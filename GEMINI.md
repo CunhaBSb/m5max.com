@@ -1,4 +1,4 @@
-# CLAUDE.md
+# GEMINI.md
 
 > **M5 MAX Context Engineering System**: This repository features a comprehensive context engineering architecture designed for zero-assumption development and maximum developer velocity.
 
