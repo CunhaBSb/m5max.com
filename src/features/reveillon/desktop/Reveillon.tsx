@@ -3,10 +3,10 @@ import { Helmet } from 'react-helmet-async';
 import { useAnalytics } from '@/shared/hooks/useAnalytics';
 import RootLayout from '@/app/layouts/RootLayout';
 import ReveillonHero from '@features/reveillon/desktop/components/ReveillonHero';
-import FogosM5Complete from '@features/reveillon/desktop/components/FogosM5Complete';
+import FogosM5Complete from '@/shared/layout/desktop/FogosM5Complete';
 import TimelineSection from '@features/reveillon/desktop/components/TimelineSection';
-import Services from '@features/reveillon/desktop/components/Services';
-import FAQ from '@features/reveillon/desktop/components/FAQ';
+import Services from '@/shared/layout/desktop/Services';
+import FAQ from '@/shared/layout/desktop/FAQ';
 import LazySection from '@/shared/layout/LazySection';
 
 const ReveillonDesktop = () => {
@@ -32,8 +32,11 @@ const ReveillonDesktop = () => {
         <main className="min-h-screen">
           <ReveillonHero />
 
-          {/* Separador decorativo - Hero para Empresa */}
-          <div className="relative h-px bg-gradient-to-r from-transparent via-fire-orange/20 to-transparent"></div>
+          {/* Section Separator */}
+          <div className="relative h-8 overflow-hidden">
+            <div className="absolute top-4 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-orange/20 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background/60"></div>
+          </div>
 
           <LazySection>
             <div id="empresa">
@@ -41,13 +44,11 @@ const ReveillonDesktop = () => {
             </div>
           </LazySection>
 
-          {/* Separador decorativo - Empresa para Timeline */}
-          <div className="relative h-px bg-gradient-to-r from-transparent via-fire-gold/30 to-transparent">
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent blur-sm"></div>
+          {/* Section Separator */}
+          <div className="relative h-8 overflow-hidden">
+            <div className="absolute top-4 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-gold/20 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background/60"></div>
           </div>
-
-          {/* Separador decorativo - Timeline para Serviços */}
-          <div className="relative h-px bg-gradient-to-r from-transparent via-fire-orange/25 to-transparent"></div>
 
           <LazySection>
             <div id="servicos">
@@ -55,11 +56,11 @@ const ReveillonDesktop = () => {
             </div>
           </LazySection>
 
-          {/* Separador decorativo - Serviços para FAQ */}
-          <div className="relative h-px bg-gradient-to-r from-transparent via-fire-gold/20 to-transparent"></div>
-
-          {/* Separador decorativo - FAQ para Lead Magnet */}
-          <div className="relative h-px bg-gradient-to-r from-transparent via-fire-orange/15 to-transparent"></div>
+          {/* Section Separator */}
+          <div className="relative h-8 overflow-hidden">
+            <div className="absolute top-4 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-orange/20 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background/60"></div>
+          </div>
 
           <LazySection>
             <div id="como-funciona">
@@ -67,9 +68,10 @@ const ReveillonDesktop = () => {
             </div>
           </LazySection>
 
-          {/* Separador decorativo - Como Funciona para FAQ */}
-          <div className="relative h-px bg-gradient-to-r from-transparent via-fire-gold/25 to-transparent">
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/3 to-transparent blur-sm"></div>
+          {/* Section Separator */}
+          <div className="relative h-8 overflow-hidden">
+            <div className="absolute top-4 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-gold/20 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background/60"></div>
           </div>
 
           <LazySection>
@@ -78,10 +80,15 @@ const ReveillonDesktop = () => {
             </div>
           </LazySection>
 
-          {/* Separador decorativo - FAQ para Rodapé */}
-          <div className="relative h-px bg-gradient-to-r from-transparent via-fire-orange/20 to-transparent">
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/2 to-transparent blur-sm"></div>
+          {/* Section Separator */}
+          <div className="relative h-8 overflow-hidden">
+            <div className="absolute top-4 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-orange/20 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background/60"></div>
           </div>
+
+          <LazySection>
+
+          </LazySection>
 
         </main>
       </RootLayout>

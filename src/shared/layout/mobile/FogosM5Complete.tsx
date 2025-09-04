@@ -43,7 +43,7 @@ const FogosM5Complete = () => {
   ];
 
   return (
-    <section className="relative py-12 lg:py-16 overflow-hidden bg-gradient-to-b from-background via-metal-platinum to-background">
+    <section className="relative py-12 overflow-hidden bg-gradient-to-b from-background via-metal-platinum to-background">
       {/* Smooth top transition from previous section */}
       <div className="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-background via-background/80 to-transparent pointer-events-none"></div>
       
@@ -63,26 +63,26 @@ const FogosM5Complete = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-full bg-gradient-radial from-white/[0.008] to-transparent"></div>
       </div>
       
-      <div className="container mx-auto px-4 sm:px-6 relative z-10 max-w-5xl">
+      <div className="container mx-auto px-4 relative z-10 max-w-5xl">
         {/* Section Header - Mobile Optimized */}
-        <div className="text-center mb-6 sm:mb-8">
-          <div className="flex items-center justify-center gap-2 mb-2 xs:mb-3">
-            <div className="w-6 h-6 xs:w-8 xs:h-8 rounded-full bg-fire-gradient flex items-center justify-center">
-              <Award className="w-3 h-3 xs:w-4 xs:h-4 text-white" />
+        <div className="text-center mb-8">
+          <div className="flex items-center justify-center gap-2 mb-3">
+            <div className="w-8 h-8 rounded-full bg-fire-gradient flex items-center justify-center">
+              <Award className="w-4 h-4 text-white" />
             </div>
-            <h2 className="text-xl xs:text-2xl lg:text-3xl font-bold">
+            <h2 className="text-2xl font-bold">
               Conheça a <span className="text-fire-gradient">M5 Max</span>
             </h2>
-            <div className="w-6 h-6 xs:w-8 xs:h-8 rounded-full bg-fire-gradient flex items-center justify-center">
-              <Shield className="w-3 h-3 xs:w-4 xs:h-4 text-white" />
+            <div className="w-8 h-8 rounded-full bg-fire-gradient flex items-center justify-center">
+              <Shield className="w-4 h-4 text-white" />
             </div>
           </div>
-          <p className="text-sm xs:text-base text-muted-foreground max-w-xl mx-auto leading-relaxed">
+          <p className="text-base text-muted-foreground max-w-xl mx-auto leading-relaxed">
             40 anos transformando eventos em espetáculos memoráveis
           </p>
           
           {/* Mobile Quick Stats Bar */}
-          <div className="flex items-center justify-center gap-3 xs:gap-4 mt-3 lg:hidden">
+          <div className="flex items-center justify-center gap-4 mt-3">
             <div className="bg-fire-orange/10 px-2 py-1 rounded-full border border-fire-orange/30">
               <span className="text-xs font-bold text-fire-orange">40 Anos</span>
             </div>
@@ -96,62 +96,25 @@ const FogosM5Complete = () => {
         </div>
 
         {/* Main Content Section - Mobile First Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-6 mb-8 sm:mb-12 items-center">
-          {/* Left Stats Cards - Mobile Responsive */}
-          <div className="lg:col-span-1 hidden lg:block space-y-4">
-            {stats.slice(0, 2).map((stat, index) => {
-              const Icon = stat.icon;
-              return (
-                <div key={index} className="relative">
-                  {/* Refined decorative elements */}
-                  <div className="absolute -inset-1 opacity-12">
-                    <div className="absolute inset-0 bg-fire-orange/6 blur-lg rounded-lg"></div>
-                  </div>
-
-                  <Card className="relative z-10 group bg-background/5 backdrop-blur-sm border border-fire-orange/12 shadow-lg shadow-fire-orange/8 hover:shadow-fire-orange/15 transition-all duration-300 hover:bg-background/10">
-                    <CardContent className="relative z-10 p-4">
-                      <div className="flex flex-col items-center text-center space-y-2">
-                        <div className="w-10 h-10 rounded-full bg-fire-orange/15 backdrop-blur-sm flex items-center justify-center group-hover:bg-fire-orange/25 transition-all duration-300">
-                          <Icon className="w-5 h-5 text-fire-orange" />
-                        </div>
-                        
-                        <div className="text-xl font-bold text-white">
-                          {stat.value}
-                        </div>
-                        
-                        <div className="text-sm font-medium text-white/90 leading-tight">
-                          {stat.label}
-                        </div>
-                        
-                        <div className="text-xs text-white/70 leading-tight text-center">
-                          {stat.description}
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              );
-            })}
-          </div>
-
+        <div className="grid grid-cols-1 gap-6 mb-12 items-center">
           {/* Center Video Section - Mobile Optimized */}
-          <div className="lg:col-span-3 relative order-first lg:order-none">
+          <div className="relative order-first">
             {/* Mobile decorative elements - smaller and optimized */}
-            <div className="absolute -inset-2 lg:-inset-4 opacity-20 lg:opacity-30">
-              <div className="absolute inset-0 bg-fire-orange/10 lg:bg-fire-orange/15 blur-2xl lg:blur-3xl rounded-xl lg:rounded-2xl"></div>
-              <div className="absolute top-1/4 left-1/4 w-1.5 h-1.5 lg:w-2 lg:h-2 bg-fire-orange/50 lg:bg-fire-orange/60 rounded-full animate-pulse"></div>
-              <div className="absolute bottom-1/4 right-1/4 w-1.5 h-1.5 lg:w-2 lg:h-2 bg-fire-orange/50 lg:bg-fire-orange/60 rounded-full animate-pulse delay-1000"></div>
+            <div className="absolute -inset-2 opacity-20">
+              <div className="absolute inset-0 bg-fire-orange/10 blur-2xl rounded-xl"></div>
+              <div className="absolute top-1/4 left-1/4 w-1.5 h-1.5 bg-fire-orange/50 rounded-full animate-pulse"></div>
+              <div className="absolute bottom-1/4 right-1/4 w-1.5 h-1.5 bg-fire-orange/50 rounded-full animate-pulse delay-1000"></div>
             </div>
 
             <div className="relative z-10">
-              <Card className="overflow-hidden bg-black/10 lg:bg-black/15 backdrop-blur-sm border border-fire-orange/15 lg:border-fire-orange/20 shadow-xl lg:shadow-2xl shadow-fire-orange/10 lg:shadow-fire-orange/15">
+              <Card className="overflow-hidden bg-black/10 backdrop-blur-sm border border-fire-orange/15 shadow-xl shadow-fire-orange/10">
                 {/* Mobile Video Header */}
-                <div className="lg:hidden bg-gradient-to-r from-fire-orange/5 to-fire-gold/5 p-3 border-b border-fire-orange/10">
+                <div className="bg-gradient-to-r from-fire-orange/5 to-fire-gold/5 p-3 border-b border-fire-orange/10">
                   <div className="flex items-center justify-center gap-2">
                     <div className="w-5 h-5 rounded-full bg-fire-gradient flex items-center justify-center">
                       <Award className="w-2.5 h-2.5 text-white" />
                     </div>
-                    <h3 className="text-sm font-bold text-fire-orange">Nossa História</h3>
+                    <h3 className="text-sm font-bold text-fire-orange">A M5 Max</h3>
                     <div className="flex items-center gap-1 bg-green-500/20 px-2 py-0.5 rounded-full">
                       <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
                       <span className="text-xs text-green-500">Ao vivo</span>
@@ -163,18 +126,18 @@ const FogosM5Complete = () => {
                   {videoSrc ? (
                     <VideoPlayerSimple 
                       src={videoSrc}
-                      title="Conheça Nossa História - M5 Max Produções"
+                      title="Conheça a História da M5 Max Produções"
                       thumbnail={thumbnailUrl}
                       className="aspect-video"
                     />
                   ) : (
                     <div className="aspect-video bg-gradient-to-br from-black/80 via-fire-orange/10 to-black/80 flex items-center justify-center">
-                      <div className="text-center space-y-3 lg:space-y-4 p-4 lg:p-8">
-                        <div className="w-12 h-12 lg:w-16 lg:h-16 mx-auto bg-fire-orange/20 rounded-full flex items-center justify-center">
-                          <Award className="w-6 h-6 lg:w-8 lg:h-8 text-fire-orange" />
+                      <div className="text-center space-y-3 p-4">
+                        <div className="w-12 h-12 mx-auto bg-fire-orange/20 rounded-full flex items-center justify-center">
+                          <Award className="w-6 h-6 text-fire-orange" />
                         </div>
-                        <h3 className="text-lg lg:text-xl font-bold text-white">Conheça Nossa História</h3>
-                        <p className="text-sm lg:text-base text-white/80">
+                        <h3 className="text-lg font-bold text-white">Conheça a M5 Max</h3>
+                        <p className="text-sm text-white/80">
                           40 anos transformando eventos em espetáculos memoráveis
                         </p>
                       </div>
@@ -186,7 +149,7 @@ const FogosM5Complete = () => {
           </div>
 
           {/* Mobile Stats Grid - Appears after video */}
-          <div className="lg:hidden grid grid-cols-2 gap-3 xs:gap-4">
+          <div className="grid grid-cols-2 gap-4">
             {stats.map((stat, index) => {
               const Icon = stat.icon;
               return (
@@ -214,47 +177,10 @@ const FogosM5Complete = () => {
               );
             })}
           </div>
-
-          {/* Right Stats Cards - Desktop Only */}
-          <div className="lg:col-span-1 hidden lg:block space-y-4">
-            {stats.slice(2, 4).map((stat, index) => {
-              const Icon = stat.icon;
-              return (
-                <div key={index + 2} className="relative">
-                  {/* Refined decorative elements */}
-                  <div className="absolute -inset-1 opacity-12">
-                    <div className="absolute inset-0 bg-fire-orange/6 blur-lg rounded-lg"></div>
-                  </div>
-
-                  <Card className="relative z-10 group bg-background/5 backdrop-blur-sm border border-fire-orange/12 shadow-lg shadow-fire-orange/8 hover:shadow-fire-orange/15 transition-all duration-300 hover:bg-background/10">
-                    <CardContent className="relative z-10 p-4">
-                      <div className="flex flex-col items-center text-center space-y-2">
-                        <div className="w-10 h-10 rounded-full bg-fire-orange/15 backdrop-blur-sm flex items-center justify-center group-hover:bg-fire-orange/25 transition-all duration-300">
-                          <Icon className="w-5 h-5 text-fire-orange" />
-                        </div>
-                        
-                        <div className="text-xl font-bold text-white">
-                          {stat.value}
-                        </div>
-                        
-                        <div className="text-sm font-medium text-white/90 leading-tight">
-                          {stat.label}
-                        </div>
-                        
-                        <div className="text-xs text-white/70 leading-tight text-center">
-                          {stat.description}
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              );
-            })}
-          </div>
         </div>
 
         {/* Mobile CTA Section - Professional and Compact */}
-        <div className="lg:hidden text-center space-y-3">
+        <div className="text-center space-y-3">
           <div className="bg-gradient-to-r from-fire-orange/5 to-fire-gold/5 p-4 rounded-xl border border-fire-orange/15">
             <h3 className="text-lg font-bold text-fire-gradient mb-2">
               Pronto para um espetáculo inesquecível?

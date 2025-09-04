@@ -1,17 +1,16 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAnalytics } from '@/shared/hooks/useAnalytics';
-import { useAppStore } from '@/shared/store/appStore';
-import { generateWhatsAppURL, getWhatsAppMessage } from '@/shared/lib/whatsapp';
 import RootLayout from '@/app/layouts/RootLayout';
 import TimelineSection from '@features/reveillon/mobile/components/TimelineSection';
-import ReveillonCallToAction from '@features/reveillon/mobile/components/ReveillonCallToAction';
 import { Button } from '@/shared/ui/button';
 import { MessageSquare, Calendar, Sparkles, Star, Clock, Shield, Award } from 'lucide-react';
+import { useAppStore } from '@/shared/store/appStore';
+import { generateWhatsAppURL, getWhatsAppMessage } from '@/shared/lib/whatsapp';
 
 const ReveillonMobile = () => {
   const { trackPageView, trackWhatsAppClick } = useAnalytics();
-  const { openConversionModal, attribution } = useAppStore();
+  const { openFormModal, attribution } = useAppStore();
 
   useEffect(() => {
     trackPageView({
@@ -22,7 +21,7 @@ const ReveillonMobile = () => {
   }, [trackPageView]);
 
   const handleOrçamentoClick = () => {
-    openConversionModal({
+    openFormModal({
       source: 'hero_mobile',
       audience: 'b2b',
       page: 'reveillon',
@@ -148,12 +147,24 @@ const ReveillonMobile = () => {
             </div>
           </div>
 
+          {/* Section Separator */}
+          <div className="relative h-6 overflow-hidden">
+            <div className="absolute top-3 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-orange/15 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/70 to-background/50"></div>
+          </div>
+
           <div id="timeline">
             <TimelineSection />
           </div>
 
-          <div id="cta">
-            <ReveillonCallToAction />
+          {/* Section Separator */}
+          <div className="relative h-6 overflow-hidden">
+            <div className="absolute top-3 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-gold/15 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/70 to-background/50"></div>
+          </div>
+
+          <div id="contato">
+            {/* Contact section will be shared */}
           </div>
         </main>
       </RootLayout>

@@ -34,34 +34,34 @@ const TimelineSection = () => {
   ];
 
   return (
-    <section className="relative py-8 xs:py-12 lg:py-16 overflow-hidden">
+    <section className="relative py-10 overflow-hidden">
       {/* Background harmonizado */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-slate-900/25 to-background"></div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(251,146,60,0.04),transparent_70%)]"></div>
       
-      <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative container mx-auto px-4">
         {/* Header */}
-        <div className="max-w-2xl mx-auto text-center mb-6 xs:mb-8 lg:mb-12">
-          <div className="flex items-center justify-center gap-2 mb-3 xs:mb-4">
-            <div className="bg-fire-orange/20 text-fire-orange px-2 xs:px-3 py-1 xs:py-1.5 rounded-full text-xs xs:text-sm font-medium backdrop-blur-sm border border-fire-orange/30">
-              <div className="flex items-center gap-1.5 xs:gap-2">
-                <div className="w-4 h-4 xs:w-5 xs:h-5 rounded-full bg-fire-gradient flex items-center justify-center">
-                  <Sparkles className="w-2 h-2 xs:w-2.5 xs:h-2.5 text-white" />
+        <div className="max-w-2xl mx-auto text-center mb-8">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <div className="bg-fire-orange/20 text-fire-orange px-3 py-1.5 rounded-full text-sm font-medium backdrop-blur-sm border border-fire-orange/30">
+              <div className="flex items-center gap-2">
+                <div className="w-5 h-5 rounded-full bg-fire-gradient flex items-center justify-center">
+                  <Sparkles className="w-2.5 h-2.5 text-white" />
                 </div>
                 <span>Processo Profissional</span>
               </div>
             </div>
           </div>
           
-          <h2 className="text-xl xs:text-2xl lg:text-4xl font-bold mb-3 xs:mb-4 bg-gradient-to-r from-white via-fire-gold to-white bg-clip-text text-transparent">
+          <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-white via-fire-gold to-white bg-clip-text text-transparent">
             Como Funciona?
           </h2>
-          <p className="text-white/70 leading-relaxed text-sm xs:text-base px-4 xs:px-0">
+          <p className="text-white/70 leading-relaxed text-base">
             Do primeiro contato até o espetáculo final, cuidamos de cada detalhe.
           </p>
           
           {/* Mobile Trust Badge */}
-          <div className="flex items-center justify-center gap-2 mt-3 xs:hidden">
+          <div className="flex items-center justify-center gap-2 mt-3">
             <div className="bg-green-500/10 px-2 py-1 rounded-full border border-green-500/30">
               <div className="flex items-center gap-1">
                 <Clock className="w-3 h-3 text-green-500" />
@@ -71,9 +71,8 @@ const TimelineSection = () => {
           </div>
         </div>
 
-        {/* Steps - Mobile First Layout */}
         <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-3 xs:gap-4 lg:gap-6">
+          <div className="grid grid-cols-1 gap-4">
             {steps.map((step, index) => {
               const Icon = step.icon;
               
@@ -121,14 +120,13 @@ const TimelineSection = () => {
               );
             })}
           </div>
-        </div>
-
-        {/* CTA Footer */}
-        <div className="text-center mt-10">
-          <div className="inline-flex items-center gap-2 text-fire-gold/60 text-sm">
-            <div className="w-6 h-px bg-gradient-to-r from-transparent to-fire-orange/40"></div>
-            <span>Processo completo em 4 etapas</span>
-            <div className="w-6 h-px bg-gradient-to-r from-fire-orange/40 to-transparent"></div>
+          
+          <div className="text-center mt-10">
+            <div className="inline-flex items-center gap-2 text-fire-gold/60 text-sm">
+              <div className="w-6 h-px bg-gradient-to-r from-transparent to-fire-orange/40"></div>
+              <span>Processo completo em 4 etapas</span>
+              <div className="w-6 h-px bg-gradient-to-r from-fire-orange/40 to-transparent"></div>
+            </div>
           </div>
         </div>
       </div>

@@ -11,6 +11,7 @@ interface AppState {
   
   // UI State
   conversionModalOpen: boolean;
+  formModalOpen: boolean;
   currentAudience: AudienceType;
   
   // Actions
@@ -18,6 +19,8 @@ interface AppState {
   updateConsent: (consent: Partial<ConsentState>) => void;
   openConversionModal: (context: ConversionContext) => void;
   closeConversionModal: () => void;
+  openFormModal: (context: ConversionContext) => void;
+  closeFormModal: () => void;
   setCurrentAudience: (audience: AudienceType) => void;
 }
 
@@ -35,6 +38,7 @@ export const useAppStore = create<AppState>()(
         security_storage: 'granted'
       },
       conversionModalOpen: false,
+      formModalOpen: false,
       currentAudience: 'general',
 
       // Actions
@@ -50,6 +54,13 @@ export const useAppStore = create<AppState>()(
       }),
       
       closeConversionModal: () => set({ conversionModalOpen: false }),
+      
+      openFormModal: (context) => set({ 
+        formModalOpen: true,
+        currentAudience: context.audience 
+      }),
+      
+      closeFormModal: () => set({ formModalOpen: false }),
       
       setCurrentAudience: (audience) => set({ currentAudience: audience })
     }),

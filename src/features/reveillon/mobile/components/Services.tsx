@@ -137,7 +137,7 @@ const ServicesMobile = () => {
   ];
 
   return (
-    <section className="relative py-8 px-4 overflow-hidden">
+    <section className="relative py-10 px-4 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-slate-950/10 to-background"></div>
       <div className="absolute inset-0 bg-gradient-to-r from-fire-orange/5 via-transparent to-fire-gold/5"></div>

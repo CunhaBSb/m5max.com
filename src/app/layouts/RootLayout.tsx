@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import Header from "@/shared/layout/Header";
 import Footer from "@/shared/layout/Footer";
 import ConversionModal from "@/shared/modal/ConversionModal";
+import FormModal from "@/shared/modal/FormModal";
 import ConsentBanner from "@/app/providers/analytics/ConsentBanner";
 import { useAppStore } from "@/shared/store/appStore";
 
@@ -10,7 +11,13 @@ interface RootLayoutProps {
 }
 
 const RootLayout = ({ children }: RootLayoutProps) => {
-  const { conversionModalOpen, closeConversionModal, currentAudience } = useAppStore();
+  const { 
+    conversionModalOpen, 
+    closeConversionModal, 
+    formModalOpen, 
+    closeFormModal, 
+    currentAudience 
+  } = useAppStore();
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -27,6 +34,13 @@ const RootLayout = ({ children }: RootLayoutProps) => {
         onClose={closeConversionModal}
         audience={currentAudience}
         source="modal"
+      />
+      
+      <FormModal
+        isOpen={formModalOpen}
+        onClose={closeFormModal}
+        audience={currentAudience}
+        source="form_modal"
       />
       
       <ConsentBanner />

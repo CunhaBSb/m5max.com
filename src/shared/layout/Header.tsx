@@ -39,8 +39,8 @@ const Header = () => {
       name: "Empresa", 
       href: "#empresa",
       dropdown: [
-        { name: "Sobre a M5", href: "#empresa", description: "Nossa história e experiência" },
-        { name: "Nossos Serviços", href: "#servicos", description: "O que oferecemos" },
+        { name: "Sobre a M5", href: "#empresa", description: "A história e experiência" },
+        { name: "Serviços", href: "#servicos", description: "O que oferecemos" },
         { name: "Perguntas Frequentes", href: "#faq", description: "Tire suas dúvidas" }
       ]
     }

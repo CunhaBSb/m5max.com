@@ -4,14 +4,14 @@ import { useAnalytics } from '@/shared/hooks/useAnalytics';
 import { useAppStore } from '@/shared/store/appStore';
 import { generateWhatsAppURL, getWhatsAppMessage } from '@/shared/lib/whatsapp';
 import RootLayout from '@/app/layouts/RootLayout';
-import FogosM5Complete from './components/FogosM5Complete';
-import { ServicesMobile } from '@/shared/layout';
-import FAQ from './components/FAQ';
+import FogosM5Complete from '@/shared/layout/mobile/FogosM5Complete';
+import Services from '@/shared/layout/mobile/Services';
+import FAQ from '@/shared/layout/mobile/FAQ';
 import Hero from './components/Hero';
 
 const HomeMobile = () => {
   const { trackPageView, trackWhatsAppClick } = useAnalytics();
-  const { openConversionModal, attribution } = useAppStore();
+  const { openFormModal, attribution } = useAppStore();
 
   useEffect(() => {
     trackPageView({
@@ -22,7 +22,7 @@ const HomeMobile = () => {
   }, [trackPageView]);
 
   const handleOrçamentoClick = () => {
-    openConversionModal({
+    openFormModal({
       source: 'hero_mobile',
       audience: 'b2b',
       page: 'home',
@@ -60,12 +60,30 @@ const HomeMobile = () => {
         <main className="min-h-screen">
           <Hero handleWhatsAppClick={handleWhatsAppClick} handleOrçamentoClick={handleOrçamentoClick} />
 
+          {/* Section Separator */}
+          <div className="relative h-6 overflow-hidden">
+            <div className="absolute top-3 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-orange/15 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/70 to-background/50"></div>
+          </div>
+
           <div id="empresa">
             <FogosM5Complete />
           </div>
 
+          {/* Section Separator */}
+          <div className="relative h-6 overflow-hidden">
+            <div className="absolute top-3 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-gold/15 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/70 to-background/50"></div>
+          </div>
+
           <div id="servicos">
-            <ServicesMobile />
+            <Services />
+          </div>
+
+          {/* Section Separator */}
+          <div className="relative h-6 overflow-hidden">
+            <div className="absolute top-3 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-orange/15 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/70 to-background/50"></div>
           </div>
 
           <div id="faq">
