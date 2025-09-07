@@ -2,8 +2,8 @@ import { Card, CardContent } from '@/shared/ui/card';
 import { Button } from '@/shared/ui/button';
 import { YouTubeEmbed } from '@/shared/ui/youtube-embed';
 import { Badge } from '@/shared/ui/badge';
-import { Calendar } from 'lucide-react';
-import { FaWhatsapp as WhatsApp } from 'react-icons/fa';
+import { Sparkles, TrendingUp } from 'lucide-react';
+import { FaWhatsapp as WhatsApp, FaInstagram as Instagram, FaYoutube as YouTube } from 'react-icons/fa';
 import { useAnalytics } from '@/shared/hooks/useAnalytics';
 import { useAppStore } from '@/shared/store/appStore';
 import { generateWhatsAppURL, getWhatsAppMessage } from '@/shared/lib/whatsapp';
@@ -13,44 +13,50 @@ interface ShowcaseVideoCardProps {
   title: string;
   description: string;
   badges: string[];
-  features: string[];
 }
 
-const ShowcaseVideoCard = ({ youtubeId, title, description, badges, features }: ShowcaseVideoCardProps) => {
+const ShowcaseVideoCard = ({ youtubeId, title, description, badges }: ShowcaseVideoCardProps) => {
+  // Limit badges to 3 maximum for cleaner design
+  const displayBadges = badges.slice(0, 3);
+  
   return (
-    <Card className="h-full flex flex-col bg-gradient-to-br from-black/60 via-gray-900/40 to-black/60 backdrop-blur-sm border border-fire-orange/30 overflow-hidden shadow-xl group hover:shadow-fire-orange/20 transition-all duration-300">
-      <div className="aspect-video relative overflow-hidden">
+    <Card className="h-full flex flex-col bg-black/30 hover:bg-black/40 backdrop-blur-sm border border-white/10 hover:border-fire-orange/30 overflow-hidden shadow-lg group hover:shadow-fire-orange/10 transition-all duration-300">
+      {/* Video Thumbnail with YouTube Watermark */}
+      <div className="aspect-video relative overflow-hidden rounded-t-lg">
         <YouTubeEmbed 
           youtubeId={youtubeId}
           title={title}
           className="w-full h-full"
         />
-        <div className="absolute top-3 left-3 flex flex-wrap gap-2">
-          {badges.map(badge => (
-            <Badge key={badge} className="bg-fire-orange/90 text-white text-xs font-medium shadow-lg backdrop-blur-sm">
+        {/* Discrete YouTube Watermark */}
+        <div className="absolute bottom-2 right-2 bg-black/60 backdrop-blur-sm rounded px-2 py-1 flex items-center gap-1.5">
+          <YouTube className="w-3 h-3 text-red-500" />
+          <span className="text-xs text-white/80 font-medium">YouTube</span>
+        </div>
+      </div>
+      
+      {/* Card Content - Reduced padding */}
+      <CardContent className="p-4 space-y-3 flex-1 flex flex-col">
+        {/* Badges moved to top */}
+        <div className="flex flex-wrap gap-1.5">
+          {displayBadges.map(badge => (
+            <Badge 
+              key={badge} 
+              className="bg-white/10 hover:bg-fire-orange/20 text-white hover:text-fire-orange text-xs px-2 py-0.5 font-medium border border-white/20 transition-colors duration-200"
+            >
               {badge}
             </Badge>
           ))}
         </div>
-      </div>
-      
-      <CardContent className="p-6 space-y-4 flex-1 flex flex-col">
-        <div className="flex-1">
-          <h3 className="text-xl font-bold text-white mb-2 group-hover:text-fire-orange transition-colors">
+        
+        {/* Content with better hierarchy */}
+        <div className="flex-1 space-y-2">
+          <h3 className="text-lg font-bold text-white leading-tight group-hover:text-fire-orange transition-colors duration-200">
             {title}
           </h3>
-          <p className="text-base text-white/80 leading-relaxed">{description}</p>
-        </div>
-        
-        <div className="flex flex-wrap gap-2 pt-3 border-t border-white/10">
-          {features.map((feature, index) => (
-            <span 
-              key={index}
-              className="px-2 py-1 bg-fire-orange/20 text-fire-orange rounded text-xs font-medium border border-fire-orange/30"
-            >
-              {feature}
-            </span>
-          ))}
+          <p className="text-sm text-white/70 leading-relaxed line-clamp-3">
+            {description}
+          </p>
         </div>
       </CardContent>
     </Card>
@@ -88,10 +94,10 @@ const Services = () => {
   };
 
   return (
-    <section className="relative py-20 overflow-hidden">
-      {/* Standardized Background System - Pattern Base */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-metal-platinum/8 to-background" />
-      <div className="absolute inset-0 bg-gradient-to-br from-fire-orange/6 via-transparent to-fire-gold/4" />
+    <section className="relative py-10 overflow-hidden">
+      {/* Pattern Alternative Background - Harmonious complement to FogosM5Complete */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-metal-platinum/12 to-background" />
+      <div className="absolute inset-0 bg-gradient-to-br from-fire-gold/6 via-transparent to-fire-orange/4" />
       
       {/* Standardized Section Transitions */}
       <div className="absolute top-0 left-0 w-full h-8 bg-gradient-to-b from-background via-background/80 to-transparent pointer-events-none" />
@@ -99,50 +105,99 @@ const Services = () => {
       
       {/* Standardized Container */}
       <div className="relative container mx-auto px-6 max-w-6xl">
-        {/* Standardized Header */}
-        <div className="text-center mb-16">
-          {/* Standardized Badge */}
-          <div className="inline-flex items-center gap-2 text-white font-medium text-sm bg-fire-orange/20 px-4 py-2 rounded-xl mb-6">
-            <div className="w-2 h-2 bg-fire-orange rounded-full animate-pulse" />
-            Espetáculos Profissionais
+        {/* Two-Column Header - Content & Social Media */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-12">
+          {/* Left Column - Content */}
+          <div className="text-center lg:text-left">
+            {/* Standardized Badge */}
+            <div className="inline-flex items-center gap-2 text-white font-medium text-sm bg-fire-orange/20 px-4 py-2 rounded-xl mb-6">
+              <div className="w-2 h-2 bg-fire-orange rounded-full animate-pulse" />
+              Espetáculos Profissionais
+            </div>
+            
+            {/* Standardized Title - H2 */}
+            <h2 className="text-3xl font-bold mb-6">
+              <span className="text-white">Cada show conta uma </span>
+              <span className="text-fire-gradient">história única</span>
+            </h2>
+            
+            {/* Standardized Description */}
+            <p className="text-lg text-white/85">
+              Conheça alguns dos nossos espetáculos realizados e se inspire para o seu próximo evento.
+            </p>
           </div>
-          
-          {/* Standardized Title - H2 */}
-          <h2 className="text-3xl font-bold mb-6">
-            <span className="text-white">Cada show conta uma </span>
-            <span className="text-fire-gradient">história única</span>
-          </h2>
-          
-          {/* Standardized Description */}
-          <p className="text-lg text-white/85 mb-8 max-w-2xl mx-auto">
-            Conheça alguns dos nossos espetáculos realizados e se inspire para o seu próximo evento.
-          </p>
-          
-          {/* Standardized Stats */}
-          <div className="flex justify-center gap-8 mb-8">
-            <div className="text-center bg-gradient-to-br from-green-500/15 to-green-500/5 border border-green-500/20 rounded-2xl p-4 backdrop-blur-sm">
-              <div className="text-2xl font-bold text-green-400">2000+</div>
-              <div className="text-sm text-white/70">Eventos</div>
+
+          {/* Right Column - Social Media */}
+          <div className="space-y-6">
+            {/* Header */}
+            <div className="text-center lg:text-right">
+              <h3 className="text-2xl font-bold text-white mb-2">
+                Siga a <span className="text-fire-gradient">M5 Max</span>
+              </h3>
+              <p className="text-white/70 leading-relaxed">
+                Acompanhe nossos espetáculos nas redes sociais
+              </p>
             </div>
-            <div className="text-center bg-gradient-to-br from-fire-orange/15 to-fire-orange/5 border border-fire-orange/20 rounded-2xl p-4 backdrop-blur-sm">
-              <div className="text-2xl font-bold text-fire-orange">100%</div>
-              <div className="text-sm text-white/70">Segurança</div>
+            
+            {/* Social Cards - Minimalist Horizontal Layout */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-end">
+              {/* Instagram */}
+              <a 
+                href="https://instagram.com/fogosm5" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-4 bg-black/20 hover:bg-black/30 border border-white/10 hover:border-fire-orange/30 rounded-2xl p-5 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] min-w-[180px]"
+              >
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-red-500 flex items-center justify-center group-hover:shadow-lg group-hover:shadow-pink-500/25 transition-all duration-300">
+                  <Instagram className="w-6 h-6 text-white" />
+                </div>
+                <div className="flex-1 text-left">
+                  <div className="font-bold text-white text-lg group-hover:text-fire-orange transition-colors">Instagram</div>
+                  <div className="text-white/60 text-sm">@Fogosm5</div>
+                </div>
+              </a>
+              
+              {/* YouTube */}
+              <a 
+                href="https://youtube.com/@FogosM5Max" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-4 bg-black/20 hover:bg-black/30 border border-white/10 hover:border-fire-orange/30 rounded-2xl p-5 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] min-w-[180px]"
+              >
+                <div className="w-12 h-12 rounded-xl bg-red-600 flex items-center justify-center group-hover:shadow-lg group-hover:shadow-red-500/25 transition-all duration-300">
+                  <YouTube className="w-6 h-6 text-white" />
+                </div>
+                <div className="flex-1 text-left">
+                  <div className="font-bold text-white text-lg group-hover:text-fire-orange transition-colors">YouTube</div>
+                  <div className="text-white/60 text-sm">@FogosM5Max</div>
+                </div>
+              </a>
             </div>
-            <div className="text-center bg-gradient-to-br from-blue-500/15 to-blue-500/5 border border-blue-500/20 rounded-2xl p-4 backdrop-blur-sm">
-              <div className="text-2xl font-bold text-blue-400">40</div>
-              <div className="text-sm text-white/70">Anos</div>
+            
+            {/* Social Stats - Integrated Clean Design */}
+            <div className="flex justify-center lg:justify-end">
+              <div className="flex items-center gap-8 text-center">
+                <div>
+                  <div className="text-2xl font-bold text-fire-orange">+2K</div>
+                  <div className="text-white/60 text-sm font-medium">Shows realizados</div>
+                </div>
+                <div className="w-px h-12 bg-white/20"></div>
+                <div>
+                  <div className="text-2xl font-bold text-fire-orange">+40</div>
+                  <div className="text-white/60 text-sm font-medium">Anos de experiência</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Content Grid */}
-        <div className="grid grid-cols-2 gap-8 mb-10">
+        {/* Content Grid - Optimized spacing */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
           <ShowcaseVideoCard 
             youtubeId="xUPt4tZIM-s"
             title="Réveillon 2025 no Iate Clube de Brasília"
             description="Show pirotécnico espetacular para celebrar a virada do ano com sincronização perfeita e efeitos únicos"
             badges={["Réveillon", "Corporativo", "Sincronizado"]}
-            features={["Sincronização de Pontos", "Múltiplos Pontos", "Segurança Total"]}
           />
           
           <ShowcaseVideoCard 
@@ -150,33 +205,37 @@ const Services = () => {
             title="Show Pirotécnico Espetacular | Festa do Mimosa 2025"
             description="Espetáculo completo com queima coordenada e efeitos especiais que marcaram a celebração"
             badges={["Festa", "Premium", "Espetacular"]}
-            features={["Queima Coordenada", "Efeitos Especiais", "Equipe Certificada"]}
           />
         </div>
 
-        {/* Standardized CTA Section */}
-        <div className="text-center bg-gradient-to-r from-black/30 via-black/40 to-black/30 backdrop-blur-xl border border-fire-orange/25 rounded-2xl p-6 max-w-2xl mx-auto">
-          <h3 className="text-xl font-bold text-white mb-6">
-            Interessado? <span className="text-fire-gradient">Fale conosco</span>
-          </h3>
+        {/* Modern CTA Section - Framer/Notion Style */}
+        <div className="text-center py-8 max-w-2xl mx-auto">
+          {/* Emocional Header with Icon */}
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <Sparkles className="w-5 h-5 text-fire-orange animate-pulse" />
+            <h3 className="text-2xl font-bold text-white">
+              Pronto para criar um <span className="text-fire-gradient">espetáculo</span>?
+            </h3>
+          </div>
           
-          <div className="flex gap-3 justify-center">
+          {/* Modern Button Layout */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button
               onClick={handleWhatsAppClick}
-              className="bg-green-600 hover:bg-green-500 text-white transition-all duration-200"
+              className="h-12 px-6 bg-green-600 hover:bg-green-500 hover:scale-105 text-white font-medium transition-all duration-300 shadow-lg hover:shadow-green-500/25 min-w-[160px]"
             >
-              <WhatsApp className="w-4 h-4 mr-2" />
+              <WhatsApp className="w-4 h-4 mr-3" />
               WhatsApp
             </Button>
             
             <Button 
-              variant="outline"
+              variant="outline-fire"
               onClick={handleOrçamentoClick}
-              className="border-fire-orange/50 text-white hover:border-fire-orange/80 hover:bg-fire-orange/10 transition-all duration-200"
+              className="h-12 px-6 hover:scale-105 font-medium min-w-[160px]"
             >
-              <Calendar className="w-4 h-4 mr-2" />
+              <TrendingUp className="w-4 h-4 mr-3" />
               Orçamento
-            </Button>
+            </Button>    
           </div>
         </div>
       </div>

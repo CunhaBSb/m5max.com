@@ -1,16 +1,49 @@
 import { Button } from "@/shared/ui/button";
 import { Separator } from "@/shared/ui/separator";
-import { MessageSquare, Mail, MapPin, Youtube } from "lucide-react";
+import { Calendar, Mail, MapPin } from "lucide-react";
+import { FaYoutube as Youtube } from "react-icons/fa";
 import { FaInstagram as Instagram, FaFacebook as Facebook, FaWhatsapp as WhatsApp } from "react-icons/fa";
+import { useAppStore } from "@/shared/store/appStore";
+import { useAnalytics } from "@/shared/hooks/useAnalytics";
+import { generateWhatsAppURL, getWhatsAppMessage } from "@/shared/lib/whatsapp";
 
 export const FooterDesktop = () => {
+  const { openFormModal, attribution } = useAppStore();
+  const { trackWhatsAppClick } = useAnalytics();
+
+  const handleOrçamentoClick = () => {
+    openFormModal({
+      source: 'footer',
+      audience: 'general',
+      page: 'home'
+    });
+  };
+
+  const handleWhatsAppClick = () => {
+    const message = getWhatsAppMessage('general');
+    const url = generateWhatsAppURL(
+      message,
+      attribution?.utm,
+      { audience: 'general', source: 'footer' }
+    );
+
+    trackWhatsAppClick({
+      audience: 'general',
+      source: 'footer',
+      message_template: message,
+      phone_number: '5561982735575'
+    });
+
+    window.open(url, '_blank');
+  };
+
   return (
     <footer className="bg-slate-950 text-slate-300">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="py-8 text-center">
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="w-8 h-8 rounded-full bg-fire-gradient flex items-center justify-center">
-              <MessageSquare className="w-4 h-4 text-white" />
+              <Calendar className="w-4 h-4 text-white" />
             </div>
             <h3 className="text-xl font-bold">
               Evento <span className="text-fire-orange">inesquecível</span>?
@@ -21,19 +54,26 @@ export const FooterDesktop = () => {
             Solicite seu orçamento agora e transforme sua celebração em um espetáculo
           </p>
           
-          <div className="flex justify-center">
+          <div className="flex justify-center gap-3">
             <Button 
-              variant="fire" 
-              size="sm"
-              className="h-11 bg-fire-orange hover:bg-fire-red flex items-center gap-2 text-sm"
-              onClick={() => window.open('https://wa.me/5561982735575', '_blank')}
+              onClick={handleWhatsAppClick}
+              className="h-11 bg-green-600 hover:bg-green-500 text-white flex items-center gap-2 text-sm transition-all duration-200"
             >
-              <MessageSquare className="w-4 h-4" />
+              <WhatsApp className="w-4 h-4" />
               WhatsApp Direto
               <div className="flex items-center gap-1 ml-1 bg-white/20 px-1.5 py-0.5 rounded-full">
                 <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
                 <span className="text-xs">Online</span>
               </div>
+            </Button>
+            
+            <Button 
+              variant="outline-fire"
+              onClick={handleOrçamentoClick}
+              className="h-11 flex items-center gap-2 text-sm"
+            >
+              <Calendar className="w-4 h-4" />
+              Orçamento Online
             </Button>
           </div>
         </div>

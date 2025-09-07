@@ -8,6 +8,7 @@ import TimelineSection from '@features/reveillon/desktop/components/TimelineSect
 import Services from '@/shared/layout/desktop/Services';
 import FAQ from '@/shared/layout/desktop/FAQ';
 import LazySection from '@/shared/layout/LazySection';
+import SectionSeparator from '@/shared/layout/SectionSeparator';
 
 const ReveillonDesktop = () => {
   const { trackPageView } = useAnalytics();
@@ -32,11 +33,7 @@ const ReveillonDesktop = () => {
         <main className="min-h-screen">
           <ReveillonHero />
 
-          {/* Section Separator */}
-          <div className="relative h-8 overflow-hidden">
-            <div className="absolute top-4 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-orange/20 to-transparent"></div>
-            <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background/60"></div>
-          </div>
+          <SectionSeparator variant="fire-line" spacing="lg" />
 
           <LazySection>
             <div id="empresa">
@@ -44,11 +41,7 @@ const ReveillonDesktop = () => {
             </div>
           </LazySection>
 
-          {/* Section Separator */}
-          <div className="relative h-8 overflow-hidden">
-            <div className="absolute top-4 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-gold/20 to-transparent"></div>
-            <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background/60"></div>
-          </div>
+          <SectionSeparator variant="ember-glow" spacing="md" />
 
           <LazySection>
             <div id="servicos">
@@ -56,11 +49,7 @@ const ReveillonDesktop = () => {
             </div>
           </LazySection>
 
-          {/* Section Separator */}
-          <div className="relative h-8 overflow-hidden">
-            <div className="absolute top-4 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-orange/20 to-transparent"></div>
-            <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background/60"></div>
-          </div>
+          <SectionSeparator variant="sparkle" spacing="lg" />
 
           <LazySection>
             <div id="como-funciona">
@@ -68,11 +57,7 @@ const ReveillonDesktop = () => {
             </div>
           </LazySection>
 
-          {/* Section Separator */}
-          <div className="relative h-8 overflow-hidden">
-            <div className="absolute top-4 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-gold/20 to-transparent"></div>
-            <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background/60"></div>
-          </div>
+          <SectionSeparator variant="gradient-wave" spacing="md" />
 
           <LazySection>
             <div id="faq">
@@ -80,15 +65,7 @@ const ReveillonDesktop = () => {
             </div>
           </LazySection>
 
-          {/* Section Separator */}
-          <div className="relative h-8 overflow-hidden">
-            <div className="absolute top-4 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-orange/20 to-transparent"></div>
-            <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background/60"></div>
-          </div>
-
-          <LazySection>
-
-          </LazySection>
+          <SectionSeparator variant="geometric-pattern" spacing="lg" />
 
         </main>
       </RootLayout>

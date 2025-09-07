@@ -43,53 +43,79 @@ const FogosM5Complete = () => {
   ];
 
   return (
-    <section className="relative py-12 overflow-hidden bg-gradient-to-b from-background via-metal-platinum to-background">
-      {/* Smooth top transition from previous section */}
-      <div className="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-background via-background/80 to-transparent pointer-events-none"></div>
+    <section className="relative py-8 overflow-hidden">
+      {/* M5 Max Pyrotechnic Background System - Mobile Optimized */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-slate-900/15 to-background" />
+      <div className="absolute inset-0 bg-gradient-to-br from-fire-orange/12 via-fire-gold/8 to-fire-orange/6" />
       
-      {/* Refined Background Layer - M5 Max brand colors */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/98 via-metal-platinum/95 to-background" />
-      
-      {/* Smooth bottom transition to next section */}
-      <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-background via-background/90 to-transparent pointer-events-none"></div>
-      
-      {/* Professional Ambient Design */}
-      <div className="absolute inset-0 opacity-15 pointer-events-none">
-        {/* Subtle lateral ambience */}
-        <div className="absolute left-0 top-1/3 w-48 h-64 bg-gradient-to-r from-fire-orange/8 to-transparent blur-2xl"></div>
-        <div className="absolute right-0 top-1/3 w-48 h-64 bg-gradient-to-l from-fire-orange/8 to-transparent blur-2xl"></div>
+      {/* Enhanced Mobile Pyrotechnic Particle System - Expertise Theme */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {/* Golden spark particles - mobile density */}
+        <div className="absolute top-1/4 left-1/6 w-0.5 h-0.5 bg-fire-gold rounded-full animate-ping opacity-50" style={{ animationDelay: '0.5s', animationDuration: '3s' }} />
+        <div className="absolute top-1/3 right-1/4 w-1 h-1 bg-fire-orange rounded-full animate-pulse opacity-35" style={{ animationDelay: '1.2s', animationDuration: '2s' }} />
+        <div className="absolute bottom-1/3 left-1/3 w-0.5 h-0.5 bg-fire-gold/80 rounded-full animate-ping opacity-40" style={{ animationDelay: '2.1s', animationDuration: '4s' }} />
+        <div className="absolute top-2/3 right-1/6 w-0.5 h-0.5 bg-fire-orange rounded-full animate-pulse opacity-30" style={{ animationDelay: '3s', animationDuration: '2.5s' }} />
         
-        {/* Center focus enhancement */}
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-full bg-gradient-radial from-white/[0.008] to-transparent"></div>
+        {/* Mobile firework trails - experience lines */}
+        <div className="absolute top-1/5 right-1/5 w-px h-10 bg-gradient-to-b from-fire-gold/25 to-transparent rotate-12 opacity-30" />
+        <div className="absolute bottom-1/4 left-1/4 w-px h-8 bg-gradient-to-t from-fire-orange/20 to-transparent -rotate-12 opacity-25" />
+        <div className="absolute top-1/2 right-1/3 w-px h-6 bg-gradient-to-b from-fire-gold/15 to-transparent rotate-45 opacity-20" />
+      </div>
+      
+      {/* Mobile Expertise Burst Pattern */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 w-32 h-32 -translate-x-1/2 -translate-y-1/2 
+             bg-gradient-radial from-fire-gold/10 via-fire-orange/5 to-transparent 
+             rounded-full blur-2xl opacity-40 animate-pulse" style={{ animationDuration: '5s' }} />
+        
+        <div className="absolute top-1/4 right-1/3 w-20 h-20 
+             bg-gradient-radial from-fire-orange/8 via-fire-gold/4 to-transparent 
+             rounded-full blur-xl opacity-30 animate-pulse" style={{ animationDelay: '2.5s', animationDuration: '6s' }} />
+      </div>
+      
+      {/* Standardized Section Transitions */}
+      <div className="absolute top-0 left-0 w-full h-6 bg-gradient-to-b from-background via-background/80 to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-full h-6 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none" />
+      
+      {/* Professional Ambient Design - Mobile Enhanced */}
+      <div className="absolute inset-0 opacity-12 pointer-events-none">
+        {/* Mobile lateral ambience - reduced size */}
+        <div className="absolute left-0 top-1/3 w-32 h-40 bg-gradient-to-r from-fire-orange/6 to-transparent blur-xl"></div>
+        <div className="absolute right-0 top-1/3 w-32 h-40 bg-gradient-to-l from-fire-orange/6 to-transparent blur-xl"></div>
+        
+        {/* Mobile center focus enhancement */}
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-sm h-full bg-gradient-radial from-white/[0.006] to-transparent"></div>
       </div>
       
       <div className="container mx-auto px-4 relative z-10 max-w-5xl">
-        {/* Section Header - Mobile Optimized */}
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-2 mb-3">
-            <div className="w-8 h-8 rounded-full bg-fire-gradient flex items-center justify-center">
-              <Award className="w-4 h-4 text-white" />
-            </div>
-            <h2 className="text-2xl font-bold">
-              Conheça a <span className="text-fire-gradient">M5 Max</span>
-            </h2>
-            <div className="w-8 h-8 rounded-full bg-fire-gradient flex items-center justify-center">
-              <Shield className="w-4 h-4 text-white" />
-            </div>
+        {/* Standardized Header - Mobile */}
+        <div className="text-center mb-12">
+          {/* Standardized Badge */}
+          <div className="inline-flex items-center gap-2 text-white font-medium text-sm bg-fire-orange/20 px-4 py-2 rounded-xl mb-6">
+            <div className="w-2 h-2 bg-fire-orange rounded-full animate-pulse" />
+            Sobre a Empresa
           </div>
-          <p className="text-base text-muted-foreground max-w-xl mx-auto leading-relaxed">
+          
+          {/* Standardized Title - H2 */}
+          <h2 className="text-2xl font-bold mb-4">
+            <span className="text-white">Conheça a </span>
+            <span className="text-fire-gradient">M5 Max</span>
+          </h2>
+          
+          {/* Standardized Description */}
+          <p className="text-base text-white/85 mb-6 max-w-xl mx-auto">
             40 anos transformando eventos em espetáculos memoráveis
           </p>
           
-          {/* Mobile Quick Stats Bar */}
-          <div className="flex items-center justify-center gap-4 mt-3">
-            <div className="bg-fire-orange/10 px-2 py-1 rounded-full border border-fire-orange/30">
+          {/* Mobile Enhanced Stats Bar */}
+          <div className="flex items-center justify-center gap-3 flex-wrap">
+            <div className="bg-fire-orange/15 px-3 py-1.5 rounded-full border border-fire-orange/30 backdrop-blur-sm">
               <span className="text-xs font-bold text-fire-orange">40 Anos</span>
             </div>
-            <div className="bg-green-500/10 px-2 py-1 rounded-full border border-green-500/30">
+            <div className="bg-green-500/15 px-3 py-1.5 rounded-full border border-green-500/30 backdrop-blur-sm">
               <span className="text-xs font-bold text-green-500">100% Seguro</span>
             </div>
-            <div className="bg-blue-500/10 px-2 py-1 rounded-full border border-blue-500/30">
+            <div className="bg-blue-500/15 px-3 py-1.5 rounded-full border border-blue-500/30 backdrop-blur-sm">
               <span className="text-xs font-bold text-blue-500">2K+ Eventos</span>
             </div>
           </div>
@@ -107,21 +133,10 @@ const FogosM5Complete = () => {
             </div>
 
             <div className="relative z-10">
-              <Card className="overflow-hidden bg-black/10 backdrop-blur-sm border border-fire-orange/15 shadow-xl shadow-fire-orange/10">
-                {/* Mobile Video Header */}
-                <div className="bg-gradient-to-r from-fire-orange/5 to-fire-gold/5 p-3 border-b border-fire-orange/10">
-                  <div className="flex items-center justify-center gap-2">
-                    <div className="w-5 h-5 rounded-full bg-fire-gradient flex items-center justify-center">
-                      <Award className="w-2.5 h-2.5 text-white" />
-                    </div>
-                    <h3 className="text-sm font-bold text-fire-orange">A M5 Max</h3>
-                    <div className="flex items-center gap-1 bg-green-500/20 px-2 py-0.5 rounded-full">
-                      <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-                      <span className="text-xs text-green-500">Ao vivo</span>
-                    </div>
-                  </div>
-                </div>
-                
+              {/* Enhanced glow effect for mobile */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-fire-orange/15 via-fire-gold/25 to-fire-orange/15 rounded-xl blur-sm opacity-60 animate-pulse" style={{ animationDuration: '3s' }} />
+              
+              <Card className="relative overflow-hidden bg-gradient-to-br from-black/40 via-gray-900/30 to-black/40 backdrop-blur-sm border-2 border-fire-gold/30 hover:border-fire-orange/50 shadow-2xl shadow-fire-gold/20 transition-all duration-500 hover:shadow-fire-orange/30">
                 <div className="relative z-10">
                   {videoSrc ? (
                     <VideoPlayerSimple 
@@ -158,16 +173,19 @@ const FogosM5Complete = () => {
                     <div className="absolute inset-0 bg-fire-orange/4 blur-md rounded-lg"></div>
                   </div>
                   
-                  <Card className="relative z-10 bg-background/5 backdrop-blur-sm border border-fire-orange/10 shadow-sm">
-                    <CardContent className="p-3">
-                      <div className="flex flex-col items-center text-center space-y-1.5">
-                        <div className="w-8 h-8 rounded-full bg-fire-orange/15 flex items-center justify-center">
-                          <Icon className="w-4 h-4 text-fire-orange" />
+                  {/* Enhanced glow effect for stats */}
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-fire-orange/8 via-fire-gold/12 to-fire-orange/8 rounded-lg blur opacity-50 animate-pulse" style={{ animationDuration: '4s', animationDelay: `${index * 0.5}s` }} />
+                  
+                  <Card className="relative z-10 bg-gradient-to-br from-fire-orange/15 to-fire-gold/12 backdrop-blur-sm border border-fire-orange/30 hover:border-fire-gold/50 shadow-lg shadow-fire-orange/15 hover:shadow-fire-gold/25 transition-all duration-500 group">
+                    <CardContent className="p-4">
+                      <div className="flex flex-col items-center text-center space-y-2">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-fire-gold/25 to-fire-orange/20 flex items-center justify-center shadow-lg shadow-fire-gold/25 group-hover:shadow-fire-orange/30 transition-all duration-300 group-hover:scale-110">
+                          <Icon className="w-5 h-5 text-fire-gold group-hover:text-fire-orange transition-colors duration-300" />
                         </div>
-                        <div className="text-lg font-bold text-white">
+                        <div className="text-xl font-bold text-white group-hover:text-fire-gold transition-colors duration-300">
                           {stat.value}
                         </div>
-                        <div className="text-xs font-medium text-white/90 leading-tight">
+                        <div className="text-sm font-medium text-white/90 group-hover:text-white leading-tight transition-colors duration-300">
                           {stat.label}
                         </div>
                       </div>
@@ -179,34 +197,48 @@ const FogosM5Complete = () => {
           </div>
         </div>
 
-        {/* Mobile CTA Section - Professional and Compact */}
-        <div className="text-center space-y-3">
-          <div className="bg-gradient-to-r from-fire-orange/5 to-fire-gold/5 p-4 rounded-xl border border-fire-orange/15">
-            <h3 className="text-lg font-bold text-fire-gradient mb-2">
-              Pronto para um espetáculo inesquecível?
-            </h3>
-            <p className="text-sm text-muted-foreground mb-3">
-              Solicite um orçamento personalizado para o seu evento
-            </p>
+        {/* Enhanced Mobile CTA Section - Professional and Fire-themed */}
+        <div className="text-center space-y-4">
+          {/* Enhanced CTA container with fire theme */}
+          <div className="relative">
+            {/* Ambient glow effect */}
+            <div className="absolute -inset-2 bg-gradient-to-r from-fire-orange/8 via-fire-gold/12 to-fire-orange/8 rounded-2xl blur-md opacity-40 animate-pulse" style={{ animationDuration: '3s' }} />
             
-            <div className="flex gap-2">
-              <Button
-                variant="ghost"
-                className="flex-1 h-10 bg-gradient-to-r from-green-600/20 via-green-500/30 to-green-600/20 border border-green-500/50 text-white hover:from-green-500/30 backdrop-blur-sm"
-                onClick={() => window.open('https://wa.me/5561982735575', '_blank')}
-              >
-                <MessageCircle className="w-3.5 h-3.5 mr-1.5" />
-                <span className="text-xs font-medium">WhatsApp</span>
-              </Button>
+            <div className="relative bg-gradient-to-r from-fire-orange/8 to-fire-gold/8 p-6 rounded-2xl border border-fire-orange/20 backdrop-blur-sm shadow-lg shadow-fire-orange/10">
+              <h3 className="text-xl font-bold text-fire-gradient mb-3">
+                Pronto para um espetáculo inesquecível?
+              </h3>
+              <p className="text-sm text-white/80 mb-4 leading-relaxed">
+                Solicite um orçamento personalizado para o seu evento
+              </p>
               
-              <Button
-                variant="fire"
-                className="flex-1 h-10 text-xs"
-                onClick={() => {/* Add conversion modal logic */}}
-              >
-                <ArrowRight className="w-3.5 h-3.5 mr-1.5" />
-                Orçamento Grátis
-              </Button>
+              <div className="flex flex-col gap-3">
+                <Button
+                  variant="ghost"
+                  className="w-full h-12 bg-gradient-to-r from-green-600/20 via-green-500/30 to-green-600/20 border border-green-500/50 text-white hover:from-green-500/30 hover:via-green-400/40 hover:to-green-500/30 hover:border-green-400/70 backdrop-blur-md transition-all duration-300 group relative overflow-hidden shadow-md shadow-green-500/20"
+                  onClick={() => window.open('https://wa.me/5561982735575', '_blank')}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-green-400/10 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700" />
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  <span className="text-sm font-medium">WhatsApp Direto</span>
+                  <div className="flex items-center gap-1 ml-auto bg-green-400/20 px-2 py-0.5 rounded-full">
+                    <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
+                    <span className="text-xs text-green-200">Online</span>
+                  </div>
+                </Button>
+                
+                <Button
+                  variant="outline-fire"
+                  className="w-full h-12 font-medium text-sm"
+                  onClick={() => {/* Add conversion modal logic */}}
+                >
+                  <ArrowRight className="w-4 h-4 mr-2" />
+                  <span>Orçamento Gratuito</span>
+                  <div className="flex items-center gap-1 ml-auto bg-fire-orange/20 px-2 py-0.5 rounded-full">
+                    <span className="text-xs text-fire-orange font-bold">Grátis</span>
+                  </div>
+                </Button>
+              </div>
             </div>
           </div>
         </div>

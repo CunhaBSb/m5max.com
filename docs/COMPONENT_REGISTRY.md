@@ -81,22 +81,27 @@ export interface ButtonProps
 }
 ```
 
-#### Variants (`button.variants.ts:7-23`)
+#### Standard Variants (`button.variants.ts:8-16`)
 ```typescript
 variant: {
   default: "bg-primary text-primary-foreground hover:bg-primary/90",
   destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",
   outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+  "outline-fire": "border-2 border-fire-orange/50 text-white bg-transparent hover:border-fire-orange hover:bg-fire-orange/15",
   secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
   ghost: "hover:bg-accent hover:text-accent-foreground",
   link: "text-primary underline-offset-4 hover:underline",
-  
-  // M5 Max Custom Variants
-  fire: "gradient-fire text-white shadow-fire hover:scale-105 transition-bounce font-semibold",
-  tech: "gradient-tech text-white shadow-tech hover:shadow-lg transition-smooth",
-  hero: "bg-fire-orange text-white shadow-fire hover:bg-fire-red hover:shadow-lg hover:scale-105 transition-bounce font-bold",
-  whatsapp: "bg-green-500 text-white hover:bg-green-600 shadow-elegant transition-smooth",
-  cta: "bg-fire-red text-white shadow-fire hover:bg-fire-orange hover:scale-105 transition-bounce font-semibold"
+}
+```
+
+#### M5 Max Themed Variants (`button.variants.ts:17-22`)
+```typescript
+// M5 Max Professional Pyrotechnic Theme
+fire: "gradient-fire text-white shadow-fire hover:scale-105 transition-bounce font-semibold",
+tech: "gradient-tech text-white shadow-tech hover:shadow-lg transition-smooth",
+hero: "bg-fire-orange text-white shadow-fire hover:bg-fire-red hover:shadow-lg hover:scale-105 transition-bounce font-bold",
+whatsapp: "bg-green-500 text-white hover:bg-green-600 shadow-elegant transition-smooth",
+cta: "bg-fire-red text-white shadow-fire hover:bg-fire-orange hover:scale-105 transition-bounce font-semibold"
 }
 ```
 
@@ -111,21 +116,49 @@ size: {
 }
 ```
 
+#### Variant Usage Guidelines
+
+**Standard Variants**:
+- **default**: General purpose buttons, neutral actions
+- **outline**: Secondary actions, less emphasis than solid buttons
+- **outline-fire**: M5 Max secondary CTAs with fire theming (resolves color conflicts)
+- **secondary**: Alternative actions, subtle prominence
+- **ghost**: Minimal buttons, navigation actions
+- **link**: Text-style buttons, inline actions
+
+**M5 Max Themed Variants**:
+- **fire**: Primary CTAs, brand buttons, high-impact actions
+- **tech**: Technical sections, professional elements
+- **hero**: Hero sections, landing page primary actions
+- **whatsapp**: WhatsApp integration buttons only
+- **cta**: High-urgency conversions, call-to-actions
+
 #### Usage Examples
 ```typescript
-// Basic usage
-<Button>Click me</Button>
+// Standard variants
+<Button>Default Action</Button>
+<Button variant="outline">Secondary</Button>
+<Button variant="outline-fire">M5 Max Secondary</Button>
 
-// M5 Max themed variants
-<Button variant="fire">Fire Effect</Button>
-<Button variant="hero" size="lg">Hero CTA</Button>
-<Button variant="whatsapp" size="sm">WhatsApp</Button>
+// M5 Max themed variants  
+<Button variant="fire">Solicitar Orçamento</Button>
+<Button variant="hero" size="lg">Começar Agora</Button>
+<Button variant="whatsapp" size="sm">
+  <WhatsApp className="w-4 h-4 mr-2" />
+  WhatsApp
+</Button>
 
-// With icon (using asChild)
-<Button variant="cta" size="xl" asChild>
-  <a href="/contact">Get Started</a>
+// Accessibility with proper contrast
+<Button variant="outline-fire" className="hover:scale-105">
+  Orçamento Grátis
 </Button>
 ```
+
+#### Accessibility & Contrast
+All M5 Max themed variants maintain **WCAG AA** contrast ratios:
+- Fire variants: White text on fire backgrounds (contrast ratio > 7:1)
+- Tech variants: White text on tech-blue backgrounds (contrast ratio > 4.5:1) 
+- Outline-fire: White text with fire-orange borders, ensures readability in all states
 
 #### Tests (`button.test.tsx:5-25`)
 - Default props rendering

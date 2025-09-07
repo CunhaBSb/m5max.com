@@ -34,7 +34,7 @@ const TimelineSection = () => {
   ];
 
   return (
-    <section className="relative py-10 overflow-hidden">
+    <section className="relative py-6 overflow-hidden">
       {/* Background harmonizado */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-slate-900/25 to-background"></div>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(251,146,60,0.04),transparent_70%)]"></div>

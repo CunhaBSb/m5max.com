@@ -7,6 +7,7 @@ import FogosM5Complete from '@/shared/layout/desktop/FogosM5Complete';
 import Services from '@/shared/layout/desktop/Services';
 import FAQ from '@/shared/layout/desktop/FAQ';
 import LazySection from '@/shared/layout/LazySection';
+import SectionSeparator from '@/shared/layout/SectionSeparator';
 
 const Home = () => {
   const { trackPageView } = useAnalytics();
@@ -33,11 +34,7 @@ const Home = () => {
             <Hero />
           </div>
 
-          {/* Section Separator */}
-          <div className="relative h-8 overflow-hidden">
-            <div className="absolute top-4 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-orange/20 to-transparent"></div>
-            <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background/60"></div>
-          </div>
+          <SectionSeparator variant="fire-line" spacing="lg" />
           
           <LazySection>
             <div id="empresa">
@@ -45,11 +42,7 @@ const Home = () => {
             </div>
           </LazySection>
 
-          {/* Section Separator */}
-          <div className="relative h-8 overflow-hidden">
-            <div className="absolute top-4 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-gold/20 to-transparent"></div>
-            <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background/60"></div>
-          </div>
+          <SectionSeparator variant="ember-glow" spacing="md" />
 
           <LazySection>
             <div id="servicos">
@@ -57,11 +50,7 @@ const Home = () => {
             </div>
           </LazySection>
 
-          {/* Section Separator */}
-          <div className="relative h-8 overflow-hidden">
-            <div className="absolute top-4 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-orange/20 to-transparent"></div>
-            <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/80 to-background/60"></div>
-          </div>
+          <SectionSeparator variant="sparkle" spacing="lg" />
 
           <LazySection>
             <div id="faq">

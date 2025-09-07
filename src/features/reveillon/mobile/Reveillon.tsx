@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { useAnalytics } from '@/shared/hooks/useAnalytics';
 import RootLayout from '@/app/layouts/RootLayout';
 import TimelineSection from '@features/reveillon/mobile/components/TimelineSection';
+import SectionSeparator from '@/shared/layout/SectionSeparator';
 import { Button } from '@/shared/ui/button';
 import { MessageSquare, Calendar, Sparkles, Star, Clock, Shield, Award } from 'lucide-react';
 import { useAppStore } from '@/shared/store/appStore';
@@ -147,21 +148,13 @@ const ReveillonMobile = () => {
             </div>
           </div>
 
-          {/* Section Separator */}
-          <div className="relative h-6 overflow-hidden">
-            <div className="absolute top-3 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-orange/15 to-transparent"></div>
-            <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/70 to-background/50"></div>
-          </div>
+          <SectionSeparator variant="sparkle-trail" spacing="md" />
 
           <div id="timeline">
             <TimelineSection />
           </div>
 
-          {/* Section Separator */}
-          <div className="relative h-6 overflow-hidden">
-            <div className="absolute top-3 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-gold/15 to-transparent"></div>
-            <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/70 to-background/50"></div>
-          </div>
+          <SectionSeparator variant="gradient-wave" spacing="sm" />
 
           <div id="contato">
             {/* Contact section will be shared */}

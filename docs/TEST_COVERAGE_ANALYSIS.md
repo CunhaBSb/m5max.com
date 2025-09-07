@@ -462,37 +462,382 @@ mockUseIsDesktop.mockReturnValue(true);  // Desktop
 mockUseIsDesktop.mockReturnValue(false); // Mobile
 ```
 
-## IMPLEMENTATION ROADMAP
+## GRANULAR IMPLEMENTATION ROADMAP
 
-### Week 1-2: Foundation (Priority 1)
-- [ ] Set up test organization structure
-- [ ] Configure test utilities and helpers
-- [ ] Implement Form System tests (forms.ts, QualificationForm, B2BForm)
-- [ ] Implement State Management tests (appStore.ts)
-- [ ] Set up CI/CD test running
+### Sprint 1 (Week 1-2): Critical Business Logic Foundation
+**Target**: 15% coverage | **Focus**: Revenue-generating systems
 
-### Week 3-4: Core Flows (Priority 2a)
-- [ ] Implement Page Component tests (HomePage, ReveillonPage)
-- [ ] Add routing tests (AppRoutes, NotFound)
-- [ ] Platform detection integration tests
-- [ ] SEO metadata testing
+#### Day 1-3: Form System Testing
+- [ ] **Setup** test organization structure (`src/__tests__/forms/`)
+- [ ] **B2BFormSchema validation** (`forms.test.ts`)
+  ```typescript
+  ✓ Required field validation (nome, email, empresa)
+  ✓ Email format validation (Brazilian domains)
+  ✓ Phone number format validation (BR format)
+  ✓ Enum validation (tipoEvento, orçamento, numeroConvidados)
+  ✓ Date validation (evento within 6 months)
+  ✓ Optional field handling (detalhesAdicionais)
+  ```
 
-### Week 5-6: Business Logic (Priority 2b)
-- [ ] Feature component tests (Home, Reveillon desktop/mobile)
-- [ ] Component interaction tests
-- [ ] User journey integration tests
-- [ ] Analytics event tracking tests
+- [ ] **QualificationForm component** (`QualificationForm.test.tsx`)
+  ```typescript
+  ✓ Form rendering with all fields
+  ✓ Field validation error display
+  ✓ Lead scoring calculation (budget 30pts + attendees 15pts + date 20pts)
+  ✓ Form submission success flow
+  ✓ Analytics event tracking on submit
+  ✓ Modal state management integration
+  ```
 
-### Week 7-8: Infrastructure (Priority 3a)
-- [ ] Hook testing suite (useAnalytics, useAttribution, useToast)
-- [ ] Modal system tests (ConversionModal, ContactModal)
-- [ ] Layout component tests (Header, Footer, RootLayout)
+#### Day 4-7: State Management Testing
+- [ ] **AppStore core functionality** (`appStore.test.ts`)
+  ```typescript
+  ✓ Store initialization with defaults
+  ✓ Attribution data updates (UTM parameters)
+  ✓ Consent state management (GDPR compliance)
+  ✓ Modal state management (open/close operations)
+  ✓ Persistence layer testing (localStorage integration)
+  ✓ Action creators and state mutations
+  ✓ Selector behavior validation
+  ```
 
-### Week 9-12: UI Library (Priority 4)
-- [ ] Core UI component tests (form, input, dialog, card)
-- [ ] Variant system testing
-- [ ] Accessibility testing
-- [ ] Visual regression testing setup
+#### Day 8-10: Integration Testing Setup
+- [ ] **CI/CD test pipeline** (GitHub Actions)
+- [ ] **Coverage reporting** (Vitest + c8)
+- [ ] **Mock configurations** (analytics, router, external APIs)
+
+#### Expected Outcomes:
+- **Business Logic Coverage**: 85% (forms + state critical paths)
+- **Lead Generation Flow**: Fully tested end-to-end
+- **GDPR Compliance**: Validated consent management
+
+---
+
+### Sprint 2 (Week 3-4): User Journey Critical Paths
+**Target**: 35% coverage | **Focus**: User experience flows
+
+#### Day 11-14: Page Component Testing
+- [ ] **HomePage component** (`HomePage.test.tsx`)
+  ```typescript
+  ✓ Desktop/mobile platform detection
+  ✓ Lazy loading behavior (React.lazy)
+  ✓ Suspense fallback rendering
+  ✓ Analytics page view tracking
+  ✓ SEO metadata validation
+  ✓ Hero CTA button functionality
+  ✓ Modal trigger integration
+  ```
+
+- [ ] **ReveillonPage component** (`ReveillonPage.test.tsx`)
+  ```typescript
+  ✓ Feature-specific content rendering
+  ✓ Platform-specific component loading
+  ✓ Timeline section interaction
+  ✓ Booking flow integration
+  ✓ Event-specific analytics tracking
+  ```
+
+#### Day 15-17: Routing & Navigation
+- [ ] **AppRoutes testing** (`AppRoutes.test.tsx`)
+  ```typescript
+  ✓ Route resolution (/, /reveillon, 404)
+  ✓ Lazy loading integration
+  ✓ Platform detection in routing
+  ✓ Analytics route tracking
+  ✓ Error boundary behavior
+  ```
+
+- [ ] **NotFound component** (`NotFound.test.tsx`)
+  ```typescript
+  ✓ 404 page rendering
+  ✓ Navigation back to home
+  ✓ Analytics error tracking
+  ```
+
+#### Day 18-21: Platform Detection System
+- [ ] **Enhanced useIsDesktop tests** (extend existing)
+  ```typescript
+  ✓ SSR safety (null during hydration)
+  ✓ Breakpoint accuracy (1024px threshold)
+  ✓ Event listener cleanup
+  ✓ Multiple viewport changes
+  ✓ Edge cases (exactly 1024px)
+  ```
+
+#### Expected Outcomes:
+- **User Flow Coverage**: 90% (all entry points tested)
+- **Platform Detection**: 100% reliability
+- **SEO/Analytics**: Validated tracking implementation
+
+---
+
+### Sprint 3 (Week 5-6): Feature Component Ecosystem
+**Target**: 50% coverage | **Focus**: Business feature components
+
+#### Day 22-28: Desktop Feature Components
+- [ ] **Home Desktop** (`Home.desktop.test.tsx`)
+  ```typescript
+  ✓ Hero section rendering and interactions
+  ✓ FogosM5Complete stats display
+  ✓ Services portfolio grid
+  ✓ FAQ accordion functionality
+  ✓ CTA button analytics tracking
+  ✓ WhatsApp integration testing
+  ✓ Particle animation system (non-visual validation)
+  ```
+
+- [ ] **Reveillon Desktop** (`Reveillon.desktop.test.tsx`)
+  ```typescript
+  ✓ Event-specific hero content
+  ✓ Timeline section interactions
+  ✓ Service customization options
+  ✓ Booking form integration
+  ✓ Event analytics tracking
+  ```
+
+#### Day 29-35: Mobile Feature Components
+- [ ] **Home Mobile** (`Home.mobile.test.tsx`)
+  ```typescript
+  ✓ Responsive component rendering
+  ✓ Touch interaction handling
+  ✓ Mobile-optimized animations
+  ✓ Swipe gesture support
+  ✓ Mobile analytics events
+  ```
+
+- [ ] **Reveillon Mobile** (`Reveillon.mobile.test.tsx`)
+  ```typescript
+  ✓ Mobile timeline interaction
+  ✓ Touch-optimized service selection
+  ✓ Mobile booking flow
+  ✓ Responsive design validation
+  ```
+
+#### Day 36-42: Component Integration Testing
+- [ ] **Cross-component workflows**
+  ```typescript
+  ✓ Hero → Modal → Form workflow
+  ✓ Services → WhatsApp workflow
+  ✓ FAQ → Contact workflow
+  ✓ Attribution preservation across components
+  ```
+
+#### Expected Outcomes:
+- **Feature Coverage**: 80% (all main user interactions)
+- **Mobile/Desktop Parity**: Validated responsive behavior
+- **Business Workflows**: End-to-end journey testing
+
+---
+
+### Sprint 4 (Week 7-8): Infrastructure & Integration
+**Target**: 65% coverage | **Focus**: Supporting systems
+
+#### Day 43-49: Custom Hook Testing
+- [ ] **useAnalytics hook** (`useAnalytics.test.ts`)
+  ```typescript
+  ✓ Event tracking functionality
+  ✓ Page view tracking
+  ✓ Consent state integration
+  ✓ UTM parameter handling
+  ✓ Error handling and fallbacks
+  ```
+
+- [ ] **useAttribution hook** (`useAttribution.test.ts`)
+  ```typescript
+  ✓ UTM parameter extraction
+  ✓ Attribution data persistence
+  ✓ Cross-session attribution
+  ✓ Default attribution handling
+  ```
+
+- [ ] **useToast hook** (`useToast.test.ts`)
+  ```typescript
+  ✓ Toast notification display
+  ✓ Success/error message handling
+  ✓ Auto-dismiss functionality
+  ✓ Multiple toast management
+  ```
+
+#### Day 50-56: Modal System Testing
+- [ ] **ConversionModal** (`ConversionModal.test.tsx`)
+  ```typescript
+  ✓ Modal open/close behavior
+  ✓ Form integration
+  ✓ Analytics event tracking
+  ✓ Escape key handling
+  ✓ Background click dismissal
+  ✓ Accessibility (focus management)
+  ```
+
+- [ ] **ContactModal** (`ContactModal.test.tsx`)
+  ```typescript
+  ✓ Contact form rendering
+  ✓ Field validation
+  ✓ Submission handling
+  ✓ Success/error states
+  ```
+
+#### Day 57-63: Layout Component Testing
+- [ ] **Header component** (`Header.test.tsx`)
+  ```typescript
+  ✓ Navigation menu functionality
+  ✓ Mobile menu toggle
+  ✓ Logo click behavior
+  ✓ Responsive design
+  ✓ Active page indication
+  ```
+
+- [ ] **Footer component** (`Footer.test.tsx`)
+  ```typescript
+  ✓ Contact information display
+  ✓ Social media links
+  ✓ WhatsApp integration
+  ✓ Business information accuracy
+  ```
+
+#### Expected Outcomes:
+- **Infrastructure Coverage**: 85% (all supporting systems)
+- **Integration Points**: Validated cross-system communication
+- **User Experience**: Tested interaction patterns
+
+---
+
+### Sprint 5 (Week 9-12): UI Component Library & Polish
+**Target**: 75% coverage | **Focus**: Design system reliability
+
+#### Day 64-77: Core UI Component Testing
+- [ ] **Button variants** (`button.test.tsx` - expand existing)
+  ```typescript
+  ✓ All variants (fire, tech, hero, outline-fire, cta)
+  ✓ Size variations (sm, lg, default)
+  ✓ Disabled states
+  ✓ Loading states
+  ✓ Icon integration
+  ✓ Accessibility (ARIA attributes)
+  ✓ Hover/focus states
+  ```
+
+- [ ] **Form components** (`form.test.tsx`, `input.test.tsx`, `select.test.tsx`)
+  ```typescript
+  ✓ Field rendering and validation
+  ✓ Error state display
+  ✓ Required field indicators
+  ✓ Accessibility compliance
+  ✓ Brazilian Portuguese labels
+  ```
+
+- [ ] **Dialog system** (`dialog.test.tsx`)
+  ```typescript
+  ✓ Modal open/close behavior
+  ✓ Focus management
+  ✓ Keyboard navigation
+  ✓ Backdrop behavior
+  ✓ Animation states
+  ```
+
+#### Day 78-91: Visual & Accessibility Testing
+- [ ] **Playwright visual regression** setup
+  ```typescript
+  ✓ Homepage visual consistency
+  ✓ Modal appearance validation
+  ✓ Button hover states
+  ✓ Mobile responsive layout
+  ✓ Cross-browser compatibility
+  ```
+
+- [ ] **Accessibility testing** (`a11y.test.tsx`)
+  ```typescript
+  ✓ Screen reader compatibility
+  ✓ Keyboard navigation
+  ✓ ARIA attribute validation
+  ✓ Color contrast ratios
+  ✓ Focus management
+  ```
+
+#### Day 92-105: Performance & Edge Case Testing
+- [ ] **Performance testing**
+  ```typescript
+  ✓ Bundle loading performance
+  ✓ Lazy loading validation
+  ✓ Animation performance
+  ✓ Memory leak detection
+  ```
+
+- [ ] **Edge case coverage**
+  ```typescript
+  ✓ Network failure handling
+  ✓ JavaScript disabled scenarios
+  ✓ Extreme viewport sizes
+  ✓ High latency conditions
+  ```
+
+#### Expected Outcomes:
+- **UI Library Coverage**: 90% (design system reliability)
+- **Visual Consistency**: Automated regression testing
+- **Accessibility Compliance**: WCAG 2.1 AA validated
+
+---
+
+## DETAILED TESTING METRICS & MILESTONES
+
+### Coverage Progression Tracking
+
+**Sprint 1 Checkpoint (Week 2)**
+- **Target**: 15% overall coverage
+- **Critical**: Forms (85%), State (85%), Core utilities (90%)
+- **Success Metrics**: Lead generation flow completely tested
+
+**Sprint 2 Checkpoint (Week 4)**  
+- **Target**: 35% overall coverage
+- **Critical**: Pages (90%), Routing (100%), Platform detection (100%)
+- **Success Metrics**: All user entry points validated
+
+**Sprint 3 Checkpoint (Week 6)**
+- **Target**: 50% overall coverage
+- **Critical**: Features (80%), Workflows (90%), Mobile/desktop parity
+- **Success Metrics**: Business logic completely covered
+
+**Sprint 4 Checkpoint (Week 8)**
+- **Target**: 65% overall coverage
+- **Critical**: Hooks (85%), Modals (90%), Layout (80%)
+- **Success Metrics**: Infrastructure systems reliable
+
+**Sprint 5 Checkpoint (Week 12)**
+- **Target**: 75% overall coverage
+- **Critical**: UI components (90%), Visual regression (100%), A11y (85%)
+- **Success Metrics**: Production-ready quality validated
+
+### Quality Gates per Sprint
+
+**Sprint 1 Quality Gates:**
+- [ ] All business-critical paths pass tests
+- [ ] Form validation covers all edge cases
+- [ ] Lead scoring algorithm validated
+- [ ] State persistence works correctly
+
+**Sprint 2 Quality Gates:**
+- [ ] User flows work on all devices
+- [ ] SEO metadata validates correctly
+- [ ] Analytics tracking fires properly
+- [ ] Error boundaries catch failures
+
+**Sprint 3 Quality Gates:**
+- [ ] Mobile/desktop feature parity
+- [ ] Animation systems work without errors
+- [ ] WhatsApp integration functional
+- [ ] Attribution tracking preserved
+
+**Sprint 4 Quality Gates:**
+- [ ] Modal accessibility compliance
+- [ ] Hook error handling robust
+- [ ] Layout responsive on all breakpoints
+- [ ] Integration points stable
+
+**Sprint 5 Quality Gates:**
+- [ ] Visual regression baseline established
+- [ ] Accessibility audit passes
+- [ ] Performance budgets met
+- [ ] Cross-browser compatibility
 
 ## TESTING METRICS & GOALS
 
@@ -524,16 +869,51 @@ mockUseIsDesktop.mockReturnValue(false); // Mobile
 - **Edge case coverage** for business-critical logic
 - **Integration test coverage** for user workflows
 
-## AUTOMATED TESTING SETUP
+## MCP-ENHANCED TESTING AUTOMATION
 
-### CI/CD Integration
+### Playwright MCP Integration for E2E Testing
+
+```typescript
+// Enhanced E2E testing with Playwright MCP
+describe('Lead Generation Flow', () => {
+  it('should complete full conversion funnel', async () => {
+    // Use Playwright MCP for browser automation
+    await mcp__Playwright__playwright_navigate('localhost:5173');
+    
+    // Homepage Hero CTA click
+    await mcp__Playwright__playwright_click('.hero-cta-button');
+    
+    // Modal form interaction
+    await mcp__Playwright__playwright_fill('[name="nome"]', 'João Silva');
+    await mcp__Playwright__playwright_fill('[name="email"]', 'joao@empresa.com.br');
+    await mcp__Playwright__playwright_select('[name="orçamento"]', '50k-100k');
+    
+    // Form submission and validation
+    await mcp__Playwright__playwright_click('[type="submit"]');
+    
+    // Verify analytics events fired
+    const logs = await mcp__Playwright__playwright_console_logs({ 
+      search: 'lead_qualified' 
+    });
+    expect(logs).toContain('lead_qualified');
+    
+    // Screenshot for visual regression
+    await mcp__Playwright__playwright_screenshot({ 
+      name: 'conversion-success',
+      fullPage: true 
+    });
+  });
+});
+```
+
+### GitHub MCP CI/CD Integration
 
 ```yaml
-# .github/workflows/test.yml
-name: Tests
+# .github/workflows/test-enhanced.yml
+name: Enhanced Testing Pipeline
 on: [push, pull_request]
 jobs:
-  test:
+  test-unit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -541,26 +921,77 @@ jobs:
         with:
           node-version: '18'
       - run: npm ci
-      - run: npm run test
       - run: npm run test:coverage
-      - uses: codecov/codecov-action@v3
+      - name: Update GitHub PR with coverage
+        uses: mcp__github__add_issue_comment
+        with:
+          body: "Coverage updated: ${{ steps.coverage.outputs.percentage }}%"
+  
+  test-e2e:
+    runs-on: ubuntu-latest
+    needs: test-unit
+    steps:
+      - name: Run Playwright E2E via MCP
+        run: |
+          npm run dev &
+          npm run test:playwright:mcp
+      - name: Visual Regression Check
+        run: npm run test:visual:compare
 ```
 
-### Pre-commit Hooks
+### CI/CD Integration
+
+```typescript
+// Enhanced test configuration with MCP integration
+// vite.config.ts - Add to test config
+test: {
+  globals: true,
+  environment: 'jsdom',
+  setupFiles: ['./src/setupTests.ts', './src/setupMCPTests.ts'],
+  css: true,
+  coverage: {
+    provider: 'c8',
+    reporter: ['text', 'json', 'html', 'lcov'],
+    exclude: [
+      'src/setupTests.ts',
+      'src/**/*.test.{ts,tsx}',
+      'src/vite-env.d.ts',
+      'src/**/*.mcp.test.{ts,tsx}' // MCP-specific test files
+    ],
+    threshold: {
+      global: {
+        branches: 75,
+        functions: 85,
+        lines: 80,
+        statements: 80
+      }
+    }
+  }
+}
+```
+
+### Pre-commit Hooks with MCP Validation
 
 ```json
-// package.json
+// package.json - Enhanced with MCP testing integration
 {
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged && npm run test:mcp:quick"
     }
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
       "npm run test -- --run --changed",
+      "npm run test:playwright:changed", 
       "npm run lint"
     ]
+  },
+  "scripts": {
+    "test:mcp:quick": "npm run test:unit && npm run test:e2e:smoke",
+    "test:playwright:mcp": "vitest run src/**/*.playwright.test.ts",
+    "test:visual:compare": "playwright test --config=playwright.visual.config.ts",
+    "test:coverage:mcp": "vitest run --coverage && npm run test:e2e:coverage"
   }
 }
 ```
@@ -597,4 +1028,72 @@ test: {
 - [ ] **Quarterly**: Update testing strategy and tools
 - [ ] **Annually**: Major testing framework upgrades
 
-This comprehensive testing strategy will transform the M5 Max codebase from ~2.5% coverage to 70%+ coverage with a focus on business-critical functionality and user experience quality.
+---
+
+## CRITICAL SUCCESS FACTORS
+
+### Business Impact Prioritization Matrix
+
+**Revenue-Critical (Must Test First):**
+- **Lead Generation Flow**: Form validation, scoring algorithm, conversion tracking
+- **WhatsApp Integration**: Business phone integration, attribution preservation
+- **Analytics Pipeline**: UTM tracking, GDPR consent, conversion attribution
+
+**User Experience Critical (Test Second):**
+- **Platform Detection**: Desktop/mobile bifurcation reliability
+- **Page Loading**: Lazy loading, performance, error boundaries
+- **Modal System**: Conversion flow, accessibility, user interactions
+
+**Code Quality Critical (Test Third):**
+- **UI Component Library**: Design system consistency, variant behavior
+- **State Management**: Zustand store reliability, persistence layer
+- **Hook System**: Custom hooks, error handling, integration points
+
+### ROI-Focused Implementation Strategy
+
+**Sprint 1 (Weeks 1-2): Maximum Business Impact**
+- **Investment**: 40 hours (forms + state + integration setup)
+- **Expected ROI**: Prevents lead generation failures, ensures conversion tracking
+- **Risk Mitigation**: Validates revenue-generating code paths
+
+**Sprint 2-3 (Weeks 3-6): User Experience Assurance**
+- **Investment**: 60 hours (pages + features + workflows)
+- **Expected ROI**: Prevents user journey failures, ensures platform parity
+- **Risk Mitigation**: Validates all user entry points and interaction flows
+
+**Sprint 4-5 (Weeks 7-12): Long-term Quality**
+- **Investment**: 80 hours (infrastructure + UI library + polish)
+- **Expected ROI**: Reduces maintenance overhead, ensures accessibility
+- **Risk Mitigation**: Prevents technical debt accumulation
+
+### Testing Success Metrics
+
+**Business Metrics:**
+- **Lead Conversion Rate**: Maintain >85% form completion rate
+- **WhatsApp Click-through**: Preserve attribution across 95% of interactions
+- **Page Load Performance**: <2s LCP maintained across all tested paths
+
+**Technical Metrics:**
+- **Test Execution Speed**: <30 seconds for full unit test suite
+- **E2E Test Reliability**: >95% pass rate on CI/CD pipeline
+- **Visual Regression**: 0 unintentional UI changes in production
+
+**Quality Metrics:**
+- **Bug Prevention**: >90% of production bugs caught in testing
+- **Accessibility Compliance**: WCAG 2.1 AA validation across all tested components
+- **Cross-browser Compatibility**: Chrome, Firefox, Safari, Edge validation
+
+---
+
+## IMPLEMENTATION COMMITMENT
+
+This comprehensive testing strategy will transform the M5 Max codebase from **2.5% coverage to 75%+ coverage** with laser focus on business-critical functionality and user experience quality. 
+
+**The granular roadmap ensures every testing hour directly contributes to revenue protection, user experience enhancement, and technical debt prevention.**
+
+**Success Timeline:**
+- **Month 1**: Business-critical systems fully tested (forms, state, core flows)
+- **Month 2**: User experience completely validated (all platforms, journeys, integrations)  
+- **Month 3**: Production-ready quality achieved (UI library, accessibility, performance)
+
+**With MCP integration, this testing strategy leverages automated browser testing, visual regression detection, and CI/CD integration to ensure maximum coverage with minimum manual overhead.**

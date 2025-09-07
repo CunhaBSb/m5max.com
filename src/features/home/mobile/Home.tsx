@@ -7,6 +7,7 @@ import RootLayout from '@/app/layouts/RootLayout';
 import FogosM5Complete from '@/shared/layout/mobile/FogosM5Complete';
 import Services from '@/shared/layout/mobile/Services';
 import FAQ from '@/shared/layout/mobile/FAQ';
+import SectionSeparator from '@/shared/layout/SectionSeparator';
 import Hero from './components/Hero';
 
 const HomeMobile = () => {
@@ -58,33 +59,21 @@ const HomeMobile = () => {
 
       <RootLayout>
         <main className="min-h-screen">
-          <Hero handleWhatsAppClick={handleWhatsAppClick} handleOrçamentoClick={handleOrçamentoClick} />
+          <Hero />
 
-          {/* Section Separator */}
-          <div className="relative h-6 overflow-hidden">
-            <div className="absolute top-3 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-orange/15 to-transparent"></div>
-            <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/70 to-background/50"></div>
-          </div>
+          <SectionSeparator variant="sparkle-trail" spacing="md" />
 
           <div id="empresa">
             <FogosM5Complete />
           </div>
 
-          {/* Section Separator */}
-          <div className="relative h-6 overflow-hidden">
-            <div className="absolute top-3 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-gold/15 to-transparent"></div>
-            <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/70 to-background/50"></div>
-          </div>
+          <SectionSeparator variant="gradient-wave" spacing="sm" />
 
           <div id="servicos">
             <Services />
           </div>
 
-          {/* Section Separator */}
-          <div className="relative h-6 overflow-hidden">
-            <div className="absolute top-3 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-orange/15 to-transparent"></div>
-            <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/70 to-background/50"></div>
-          </div>
+          <SectionSeparator variant="geometric-pattern" spacing="md" />
 
           <div id="faq">
             <FAQ />
