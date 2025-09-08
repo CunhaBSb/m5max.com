@@ -176,20 +176,20 @@ const Hero = () => {
             </div>
 
             <div className="flex flex-col gap-4 w-full">
-              {/* Primary Button - Ver Shows Réveillon - Mobile */}
+              {/* Primary Button - Ver Nossa Expertise - Mobile */}
               <div className="animate-fade-in-up" style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
                 <Button 
                   variant="ghost"
-                  className="flex items-center justify-center gap-3 w-full h-10 bg-gradient-to-r from-purple-500/20 via-purple-400/30 to-purple-500/20 border-2 border-purple-400/50 text-white hover:from-purple-400/30 hover:via-purple-300/40 hover:to-purple-400/30 hover:border-purple-300/70 backdrop-blur-md transition-all duration-300 group relative overflow-hidden shadow-lg shadow-purple-400/20"
+                  className="flex items-center justify-center gap-3 w-full h-10 bg-gradient-to-r from-yellow-500/20 via-yellow-400/30 to-yellow-500/20 border-2 border-yellow-400/50 text-white hover:from-yellow-400/30 hover:via-yellow-300/40 hover:to-yellow-400/30 hover:border-yellow-300/70 backdrop-blur-md transition-all duration-300 group relative overflow-hidden shadow-lg shadow-yellow-400/20"
                   onClick={handleVideoClick}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-300/10 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700" />
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center shadow-lg group-hover:shadow-purple-400/50 transition-all group-hover:scale-110">
-                    <Play className="w-3 h-3 text-white fill-current ml-0.5" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-300/10 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700" />
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center shadow-lg group-hover:shadow-yellow-400/50 transition-all group-hover:scale-110">
+                    <Play className="w-3 h-3 text-black fill-current ml-0.5" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-xs font-bold">Ver Nossa Empresa</span>
-                    <span className="text-xs text-purple-200/80">40 anos de experiência</span>
+                    <span className="text-xs font-bold">Ver Nossa Expertise</span>
+                    <span className="text-xs text-yellow-200/80">40 anos de experiência</span>
                   </div>
                 </Button>
               </div>
@@ -212,19 +212,22 @@ const Hero = () => {
                   <WhatsApp className="w-4 h-4 mr-2" />
                   <span className="text-sm font-medium">WhatsApp Direto</span>
                   <div className="flex items-center gap-1 ml-auto bg-green-400/20 px-1.5 py-0.5 rounded-full">
-                    <Clock className="w-3 h-3 text-green-300" />
-                    <span className="text-xs text-green-200">5min</span>
+                    <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
+                    <span className="text-xs text-green-200">Online</span>
                   </div>
                 </Button>
 
                 {/* Orçamento Button - Mobile */}
                 <Button
                   variant="outline-fire"
-                  className="w-full h-10 font-medium text-sm bg-gradient-to-r from-fire-gold to-fire-orange hover:from-fire-orange hover:to-fire-gold text-black border-none"
+                  className="w-full h-10 font-medium text-sm"
                   onClick={handleOrçamentoClick}
                 >
                   <Calendar className="w-4 h-4 mr-2" />
-                  <span className="text-sm font-semibold">Orçamento Réveillon 2025</span>
+                  <span className="text-sm">Orçamento Gratuito</span>
+                  <div className="flex items-center gap-1 ml-auto bg-fire-orange/20 px-1.5 py-0.5 rounded-full">
+                    <span className="text-xs text-fire-orange font-bold">Grátis</span>
+                  </div>
                 </Button>
               </div>
             </div>

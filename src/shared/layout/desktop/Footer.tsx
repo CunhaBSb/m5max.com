@@ -2,7 +2,7 @@ import { Button } from "@/shared/ui/button";
 import { Separator } from "@/shared/ui/separator";
 import { Calendar, Mail, MapPin } from "lucide-react";
 import { FaYoutube as Youtube } from "react-icons/fa";
-import { FaInstagram as Instagram, FaFacebook as Facebook, FaWhatsapp as WhatsApp } from "react-icons/fa";
+import { FaInstagram as Instagram, FaWhatsapp as WhatsApp } from "react-icons/fa";
 import { useAppStore } from "@/shared/store/appStore";
 import { useAnalytics } from "@/shared/hooks/useAnalytics";
 import { generateWhatsAppURL, getWhatsAppMessage } from "@/shared/lib/whatsapp";
@@ -113,12 +113,6 @@ export const FooterDesktop = () => {
                   className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center hover:scale-110 transition-all"
                 >
                   <Youtube className="w-3.5 h-3.5 text-white" />
-                </a>
-                <a 
-                  href="#" 
-                  className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center hover:scale-110 transition-all"
-                >
-                  <Facebook className="w-3.5 h-3.5 text-white" />
                 </a>
               </div>
             </div>
