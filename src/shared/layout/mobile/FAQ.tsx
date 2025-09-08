@@ -40,18 +40,21 @@ const FAQ = () => {
              rounded-full blur-2xl opacity-40 animate-pulse" style={{ animationDuration: '8s' }} />
       </div>
       
-      {/* Dynamic Ambient Gradients */}
+      {/* Harmonized Dark Ambient Gradients - Footer Compatible */}
       <div className="absolute inset-0">
-        {/* Primary gradient layer */}
-        <div className="absolute inset-0 bg-gradient-to-br from-fire-gold/6 via-background to-fire-orange/5" />
+        {/* Dark base layer for consistency */}
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/40 via-slate-900/30 to-background" />
         
-        {/* Ambient lighting effects */}
-        <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-b from-fire-gold/4 via-transparent to-transparent" />
-        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-fire-orange/3 via-transparent to-transparent" />
+        {/* Subtle primary gradient layer */}
+        <div className="absolute inset-0 bg-gradient-to-br from-fire-gold/3 via-background/95 to-fire-orange/2" />
         
-        {/* Radial accent gradients */}
-        <div className="absolute top-1/3 left-1/3 w-1/2 h-1/2 bg-gradient-radial from-fire-gold/4 via-transparent to-transparent blur-3xl" />
-        <div className="absolute bottom-1/3 right-1/3 w-1/2 h-1/2 bg-gradient-radial from-fire-orange/3 via-transparent to-transparent blur-3xl" />
+        {/* Subtle ambient lighting effects */}
+        <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-b from-fire-gold/2 via-transparent to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-fire-orange/1 via-transparent to-transparent" />
+        
+        {/* Reduced radial accent gradients */}
+        <div className="absolute top-1/3 left-1/3 w-1/2 h-1/2 bg-gradient-radial from-fire-gold/2 via-transparent to-transparent blur-3xl opacity-60" />
+        <div className="absolute bottom-1/3 right-1/3 w-1/2 h-1/2 bg-gradient-radial from-fire-orange/1 via-transparent to-transparent blur-3xl opacity-50" />
       </div>
       
       {/* Subtle particle effects */}

@@ -62,7 +62,7 @@ const TimelineSection = () => {
       title: 'Logística e Preparação',
       description: 'Coordenamos transporte dos equipamentos e preparação técnica no local.',
       icon: Truck,
-      features: ['Transporte seguro', 'Montagem técnica', 'Testes de segurança']
+      features: ['Simulação do espetáculo', 'Montagem técnica', 'Testes de segurança']
     },
     {
       number: '04',
