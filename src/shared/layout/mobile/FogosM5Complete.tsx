@@ -153,7 +153,7 @@ const FogosM5Complete = () => {
           </div>
 
           {/* Harmonious 4-Column Mobile Stats Grid */}
-          <div className="grid grid-cols-4 gap-1 max-w-sm mx-auto">
+          <div className="grid grid-cols-4 gap-2">
             {stats.map((stat, index) => {
               const Icon = stat.icon;
               return (

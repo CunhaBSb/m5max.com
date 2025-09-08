@@ -105,8 +105,8 @@ const Services = () => {
       
       {/* Standardized Container */}
       <div className="relative container mx-auto px-6 max-w-6xl">
-        {/* Two-Column Header - Content & Social Media */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-12">
+        {/* Two-Column Header - Content & Social Media Split */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start mb-12">
           {/* Left Column - Content */}
           <div className="text-center lg:text-left">
             {/* Standardized Badge */}
@@ -127,6 +127,65 @@ const Services = () => {
             </p>
           </div>
 
+          {/* Right Column - Social Media & Stats */}
+          <div className="hidden lg:block space-y-4">
+            {/* Header */}
+            <div className="text-center lg:text-left">
+              <h3 className="text-lg font-bold text-white mb-2">
+                Siga a <span className="text-fire-gradient">M5 Max</span>
+              </h3>
+              <p className="text-white/70 text-sm leading-relaxed mb-4">
+                Acompanhe nossos espetáculos nas redes sociais
+              </p>
+            </div>
+            
+            {/* Social Cards - Vertical Stack */}
+            <div className="space-y-2">
+              {/* Instagram */}
+              <a 
+                href="https://instagram.com/fogosm5" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3 bg-black/20 hover:bg-black/30 border border-white/10 hover:border-fire-orange/30 rounded-lg p-3 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02]"
+              >
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-pink-500 to-red-500 flex items-center justify-center group-hover:shadow-lg group-hover:shadow-pink-500/25 transition-all duration-300">
+                  <Instagram className="w-4 h-4 text-white" />
+                </div>
+                <div className="flex-1 text-left">
+                  <div className="font-semibold text-white group-hover:text-fire-orange transition-colors">Instagram</div>
+                  <div className="text-white/60 text-sm">@Fogosm5</div>
+                </div>
+              </a>
+              
+              {/* YouTube */}
+              <a 
+                href="https://youtube.com/@FogosM5Max" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3 bg-black/20 hover:bg-black/30 border border-white/10 hover:border-fire-orange/30 rounded-lg p-3 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02]"
+              >
+                <div className="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center group-hover:shadow-lg group-hover:shadow-red-500/25 transition-all duration-300">
+                  <YouTube className="w-4 h-4 text-white" />
+                </div>
+                <div className="flex-1 text-left">
+                  <div className="font-semibold text-white group-hover:text-fire-orange transition-colors">YouTube</div>
+                  <div className="text-white/60 text-sm">@FogosM5Max</div>
+                </div>
+              </a>
+            </div>
+            
+            {/* Social Stats - Vertical Layout */}
+            <div className="space-y-3 pt-2">
+              <div className="bg-black/10 rounded-lg p-3 border border-white/5">
+                <div className="text-xl font-bold text-fire-orange mb-1">+2K</div>
+                <div className="text-white/70 text-sm font-medium">Shows realizados</div>
+              </div>
+              <div className="bg-black/10 rounded-lg p-3 border border-white/5">
+                <div className="text-xl font-bold text-fire-orange mb-1">+40</div>
+                <div className="text-white/70 text-sm font-medium">Anos de experiência</div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Content Grid - Optimized spacing */}
@@ -146,68 +205,6 @@ const Services = () => {
           />
         </div>
 
-        {/* Desktop Social Media Section - Moved to End */}
-        <div className="space-y-6 mb-12">
-          {/* Header */}
-          <div className="text-center">
-            <h3 className="text-2xl font-bold text-white mb-2">
-              Siga a <span className="text-fire-gradient">M5 Max</span>
-            </h3>
-            <p className="text-white/70 leading-relaxed">
-              Acompanhe nossos espetáculos nas redes sociais
-            </p>
-          </div>
-          
-          {/* Social Cards - Minimalist Horizontal Layout */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            {/* Instagram */}
-            <a 
-              href="https://instagram.com/fogosm5" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-4 bg-black/20 hover:bg-black/30 border border-white/10 hover:border-fire-orange/30 rounded-2xl p-5 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] min-w-[180px]"
-            >
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-red-500 flex items-center justify-center group-hover:shadow-lg group-hover:shadow-pink-500/25 transition-all duration-300">
-                <Instagram className="w-6 h-6 text-white" />
-              </div>
-              <div className="flex-1 text-left">
-                <div className="font-bold text-white text-lg group-hover:text-fire-orange transition-colors">Instagram</div>
-                <div className="text-white/60 text-sm">@Fogosm5</div>
-              </div>
-            </a>
-            
-            {/* YouTube */}
-            <a 
-              href="https://youtube.com/@FogosM5Max" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-4 bg-black/20 hover:bg-black/30 border border-white/10 hover:border-fire-orange/30 rounded-2xl p-5 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] min-w-[180px]"
-            >
-              <div className="w-12 h-12 rounded-xl bg-red-600 flex items-center justify-center group-hover:shadow-lg group-hover:shadow-red-500/25 transition-all duration-300">
-                <YouTube className="w-6 h-6 text-white" />
-              </div>
-              <div className="flex-1 text-left">
-                <div className="font-bold text-white text-lg group-hover:text-fire-orange transition-colors">YouTube</div>
-                <div className="text-white/60 text-sm">@FogosM5Max</div>
-              </div>
-            </a>
-          </div>
-          
-          {/* Social Stats - Integrated Clean Design */}
-          <div className="flex justify-center">
-            <div className="flex items-center gap-8 text-center">
-              <div>
-                <div className="text-2xl font-bold text-fire-orange">+2K</div>
-                <div className="text-white/60 text-sm font-medium">Shows realizados</div>
-              </div>
-              <div className="w-px h-12 bg-white/20"></div>
-              <div>
-                <div className="text-2xl font-bold text-fire-orange">+40</div>
-                <div className="text-white/60 text-sm font-medium">Anos de experiência</div>
-              </div>
-            </div>
-          </div>
-        </div>
 
         {/* Modern CTA Section - Framer/Notion Style */}
         <div className="text-center py-8 max-w-2xl mx-auto">
