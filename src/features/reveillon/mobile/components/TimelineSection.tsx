@@ -157,14 +157,6 @@ const TimelineSection = () => {
           })}
         </div>
 
-        {/* Compact Mobile CTA Section - Professional */}
-        <div className="text-center space-y-3">
-          <div className="inline-flex items-center gap-2 text-fire-gold/60 text-sm">
-            <div className="w-6 h-px bg-gradient-to-r from-transparent to-fire-orange/40"></div>
-            <span>Processo completo em 4 etapas</span>
-            <div className="w-6 h-px bg-gradient-to-r from-fire-orange/40 to-transparent"></div>
-          </div>
-        </div>
       </div>
     </section>
   );

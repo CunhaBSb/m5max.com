@@ -31,19 +31,10 @@ const Header = () => {
   }, [lastScrollY]);
 
   const navigation = [
-    { 
-      name: "Réveillon", 
-      href: "/reveillon"
-    },
-    { 
-      name: "Empresa", 
-      href: "#empresa",
-      dropdown: [
-        { name: "Sobre a M5", href: "#empresa", description: "A história e experiência" },
-        { name: "Serviços", href: "#servicos", description: "O que oferecemos" },
-        { name: "Perguntas Frequentes", href: "#faq", description: "Tire suas dúvidas" }
-      ]
-    }
+    { name: "Réveillon", href: "/reveillon" },
+    { name: "Sobre nós", href: "#empresa" },
+    { name: "Serviços", href: "#servicos" },
+    { name: "Perguntas Frequentes", href: "#faq" },
   ];
 
   const handleNavigation = (href: string) => {

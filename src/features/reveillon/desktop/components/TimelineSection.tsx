@@ -215,11 +215,7 @@ const TimelineSection = () => {
 
         {/* Professional Desktop CTA Section - Home Style Buttons */}
         <div className="text-center mt-16 space-y-8">
-          <div className="inline-flex items-center gap-3 text-fire-gold/70 text-base">
-            <div className="w-12 h-px bg-gradient-to-r from-transparent via-fire-orange/50 to-transparent"></div>
-            <span className="font-medium">Processo completo em 4 etapas</span>
-            <div className="w-12 h-px bg-gradient-to-r from-transparent via-fire-orange/50 to-transparent"></div>
-          </div>
+          
           
           {/* Home Hero Style Buttons - Reveillon Theme */}
           <div className="flex flex-col gap-4 items-center max-w-md mx-auto">

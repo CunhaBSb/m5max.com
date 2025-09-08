@@ -134,11 +134,11 @@ export const FooterMobile = () => {
             </a>
             <div className="flex items-center justify-center gap-2 text-xs text-white/85">
               <Mail className="w-3 h-3" />
-              <span>fogosm5.max@gmail.com</span>
+              <span>contato@m5max.com</span>
             </div>
             <div className="flex items-center justify-center gap-2 text-xs text-white/85">
               <MapPin className="w-3 h-3" />
-              <span>Luziânia - GO • Atendemos todo Brasil</span>
+              <span>Brasília - DF • Atendemos todo Brasil</span>
             </div>
           </div>
 
@@ -152,7 +152,7 @@ export const FooterMobile = () => {
               <Instagram className="w-4 h-4 text-pink-400" />
             </a>
             <a 
-              href="https://youtube.com/@m5maxproducoes" 
+              href="https://youtube.com/@FogosM5Max" 
               target="_blank"
               className="w-9 h-9 bg-gradient-to-br from-red-600/20 to-red-500/15 border border-red-400/30 rounded-lg flex items-center justify-center hover:scale-110 hover:border-red-400/50 transition-all duration-300"
             >
@@ -185,23 +185,7 @@ export const FooterMobile = () => {
             </div>
           </div>
 
-          {/* Final Trust Indicators - Balanced */}
-          <div className="flex items-center justify-center gap-4">
-            <div className="flex items-center gap-1.5">
-              <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-              <span className="text-xs text-white/70">Seguro</span>
-            </div>
-            <div className="w-px h-3 bg-slate-700/50" />
-            <div className="flex items-center gap-1.5">
-              <div className="w-1.5 h-1.5 bg-fire-orange rounded-full animate-pulse" />
-              <span className="text-xs text-white/70">Certificado</span>
-            </div>
-            <div className="w-px h-3 bg-slate-700/50" />
-            <div className="flex items-center gap-1.5">
-              <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse" />
-              <span className="text-xs text-white/70">Confiável</span>
-            </div>
-          </div>
+          
         </div>
       </div>
     </footer>

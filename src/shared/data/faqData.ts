@@ -18,10 +18,6 @@ export const homeFaqs = [
     question: "Os produtos DIY são seguros para uso doméstico?",
     answer: "Absolutamente. Todos os nossos kits DIY são certificados e acompanham manual detalhado de segurança. São projetados para uso seguro por pessoas leigas."
   },
-  {
-    question: "Vocês oferecem seguro para os eventos?",
-    answer: "Sim, trabalhamos com seguro de responsabilidade civil que cobre todos os nossos eventos. A documentação é fornecida como parte do serviço."
-  }
 ];
 
 export const reveillonFaqs = [

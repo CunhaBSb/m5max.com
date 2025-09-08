@@ -73,7 +73,7 @@ const HomeMobile = () => {
             <Services />
           </div>
 
-          <SectionSeparator variant="geometric-pattern" spacing="md" />
+
 
           <div id="faq">
             <FAQ />

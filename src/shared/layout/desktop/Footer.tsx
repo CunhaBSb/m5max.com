@@ -60,7 +60,7 @@ export const FooterDesktop = () => {
               className="h-11 bg-green-600 hover:bg-green-500 text-white flex items-center gap-2 text-sm transition-all duration-200"
             >
               <WhatsApp className="w-4 h-4" />
-              WhatsApp Direto
+              WhatsApp
               <div className="flex items-center gap-1 ml-1 bg-white/20 px-1.5 py-0.5 rounded-full">
                 <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
                 <span className="text-xs">Online</span>
@@ -184,11 +184,11 @@ export const FooterDesktop = () => {
                 </a>
                 <div className="flex items-center gap-2">
                   <Mail className="w-3 h-3" />
-                  <span>fogosm5.max@gmail.com</span>
+                  <span>contato@m5max.com</span>
                 </div>
                 <div className="flex items-start gap-2">
                   <MapPin className="w-3 h-3 mt-0.5" />
-                  <span>Luziânia - GO<br />
+                  <span>Brasília - DF<br />
                     <span className="text-fire-orange font-medium">Atendemos todo Brasil</span>
                   </span>
                 </div>

@@ -128,31 +128,31 @@ const Services = () => {
           </div>
 
           {/* Right Column - Social Media & Stats */}
-          <div className="hidden lg:block space-y-4">
+          <div className="hidden lg:block space-y-3">
             {/* Header */}
             <div className="text-center lg:text-left">
-              <h3 className="text-lg font-bold text-white mb-2">
+              <h3 className="text-base font-semibold text-white mb-2">
                 Siga a <span className="text-fire-gradient">M5 Max</span>
               </h3>
-              <p className="text-white/70 text-sm leading-relaxed mb-4">
+              <p className="text-white/70 text-sm leading-relaxed mb-3">
                 Acompanhe nossos espetáculos nas redes sociais
               </p>
             </div>
             
             {/* Social Cards - Vertical Stack */}
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               {/* Instagram */}
               <a 
                 href="https://instagram.com/fogosm5" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3 bg-black/20 hover:bg-black/30 border border-white/10 hover:border-fire-orange/30 rounded-lg p-3 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02]"
+                className="group flex items-center gap-3 bg-black/10 hover:bg-black/20 border border-white/5 hover:border-fire-orange/20 rounded-lg p-2.5 backdrop-blur-sm transition-colors duration-300"
               >
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-pink-500 to-red-500 flex items-center justify-center group-hover:shadow-lg group-hover:shadow-pink-500/25 transition-all duration-300">
-                  <Instagram className="w-4 h-4 text-white" />
+                <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-pink-600 to-red-600 flex items-center justify-center transition-colors duration-300">
+                  <Instagram className="w-3 h-3 text-white" />
                 </div>
                 <div className="flex-1 text-left">
-                  <div className="font-semibold text-white group-hover:text-fire-orange transition-colors">Instagram</div>
+                  <div className="font-medium text-white group-hover:text-fire-orange transition-colors">Instagram</div>
                   <div className="text-white/60 text-sm">@Fogosm5</div>
                 </div>
               </a>
@@ -162,29 +162,19 @@ const Services = () => {
                 href="https://youtube.com/@FogosM5Max" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3 bg-black/20 hover:bg-black/30 border border-white/10 hover:border-fire-orange/30 rounded-lg p-3 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02]"
+                className="group flex items-center gap-3 bg-black/10 hover:bg-black/20 border border-white/5 hover:border-fire-orange/20 rounded-lg p-2.5 backdrop-blur-sm transition-colors duration-300"
               >
-                <div className="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center group-hover:shadow-lg group-hover:shadow-red-500/25 transition-all duration-300">
-                  <YouTube className="w-4 h-4 text-white" />
+                <div className="w-6 h-6 rounded-lg bg-red-700 flex items-center justify-center transition-colors duration-300">
+                  <YouTube className="w-3 h-3 text-white" />
                 </div>
                 <div className="flex-1 text-left">
-                  <div className="font-semibold text-white group-hover:text-fire-orange transition-colors">YouTube</div>
+                  <div className="font-medium text-white group-hover:text-fire-orange transition-colors">YouTube</div>
                   <div className="text-white/60 text-sm">@FogosM5Max</div>
                 </div>
               </a>
             </div>
             
-            {/* Social Stats - Vertical Layout */}
-            <div className="space-y-3 pt-2">
-              <div className="bg-black/10 rounded-lg p-3 border border-white/5">
-                <div className="text-xl font-bold text-fire-orange mb-1">+2K</div>
-                <div className="text-white/70 text-sm font-medium">Shows realizados</div>
-              </div>
-              <div className="bg-black/10 rounded-lg p-3 border border-white/5">
-                <div className="text-xl font-bold text-fire-orange mb-1">+40</div>
-                <div className="text-white/70 text-sm font-medium">Anos de experiência</div>
-              </div>
-            </div>
+            
           </div>
         </div>
 
@@ -207,20 +197,20 @@ const Services = () => {
 
 
         {/* Modern CTA Section - Framer/Notion Style */}
-        <div className="text-center py-8 max-w-2xl mx-auto">
+        <div className="text-center py-6 max-w-2xl mx-auto">
           {/* Emocional Header with Icon */}
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <Sparkles className="w-5 h-5 text-fire-orange animate-pulse" />
-            <h3 className="text-2xl font-bold text-white">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Sparkles className="w-4 h-4 text-fire-orange animate-pulse" />
+            <h3 className="text-xl font-bold text-white">
               Pronto para criar um <span className="text-fire-gradient">espetáculo</span>?
             </h3>
           </div>
           
           {/* Modern Button Layout */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
             <Button
               onClick={handleWhatsAppClick}
-              className="h-12 px-6 bg-green-600 hover:bg-green-500 hover:scale-105 text-white font-medium transition-all duration-300 shadow-lg hover:shadow-green-500/25 min-w-[160px]"
+              className="h-10 px-5 bg-green-600 hover:bg-green-500 hover:scale-105 text-white font-medium transition-all duration-300 shadow-lg hover:shadow-green-500/25 min-w-[140px]"
             >
               <WhatsApp className="w-4 h-4 mr-3" />
               WhatsApp
@@ -229,7 +219,7 @@ const Services = () => {
             <Button 
               variant="outline-fire"
               onClick={handleOrçamentoClick}
-              className="h-12 px-6 hover:scale-105 font-medium min-w-[160px]"
+              className="h-10 px-5 hover:scale-105 font-medium min-w-[140px]"
             >
               <TrendingUp className="w-4 h-4 mr-3" />
               Orçamento

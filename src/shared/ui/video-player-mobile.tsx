@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { Card } from '@/shared/ui/card';
-import { Play, Pause, Loader2, AlertCircle, Maximize } from 'lucide-react';
+import { Play, Pause, Loader2, AlertCircle, Maximize, RotateCcw } from 'lucide-react';
 import { cn } from '@/shared/lib/utils';
 import { useAnalytics } from '@/shared/hooks/useAnalytics';
 
@@ -19,181 +19,225 @@ export const VideoPlayerMobile: React.FC<VideoPlayerMobileProps> = ({
   thumbnail,
   autoplay = false,
   className,
-  muted = false
+  muted = false,
 }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
-  const [showControls, setShowControls] = useState(true);
+  const [showControls, setShowControls] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [firstPlay, setFirstPlay] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
-  
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [fired25, setFired25] = useState(false);
+  const [fired50, setFired50] = useState(false);
+  const [fired75, setFired75] = useState(false);
+
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const controlsTimeoutRef = useRef<NodeJS.Timeout>();
+  const controlsTimeoutRef = useRef<number | null>(null);
   const { trackVideoEvent } = useAnalytics();
 
-  // Mobile detection
-  useEffect(() => {
-    const checkMobile = () => {
-      const userAgent = navigator.userAgent;
-      const mobileRegex = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i;
-      setIsMobile(mobileRegex.test(userAgent));
-    };
-    checkMobile();
+  const formatTime = useCallback((time: number) => {
+    if (!isFinite(time)) return '0:00';
+    const m = Math.floor(time / 60);
+    const s = Math.floor(time % 60);
+    return `${m}:${String(s).padStart(2, '0')}`;
   }, []);
 
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
 
-  const hideControlsWithDelay = useCallback(() => {
-    if (controlsTimeoutRef.current) {
-      clearTimeout(controlsTimeoutRef.current);
-    }
-    controlsTimeoutRef.current = setTimeout(() => {
+  const showControlsTemporarily = useCallback(() => {
+    setShowControls(true);
+    if (controlsTimeoutRef.current) window.clearTimeout(controlsTimeoutRef.current);
+    controlsTimeoutRef.current = window.setTimeout(() => {
       if (isPlaying) setShowControls(false);
     }, 3000);
   }, [isPlaying]);
 
-  const showControlsTemporarily = useCallback(() => {
-    setShowControls(true);
-    hideControlsWithDelay();
-  }, [hideControlsWithDelay]);
-
-  // Video event handlers
+  // Attach video event listeners
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    const handleLoadStart = () => setIsLoading(true);
-    const handleCanPlay = () => {
-      setIsLoading(false);
-      setHasError(false);
-    };
     const handleLoadedMetadata = () => {
       setDuration(video.duration || 0);
-      video.volume = muted ? 0 : 0.8;
       video.muted = muted;
+      if (autoplay) {
+        setIsLoading(true);
+        video.play().catch(() => setIsLoading(false));
+      }
     };
-    const handleTimeUpdate = () => setCurrentTime(video.currentTime);
+    const handleCanPlay = () => {
+      // Media can start playing
+      setIsLoading(false);
+    };
+    const handlePlaying = () => {
+      // Actually playing (after potential buffering)
+      setIsLoading(false);
+    };
+    const handleTimeUpdate = () => {
+      const t = video.currentTime;
+      setCurrentTime(t);
+      const ratio = duration > 0 ? t / duration : 0;
+      if (!fired25 && ratio >= 0.25) {
+        setFired25(true);
+        trackVideoEvent('progress_25', { video_title: title, video_provider: 'native' });
+      }
+      if (!fired50 && ratio >= 0.5) {
+        setFired50(true);
+        trackVideoEvent('progress_50', { video_title: title, video_provider: 'native' });
+      }
+      if (!fired75 && ratio >= 0.75) {
+        setFired75(true);
+        trackVideoEvent('progress_75', { video_title: title, video_provider: 'native' });
+      }
+    };
     const handlePlay = () => {
       setIsPlaying(true);
-      hideControlsWithDelay();
+      showControlsTemporarily();
+      if (firstPlay) {
+        trackVideoEvent('start', { video_title: title, video_provider: 'native' });
+        setFirstPlay(false);
+      }
     };
     const handlePause = () => {
       setIsPlaying(false);
       setShowControls(true);
+    };
+    const handleWaiting = () => {
+      // Buffering
+      setIsLoading(true);
+    };
+    const handleEnded = () => {
+      setIsPlaying(false);
+      setShowControls(true);
+      setFirstPlay(true);
+      trackVideoEvent('complete', { video_title: title, video_provider: 'native' });
     };
     const handleError = () => {
       setIsLoading(false);
       setHasError(true);
       setIsPlaying(false);
     };
-    const handleEnded = () => {
-      setIsPlaying(false);
-      setShowControls(true);
-      setFirstPlay(true);
-    };
 
-    video.addEventListener('loadstart', handleLoadStart);
-    video.addEventListener('canplay', handleCanPlay);
     video.addEventListener('loadedmetadata', handleLoadedMetadata);
+    video.addEventListener('canplay', handleCanPlay);
+    video.addEventListener('playing', handlePlaying);
     video.addEventListener('timeupdate', handleTimeUpdate);
     video.addEventListener('play', handlePlay);
     video.addEventListener('pause', handlePause);
-    video.addEventListener('error', handleError);
+    video.addEventListener('waiting', handleWaiting);
     video.addEventListener('ended', handleEnded);
+    video.addEventListener('error', handleError);
+    const onFsChange = () => setIsFullscreen(!!document.fullscreenElement);
+    document.addEventListener('fullscreenchange', onFsChange);
 
     return () => {
-      video.removeEventListener('loadstart', handleLoadStart);
-      video.removeEventListener('canplay', handleCanPlay);
       video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      video.removeEventListener('canplay', handleCanPlay);
+      video.removeEventListener('playing', handlePlaying);
       video.removeEventListener('timeupdate', handleTimeUpdate);
       video.removeEventListener('play', handlePlay);
       video.removeEventListener('pause', handlePause);
-      video.removeEventListener('error', handleError);
+      video.removeEventListener('waiting', handleWaiting);
       video.removeEventListener('ended', handleEnded);
+      video.removeEventListener('error', handleError);
+      document.removeEventListener('fullscreenchange', onFsChange);
     };
-  }, [muted, hideControlsWithDelay]);
+  }, [autoplay, muted, showControlsTemporarily, firstPlay, title, trackVideoEvent, duration, fired25, fired50, fired75]);
 
-  const handleCenterTap = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
+  const enterMobileFullscreen = useCallback(async () => {
+    const video = videoRef.current as any;
+    const container = containerRef.current as any;
+    try {
+      // iOS Safari native fullscreen if available
+      if (video && typeof video.webkitEnterFullscreen === 'function') {
+        video.webkitEnterFullscreen();
+      } else if (container && (container.requestFullscreen || container.webkitRequestFullscreen)) {
+        await (container.requestFullscreen?.() || container.webkitRequestFullscreen?.());
+      }
+      // Try orientation lock to landscape when fullscreen
+      const orientation: any = (screen as any).orientation;
+      if (orientation && typeof orientation.lock === 'function') {
+        orientation.lock('landscape').catch(() => {});
+      }
+    } catch (e) {
+      // Non-fatal
+    }
+  }, []);
+
+  const playPause = useCallback(() => {
     const video = videoRef.current;
     if (!video || !src || hasError) return;
-
     if (isPlaying) {
       video.pause();
-      trackVideoEvent('video_pause', {
-        video_title: title,
-        video_provider: 'native',
-        current_time: currentTime
-      });
     } else {
+      // User-initiated play → click_to_play
+      if (firstPlay) {
+        trackVideoEvent('click_to_play', { video_title: title, video_provider: 'native' });
+      }
       setIsLoading(true);
-      video.play().then(() => {
-        setIsLoading(false);
-        
-        // Try fullscreen on first play (mobile)
-        if (firstPlay && isMobile) {
-          setFirstPlay(false);
-          
-          // Request fullscreen on mobile devices
-          const container = containerRef.current;
-          if (container) {
-            // iOS Safari uses webkitEnterFullscreen on video element
-            if ('webkitEnterFullscreen' in video) {
-              (video as any).webkitEnterFullscreen();
-            } else if (container.requestFullscreen) {
-              container.requestFullscreen().catch(() => {
-                // Fullscreen failed, continue normally
-              });
-            }
-          }
-        }
-        
-        trackVideoEvent('video_play', {
-          video_title: title,
-          video_provider: 'native',
-          is_first_play: firstPlay
-        });
-        
-        setFirstPlay(false);
-      }).catch(error => {
-        setIsLoading(false);
-        setHasError(true);
-        console.error('Video play error:', error);
-      });
+      // Enter fullscreen on mobile when starting playback
+      enterMobileFullscreen();
+      video.play().catch(() => setIsLoading(false));
     }
-  }, [isPlaying, src, hasError, currentTime, title, firstPlay, isMobile, trackVideoEvent]);
+  }, [isPlaying, src, hasError, firstPlay, title, trackVideoEvent, enterMobileFullscreen]);
 
-  const handleContainerTap = useCallback((e: React.MouseEvent) => {
-    if (!isPlaying) return;
-    
+  const handleContainerClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    // Centro do elemento funciona como play/pause
     const rect = e.currentTarget.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    const tapRadius = Math.min(rect.width, rect.height) * 0.15; // 30% of smaller dimension
-    
-    const distance = Math.sqrt(
-      Math.pow(e.clientX - centerX, 2) + Math.pow(e.clientY - centerY, 2)
-    );
-    
-    // Only trigger play/pause if tap is in center zone
-    if (distance <= tapRadius) {
-      handleCenterTap(e);
-    } else {
-      // Show controls temporarily for other areas
-      showControlsTemporarily();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const dx = e.clientX - cx;
+    const dy = e.clientY - cy;
+    const radius = Math.min(rect.width, rect.height) * 0.30; // 30% do menor lado
+    const inCenter = dx * dx + dy * dy <= radius * radius;
+    if (inCenter) {
+      e.stopPropagation();
+      playPause();
     }
-  }, [isPlaying, handleCenterTap, showControlsTemporarily]);
+  }, [playPause]);
+
+  const handleProgressBarClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    const video = videoRef.current;
+    if (!video || duration === 0) return;
+    const rect = (e.currentTarget as HTMLDivElement).getBoundingClientRect();
+    const ratio = (e.clientX - rect.left) / rect.width;
+    const newTime = Math.min(Math.max(0, ratio * duration), duration);
+    video.currentTime = newTime;
+    setCurrentTime(newTime);
+    showControlsTemporarily();
+  }, [duration, showControlsTemporarily]);
+
+  const toggleFullscreen = useCallback(async () => {
+    const video = videoRef.current as any;
+    const container = containerRef.current as any;
+    if (!container && !video) return;
+    try {
+      if (!document.fullscreenElement) {
+        // Prefer native iOS fullscreen when available
+        if (video && typeof video.webkitEnterFullscreen === 'function') {
+          video.webkitEnterFullscreen();
+        } else if (container && (container.requestFullscreen || container.webkitRequestFullscreen)) {
+          await (container.requestFullscreen?.() || container.webkitRequestFullscreen?.());
+        }
+        const orientation: any = (screen as any).orientation;
+        if (orientation && typeof orientation.lock === 'function') {
+          orientation.lock('landscape').catch(() => {});
+        }
+      } else {
+        await document.exitFullscreen?.();
+      }
+    } catch (e) {
+      // ignore
+    }
+  }, []);
 
   const retry = useCallback(() => {
     const video = videoRef.current;
     if (!video || !src) return;
-    
     setHasError(false);
     setIsLoading(true);
     video.load();
@@ -201,14 +245,14 @@ export const VideoPlayerMobile: React.FC<VideoPlayerMobileProps> = ({
 
   if (!src) {
     return (
-      <Card className={cn("overflow-hidden bg-black", className)}>
-        <div className="relative aspect-video bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center">
-          <div className="text-center space-y-3">
-            <div className="w-16 h-16 mx-auto bg-fire-orange/20 rounded-full flex items-center justify-center">
-              <Play className="w-8 h-8 text-fire-orange" />
+      <Card className={cn('overflow-hidden bg-black', className)}>
+        <div className="relative aspect-video bg-black flex items-center justify-center">
+          <div className="text-center space-y-2">
+            <div className="w-14 h-14 mx-auto bg-red-600/20 rounded-full flex items-center justify-center">
+              <Play className="w-7 h-7 text-red-500" />
             </div>
             <p className="text-white/80 text-sm">{title}</p>
-            <p className="text-white/60 text-xs">Vídeo não disponível</p>
+            <p className="text-white/60 text-xs">Vídeo indisponível</p>
           </div>
         </div>
       </Card>
@@ -216,51 +260,45 @@ export const VideoPlayerMobile: React.FC<VideoPlayerMobileProps> = ({
   }
 
   return (
-    <Card className={cn("overflow-hidden bg-black", className)}>
-      <div 
+    <Card className={cn('overflow-hidden bg-black', className)}>
+      <div
         ref={containerRef}
-        className="relative aspect-video bg-black group cursor-pointer select-none"
-        onClick={handleContainerTap}
-        onTouchStart={(e) => e.preventDefault()}
+        className="relative aspect-video bg-black select-none"
+        onClick={handleContainerClick}
       >
         <video
           ref={videoRef}
           className="absolute inset-0 w-full h-full object-cover"
           poster={thumbnail}
-          autoPlay={autoplay}
+          autoPlay={false}
           muted={muted}
           playsInline
           preload="metadata"
           controls={false}
         >
-          <source src={src} type="video/mp4" />
+          <source src={src} type={src?.endsWith('.webm') ? 'video/webm' : 'video/mp4'} />
           Your browser does not support the video tag.
         </video>
 
-        {/* Loading State */}
-        {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-            <div className="flex flex-col items-center space-y-3">
-              <Loader2 className="w-8 h-8 animate-spin text-white" />
-              <p className="text-white/80 text-sm">Carregando...</p>
-            </div>
+        {/* Loading */}
+        {isLoading && isPlaying && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+            <Loader2 className="w-8 h-8 animate-spin text-white" />
           </div>
         )}
 
-        {/* Error State */}
+        {/* Error */}
         {hasError && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/70">
-            <div className="text-center space-y-4 p-4">
-              <div className="w-16 h-16 mx-auto bg-red-500/20 rounded-full flex items-center justify-center">
-                <AlertCircle className="w-8 h-8 text-red-400" />
+            <div className="text-center space-y-3 p-4">
+              <div className="w-14 h-14 mx-auto bg-red-600/20 rounded-full flex items-center justify-center">
+                <AlertCircle className="w-7 h-7 text-red-500" />
               </div>
-              <div className="space-y-2">
-                <p className="text-white/90 font-medium">Erro ao carregar vídeo</p>
-                <p className="text-white/60 text-sm">Verifique sua conexão e tente novamente</p>
-              </div>
-              <button 
+              <p className="text-white/90 font-medium">Erro ao carregar vídeo</p>
+              <p className="text-white/60 text-xs">Verifique sua conexão e tente novamente</p>
+              <button
                 onClick={(e) => { e.stopPropagation(); retry(); }}
-                className="bg-fire-orange hover:bg-fire-orange/80 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                className="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-full text-xs font-semibold"
               >
                 Tentar novamente
               </button>
@@ -268,60 +306,61 @@ export const VideoPlayerMobile: React.FC<VideoPlayerMobileProps> = ({
           </div>
         )}
 
-        {/* YouTube-style Play Button - Only before first play */}
+        {/* Primeira fase: apenas thumb + único botão de play central */}
         {!isPlaying && !isLoading && !hasError && firstPlay && (
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="bg-black/60 backdrop-blur-sm text-white w-20 h-20 rounded-full flex items-center justify-center transition-all hover:bg-black/70 hover:scale-110">
-              <Play className="w-10 h-10 ml-1" fill="currentColor" />
+            <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center shadow-lg">
+              <Play className="w-7 h-7 text-white fill-current ml-0.5" />
             </div>
           </div>
         )}
 
-        {/* Mobile-optimized Controls Overlay */}
-        {(showControls && isPlaying) && !isLoading && !hasError && (
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/30 transition-opacity duration-300">
-            {/* Progress Bar - Bottom */}
-            <div className="absolute bottom-0 left-0 right-0 p-4">
-              <div className="bg-white/20 h-1 rounded-full overflow-hidden">
-                <div 
-                  className="bg-fire-orange h-full transition-all duration-300 ease-out"
-                  style={{ width: `${progress}%` }}
-                />
+        
+
+        {/* Controls (YouTube-like) - não mostrar na primeira fase */}
+        {(!firstPlay) && (showControls || isPlaying) && !hasError && (
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30">
+            {/* Bottom bar */}
+            <div className="absolute bottom-0 left-0 right-0 px-3 pb-3" onClick={(e) => e.stopPropagation()}>
+              {/* Progress */}
+              <div className="w-full h-1.5 bg-white/25 rounded-full overflow-hidden" onClick={handleProgressBarClick}>
+                <div className="h-full bg-red-600" style={{ width: `${progress}%` }} />
               </div>
-              
-              {/* Time and fullscreen */}
-              <div className="flex justify-between items-center mt-2">
-                <div className="text-white text-sm font-medium">
-                  {Math.floor(currentTime / 60)}:{String(Math.floor(currentTime % 60)).padStart(2, '0')} / {Math.floor(duration / 60)}:{String(Math.floor(duration % 60)).padStart(2, '0')}
+              {/* Controls row */}
+              <div className="mt-2 flex items-center justify-between text-white">
+                <div className="flex items-center gap-3">
+                  <button
+                    aria-label={isPlaying ? 'Pausar' : 'Reproduzir'}
+                    className="p-1.5 active:scale-95"
+                    onClick={(e) => { e.stopPropagation(); playPause(); }}
+                  >
+                    {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
+                  </button>
+                  <div className="text-xs font-medium">
+                    {formatTime(currentTime)} / {formatTime(duration)}
+                  </div>
                 </div>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    const container = containerRef.current;
-                    if (container && container.requestFullscreen) {
-                      container.requestFullscreen();
-                    }
-                  }}
-                  className="text-white/80 hover:text-white p-2"
-                >
-                  <Maximize className="w-5 h-5" />
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    aria-label="Reiniciar"
+                    className="p-1.5 active:scale-95"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const v = videoRef.current; if (v) { v.currentTime = 0; }
+                    }}
+                  >
+                    <RotateCcw className="w-5 h-5" />
+                  </button>
+                  <button
+                    aria-label={isFullscreen ? 'Sair de tela cheia' : 'Tela cheia'}
+                    className="p-1.5 active:scale-95"
+                    onClick={(e) => { e.stopPropagation(); toggleFullscreen(); }}
+                  >
+                    <Maximize className="w-5 h-5" />
+                  </button>
+                </div>
               </div>
             </div>
-
-            {/* Center Play/Pause Indicator - Temporary */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="bg-black/40 text-white w-16 h-16 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6 ml-0.5" fill="currentColor" />}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Tap Zone Indicator (dev only - remove in production) */}
-        {process.env.NODE_ENV === 'development' && (
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="w-24 h-24 border-2 border-fire-orange/30 rounded-full opacity-20" />
           </div>
         )}
       </div>

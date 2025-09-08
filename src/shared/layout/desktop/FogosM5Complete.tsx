@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/shared/ui/card";
-import { VideoPlayerSimple } from "@/shared/ui/video-player-simple";
+import { VideoPlayer } from "@/shared/ui/video-player";
 import { 
   Shield, 
   Award,
@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 
 const FogosM5Complete = () => {
-  // URL do vídeo da empresa - substituir quando disponível
+
   const videoSrc = "https://psvmzrzezgkklfjshhua.supabase.co/storage/v1/object/sign/M5Max/V2.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81ZDUwMmRjNy00OTM1LTQ0OGMtOWExNC1lNjNjMjY1NjQwMzciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNNU1heC9WMi5tcDQiLCJpYXQiOjE3NTYyMzg1MjQsImV4cCI6MjEzNDY3MDUyNH0.P9v2SUKcQUtFf9Fn4SdSg_Bfr3Snh4oJcsaAp5dFt40";
   const thumbnailUrl = "/assets/thumbapresentação.webp";
 
@@ -149,7 +149,7 @@ const FogosM5Complete = () => {
                 
                 <div className="relative z-10">
                   {videoSrc ? (
-                    <VideoPlayerSimple 
+                    <VideoPlayer 
                       src={videoSrc}
                       title="Conheça a História da M5 Max Produções"
                       thumbnail={thumbnailUrl}

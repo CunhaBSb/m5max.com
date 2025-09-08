@@ -11,7 +11,8 @@ import {
 } from "lucide-react";
 
 const FogosM5Complete = () => {
-  // URL do vídeo da empresa - substituir quando disponível
+  // URL do vídeo da empresa - usando video disponível como fallback
+  // TODO: Substituir com URL correta quando vídeo M5Max estiver disponível
   const videoSrc = "https://psvmzrzezgkklfjshhua.supabase.co/storage/v1/object/sign/M5Max/V2.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81ZDUwMmRjNy00OTM1LTQ0OGMtOWExNC1lNjNjMjY1NjQwMzciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNNU1heC9WMi5tcDQiLCJpYXQiOjE3NTYyMzg1MjQsImV4cCI6MjEzNDY3MDUyNH0.P9v2SUKcQUtFf9Fn4SdSg_Bfr3Snh4oJcsaAp5dFt40";
   const thumbnailUrl = "/assets/thumbapresentação.webp";
 
@@ -157,20 +158,20 @@ const FogosM5Complete = () => {
             {stats.map((stat, index) => {
               const Icon = stat.icon;
               return (
-                <div key={index} className="relative aspect-square">
+                <div key={index} className="relative">
                   {/* Minimal glow effect */}
                   <div className="absolute -inset-0.5 bg-fire-orange/6 rounded blur opacity-25" />
                   
-                  <Card className="relative z-10 h-full bg-gradient-to-br from-fire-orange/10 to-fire-gold/6 backdrop-blur-sm border border-fire-orange/20 hover:border-fire-gold/35 shadow-sm shadow-fire-orange/6 hover:shadow-fire-gold/12 transition-all duration-300 group">
+                  <Card className="relative z-10 h-full min-h-[110px] bg-gradient-to-br from-fire-orange/10 to-fire-gold/6 backdrop-blur-sm border border-fire-orange/20 hover:border-fire-gold/35 shadow-sm shadow-fire-orange/6 hover:shadow-fire-gold/12 transition-all duration-300 group">
                     <CardContent className="p-1.5 h-full">
-                      <div className="flex flex-col items-center justify-center text-center space-y-0.5 h-full">
-                        <div className="w-4 h-4 rounded-full bg-gradient-to-br from-fire-gold/15 to-fire-orange/12 flex items-center justify-center shadow-sm shadow-fire-gold/10 group-hover:shadow-fire-orange/15 transition-all duration-300 group-hover:scale-105">
-                          <Icon className="w-2 h-2 text-fire-gold group-hover:text-fire-orange transition-colors duration-300" />
+                      <div className="flex flex-col items-center justify-between text-center h-full">
+                        <div className="w-6 h-6 rounded-full bg-gradient-to-br from-fire-gold/15 to-fire-orange/12 flex items-center justify-center shadow-sm shadow-fire-gold/10 group-hover:shadow-fire-orange/15 transition-all duration-300 group-hover:scale-105">
+                          <Icon className="w-3 h-3 text-fire-gold group-hover:text-fire-orange transition-colors duration-300" />
                         </div>
-                        <div className="text-xs font-bold text-white group-hover:text-fire-gold transition-colors duration-300 leading-none">
+                        <div className="text-sm font-bold text-white group-hover:text-fire-gold transition-colors duration-300 leading-none">
                           {stat.value}
                         </div>
-                        <div className="text-[10px] font-medium text-white/90 group-hover:text-white leading-tight transition-colors duration-300 text-center">
+                        <div className="text-xs font-medium text-white/90 group-hover:text-white leading-tight transition-colors duration-300 text-center">
                           {stat.label}
                         </div>
                       </div>

@@ -28,6 +28,9 @@ const config: Config = {
 			'2xl': '1536px',
 		},
 		extend: {
+			height: {
+				'18': '4.5rem',
+			},
 			fontFamily: {
 				sans: ['Inter', 'system-ui', 'sans-serif'],
 				mono: ['Menlo', 'Monaco', 'monospace'],

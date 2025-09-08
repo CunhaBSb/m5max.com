@@ -194,6 +194,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
         ref={containerRef}
         className="relative aspect-video bg-black group cursor-pointer"
         onMouseMove={showControlsTemporarily}
+        onClick={togglePlay}
       >
         <video
           ref={videoRef}
@@ -250,9 +251,8 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
         {(showControls || !isPlaying) && src && !hasError && (
           <div 
             className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent transition-opacity opacity-100"
-            onClick={(e) => e.stopPropagation()}
           >
-          <div className="absolute bottom-0 left-0 right-0 p-4">
+          <div className="absolute bottom-0 left-0 right-0 p-4" onClick={(e) => e.stopPropagation()}>
             <Slider value={[progress]} onValueChange={handleProgressChange} max={100} step={0.1} />
             <div className="flex items-center justify-between text-white mt-2">
               <div className="flex items-center gap-3">

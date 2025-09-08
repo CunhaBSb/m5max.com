@@ -22,9 +22,9 @@ const faqs = [
 const FAQ = () => {
   return (
     <section className="relative py-6 overflow-hidden">
-      {/* Mobile Knowledge Base - Optimized Sparks */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-slate-900/12 to-background"></div>
-      <div className="absolute inset-0 bg-gradient-to-br from-fire-gold/12 via-fire-orange/6 to-fire-red/4" />
+      {/* Background pattern aligned to Services (mobile) */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-metal-platinum/12 to-background" />
+      <div className="absolute inset-0 bg-gradient-to-br from-fire-gold/6 via-transparent to-fire-orange/4" />
       
       {/* Mobile Dispersed Sparks - Reduced for performance */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -40,21 +40,12 @@ const FAQ = () => {
              rounded-full blur-2xl opacity-40 animate-pulse" style={{ animationDuration: '8s' }} />
       </div>
       
-      {/* Harmonized Dark Ambient Gradients - Footer Compatible */}
-      <div className="absolute inset-0">
-        {/* Dark base layer for consistency */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/40 via-slate-900/30 to-background" />
-        
-        {/* Subtle primary gradient layer */}
-        <div className="absolute inset-0 bg-gradient-to-br from-fire-gold/3 via-background/95 to-fire-orange/2" />
-        
-        {/* Subtle ambient lighting effects */}
+      {/* Subtle ambient lighting effects */}
+      <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-b from-fire-gold/2 via-transparent to-transparent" />
         <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-fire-orange/1 via-transparent to-transparent" />
-        
-        {/* Reduced radial accent gradients */}
-        <div className="absolute top-1/3 left-1/3 w-1/2 h-1/2 bg-gradient-radial from-fire-gold/2 via-transparent to-transparent blur-3xl opacity-60" />
-        <div className="absolute bottom-1/3 right-1/3 w-1/2 h-1/2 bg-gradient-radial from-fire-orange/1 via-transparent to-transparent blur-3xl opacity-50" />
+        <div className="absolute top-1/3 left-1/3 w-1/2 h-1/2 bg-gradient-radial from-fire-gold/2 via-transparent to-transparent blur-3xl opacity-50" />
+        <div className="absolute bottom-1/3 right-1/3 w-1/2 h-1/2 bg-gradient-radial from-fire-orange/1 via-transparent to-transparent blur-3xl opacity-40" />
       </div>
       
       {/* Subtle particle effects */}
@@ -83,37 +74,25 @@ const FAQ = () => {
             <AccordionItem 
               key={index} 
               value={`item-${index}`}
-              className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg px-3 py-1"
+              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg px-3 py-1"
             >
-              <AccordionTrigger className="text-left font-semibold hover:text-fire-orange transition-smooth text-sm py-3">
+              <AccordionTrigger className="text-left font-semibold text-white hover:text-fire-orange transition-smooth text-sm py-3">
                 <div className="flex items-start gap-2">
                   <div className="w-1.5 h-1.5 bg-fire-orange rounded-full mt-2 flex-shrink-0" />
                   <span className="leading-tight">{faq.question}</span>
                 </div>
               </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground leading-relaxed pt-2 text-sm pl-4">
+              <AccordionContent className="text-white/80 leading-relaxed pt-2 text-sm pl-4">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>
       </div>
-      
-      {/* Professional Bottom Transition */}
-      <div className="absolute bottom-0 left-0 w-full h-24 z-5 pointer-events-none">
-        {/* Main gradient transition */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/85 to-transparent"></div>
-        
-        {/* Accent line for visual continuity */}
-        <div className="absolute bottom-12 left-0 w-full h-px bg-gradient-to-r from-transparent via-fire-gold/20 to-transparent"></div>
-        
-        {/* Professional fade pattern */}
-        <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-background/95 to-transparent"></div>
-        
-        {/* Side accent gradients */}
-        <div className="absolute bottom-0 left-0 w-1/4 h-full bg-gradient-to-tr from-background/60 via-background/20 to-transparent"></div>
-        <div className="absolute bottom-0 right-0 w-1/4 h-full bg-gradient-to-tl from-background/60 via-background/20 to-transparent"></div>
-      </div>
+
+      {/* Section transitions (match Services) */}
+      <div className="absolute top-0 left-0 w-full h-8 bg-gradient-to-b from-background via-background/80 to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none" />
     </section>
   );
 };

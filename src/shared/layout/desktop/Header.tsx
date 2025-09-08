@@ -1,17 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/shared/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/shared/ui/dropdown-menu";
-import { ChevronDown } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 
 interface NavigationItem {
   name: string;
   href: string;
-  dropdown?: Array<{
-    name: string;
-    href: string;
-    description: string;
-  }>;
 }
 
 interface DesktopHeaderProps {
@@ -38,26 +31,6 @@ export const DesktopHeader = ({ navigation, handleNavigation }: DesktopHeaderPro
 
       <nav className="flex items-center gap-4">
         {navigation.map((item) => (
-          item.dropdown ? (
-            <DropdownMenu key={item.name}>
-              <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-foreground hover:text-fire-orange transition-smooth">
-                {item.name}
-                <ChevronDown className="w-4 h-4" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-64">
-                {item.dropdown.map((dropdownItem) => (
-                  <DropdownMenuItem
-                    key={dropdownItem.name}
-                    onClick={() => handleNavigation(dropdownItem.href)}
-                    className="flex flex-col items-start p-4 cursor-pointer"
-                  >
-                    <div className="font-medium">{dropdownItem.name}</div>
-                    <div className="text-xs text-muted-foreground">{dropdownItem.description}</div>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-          ) : (
             <button
               key={item.name}
               onClick={() => handleNavigation(item.href)}
@@ -65,7 +38,6 @@ export const DesktopHeader = ({ navigation, handleNavigation }: DesktopHeaderPro
             >
               {item.name}
             </button>
-          )
         ))}
       </nav>
 
