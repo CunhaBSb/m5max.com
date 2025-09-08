@@ -169,15 +169,15 @@ const Hero = () => {
               <div className="animate-fade-in-up" style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
                 <Button 
                   variant="ghost"
-                  className="flex items-center justify-center gap-4 w-full h-14 bg-gradient-to-r from-yellow-500/20 via-yellow-400/30 to-yellow-500/20 border-2 border-yellow-400/50 text-white hover:from-yellow-400/30 hover:via-yellow-300/40 hover:to-yellow-400/30 hover:border-yellow-300/70 backdrop-blur-md transition-all duration-300 group relative overflow-hidden shadow-lg shadow-yellow-400/20"
+                  className="flex items-center justify-center gap-3 w-full h-10 bg-gradient-to-r from-yellow-500/20 via-yellow-400/30 to-yellow-500/20 border-2 border-yellow-400/50 text-white hover:from-yellow-400/30 hover:via-yellow-300/40 hover:to-yellow-400/30 hover:border-yellow-300/70 backdrop-blur-md transition-all duration-300 group relative overflow-hidden shadow-lg shadow-yellow-400/20"
                   onClick={handleVideoClick}
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-300/10 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700" />
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center shadow-lg group-hover:shadow-yellow-400/50 transition-all group-hover:scale-110">
-                    <Play className="w-4 h-4 text-black fill-current ml-0.5" />
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center shadow-lg group-hover:shadow-yellow-400/50 transition-all group-hover:scale-110">
+                    <Play className="w-3 h-3 text-black fill-current ml-0.5" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-sm font-bold">Ver Nossa Expertise</span>
+                    <span className="text-xs font-bold">Ver Nossa Expertise</span>
                     <span className="text-xs text-yellow-200/80">40 anos de experiência</span>
                   </div>
                 </Button>
@@ -194,12 +194,12 @@ const Hero = () => {
                 {/* WhatsApp Button - Mobile */}
                 <Button
                   variant="ghost"
-                  className="w-full h-12 bg-gradient-to-r from-green-600/20 via-green-500/30 to-green-600/20 border border-green-500/50 text-white hover:from-green-500/30 hover:via-green-400/40 hover:to-green-500/30 hover:border-green-400/70 backdrop-blur-md transition-all duration-300 group relative overflow-hidden shadow-md shadow-green-500/20"
+                  className="w-full h-8 bg-gradient-to-r from-green-600/20 via-green-500/30 to-green-600/20 border border-green-500/50 text-white hover:from-green-500/30 hover:via-green-400/40 hover:to-green-500/30 hover:border-green-400/70 backdrop-blur-md transition-all duration-300 group relative overflow-hidden shadow-md shadow-green-500/20"
                   onClick={handleWhatsAppClick}
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-green-400/10 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700" />
-                  <WhatsApp className="w-4 h-4 mr-2" />
-                  <span className="text-sm font-medium">WhatsApp Direto</span>
+                  <WhatsApp className="w-3 h-3 mr-2" />
+                  <span className="text-xs font-medium">WhatsApp Direto</span>
                   <div className="flex items-center gap-1 ml-auto bg-green-400/20 px-1.5 py-0.5 rounded-full">
                     <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
                     <span className="text-xs text-green-200">Online</span>
@@ -209,11 +209,11 @@ const Hero = () => {
                 {/* Orçamento Button - Mobile */}
                 <Button
                   variant="outline-fire"
-                  className="w-full h-12 font-medium text-sm"
+                  className="w-full h-8 font-medium text-sm"
                   onClick={handleOrçamentoClick}
                 >
-                  <Calendar className="w-4 h-4 mr-2" />
-                  <span>Orçamento Gratuito</span>
+                  <Calendar className="w-3 h-3 mr-2" />
+                  <span className="text-xs">Orçamento Gratuito</span>
                   <div className="flex items-center gap-1 ml-auto bg-fire-orange/20 px-1.5 py-0.5 rounded-full">
                     <span className="text-xs text-fire-orange font-bold">Grátis</span>
                   </div>
@@ -221,28 +221,6 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* Professional Badges - Mobile */}
-            <div className="flex items-center justify-center gap-2 flex-wrap pt-4">
-              <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-2 py-1 rounded-full border border-green-400/40">
-                <Shield className="w-3 h-3 text-green-400" />
-                <span className="text-white font-medium text-xs">Segurança</span>
-              </div>
-              
-              <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-2 py-1 rounded-full border border-yellow-400/40">
-                <Award className="w-3 h-3 text-yellow-400" />
-                <span className="text-white font-medium text-xs">Certificado</span>
-              </div>
-              
-              <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-2 py-1 rounded-full border border-blue-400/40">
-                <span className="text-blue-400 font-bold text-xs">40</span>
-                <span className="text-white font-medium text-xs">Anos</span>
-              </div>
-              
-              <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-2 py-1 rounded-full border border-purple-400/40">
-                <span className="text-purple-400 font-bold text-xs">2K+</span>
-                <span className="text-white font-medium text-xs">Eventos</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>

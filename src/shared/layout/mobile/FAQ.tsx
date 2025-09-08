@@ -17,10 +17,6 @@ const faqs = [
     question: "Os produtos DIY são seguros para uso doméstico?",
     answer: "Absolutamente. Todos os nossos kits DIY são certificados e acompanham manual detalhado de segurança. São projetados para uso seguro por pessoas leigas."
   },
-  {
-    question: "Vocês oferecem seguro para os eventos?",
-    answer: "Sim, trabalhamos com seguro de responsabilidade civil que cobre todos os nossos eventos. A documentação é fornecida como parte do serviço."
-  }
 ];
 
 const FAQ = () => {
@@ -65,10 +61,10 @@ const FAQ = () => {
         <div className="absolute bottom-1/4 left-1/5 w-1.5 h-1.5 bg-fire-gold/40 rounded-full animate-pulse" style={{ animationDelay: '1s' }} />
       </div>
       
-      <div className="relative container mx-auto px-4 max-w-3xl">
-        {/* Mobile Header */}
-        <div className="text-center mb-8">
-          <h2 className="text-xl font-bold mb-4">
+      <div className="relative container mx-auto px-4 max-w-3xl z-10">
+        {/* Compact Mobile Header */}
+        <div className="text-center mb-6">
+          <h2 className="text-lg font-bold mb-4">
             <span className="text-foreground">Tire Suas</span>
             <br />
             <span className="ml-2 text-fire-gradient">Dúvidas</span>
@@ -79,20 +75,20 @@ const FAQ = () => {
           </p>
         </div>
 
-        <Accordion type="single" collapsible className="space-y-3">
+        <Accordion type="single" collapsible className="space-y-2">
           {faqs.map((faq, index) => (
             <AccordionItem 
               key={index} 
               value={`item-${index}`}
-              className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg px-4 py-1"
+              className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-lg px-3 py-1"
             >
-              <AccordionTrigger className="text-left font-semibold hover:text-fire-orange transition-smooth text-sm py-4">
+              <AccordionTrigger className="text-left font-semibold hover:text-fire-orange transition-smooth text-sm py-3">
                 <div className="flex items-start gap-2">
-                  <div className="w-2 h-2 bg-fire-orange rounded-full mt-2 flex-shrink-0" />
+                  <div className="w-1.5 h-1.5 bg-fire-orange rounded-full mt-2 flex-shrink-0" />
                   <span className="leading-tight">{faq.question}</span>
                 </div>
               </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground leading-relaxed pt-3 text-sm pl-5">
+              <AccordionContent className="text-muted-foreground leading-relaxed pt-2 text-sm pl-4">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>
@@ -101,7 +97,7 @@ const FAQ = () => {
       </div>
       
       {/* Professional Bottom Transition */}
-      <div className="absolute bottom-0 left-0 w-full h-24 z-20 pointer-events-none">
+      <div className="absolute bottom-0 left-0 w-full h-24 z-5 pointer-events-none">
         {/* Main gradient transition */}
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/85 to-transparent"></div>
         

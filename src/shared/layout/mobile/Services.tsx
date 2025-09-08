@@ -55,22 +55,22 @@ const ShowcaseVideoCard = ({ youtubeId, title, description, badges, features }: 
           <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-black/60 via-black/30 to-transparent pointer-events-none z-15" />
         </div>
         
-        {/* Enhanced Mobile Card Content */}
-        <CardContent className="p-4 space-y-3 flex-1 flex flex-col bg-gradient-to-br from-gray-900/40 via-black/50 to-gray-900/40 backdrop-blur-sm border-t border-fire-orange/20">
+        {/* Compact Mobile Card Content */}
+        <CardContent className="p-3 space-y-2 flex-1 flex flex-col bg-gradient-to-br from-gray-900/40 via-black/50 to-gray-900/40 backdrop-blur-sm border-t border-fire-orange/20">
           <div className="flex-1">
-            {/* Enhanced mobile title with fire gradient on hover */}
-            <h3 className="text-base font-bold text-white mb-2 group-hover:text-fire-gradient transition-all duration-300 leading-tight">
+            {/* Compact mobile title with fire gradient on hover */}
+            <h3 className="text-sm font-bold text-white mb-2 group-hover:text-fire-gradient transition-all duration-300 leading-tight">
               {title}
             </h3>
-            <p className="text-sm text-white/85 leading-relaxed group-hover:text-white/95 transition-colors duration-300">{description}</p>
+            <p className="text-xs text-white/85 leading-relaxed group-hover:text-white/95 transition-colors duration-300">{description}</p>
           </div>
           
-          {/* Enhanced Mobile Features Section */}
-          <div className="flex flex-wrap gap-1.5 text-xs mt-auto pt-3 border-t border-fire-orange/25 group-hover:border-fire-gold/30 transition-colors duration-300">
+          {/* Compact Mobile Features Section */}
+          <div className="flex flex-wrap gap-1 text-xs mt-auto pt-2 border-t border-fire-orange/25 group-hover:border-fire-gold/30 transition-colors duration-300">
             {features.map((feature, index) => (
               <span 
                 key={index}
-                className="px-2.5 py-1 bg-gradient-to-r from-fire-orange/20 to-fire-gold/15 text-fire-orange hover:text-fire-gold rounded-full text-xs font-medium border border-fire-orange/40 hover:border-fire-gold/50 backdrop-blur-sm transition-all duration-300 group-hover:shadow-sm group-hover:shadow-fire-orange/20 animate-fade-in-up"
+                className="px-2 py-0.5 bg-gradient-to-r from-fire-orange/20 to-fire-gold/15 text-fire-orange hover:text-fire-gold rounded-full text-xs font-medium border border-fire-orange/40 hover:border-fire-gold/50 backdrop-blur-sm transition-all duration-300 group-hover:shadow-sm group-hover:shadow-fire-orange/20 animate-fade-in-up"
                 style={{ animationDelay: `${0.3 + (index * 0.1)}s`, animationFillMode: 'both' }}
               >
                 {feature}
@@ -111,109 +111,25 @@ const Services = () => {
       <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none" />
       
       <div className="relative container mx-auto px-4 max-w-6xl">
-        {/* Standardized Header - Mobile */}
-        <div className="text-center mb-12">
-          {/* Standardized Badge */}
-          <div className="inline-flex items-center gap-2 text-white font-medium text-sm bg-fire-orange/20 px-4 py-2 rounded-xl mb-6">
+        {/* Compact Header - Mobile */}
+        <div className="text-center mb-8">
+          {/* Compact Badge */}
+          <div className="inline-flex items-center gap-2 text-white font-medium text-xs bg-fire-orange/20 px-2.5 py-1 rounded-xl mb-6">
             <div className="w-2 h-2 bg-fire-orange rounded-full animate-pulse" />
             Espetáculos Profissionais
           </div>
           
-          {/* Standardized Title - H2 */}
-          <h2 className="text-2xl font-bold mb-4">
+          {/* Compact Title - H2 */}
+          <h2 className="text-lg font-bold mb-4">
             <span className="text-fire-gradient">Shows</span>
             <span className="text-white"> Pirotécnicos Premium</span>
           </h2>
           
-          {/* Standardized Description */}
-          <p className="text-base text-white/85 max-w-xl mx-auto">
+          {/* Compact Description */}
+          <p className="text-sm text-white/85 max-w-xl mx-auto">
             Conheça nossos espetáculos realizados e se inspire para o seu próximo evento.
           </p>
         </div>
-
-        {/* Mobile Social Media Section */}
-        <div className="mb-12">
-          {/* Social Header */}
-          <div className="text-center mb-6">
-            <h3 className="text-xl font-bold text-white mb-2">
-              Siga a <span className="text-fire-gradient">M5 Max</span>
-            </h3>
-            <p className="text-white/70 text-sm leading-relaxed">
-              Acompanhe nossos espetáculos nas redes sociais
-            </p>
-          </div>
-          
-          {/* Enhanced Social Cards - Mobile Layout with Fire Theme */}
-          <div className="flex flex-col gap-4">
-            {/* Enhanced Instagram Card */}
-            <div className="relative animate-fade-in-up" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
-              {/* Instagram card glow effect */}
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-500/15 via-purple-500/20 to-pink-500/15 rounded-2xl blur opacity-40 animate-pulse" style={{ animationDuration: '3s' }} />
-              
-              <a 
-                href="https://instagram.com/fogosm5" 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative group flex items-center gap-4 bg-gradient-to-br from-black/40 via-gray-900/30 to-black/40 hover:from-black/50 hover:via-gray-900/40 hover:to-black/50 border-2 border-pink-500/20 hover:border-pink-400/40 rounded-2xl p-4 backdrop-blur-md transition-all duration-300 hover:transform hover:scale-[1.02] shadow-lg shadow-pink-500/10 hover:shadow-pink-500/20"
-                onClick={() => {
-                  if (typeof window !== 'undefined' && window.gtag) {
-                    window.gtag('event', 'social_click', {
-                      social_network: 'instagram',
-                      source: 'services_social_mobile'
-                    });
-                  }
-                }}
-              >
-                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-pink-500 via-purple-500 to-orange-500 flex items-center justify-center shadow-xl group-hover:shadow-pink-500/40 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
-                  <Instagram className="w-7 h-7 text-white" />
-                </div>
-                <div className="flex-1">
-                  <h4 className="text-white font-bold text-base group-hover:text-pink-400 transition-colors duration-300">@fogosm5</h4>
-                  <p className="text-white/70 text-sm group-hover:text-white/85 transition-colors duration-300">Vídeos e fotos dos shows</p>
-                </div>
-                <div className="flex items-center gap-1.5 bg-gradient-to-r from-pink-500/25 to-purple-500/25 px-3 py-1.5 rounded-full border border-pink-400/30 backdrop-blur-sm">
-                  <div className="w-2 h-2 bg-pink-400 rounded-full animate-pulse" />
-                  <span className="text-xs text-pink-300 font-medium">Ativo</span>
-                </div>
-              </a>
-            </div>
-
-            {/* Enhanced YouTube Card */}
-            <div className="relative animate-fade-in-up" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
-              {/* YouTube card glow effect */}
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-red-600/15 via-red-500/20 to-red-600/15 rounded-2xl blur opacity-40 animate-pulse" style={{ animationDuration: '3.5s' }} />
-              
-              <a 
-                href="https://youtube.com/@m5maxproducoes" 
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative group flex items-center gap-4 bg-gradient-to-br from-black/40 via-gray-900/30 to-black/40 hover:from-black/50 hover:via-gray-900/40 hover:to-black/50 border-2 border-red-600/20 hover:border-red-500/40 rounded-2xl p-4 backdrop-blur-md transition-all duration-300 hover:transform hover:scale-[1.02] shadow-lg shadow-red-600/10 hover:shadow-red-500/20"
-                onClick={() => {
-                  if (typeof window !== 'undefined' && window.gtag) {
-                    window.gtag('event', 'social_click', {
-                      social_network: 'youtube',
-                      source: 'services_social_mobile'
-                    });
-                  }
-                }}
-              >
-                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-red-600 via-red-500 to-orange-600 flex items-center justify-center shadow-xl group-hover:shadow-red-500/40 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
-                  <YouTube className="w-7 h-7 text-white" />
-                </div>
-                <div className="flex-1">
-                  <h4 className="text-white font-bold text-base group-hover:text-red-400 transition-colors duration-300">M5 Max Produções</h4>
-                  <p className="text-white/70 text-sm group-hover:text-white/85 transition-colors duration-300">Canal oficial no YouTube</p>
-                </div>
-                <div className="flex items-center gap-1.5 bg-gradient-to-r from-red-600/25 to-red-500/25 px-3 py-1.5 rounded-full border border-red-500/30 backdrop-blur-sm">
-                  <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" />
-                  <span className="text-xs text-red-300 font-medium">Vídeos</span>
-                </div>
-              </a>
-            </div>
-
-          </div>
-        </div>
-
 
         {/* Enhanced Shows Grid - Mobile First Design */}
         <div className="relative">
@@ -245,6 +161,89 @@ const Services = () => {
                 badges={["Festa", "Premium", "Espetacular"]}
                 features={["Queima Coordenada", "Efeitos Especiais", "Equipe Certificada"]}
               />
+            </div>
+
+          </div>
+        </div>
+
+        {/* Mobile Social Media Section */}
+        <div className="mb-12">
+          {/* Compact Social Header */}
+          <div className="text-center mb-6">
+            <h3 className="text-lg font-bold text-white mb-2">
+              Siga a <span className="text-fire-gradient">M5 Max</span>
+            </h3>
+            <p className="text-white/70 text-sm leading-relaxed">
+              Acompanhe nossos espetáculos nas redes sociais
+            </p>
+          </div>
+          
+          {/* Compact Social Cards - Mobile Layout */}
+          <div className="flex flex-col gap-2">
+            {/* Compact Instagram Card */}
+            <div className="relative animate-fade-in-up" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
+              {/* Simplified glow effect */}
+              <div className="absolute -inset-0.5 bg-pink-500/12 rounded-xl blur opacity-30" />
+              
+              <a 
+                href="https://instagram.com/fogosm5" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative group flex items-center gap-3 bg-gradient-to-br from-black/40 via-gray-900/30 to-black/40 hover:from-black/50 hover:via-gray-900/40 hover:to-black/50 border-2 border-pink-500/20 hover:border-pink-400/40 rounded-xl p-3 backdrop-blur-md transition-all duration-300 hover:transform hover:scale-[1.02] shadow-md shadow-pink-500/8 hover:shadow-pink-500/15"
+                onClick={() => {
+                  if (typeof window !== 'undefined' && window.gtag) {
+                    window.gtag('event', 'social_click', {
+                      social_network: 'instagram',
+                      source: 'services_social_mobile'
+                    });
+                  }
+                }}
+              >
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 via-purple-500 to-orange-500 flex items-center justify-center shadow-lg group-hover:shadow-pink-500/30 transition-all duration-300 group-hover:scale-105 group-hover:rotate-3">
+                  <Instagram className="w-5 h-5 text-white" />
+                </div>
+                <div className="flex-1">
+                  <h4 className="text-white font-bold text-sm group-hover:text-pink-400 transition-colors duration-300">@fogosm5</h4>
+                  <p className="text-white/70 text-xs group-hover:text-white/85 transition-colors duration-300">Vídeos e fotos dos shows</p>
+                </div>
+                <div className="flex items-center gap-1.5 bg-gradient-to-r from-pink-500/20 to-purple-500/20 px-2 py-1 rounded-full border border-pink-400/25 backdrop-blur-sm">
+                  <div className="w-1.5 h-1.5 bg-pink-400 rounded-full animate-pulse" />
+                  <span className="text-xs text-pink-300 font-medium">Ativo</span>
+                </div>
+              </a>
+            </div>
+
+            {/* Compact YouTube Card */}
+            <div className="relative animate-fade-in-up" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
+              {/* Simplified glow effect */}
+              <div className="absolute -inset-0.5 bg-red-500/12 rounded-xl blur opacity-30" />
+              
+              <a 
+                href="https://youtube.com/@m5maxproducoes" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative group flex items-center gap-3 bg-gradient-to-br from-black/40 via-gray-900/30 to-black/40 hover:from-black/50 hover:via-gray-900/40 hover:to-black/50 border-2 border-red-600/20 hover:border-red-500/40 rounded-xl p-3 backdrop-blur-md transition-all duration-300 hover:transform hover:scale-[1.02] shadow-md shadow-red-600/8 hover:shadow-red-500/15"
+                onClick={() => {
+                  if (typeof window !== 'undefined' && window.gtag) {
+                    window.gtag('event', 'social_click', {
+                      social_network: 'youtube',
+                      source: 'services_social_mobile'
+                    });
+                  }
+                }}
+              >
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-red-600 via-red-500 to-orange-600 flex items-center justify-center shadow-lg group-hover:shadow-red-500/30 transition-all duration-300 group-hover:scale-105 group-hover:rotate-3">
+                  <YouTube className="w-5 h-5 text-white" />
+                </div>
+                <div className="flex-1">
+                  <h4 className="text-white font-bold text-sm group-hover:text-red-400 transition-colors duration-300">M5 Max Produções</h4>
+                  <p className="text-white/70 text-xs group-hover:text-white/85 transition-colors duration-300">Canal oficial no YouTube</p>
+                </div>
+                <div className="flex items-center gap-1.5 bg-gradient-to-r from-red-600/20 to-red-500/20 px-2 py-1 rounded-full border border-red-500/25 backdrop-blur-sm">
+                  <div className="w-1.5 h-1.5 bg-red-400 rounded-full animate-pulse" />
+                  <span className="text-xs text-red-300 font-medium">Vídeos</span>
+                </div>
+              </a>
             </div>
 
           </div>

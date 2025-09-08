@@ -35,10 +35,10 @@ const FogosM5Complete = () => {
       description: "Em todo território nacional"
     },
     {
-      icon: Zap,
-      value: "24/7",
-      label: "Suporte Técnico",
-      description: "Equipe sempre disponível"
+      icon: Award,
+      value: "Cert.",
+      label: "Certificado Exército",
+      description: "Autorização oficial completa"
     }
   ];
 
@@ -107,15 +107,15 @@ const FogosM5Complete = () => {
             40 anos transformando eventos em espetáculos memoráveis
           </p>
           
-          {/* Mobile Enhanced Stats Bar */}
-          <div className="flex items-center justify-center gap-3 flex-wrap">
-            <div className="bg-fire-orange/15 px-3 py-1.5 rounded-full border border-fire-orange/30 backdrop-blur-sm">
+          {/* Compact Mobile Stats Bar */}
+          <div className="flex items-center justify-center gap-1.5 flex-wrap">
+            <div className="bg-fire-orange/15 px-2 py-0.5 rounded-full border border-fire-orange/30 backdrop-blur-sm">
               <span className="text-xs font-bold text-fire-orange">40 Anos</span>
             </div>
-            <div className="bg-green-500/15 px-3 py-1.5 rounded-full border border-green-500/30 backdrop-blur-sm">
+            <div className="bg-green-500/15 px-2 py-0.5 rounded-full border border-green-500/30 backdrop-blur-sm">
               <span className="text-xs font-bold text-green-500">100% Seguro</span>
             </div>
-            <div className="bg-blue-500/15 px-3 py-1.5 rounded-full border border-blue-500/30 backdrop-blur-sm">
+            <div className="bg-blue-500/15 px-2 py-0.5 rounded-full border border-blue-500/30 backdrop-blur-sm">
               <span className="text-xs font-bold text-blue-500">2K+ Eventos</span>
             </div>
           </div>
@@ -163,29 +163,25 @@ const FogosM5Complete = () => {
             </div>
           </div>
 
-          {/* Mobile Stats Grid - Appears after video */}
-          <div className="grid grid-cols-2 gap-4">
+          {/* Harmonious 4-Column Mobile Stats Grid */}
+          <div className="grid grid-cols-4 gap-1 max-w-sm mx-auto">
             {stats.map((stat, index) => {
               const Icon = stat.icon;
               return (
-                <div key={index} className="relative">
-                  <div className="absolute -inset-1 opacity-8">
-                    <div className="absolute inset-0 bg-fire-orange/4 blur-md rounded-lg"></div>
-                  </div>
+                <div key={index} className="relative aspect-square">
+                  {/* Minimal glow effect */}
+                  <div className="absolute -inset-0.5 bg-fire-orange/6 rounded blur opacity-25" />
                   
-                  {/* Enhanced glow effect for stats */}
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-fire-orange/8 via-fire-gold/12 to-fire-orange/8 rounded-lg blur opacity-50 animate-pulse" style={{ animationDuration: '4s', animationDelay: `${index * 0.5}s` }} />
-                  
-                  <Card className="relative z-10 bg-gradient-to-br from-fire-orange/15 to-fire-gold/12 backdrop-blur-sm border border-fire-orange/30 hover:border-fire-gold/50 shadow-lg shadow-fire-orange/15 hover:shadow-fire-gold/25 transition-all duration-500 group">
-                    <CardContent className="p-4">
-                      <div className="flex flex-col items-center text-center space-y-2">
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-fire-gold/25 to-fire-orange/20 flex items-center justify-center shadow-lg shadow-fire-gold/25 group-hover:shadow-fire-orange/30 transition-all duration-300 group-hover:scale-110">
-                          <Icon className="w-5 h-5 text-fire-gold group-hover:text-fire-orange transition-colors duration-300" />
+                  <Card className="relative z-10 h-full bg-gradient-to-br from-fire-orange/10 to-fire-gold/6 backdrop-blur-sm border border-fire-orange/20 hover:border-fire-gold/35 shadow-sm shadow-fire-orange/6 hover:shadow-fire-gold/12 transition-all duration-300 group">
+                    <CardContent className="p-1.5 h-full">
+                      <div className="flex flex-col items-center justify-center text-center space-y-0.5 h-full">
+                        <div className="w-4 h-4 rounded-full bg-gradient-to-br from-fire-gold/15 to-fire-orange/12 flex items-center justify-center shadow-sm shadow-fire-gold/10 group-hover:shadow-fire-orange/15 transition-all duration-300 group-hover:scale-105">
+                          <Icon className="w-2 h-2 text-fire-gold group-hover:text-fire-orange transition-colors duration-300" />
                         </div>
-                        <div className="text-xl font-bold text-white group-hover:text-fire-gold transition-colors duration-300">
+                        <div className="text-xs font-bold text-white group-hover:text-fire-gold transition-colors duration-300 leading-none">
                           {stat.value}
                         </div>
-                        <div className="text-sm font-medium text-white/90 group-hover:text-white leading-tight transition-colors duration-300">
+                        <div className="text-[10px] font-medium text-white/90 group-hover:text-white leading-tight transition-colors duration-300 text-center">
                           {stat.label}
                         </div>
                       </div>
@@ -197,31 +193,30 @@ const FogosM5Complete = () => {
           </div>
         </div>
 
-        {/* Enhanced Mobile CTA Section - Professional and Fire-themed */}
-        <div className="text-center space-y-4">
-          {/* Enhanced CTA container with fire theme */}
+        {/* Compact Mobile CTA Section - Professional */}
+        <div className="text-center space-y-3">
           <div className="relative">
-            {/* Ambient glow effect */}
-            <div className="absolute -inset-2 bg-gradient-to-r from-fire-orange/8 via-fire-gold/12 to-fire-orange/8 rounded-2xl blur-md opacity-40 animate-pulse" style={{ animationDuration: '3s' }} />
+            {/* Simplified ambient glow */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-fire-orange/6 via-fire-gold/8 to-fire-orange/6 rounded-xl blur opacity-30" />
             
-            <div className="relative bg-gradient-to-r from-fire-orange/8 to-fire-gold/8 p-6 rounded-2xl border border-fire-orange/20 backdrop-blur-sm shadow-lg shadow-fire-orange/10">
-              <h3 className="text-xl font-bold text-fire-gradient mb-3">
+            <div className="relative bg-gradient-to-r from-fire-orange/6 to-fire-gold/6 p-4 rounded-xl border border-fire-orange/15 backdrop-blur-sm shadow-md shadow-fire-orange/8">
+              <h3 className="text-lg font-bold text-fire-gradient mb-2">
                 Pronto para um espetáculo inesquecível?
               </h3>
-              <p className="text-sm text-white/80 mb-4 leading-relaxed">
+              <p className="text-sm text-white/80 mb-3 leading-relaxed">
                 Solicite um orçamento personalizado para o seu evento
               </p>
               
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-2">
                 <Button
                   variant="ghost"
-                  className="w-full h-12 bg-gradient-to-r from-green-600/20 via-green-500/30 to-green-600/20 border border-green-500/50 text-white hover:from-green-500/30 hover:via-green-400/40 hover:to-green-500/30 hover:border-green-400/70 backdrop-blur-md transition-all duration-300 group relative overflow-hidden shadow-md shadow-green-500/20"
+                  className="w-full h-8 bg-gradient-to-r from-green-600/20 via-green-500/25 to-green-600/20 border border-green-500/40 text-white hover:from-green-500/25 hover:via-green-400/35 hover:to-green-500/25 hover:border-green-400/60 backdrop-blur-md transition-all duration-300 group relative overflow-hidden shadow-sm shadow-green-500/15"
                   onClick={() => window.open('https://wa.me/5561982735575', '_blank')}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-green-400/10 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700" />
-                  <MessageCircle className="w-4 h-4 mr-2" />
-                  <span className="text-sm font-medium">WhatsApp Direto</span>
-                  <div className="flex items-center gap-1 ml-auto bg-green-400/20 px-2 py-0.5 rounded-full">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-green-400/8 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700" />
+                  <MessageCircle className="w-3 h-3 mr-2" />
+                  <span className="text-xs font-medium">WhatsApp Direto</span>
+                  <div className="flex items-center gap-1 ml-auto bg-green-400/15 px-1.5 py-0.5 rounded-full">
                     <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
                     <span className="text-xs text-green-200">Online</span>
                   </div>
@@ -229,12 +224,12 @@ const FogosM5Complete = () => {
                 
                 <Button
                   variant="outline-fire"
-                  className="w-full h-12 font-medium text-sm"
+                  className="w-full h-8 font-medium text-sm"
                   onClick={() => {/* Add conversion modal logic */}}
                 >
-                  <ArrowRight className="w-4 h-4 mr-2" />
-                  <span>Orçamento Gratuito</span>
-                  <div className="flex items-center gap-1 ml-auto bg-fire-orange/20 px-2 py-0.5 rounded-full">
+                  <ArrowRight className="w-3 h-3 mr-2" />
+                  <span className="text-xs">Orçamento Gratuito</span>
+                  <div className="flex items-center gap-1 ml-auto bg-fire-orange/15 px-1.5 py-0.5 rounded-full">
                     <span className="text-xs text-fire-orange font-bold">Grátis</span>
                   </div>
                 </Button>

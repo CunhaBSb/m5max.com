@@ -127,24 +127,32 @@ export const MobileHeader = ({ navigation, handleNavigation, isOpen, setIsOpen }
               </nav>
 
               <div className="mt-auto space-y-3 pt-4 border-t border-border">
-                <div className="grid grid-cols-3 gap-2 text-center">
-                  <div className="bg-background/50 p-2 rounded-lg">
-                    <div className="text-lg font-bold text-fire-orange">40+</div>
-                    <div className="text-xs text-muted-foreground">Anos</div>
-                  </div>
-                  <div className="bg-background/50 p-2 rounded-lg">
-                    <div className="text-lg font-bold text-fire-orange">500+</div>
-                    <div className="text-xs text-muted-foreground">Eventos</div>
-                  </div>
-                  <div className="bg-background/50 p-2 rounded-lg">
-                    <div className="text-lg font-bold text-fire-orange">100%</div>
-                    <div className="text-xs text-muted-foreground">Seguro</div>
-                  </div>
-                </div>
-                
-                <div className="text-center text-xs text-muted-foreground bg-gradient-to-r from-fire-orange/5 to-fire-gold/5 p-2 rounded-lg">
-                  <div className="font-medium text-fire-gradient">Licenciado pelo Exército</div>
-                  <div>Segurança certificada • Equipe habilitada</div>
+                <div className="flex items-center justify-center gap-3">
+                  <a 
+                    href="https://instagram.com/fogosm5" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 bg-pink-500/10 hover:bg-pink-500/20 border border-pink-500/20 px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <div className="w-5 h-5 rounded bg-gradient-to-r from-pink-500 to-purple-600 flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">@</span>
+                    </div>
+                    <span className="text-xs font-medium text-pink-400">Instagram</span>
+                  </a>
+                  
+                  <a 
+                    href="https://youtube.com/@m5maxproducoes" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 px-3 py-2 rounded-lg transition-all duration-300 hover:scale-105"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <div className="w-5 h-5 rounded bg-red-600 flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">▶</span>
+                    </div>
+                    <span className="text-xs font-medium text-red-400">YouTube</span>
+                  </a>
                 </div>
               </div>
             </div>
