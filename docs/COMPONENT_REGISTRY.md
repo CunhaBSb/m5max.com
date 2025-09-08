@@ -5,9 +5,10 @@
 ## OVERVIEW
 
 **Component System**: shadcn/ui with custom M5 Max theming  
-**Total Components**: 45+ UI components  
+**Total Components**: 44 UI components (.tsx files in src/shared/ui/)  
 **Base Framework**: Radix UI primitives with Tailwind CSS styling  
 **Configuration**: `components.json:1-20` - Default style, TypeScript enabled  
+**Variant System**: 4 components with .variants.ts files (Button, Badge, Toggle, Navigation Menu)  
 **Import Pattern**: Direct imports (`import { Button } from '@shared/ui/button'`)
 
 ## COMPONENT CATEGORIES
@@ -57,10 +58,13 @@
 - [Collapsible](#collapsible) - Simple show/hide content
 
 ### Custom M5 Max Components
-- [Video Player](#video-player) - Custom video component
-- [Video Player Simple](#video-player-simple) - Minimal video player
+- [Video Player](#video-player) - Custom video component  
+- [Video Player Mobile](#video-player-mobile) - Mobile-optimized video player with touch controls  
 - [YouTube Embed](#youtube-embed) - YouTube video integration
 - [Optimized Image](#optimized-image) - Performance-optimized images
+
+### Modal System Components
+- [Form Modal](#form-modal) - Generic modal wrapper for forms - `src/shared/modal/FormModal.tsx` ✅ NEW
 
 ---
 
@@ -69,8 +73,8 @@
 ### Button
 
 **File**: `src/shared/ui/button.tsx:1-25`  
-**Variants File**: `src/shared/ui/button.variants.ts:3-37`  
-**Test File**: `src/shared/ui/button.test.tsx:1-25`
+**Variants File**: `src/shared/ui/button.variants.ts:1-40` ✅ CONFIRMED  
+**Test File**: `src/shared/ui/button.test.tsx:1-25` ✅ TESTED
 
 #### Props Interface
 ```typescript

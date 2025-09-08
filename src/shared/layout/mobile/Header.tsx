@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Location } from "react-router-dom";
 import { Button } from "@/shared/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/shared/ui/sheet";
 import { Menu, ArrowRight } from "lucide-react";
@@ -15,9 +15,11 @@ interface MobileHeaderProps {
   handleNavigation: (href: string) => void;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
+  location: Location;
+  isActive: (href: string, currentPath: string, currentHash: string) => boolean;
 }
 
-export const MobileHeader = ({ navigation, handleNavigation, isOpen, setIsOpen }: MobileHeaderProps) => {
+export const MobileHeader = ({ navigation, handleNavigation, isOpen, setIsOpen, location, isActive }: MobileHeaderProps) => {
   const navigate = useNavigate();
 
   return (
@@ -74,16 +76,26 @@ export const MobileHeader = ({ navigation, handleNavigation, isOpen, setIsOpen }
               </div>
 
               <nav className="flex flex-col gap-1 py-4">
-                {navigation.map((item, index) => (
-                  <div key={item.name} className={`space-y-1 ${index < navigation.length - 1 ? 'border-b border-border/50 pb-2 mb-2' : ''}`}>
-                    <button
-                      onClick={() => handleNavigation(item.href)}
-                      className="text-left font-medium text-foreground hover:text-fire-orange hover:bg-fire-orange/5 transition-smooth py-2.5 px-3 w-full rounded-lg"
-                    >
-                      {item.name}
-                    </button>
-                  </div>
-                ))}
+                {navigation.map((item, index) => {
+                  const active = isActive(item.href, location.pathname, location.hash);
+                  return (
+                    <div key={item.name} className={`space-y-1 ${index < navigation.length - 1 ? 'border-b border-border/50 pb-2 mb-2' : ''}`}>
+                      <button
+                        onClick={() => handleNavigation(item.href)}
+                        className={`text-left font-medium transition-smooth py-2.5 px-3 w-full rounded-lg relative ${
+                          active 
+                            ? 'text-fire-orange bg-fire-orange/10 border border-fire-orange/20 shadow-sm' 
+                            : 'text-foreground hover:text-fire-orange hover:bg-fire-orange/5'
+                        }`}
+                      >
+                        {item.name}
+                        {active && (
+                          <div className="absolute right-3 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-fire-orange rounded-full" />
+                        )}
+                      </button>
+                    </div>
+                  );
+                })}
               </nav>
 
               <div className="mt-auto space-y-3 pt-4">

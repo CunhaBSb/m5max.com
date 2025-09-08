@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Location } from "react-router-dom";
 import { Button } from "@/shared/ui/button";
 import { FaWhatsapp } from "react-icons/fa";
 
@@ -10,9 +10,11 @@ interface NavigationItem {
 interface DesktopHeaderProps {
   navigation: NavigationItem[];
   handleNavigation: (href: string) => void;
+  location: Location;
+  isActive: (href: string, currentPath: string, currentHash: string) => boolean;
 }
 
-export const DesktopHeader = ({ navigation, handleNavigation }: DesktopHeaderProps) => {
+export const DesktopHeader = ({ navigation, handleNavigation, location, isActive }: DesktopHeaderProps) => {
   const navigate = useNavigate();
 
   return (
@@ -30,15 +32,25 @@ export const DesktopHeader = ({ navigation, handleNavigation }: DesktopHeaderPro
       </button>
 
       <nav className="flex items-center gap-4">
-        {navigation.map((item) => (
+        {navigation.map((item) => {
+          const active = isActive(item.href, location.pathname, location.hash);
+          return (
             <button
               key={item.name}
               onClick={() => handleNavigation(item.href)}
-              className="text-sm font-medium text-foreground hover:text-fire-orange transition-smooth"
+              className={`text-sm font-medium transition-smooth relative px-3 py-2 rounded-lg ${
+                active 
+                  ? 'text-fire-orange bg-fire-orange/10 border border-fire-orange/20 shadow-sm' 
+                  : 'text-foreground hover:text-fire-orange hover:bg-fire-orange/5'
+              }`}
             >
               {item.name}
+              {active && (
+                <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-fire-orange rounded-full" />
+              )}
             </button>
-        ))}
+          );
+        })}
       </nav>
 
       <div className="flex items-center gap-2 md:gap-4">

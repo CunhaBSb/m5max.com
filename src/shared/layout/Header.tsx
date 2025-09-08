@@ -30,12 +30,47 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
 
-  const navigation = [
-    { name: "Réveillon", href: "/reveillon" },
-    { name: "Sobre nós", href: "#empresa" },
-    { name: "Serviços", href: "#servicos" },
-    { name: "Perguntas Frequentes", href: "#faq" },
-  ];
+  const getNavigationForPage = (pathname: string) => {
+    const baseNavigation = [
+      { name: "Réveillon", href: "/reveillon" },
+    ];
+
+    // Navegação específica por página
+    if (pathname === '/') {
+      // Homepage
+      return [
+        ...baseNavigation,
+        { name: "Serviços", href: "#servicos" },
+        { name: "Perguntas Frequentes", href: "#faq" },
+        { name: "Sobre nós", href: "#empresa" },
+      ];
+    } else if (pathname === '/reveillon') {
+      // Página Réveillon
+      return [
+        { name: "Início", href: "/" },
+        { name: "Serviços", href: "#servicos" },
+        { name: "Como Funciona", href: "#como-funciona" },
+        { name: "Perguntas Frequentes", href: "#faq" },
+        { name: "Sobre nós", href: "#empresa" },
+      ];
+    }
+
+    // Fallback para outras páginas
+    return [
+      ...baseNavigation,
+      { name: "Serviços", href: "#servicos" },
+      { name: "Perguntas Frequentes", href: "#faq" },
+      { name: "Sobre nós", href: "#empresa" },
+    ];
+  };
+
+  const navigation = getNavigationForPage(location.pathname);
+
+  const isActive = (href: string, currentPath: string, currentHash: string) => {
+    if (href.startsWith('/')) return currentPath === href;
+    if (href.startsWith('#')) return currentHash === href;
+    return false;
+  };
 
   const handleNavigation = (href: string) => {
     if (href.startsWith('/')) {
@@ -69,8 +104,8 @@ const Header = () => {
     }`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <PlatformSwitch
-          desktop={<DesktopHeader navigation={navigation} handleNavigation={handleNavigation} />}
-          mobile={<MobileHeader navigation={navigation} handleNavigation={handleNavigation} isOpen={isOpen} setIsOpen={setIsOpen} />}
+          desktop={<DesktopHeader navigation={navigation} handleNavigation={handleNavigation} location={location} isActive={isActive} />}
+          mobile={<MobileHeader navigation={navigation} handleNavigation={handleNavigation} isOpen={isOpen} setIsOpen={setIsOpen} location={location} isActive={isActive} />}
         />
       </div>
     </header>
