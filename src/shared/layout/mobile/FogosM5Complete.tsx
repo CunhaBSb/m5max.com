@@ -1,6 +1,6 @@
 import { Button } from "@/shared/ui/button";
 import { Card, CardContent } from "@/shared/ui/card";
-import { VideoPlayerSimple } from "@/shared/ui/video-player-simple";
+import { VideoPlayerMobile } from "@/shared/ui/video-player-mobile";
 import { 
   Shield, 
   Award,
@@ -128,7 +128,7 @@ const FogosM5Complete = () => {
               <Card className="relative overflow-hidden bg-gradient-to-br from-black/40 via-gray-900/30 to-black/40 backdrop-blur-sm border-2 border-fire-gold/30 hover:border-fire-orange/50 shadow-2xl shadow-fire-gold/20 transition-all duration-500 hover:shadow-fire-orange/30">
                 <div className="relative z-10">
                   {videoSrc ? (
-                    <VideoPlayerSimple 
+                    <VideoPlayerMobile 
                       src={videoSrc}
                       title="Conheça a História da M5 Max Produções"
                       thumbnail={thumbnailUrl}

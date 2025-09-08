@@ -231,33 +231,6 @@ const Hero = () => {
                 </Button>
               </div>
             </div>
-              
-            {/* Mobile Urgency Banner */}
-            <div className="bg-gradient-to-r from-fire-orange/10 to-purple-600/10 p-3 rounded-xl border border-fire-orange/30 text-center mt-6">
-              <div className="flex items-center justify-center gap-2 mb-1">
-                <div className="w-2 h-2 bg-fire-orange rounded-full animate-pulse" />
-                <span className="text-xs font-bold text-fire-orange">ÚLTIMAS DATAS DISPONÍVEIS</span>
-              </div>
-              <p className="text-xs text-white/70">
-                Reserve agora e garante o melhor Réveillon da região
-              </p>
-            </div>
-            
-            {/* Mobile Trust Indicators */}
-            <div className="flex items-center justify-center gap-3 pt-3 border-t border-white/10">
-              <div className="flex items-center gap-1">
-                <Shield className="w-3 h-3 text-green-400" />
-                <span className="text-xs text-green-400 font-medium">Licenciado</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <Star className="w-3 h-3 text-yellow-400" />
-                <span className="text-xs text-yellow-400 font-medium">40 Anos</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <Award className="w-3 h-3 text-fire-gold" />
-                <span className="text-xs text-fire-gold font-medium">Premium</span>
-              </div>
-            </div>
 
           </div>
         </div>

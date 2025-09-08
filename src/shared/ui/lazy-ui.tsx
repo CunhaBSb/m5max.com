@@ -3,6 +3,7 @@ import { withLazyLoading } from './lazy-ui-utils';
 
 // Lazy load heavy UI components
 const LazyVideoPlayer = lazy(() => import('./video-player-optimized'));
+const LazyVideoPlayerMobile = lazy(() => import('./video-player-mobile'));
 const LazyMenubar = lazy(() => import('./menubar'));
 const LazyDropdownMenu = lazy(() => import('./dropdown-menu'));
 const LazyContextMenu = lazy(() => import('./context-menu'));
@@ -17,6 +18,7 @@ const LazyNavigationMenu = lazy(() => import('./navigation-menu'));
 
 // Export optimized lazy components
 export const VideoPlayer = withLazyLoading(LazyVideoPlayer, 'lg');
+export const VideoPlayerMobile = withLazyLoading(LazyVideoPlayerMobile, 'lg');
 export const Menubar = withLazyLoading(LazyMenubar, 'md');
 export const DropdownMenu = withLazyLoading(LazyDropdownMenu);
 export const ContextMenu = withLazyLoading(LazyContextMenu);
