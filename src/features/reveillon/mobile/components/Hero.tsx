@@ -1,34 +1,33 @@
-import { useState, useEffect, useRef, useCallback } from "react";
-import { Button } from "@/shared/ui/button";
-import { Calendar, Play, Shield, Award } from "lucide-react";
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { Button } from '@/shared/ui/button';
+import { Calendar, Play, Sparkles, Star, Clock, Shield, Award } from 'lucide-react';
 import { FaWhatsapp as WhatsApp } from "react-icons/fa";
-import { useAppStore } from "@/shared/store/appStore";
-import { useAnalytics } from "@/shared/hooks/useAnalytics";
-import { generateWhatsAppURL, getWhatsAppMessage } from "@/shared/lib/whatsapp";
-import { heroContent } from "../../data/homeContent";
+import { useAppStore } from '@/shared/store/appStore';
+import { useAnalytics } from '@/shared/hooks/useAnalytics';
+import { generateWhatsAppURL, getWhatsAppMessage } from '@/shared/lib/whatsapp';
 
 const Hero = () => {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [showSecondaryButtons, setShowSecondaryButtons] = useState(false);
   
   const videoRef = useRef<HTMLVideoElement>(null);
-  const { openFormModal, attribution } = useAppStore();
   const { trackWhatsAppClick } = useAnalytics();
+  const { openFormModal, attribution } = useAppStore();
 
   const handleOrçamentoClick = useCallback(() => {
     openFormModal({
       source: 'hero_mobile',
-      audience: 'general',
-      page: 'home'
+      audience: 'b2b',
+      page: 'reveillon',
     });
   }, [openFormModal]);
 
   const handleWhatsAppClick = useCallback(() => {
-    const message = getWhatsAppMessage('general');
+    const message = getWhatsAppMessage('b2b');
     const url = generateWhatsAppURL(
       message,
       attribution?.utm,
-      { audience: 'general', source: 'hero_mobile' }
+      { audience: 'b2b', source: 'hero_mobile' }
     );
 
     trackWhatsAppClick({
@@ -42,9 +41,9 @@ const Hero = () => {
   }, [attribution?.utm, trackWhatsAppClick]);
 
   const handleVideoClick = useCallback(() => {
-    const fogosSection = document.getElementById('empresa');
-    if (fogosSection) {
-      fogosSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const empresaSection = document.getElementById('empresa');
+    if (empresaSection) {
+      empresaSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }, []);
 
@@ -56,7 +55,7 @@ const Hero = () => {
     setVideoLoaded(false);
   }, []);
 
-  const videoSrc = heroContent.video.mobile;
+  const videoSrc = "https://psvmzrzezgkklfjshhua.supabase.co/storage/v1/object/public/papel%20de%20parede/Herowallpaper.webm";
 
   // Animation for secondary buttons
   useEffect(() => {
@@ -146,39 +145,51 @@ const Hero = () => {
           {/* Mobile Layout */}
           <div className="space-y-6 text-center max-w-sm w-full">
             <div className="space-y-4">
-              {/* Status Badge - Mobile */}
-              <div className="flex items-center justify-center">
-                <div className="inline-flex items-center gap-2 text-white font-medium text-sm bg-red-500/20 px-3 py-1.5 rounded-full backdrop-blur-sm border border-red-400/40">
-                  <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" />
-                  Shows Pirotécnicos Premium
+              {/* Mobile Premium Badge */}
+              <div className="flex items-center justify-center gap-2">
+                <div className="bg-gradient-to-r from-fire-gold/30 to-fire-orange/30 border border-fire-gold/60 px-3 py-1.5 rounded-full flex items-center gap-2">
+                  <Sparkles className="w-3 h-3 text-fire-gold animate-pulse" />
+                  <span className="text-xs font-bold text-fire-gold">Evento Premium</span>
+                  <div className="w-1.5 h-1.5 bg-fire-orange rounded-full animate-pulse" />
                 </div>
               </div>
               
-              <h1 className="text-3xl font-bold leading-tight drop-shadow-lg">
-                <span className="text-white block">Um espetáculo não se improvisa...</span>
-                <span className="text-fire-gradient block text-2xl mt-1">Ele se planeja.</span>
+              <h1 className="text-2xl font-bold leading-tight drop-shadow-lg">
+                <span className="text-white block">A virada que</span>
+                <span className="text-fire-gradient block">entra para a história</span>
+                <span className="text-white/90 text-lg block mt-1">Começa no céu</span>
               </h1>
               
               <p className="text-base text-white/90 drop-shadow-md leading-relaxed px-2">
-              Na M5 Max, cada show de fogos é desenhado com segurança, tecnologia e emoção para transformar o seu evento em um momento inesquecível.
+                Transforme o Réveillon em um espetáculo inesquecível com segurança M5 Max
               </p>
+
+              {/* Mobile Stats Header */}
+              <div className="flex items-center justify-center gap-2">
+                <div className="bg-fire-orange/20 px-2 py-1 rounded-full border border-fire-orange/40">
+                  <span className="text-xs font-bold text-fire-orange">Últimas Vagas</span>
+                </div>
+                <div className="bg-purple-500/20 px-2 py-1 rounded-full border border-purple-500/40">
+                  <span className="text-xs font-bold text-purple-400">Réveillon 2025</span>
+                </div>
+              </div>
             </div>
 
             <div className="flex flex-col gap-4 w-full">
-              {/* Primary Button - Ver Nossa Expertise - Mobile */}
+              {/* Primary Button - Ver Shows Réveillon - Mobile */}
               <div className="animate-fade-in-up" style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
                 <Button 
                   variant="ghost"
-                  className="flex items-center justify-center gap-3 w-full h-10 bg-gradient-to-r from-yellow-500/20 via-yellow-400/30 to-yellow-500/20 border-2 border-yellow-400/50 text-white hover:from-yellow-400/30 hover:via-yellow-300/40 hover:to-yellow-400/30 hover:border-yellow-300/70 backdrop-blur-md transition-all duration-300 group relative overflow-hidden shadow-lg shadow-yellow-400/20"
+                  className="flex items-center justify-center gap-3 w-full h-10 bg-gradient-to-r from-purple-500/20 via-purple-400/30 to-purple-500/20 border-2 border-purple-400/50 text-white hover:from-purple-400/30 hover:via-purple-300/40 hover:to-purple-400/30 hover:border-purple-300/70 backdrop-blur-md transition-all duration-300 group relative overflow-hidden shadow-lg shadow-purple-400/20"
                   onClick={handleVideoClick}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-300/10 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700" />
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center shadow-lg group-hover:shadow-yellow-400/50 transition-all group-hover:scale-110">
-                    <Play className="w-3 h-3 text-black fill-current ml-0.5" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-300/10 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700" />
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center shadow-lg group-hover:shadow-purple-400/50 transition-all group-hover:scale-110">
+                    <Play className="w-3 h-3 text-white fill-current ml-0.5" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-xs font-bold">Ver Nossa Expertise</span>
-                    <span className="text-xs text-yellow-200/80">40 anos de experiência</span>
+                    <span className="text-xs font-bold">Ver Nossa Empresa</span>
+                    <span className="text-xs text-purple-200/80">40 anos de experiência</span>
                   </div>
                 </Button>
               </div>
@@ -201,23 +212,47 @@ const Hero = () => {
                   <WhatsApp className="w-4 h-4 mr-2" />
                   <span className="text-sm font-medium">WhatsApp Direto</span>
                   <div className="flex items-center gap-1 ml-auto bg-green-400/20 px-1.5 py-0.5 rounded-full">
-                    <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
-                    <span className="text-xs text-green-200">Online</span>
+                    <Clock className="w-3 h-3 text-green-300" />
+                    <span className="text-xs text-green-200">5min</span>
                   </div>
                 </Button>
 
                 {/* Orçamento Button - Mobile */}
                 <Button
                   variant="outline-fire"
-                  className="w-full h-10 font-medium text-sm"
+                  className="w-full h-10 font-medium text-sm bg-gradient-to-r from-fire-gold to-fire-orange hover:from-fire-orange hover:to-fire-gold text-black border-none"
                   onClick={handleOrçamentoClick}
                 >
                   <Calendar className="w-4 h-4 mr-2" />
-                  <span className="text-sm">Orçamento Gratuito</span>
-                  <div className="flex items-center gap-1 ml-auto bg-fire-orange/20 px-1.5 py-0.5 rounded-full">
-                    <span className="text-xs text-fire-orange font-bold">Grátis</span>
-                  </div>
+                  <span className="text-sm font-semibold">Orçamento Réveillon 2025</span>
                 </Button>
+              </div>
+            </div>
+              
+            {/* Mobile Urgency Banner */}
+            <div className="bg-gradient-to-r from-fire-orange/10 to-purple-600/10 p-3 rounded-xl border border-fire-orange/30 text-center mt-6">
+              <div className="flex items-center justify-center gap-2 mb-1">
+                <div className="w-2 h-2 bg-fire-orange rounded-full animate-pulse" />
+                <span className="text-xs font-bold text-fire-orange">ÚLTIMAS DATAS DISPONÍVEIS</span>
+              </div>
+              <p className="text-xs text-white/70">
+                Reserve agora e garante o melhor Réveillon da região
+              </p>
+            </div>
+            
+            {/* Mobile Trust Indicators */}
+            <div className="flex items-center justify-center gap-3 pt-3 border-t border-white/10">
+              <div className="flex items-center gap-1">
+                <Shield className="w-3 h-3 text-green-400" />
+                <span className="text-xs text-green-400 font-medium">Licenciado</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Star className="w-3 h-3 text-yellow-400" />
+                <span className="text-xs text-yellow-400 font-medium">40 Anos</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Award className="w-3 h-3 text-fire-gold" />
+                <span className="text-xs text-fire-gold font-medium">Premium</span>
               </div>
             </div>
 

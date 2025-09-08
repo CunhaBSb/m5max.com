@@ -49,12 +49,12 @@ export const FooterMobile = () => {
           <div className="flex flex-col gap-2 items-center">
             <Button 
               variant="ghost"
-              className="w-full max-w-xs h-8 bg-gradient-to-r from-green-600/20 via-green-500/25 to-green-600/20 border border-green-500/40 text-white hover:from-green-500/25 hover:via-green-400/35 hover:to-green-500/25 hover:border-green-400/60 backdrop-blur-md transition-all duration-300 group relative overflow-hidden shadow-sm shadow-green-500/15"
+              className="w-full max-w-xs h-10 bg-gradient-to-r from-green-600/20 via-green-500/25 to-green-600/20 border border-green-500/40 text-white hover:from-green-500/25 hover:via-green-400/35 hover:to-green-500/25 hover:border-green-400/60 backdrop-blur-md transition-all duration-300 group relative overflow-hidden shadow-sm shadow-green-500/15"
               onClick={() => window.open('https://wa.me/5561982735575', '_blank')}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-green-400/8 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700" />
-              <WhatsApp className="w-3 h-3 mr-2" />
-              <span className="text-xs font-medium">WhatsApp Direto</span>
+              <WhatsApp className="w-4 h-4 mr-2" />
+              <span className="text-sm font-medium">WhatsApp Direto</span>
               <div className="flex items-center gap-1 ml-auto bg-green-400/15 px-1.5 py-0.5 rounded-full">
                 <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
                 <span className="text-xs text-green-200">24h</span>
@@ -63,11 +63,11 @@ export const FooterMobile = () => {
             
             <Button
               variant="outline-fire"
-              className="w-full max-w-xs h-8 font-medium text-sm"
+              className="w-full max-w-xs h-10 font-medium text-sm"
               onClick={() => {/* Add conversion modal logic */}}
             >
-              <MessageSquare className="w-3 h-3 mr-2" />
-              <span className="text-xs">Orçamento Gratuito</span>
+              <MessageSquare className="w-4 h-4 mr-2" />
+              <span className="text-sm">Orçamento Gratuito</span>
               <div className="flex items-center gap-1 ml-auto bg-fire-orange/15 px-1.5 py-0.5 rounded-full">
                 <span className="text-xs text-fire-orange font-bold">Grátis</span>
               </div>

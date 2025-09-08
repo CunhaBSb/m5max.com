@@ -107,18 +107,7 @@ const FogosM5Complete = () => {
             40 anos transformando eventos em espetáculos memoráveis
           </p>
           
-          {/* Compact Mobile Stats Bar */}
-          <div className="flex items-center justify-center gap-1.5 flex-wrap">
-            <div className="bg-fire-orange/15 px-2 py-0.5 rounded-full border border-fire-orange/30 backdrop-blur-sm">
-              <span className="text-xs font-bold text-fire-orange">40 Anos</span>
-            </div>
-            <div className="bg-green-500/15 px-2 py-0.5 rounded-full border border-green-500/30 backdrop-blur-sm">
-              <span className="text-xs font-bold text-green-500">100% Seguro</span>
-            </div>
-            <div className="bg-blue-500/15 px-2 py-0.5 rounded-full border border-blue-500/30 backdrop-blur-sm">
-              <span className="text-xs font-bold text-blue-500">2K+ Eventos</span>
-            </div>
-          </div>
+          
         </div>
 
         {/* Main Content Section - Mobile First Grid */}
@@ -210,12 +199,12 @@ const FogosM5Complete = () => {
               <div className="flex flex-col gap-2">
                 <Button
                   variant="ghost"
-                  className="w-full h-8 bg-gradient-to-r from-green-600/20 via-green-500/25 to-green-600/20 border border-green-500/40 text-white hover:from-green-500/25 hover:via-green-400/35 hover:to-green-500/25 hover:border-green-400/60 backdrop-blur-md transition-all duration-300 group relative overflow-hidden shadow-sm shadow-green-500/15"
+                  className="w-full h-10 bg-gradient-to-r from-green-600/20 via-green-500/25 to-green-600/20 border border-green-500/40 text-white hover:from-green-500/25 hover:via-green-400/35 hover:to-green-500/25 hover:border-green-400/60 backdrop-blur-md transition-all duration-300 group relative overflow-hidden shadow-sm shadow-green-500/15"
                   onClick={() => window.open('https://wa.me/5561982735575', '_blank')}
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-green-400/8 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700" />
-                  <MessageCircle className="w-3 h-3 mr-2" />
-                  <span className="text-xs font-medium">WhatsApp Direto</span>
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  <span className="text-sm font-medium">WhatsApp Direto</span>
                   <div className="flex items-center gap-1 ml-auto bg-green-400/15 px-1.5 py-0.5 rounded-full">
                     <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
                     <span className="text-xs text-green-200">Online</span>
@@ -224,11 +213,11 @@ const FogosM5Complete = () => {
                 
                 <Button
                   variant="outline-fire"
-                  className="w-full h-8 font-medium text-sm"
+                  className="w-full h-10 font-medium text-sm"
                   onClick={() => {/* Add conversion modal logic */}}
                 >
-                  <ArrowRight className="w-3 h-3 mr-2" />
-                  <span className="text-xs">Orçamento Gratuito</span>
+                  <ArrowRight className="w-4 h-4 mr-2" />
+                  <span className="text-sm">Orçamento Gratuito</span>
                   <div className="flex items-center gap-1 ml-auto bg-fire-orange/15 px-1.5 py-0.5 rounded-full">
                     <span className="text-xs text-fire-orange font-bold">Grátis</span>
                   </div>
