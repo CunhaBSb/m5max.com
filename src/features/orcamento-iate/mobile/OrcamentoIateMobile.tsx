@@ -250,24 +250,24 @@ const OrcamentoIateMobile = () => {
         </main>
 
         <Dialog open={pdfOpen} onOpenChange={setPdfOpen}>
-          <DialogContent className="max-w-6xl w-[98vw] h-[95vh] p-0 overflow-hidden">
-            <DialogHeader className="px-4 pt-4 pb-2">
+          <DialogContent className="max-w-[1100px] w-[98vw] h-[98vh] p-0 overflow-hidden">
+            <DialogHeader className="px-4 pt-4 pb-2 border-b border-white/10">
               <DialogTitle className="text-base font-semibold">Orçamento Iate Clube de Brasília — Réveillon 2026</DialogTitle>
             </DialogHeader>
-            <div className="h-[80vh]">
+            <div className="h-[82vh]">
               <iframe
                 src={ORCAMENTO_IATE_PDF_URL}
                 title="Orçamento Iate Clube de Brasília — Réveillon 2026"
                 className="w-full h-full border-0"
               />
             </div>
-            <div className="flex items-center justify-between px-4 py-3 border-t border-white/10 text-sm text-white/70">
-              Visualização em tela quase cheia. Você pode salvar o PDF.
-              <Button asChild variant="outline-fire">
+            <div className="flex items-center justify-between px-4 py-3 border-t border-white/10 text-sm text-white/80 bg-background/80 backdrop-blur">
+              <Button asChild variant="outline-fire" className="h-10">
                 <a href={ORCAMENTO_IATE_PDF_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                   <DownloadCloud className="w-4 h-4" /> Baixar PDF
                 </a>
               </Button>
+              <p className="text-xs text-white/60">Arraste para rolar. Feche no ícone “X”.</p>
             </div>
           </DialogContent>
         </Dialog>
