@@ -104,9 +104,9 @@ const OrcamentoIateDesktop = () => {
               <div className="absolute bottom-0 right-0 w-1/4 h-full bg-gradient-to-tl from-background/60 via-background/20 to-transparent"></div>
             </div>
 
-            <div className="relative z-30 container mx-auto px-8">
-              <div className="flex justify-start min-h-[80vh]">
-                <div className="space-y-6 text-left max-w-3xl w-full">
+            <div className="relative z-30 container mx-auto px-6 sm:px-8">
+              <div className="flex justify-start min-h-[78vh]">
+                <div className="space-y-6 text-left w-full max-w-4xl">
                   <div className="flex flex-wrap gap-2">
                     <div className="inline-flex items-center gap-2 text-white font-medium text-sm bg-red-500/20 px-3 py-1.5 rounded-full backdrop-blur-sm border border-red-400/40">
                       <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse" />
@@ -143,11 +143,11 @@ const OrcamentoIateDesktop = () => {
                   <div className="flex flex-col gap-3 w-full max-w-3xl">
                     <Button
                       variant="ghost"
-                      className="w-full h-14 flex items-center justify-center gap-3 bg-gradient-to-r from-yellow-500/20 via-yellow-400/30 to-yellow-500/20 border-2 border-yellow-400/50 text-white hover:from-yellow-400/30 hover:via-yellow-300/40 hover:to-yellow-400/30 hover:border-yellow-300/70 backdrop-blur-md transition-all duration-300 group relative overflow-hidden shadow-lg shadow-yellow-400/20 hover:shadow-yellow-300/30"
+                      className="h-12 px-5 sm:px-6 w-full sm:w-1/2 inline-flex items-center justify-center gap-3 bg-gradient-to-r from-yellow-500/20 via-yellow-400/30 to-yellow-500/20 border-2 border-yellow-400/50 text-white hover:from-yellow-400/30 hover:via-yellow-300/40 hover:to-yellow-400/30 hover:border-yellow-300/70 backdrop-blur-md transition-all duration-300 group relative overflow-hidden shadow-lg shadow-yellow-400/20 hover:shadow-yellow-300/30"
                       onClick={handleVideoClick}
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-300/10 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700" />
-                      <div className="w-11 h-11 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center shadow-lg group-hover:shadow-yellow-400/50 transition-all group-hover:scale-110">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center shadow-lg group-hover:shadow-yellow-400/50 transition-all group-hover:scale-110">
                         <Play className="w-4 h-4 text-black fill-current ml-0.5" />
                       </div>
                       <div className="flex flex-col text-left">
@@ -156,10 +156,10 @@ const OrcamentoIateDesktop = () => {
                       </div>
                     </Button>
 
-                    <div className={`grid grid-cols-1 sm:grid-cols-2 gap-3 transition-all duration-500 ${showSecondaryButtons ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
+                    <div className={`flex flex-col sm:flex-row gap-2 transition-all duration-500 ${showSecondaryButtons ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
                       <Button
                         variant="ghost"
-                        className="w-full h-11 bg-gradient-to-r from-green-600/20 via-green-500/30 to-green-600/20 border border-green-500/50 text-white hover:from-green-500/30 hover:via-green-400/40 hover:to-green-500/30 hover:border-green-400/70 backdrop-blur-md transition-all duration-300 group relative overflow-hidden shadow-md shadow-green-500/20"
+                        className="h-11 px-4 w-full sm:w-1/4 bg-gradient-to-r from-green-600/20 via-green-500/30 to-green-600/20 border border-green-500/50 text-white hover:from-green-500/30 hover:via-green-400/40 hover:to-green-500/30 hover:border-green-400/70 backdrop-blur-md transition-all duration-300 group relative overflow-hidden shadow-md shadow-green-500/20"
                         onClick={handleWhatsApp}
                       >
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-green-400/10 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700" />
@@ -169,7 +169,7 @@ const OrcamentoIateDesktop = () => {
 
                       <Button
                         variant="outline-fire"
-                        className="w-full h-11"
+                        className="h-11 px-4 w-full sm:w-1/4"
                         onClick={openPdf}
                       >
                         <DownloadCloud className="w-4 h-4 mr-2" /> Ver orçamento
@@ -429,15 +429,15 @@ const OrcamentoIateDesktop = () => {
           {/* ESCOPO */}
           <SectionSeparator variant="sparkle" spacing="md" />
           <section className="container mx-auto px-6 max-w-6xl py-12">
-            <div className="mb-8 text-center">
-              <Badge variant="outline" className="border-fire-orange/40 text-white mb-3">Escopo preliminar</Badge>
+            <div className="mb-8 text-center space-y-2">
+              <Badge variant="outline" className="border-fire-orange/40 text-white">Escopo preliminar</Badge>
               <h2 className="text-2xl font-bold text-white">O que está incluído</h2>
-              <p className="text-white/75 mt-2 text-sm md:text-base max-w-2xl mx-auto">
-                Alinhado ao plano de segurança e às licenças oficiais do evento.
+              <p className="text-white/75 text-sm md:text-base max-w-2xl mx-auto">
+                Entrega alinhada ao plano de segurança, licenças oficiais e operação em campo.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
               {[ 
                 'Show desenhado para visibilidade 360° na orla do lago',
                 'Planos de segurança, isolamento e brigada conforme CBMDF/Exército',
@@ -445,8 +445,8 @@ const OrcamentoIateDesktop = () => {
                 'Plano de contingência meteorológica e disparo redundante',
                 'Equipe completa para montagem, checagem e operação em campo'
               ].map((item) => (
-                <Card key={item} className="bg-gradient-to-br from-white/8 via-white/5 to-white/3 border border-white/10">
-                  <CardContent className="py-4 px-5 text-white/85 text-sm leading-relaxed flex gap-3">
+                <Card key={item} className="bg-gradient-to-br from-white/8 via-white/5 to-white/3 border border-white/10 shadow-elegant">
+                  <CardContent className="py-4 px-5 text-white/85 text-sm leading-relaxed flex gap-3 items-start">
                     <div className="w-6 h-6 rounded-full bg-fire-orange/20 flex items-center justify-center mt-0.5 ring-1 ring-fire-orange/40">
                       <CheckCircle2 className="w-3.5 h-3.5 text-fire-gold" />
                     </div>

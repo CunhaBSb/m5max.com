@@ -195,6 +195,7 @@ const OrcamentoIateMobile = () => {
             <div className="text-center space-y-2">
               <Badge variant="outline" className="border-fire-orange/40 text-white">Escopo</Badge>
               <h2 className="text-2xl font-bold text-white">O que está incluído</h2>
+              <p className="text-white/75 text-sm max-w-xl mx-auto">Alinhado ao plano de segurança e licenças oficiais.</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[ 
@@ -204,7 +205,7 @@ const OrcamentoIateMobile = () => {
                 'Contingência meteorológica e disparo redundante',
                 'Equipe completa para montagem, checagem e operação'
               ].map((item) => (
-                <Card key={item} className="bg-white/8 border-white/10">
+                <Card key={item} className="bg-white/8 border-white/10 shadow-elegant">
                   <CardContent className="p-3 text-white/85 text-sm leading-relaxed flex gap-2">
                     <CheckCircle2 className="w-4 h-4 text-fire-gold mt-0.5" />
                     <span>{item}</span>
