@@ -7,7 +7,16 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 # Informações do projeto
-
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.staging.local
+.env.development
+.env.test
+.env.production
+.env.staging
+.env
 .claude
 node_modules
 dist
@@ -16,6 +25,7 @@ dist-ssr
 
 # Editor directories and files
 .vscode/*
+/docs
 !.vscode/extensions.json
 .idea
 .DS_Store

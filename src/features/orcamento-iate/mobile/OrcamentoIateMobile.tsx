@@ -5,17 +5,19 @@ import FogosM5Complete from '@/shared/layout/mobile/FogosM5Complete';
 import { Button } from '@/shared/ui/button';
 import { Badge } from '@/shared/ui/badge';
 import { Card, CardContent } from '@/shared/ui/card';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/shared/ui/dialog';
 import { YouTubeEmbed } from '@/shared/ui/youtube-embed';
 import { useAnalytics } from '@/shared/hooks/useAnalytics';
 import { useAppStore } from '@/shared/store/appStore';
 import { generateWhatsAppURL, getWhatsAppMessage } from '@/shared/lib/whatsapp';
 import { Shield, DownloadCloud, MessageSquare, Sparkles, CheckCircle2, Clock3, FileCheck, Zap, Play } from 'lucide-react';
-import { ORCAMENTO_IATE_PDF_URL, ORCAMENTO_IATE_VIDEO_ID } from '../data/constants';
-import { useEffect, useMemo } from 'react';
+import { ORCAMENTO_IATE_PDF_URL, ORCAMENTO_IATE_VIDEO_ID, ORCAMENTO_IATE_BG_VIDEO } from '../data/constants';
+import { useEffect, useMemo, useState } from 'react';
 
 const OrcamentoIateMobile = () => {
   const { trackPageView, trackWhatsAppClick } = useAnalytics();
   const { attribution } = useAppStore();
+  const [pdfOpen, setPdfOpen] = useState(false);
 
   useEffect(() => {
     trackPageView({
@@ -59,8 +61,28 @@ const OrcamentoIateMobile = () => {
       <RootLayout>
         <main className="min-h-screen bg-background">
           {/* Hero Mobile */}
-          <section className="relative min-h-screen flex items-center gradient-hero overflow-hidden pt-16 pb-12 px-4">
-            <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/70 to-background" />
+          <section className="relative min-h-screen flex items-center gradient-hero overflow-hidden pt-20 pb-12 px-4">
+            {/* vídeo e overlay padrão */}
+            <div className="absolute inset-0 z-0">
+              <video
+                className="absolute inset-0 w-full h-full object-cover"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+              >
+                <source src={ORCAMENTO_IATE_BG_VIDEO} type="video/webm" />
+              </video>
+              <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/70 to-background" />
+              <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute top-1/5 left-1/6 w-0.5 h-0.5 bg-fire-gold rounded-full animate-ping opacity-50" style={{ animationDelay: '0.8s', animationDuration: '3s' }} />
+                <div className="absolute top-1/3 right-1/4 w-1 h-1 bg-fire-orange rounded-full animate-pulse opacity-35" style={{ animationDelay: '1.5s', animationDuration: '2.5s' }} />
+                <div className="absolute bottom-1/3 left-1/3 w-0.5 h-0.5 bg-fire-gold/70 rounded-full animate-ping opacity-40" style={{ animationDelay: '2.2s', animationDuration: '4s' }} />
+                <div className="absolute top-2/3 right-1/6 w-0.5 h-0.5 bg-fire-orange rounded-full animate-pulse opacity-30" style={{ animationDelay: '3.1s', animationDuration: '2s' }} />
+              </div>
+            </div>
+
             <div className="relative z-10 space-y-6 w-full max-w-xl mx-auto text-center">
               <div className="flex flex-wrap gap-2 justify-center">
                 <Badge variant="outline" className="border-red-400/50 text-white">Acesso reservado</Badge>
@@ -79,10 +101,10 @@ const OrcamentoIateMobile = () => {
 
               {/* Informações chave estão na copy; cards removidos para layout compacto */}
 
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-2">
                 <Button
                   variant="ghost"
-                  className="h-12 bg-gradient-to-r from-yellow-500/20 via-yellow-400/30 to-yellow-500/20 border-2 border-yellow-400/50 text-white shadow-fire"
+                  className="h-11 bg-gradient-to-r from-yellow-500/20 via-yellow-400/30 to-yellow-500/20 border-2 border-yellow-400/50 text-white shadow-fire"
                   onClick={() => {
                     const target = document.getElementById('simulacao-section');
                     if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -93,16 +115,14 @@ const OrcamentoIateMobile = () => {
 
                 <Button
                   variant="ghost"
-                  className="h-12 bg-gradient-to-r from-green-600/20 via-green-500/30 to-green-600/20 border border-green-500/50 text-white shadow-elegant"
+                  className="h-11 bg-gradient-to-r from-green-600/20 via-green-500/30 to-green-600/20 border border-green-500/50 text-white shadow-elegant"
                   onClick={handleWhatsApp}
                 >
                   <MessageSquare className="w-4 h-4 mr-2" /> Entrar em contato
                 </Button>
 
-                <Button asChild variant="outline-fire" className="h-12">
-                  <a href={ORCAMENTO_IATE_PDF_URL} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2">
-                    <DownloadCloud className="w-4 h-4" /> Baixar orçamento (PDF)
-                  </a>
+                <Button variant="outline-fire" className="h-11" onClick={() => setPdfOpen(true)}>
+                  <DownloadCloud className="w-4 h-4 mr-2" /> Ver orçamento
                 </Button>
               </div>
             </div>
@@ -211,24 +231,45 @@ const OrcamentoIateMobile = () => {
                 <p className="text-white/80 text-sm leading-relaxed">
                   PDF com custos, cronograma e memorial. Download seguro abaixo.
                 </p>
-                <div className="flex flex-wrap gap-3">
-                  <Button asChild variant="outline-fire" className="h-11">
-                    <a href={ORCAMENTO_IATE_PDF_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                      <DownloadCloud className="w-4 h-4" /> Baixar orçamento (PDF)
-                    </a>
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    className="h-11 border border-green-500/60 text-green-100 hover:text-white"
-                    onClick={handleWhatsApp}
-                  >
-                    <MessageSquare className="w-4 h-4 mr-2" /> Falar no WhatsApp
-                  </Button>
-                </div>
+              <div className="flex flex-wrap gap-3">
+                <Button variant="outline-fire" className="h-11" onClick={() => setPdfOpen(true)}>
+                  <DownloadCloud className="w-4 h-4 mr-2" /> Ver orçamento
+                </Button>
+                <Button
+                  variant="ghost"
+                  className="h-11 border border-green-500/60 text-green-100 hover:text-white"
+                  onClick={handleWhatsApp}
+                >
+                  <MessageSquare className="w-4 h-4 mr-2" /> Falar no WhatsApp
+                </Button>
+              </div>
               </CardContent>
             </Card>
           </section>
         </main>
+
+        <Dialog open={pdfOpen} onOpenChange={setPdfOpen}>
+          <DialogContent className="max-w-6xl w-[98vw] h-[95vh] p-0 overflow-hidden">
+            <DialogHeader className="px-4 pt-4 pb-2">
+              <DialogTitle className="text-base font-semibold">Orçamento Iate Clube de Brasília — Réveillon 2026</DialogTitle>
+            </DialogHeader>
+            <div className="h-[80vh]">
+              <iframe
+                src={ORCAMENTO_IATE_PDF_URL}
+                title="Orçamento Iate Clube de Brasília — Réveillon 2026"
+                className="w-full h-full border-0"
+              />
+            </div>
+            <div className="flex items-center justify-between px-4 py-3 border-t border-white/10 text-sm text-white/70">
+              Visualização em tela quase cheia. Você pode salvar o PDF.
+              <Button asChild variant="outline-fire">
+                <a href={ORCAMENTO_IATE_PDF_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                  <DownloadCloud className="w-4 h-4" /> Baixar PDF
+                </a>
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
       </RootLayout>
     </>
   );

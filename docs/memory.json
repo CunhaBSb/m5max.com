@@ -142,6 +142,26 @@
       "a": "Indentação 2 espaços, LF; arquivos de feature em PascalCase.tsx; shared ui em lowercase; ESLint+TS com hooks; unused tratados pelo TS."
     },
     {
+      "id": "orcamento_route",
+      "q": "Como está estruturada a página de orçamento do Iate?",
+      "a": "Rota /orcamento-iate-2026 usa PlatformSwitch com lazy desktop/mobile. PDF integrado e disponível para download."
+    },
+    {
+      "id": "orcamento_assets",
+      "q": "Quais são o vídeo e o PDF do orçamento do Iate?",
+      "a": "Vídeo de fundo e simulação usam lGfy9082X7w (YouTube). PDF em ORCAMENTO_IATE_PDF_URL apontando para docs/Orçamento-IateClubedeBrasília-Réveillon26.pdf no GitHub raw."
+    },
+    {
+      "id": "orcamento_layout",
+      "q": "Como está o layout desktop/mobile do orçamento?",
+      "a": "Desktop mantém hero com vídeo de fundo da home, CTAs (simulação, contato, download PDF), seções simulação estilo FogosM5Complete, diferenciais, roadmap, escopo, M5Complete e bloco de orçamento. Mobile segue padrão home/reveillon, hero compacto, simulação, diferenciais, escopo, M5Complete mobile e bloco de orçamento com download."
+    },
+    {
+      "id": "orcamento_bg_fix",
+      "q": "O fundo de vídeo do hero do orçamento funciona?",
+      "a": "Sim, removida lógica de opacidade; vídeo toca sempre (autoplay, muted, loop) com overlay padrão."
+    },
+    {
       "id": "commits_pr",
       "q": "Qual padrão de commit/PR?",
       "a": "Conventional Commits (ex: feat(scope): msg); PRs com descrição, issue, screenshots de UI; garantir lint/test/build ok."
