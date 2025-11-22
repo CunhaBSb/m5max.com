@@ -21,8 +21,8 @@ class ServiceWorkerManager {
   }
 
   async register(config: ServiceWorkerConfig = {}): Promise<void> {
-    // Only register in production and if supported
-    if (process.env.NODE_ENV !== 'production') {
+    // Only register in production and if supported (Vite env)
+    if (!import.meta.env.PROD) {
       console.log('[SW] Service Worker disabled in development');
       return;
     }

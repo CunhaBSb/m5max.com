@@ -4,6 +4,7 @@ import '@/index.css'
 import { AppProviders } from '@/app/providers/AppProviders'
 import { registerSW } from '@/shared/utils/service-worker';
 
+
 createRoot(document.getElementById("root")!).render(<App />);
 
 // Register Service Worker for offline performance

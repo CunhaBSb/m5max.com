@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import config from '@/shared/lib/config';
 import { useAppStore } from '@/shared/store/appStore';
 import { 
   PageViewParams, 
@@ -6,6 +7,8 @@ import {
   WhatsAppParams, 
   FormParams, 
   ProductParams,
+  ProductInteractionParams,
+  QuoteRequestParams,
   DataLayerEvent 
 } from '@/shared/types/analytics';
 import { AudienceType } from '@/shared/types/common';
@@ -54,8 +57,8 @@ export const useAnalytics = () => {
     });
 
     // GA4 pageview
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('config', 'GA_MEASUREMENT_ID', {
+    if (typeof window !== 'undefined' && window.gtag && config.ga4Id) {
+      window.gtag('config', config.ga4Id, {
         page_title: params.page_title,
         page_location: params.page_location,
         content_group1: params.page_category
@@ -186,6 +189,107 @@ export const useAnalytics = () => {
     });
   };
 
+  // Novos eventos específicos para produtos
+  const trackProductInteraction = (eventType: 'select' | 'view_details' | 'compare', params: ProductInteractionParams) => {
+    const eventName = `product_${eventType}`;
+    
+    pushToDataLayer({
+      event: eventName,
+      page_category: params.audience === 'b2b' ? 'b2b' : 'b2c',
+      page_slug: window.location.pathname,
+      page_title: document.title,
+      content_name: params.product_name,
+      content_category: params.product_category,
+      value: params.price || 0,
+      currency: 'BRL'
+    });
+
+    // GA4 Enhanced Ecommerce
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', eventName, {
+        item_id: params.product_id,
+        item_name: params.product_name,
+        item_category: params.product_category,
+        item_category2: params.product_type,
+        price: params.price || 0,
+        currency: 'BRL',
+        source: params.source
+      });
+    }
+
+    // Meta Pixel
+    if (typeof window !== 'undefined' && window.fbq) {
+      window.fbq('track', 'ViewContent', {
+        content_name: params.product_name,
+        content_category: params.product_category,
+        content_ids: [params.product_id],
+        content_type: 'product',
+        value: params.price || 0,
+        currency: 'BRL'
+      });
+    }
+  };
+
+  const trackQuoteRequest = (params: QuoteRequestParams) => {
+    pushToDataLayer({
+      event: 'quote_request',
+      page_category: params.audience,
+      page_slug: window.location.pathname,
+      page_title: document.title,
+      content_name: params.product_name || 'Quote Request',
+      content_category: params.category || 'general',
+      value: params.estimated_value || 0,
+      currency: 'BRL'
+    });
+
+    // GA4 Lead Generation
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'generate_lead', {
+        item_id: params.product_id,
+        item_name: params.product_name,
+        item_category: params.category,
+        value: params.estimated_value || 0,
+        currency: 'BRL',
+        source: params.source,
+        audience: params.audience
+      });
+    }
+
+    // Meta Pixel Lead
+    if (typeof window !== 'undefined' && window.fbq) {
+      window.fbq('track', 'Lead', {
+        content_name: params.product_name || 'Quote Request',
+        content_category: params.category || 'general',
+        content_ids: params.product_id ? [params.product_id] : [],
+        value: params.estimated_value || 0,
+        currency: 'BRL',
+        source: params.source
+      });
+    }
+  };
+
+  const trackCategorySwitch = (fromCategory: string, toCategory: string, source: string) => {
+    pushToDataLayer({
+      event: 'category_switch',
+      page_category: 'produtos',
+      page_slug: window.location.pathname,
+      page_title: document.title,
+      content_name: `${fromCategory}_to_${toCategory}`,
+      content_category: 'navigation'
+    });
+  };
+
+  // Método genérico para eventos customizados
+  const trackEvent = (eventName: string, properties?: Record<string, unknown>) => {
+    pushToDataLayer({
+      event: eventName,
+      page_category: 'produtos',
+      page_slug: window.location.pathname,
+      page_title: document.title,
+      ...properties
+    });
+  };
+
   return {
     trackPageView,
     trackVideoEvent,
@@ -193,6 +297,11 @@ export const useAnalytics = () => {
     trackFormEvent,
     trackProductEvent,
     trackConversionModalOpen,
-    trackScrollDepth
+    trackScrollDepth,
+    // Novos métodos para produtos
+    trackProductInteraction,
+    trackQuoteRequest,
+    trackCategorySwitch,
+    trackEvent
   };
 };

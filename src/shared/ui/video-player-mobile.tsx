@@ -4,6 +4,10 @@ import { Play, Pause, Loader2, AlertCircle, Maximize, RotateCcw } from 'lucide-r
 import { cn } from '@/shared/lib/utils';
 import { useAnalytics } from '@/shared/hooks/useAnalytics';
 
+type WebKitVideo = HTMLVideoElement & { webkitEnterFullscreen?: () => void };
+type WebKitFullscreenContainer = Element & { webkitRequestFullscreen?: () => Promise<void> | void };
+type ScreenWithOrientation = Screen & { orientation?: { lock?: (orientation: 'landscape' | 'portrait' | string) => Promise<void> } };
+
 interface VideoPlayerMobileProps {
   src?: string;
   title: string;
@@ -148,8 +152,8 @@ export const VideoPlayerMobile: React.FC<VideoPlayerMobileProps> = ({
   }, [autoplay, muted, showControlsTemporarily, firstPlay, title, trackVideoEvent, duration, fired25, fired50, fired75]);
 
   const enterMobileFullscreen = useCallback(async () => {
-    const video = videoRef.current as any;
-    const container = containerRef.current as any;
+    const video = videoRef.current as WebKitVideo | null;
+    const container = containerRef.current as (WebKitFullscreenContainer | null);
     try {
       // iOS Safari native fullscreen if available
       if (video && typeof video.webkitEnterFullscreen === 'function') {
@@ -158,7 +162,7 @@ export const VideoPlayerMobile: React.FC<VideoPlayerMobileProps> = ({
         await (container.requestFullscreen?.() || container.webkitRequestFullscreen?.());
       }
       // Try orientation lock to landscape when fullscreen
-      const orientation: any = (screen as any).orientation;
+      const orientation = (screen as ScreenWithOrientation).orientation;
       if (orientation && typeof orientation.lock === 'function') {
         orientation.lock('landscape').catch(() => {});
       }
@@ -212,8 +216,8 @@ export const VideoPlayerMobile: React.FC<VideoPlayerMobileProps> = ({
   }, [duration, showControlsTemporarily]);
 
   const toggleFullscreen = useCallback(async () => {
-    const video = videoRef.current as any;
-    const container = containerRef.current as any;
+    const video = videoRef.current as WebKitVideo | null;
+    const container = containerRef.current as (WebKitFullscreenContainer | null);
     if (!container && !video) return;
     try {
       if (!document.fullscreenElement) {
@@ -223,7 +227,7 @@ export const VideoPlayerMobile: React.FC<VideoPlayerMobileProps> = ({
         } else if (container && (container.requestFullscreen || container.webkitRequestFullscreen)) {
           await (container.requestFullscreen?.() || container.webkitRequestFullscreen?.());
         }
-        const orientation: any = (screen as any).orientation;
+        const orientation = (screen as ScreenWithOrientation).orientation;
         if (orientation && typeof orientation.lock === 'function') {
           orientation.lock('landscape').catch(() => {});
         }

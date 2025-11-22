@@ -1,0 +1,150 @@
+{
+  "source_id": "m5max_repo_2025-11-21",
+  "facts": [
+    {
+      "id": "stack",
+      "q": "Qual a stack principal?",
+      "a": "React + TypeScript (strict), Vite, React Router, Zustand (persist) para estado global, TanStack Query, Tailwind + shadcn/ui, next-themes para tema, react-helmet-async para SEO, lucide-react e react-icons para ícones; testes com Vitest + Testing Library (jsdom)."
+    },
+    {
+      "id": "aliases",
+      "q": "Quais aliases de path usar?",
+      "a": "Configurados no Vite: '@/*', '@app', '@features', '@shared'. Ex: import { Button } from '@shared/ui/button'."
+    },
+    {
+      "id": "providers",
+      "q": "Como é composta a árvore de providers?",
+      "a": "AppProviders empilha QueryClientProvider, HelmetProvider, AnalyticsProvider, ThemeProvider (next-themes, defaultTheme dark, enableSystem false), TooltipProvider, Toaster (shadcn), Sonner, e BrowserRouter."
+    },
+    {
+      "id": "theme",
+      "q": "Como funciona o tema?",
+      "a": "ThemeProvider de next-themes com attribute='class', defaultTheme='dark', enableSystem=false, sem transição."
+    },
+    {
+      "id": "analytics_provider",
+      "q": "Como a analítica é inicializada?",
+      "a": "AnalyticsProvider chama initGTM e configura consent mode (gtag consent default denied exceto funcional/segurança). Ativa GA4 scripts se consent.analytics_storage='granted', Meta Pixel se consent.ad_storage='granted'. Injeta noscript GTM iframe. Depende de config (ga4Id, gtmId, metaPixelId)."
+    },
+    {
+      "id": "consent_banner",
+      "q": "Como é o fluxo de consentimento?",
+      "a": "ConsentBanner exibe após 2s se localStorage 'm5max-consent' não existir. Botões: Aceitar Todos (granted para todos), Apenas Essenciais (denied para ads/analytics, granted para funcional/segurança) e Personalizar (abre modal para toggles analytics/marketing). Salva no localStorage e chama updateConsent no store."
+    },
+    {
+      "id": "store",
+      "q": "O que guarda o Zustand store?",
+      "a": "attribution, consent (default denied para ads/analytics), flags conversionModalOpen/formModalOpen, currentAudience ('general' default). Actions: setAttribution, updateConsent (merge), open/close modais, setCurrentAudience. Persistência em localStorage key 'm5max-storage' (partial: attribution, consent, currentAudience)."
+    },
+    {
+      "id": "routing",
+      "q": "Quais rotas existem?",
+      "a": "AppRoutes define '/', '/reveillon', '/produtos', e fallback '*'. NotFound loga 404 e oferece link Home."
+    },
+    {
+      "id": "layout_root",
+      "q": "O que compõe o RootLayout?",
+      "a": "Header, main children, Footer, ConversionModal, FormModal, ConsentBanner. Modais usam estado global e currentAudience."
+    },
+    {
+      "id": "shared_layouts",
+      "q": "Quais layouts compartilhados existem?",
+      "a": "Versões desktop e mobile de Header, Footer, FogosM5Complete, Services, FAQ. SectionSeparator aplica separadores animados; LazySection faz lazy render. PlatformSwitch decide desktop/mobile."
+    },
+    {
+      "id": "home_page",
+      "q": "Como a Home é renderizada?",
+      "a": "HomePage faz lazy-load de desktop/mobile e usa PlatformSwitch; fallback com logo pulsando. Desktop Home: Helmet SEO padrão, seções Hero, FogosM5Complete, Services, FAQ com SectionSeparators. Mobile Home semelhante, inclui openFormModal e tracking de WhatsApp; dados de vídeo em homeContent.ts."
+    },
+    {
+      "id": "reveillon_page",
+      "q": "Como a página Réveillon funciona?",
+      "a": "ReveillonPage escolhe desktop/mobile via useIsDesktop lazy. Desktop: Helmet com título 'Shows de Réveillon 2025', seções ReveillonHero, FogosM5Complete, Services, TimelineSection, FAQ + separadores. ReveillonHero tem vídeo BG supabase, CTAs WhatsApp e Orçamento, badges; animação de botões. TimelineSection descreve 4 etapas (Orçamento, Licenças, Logística, Show) com CTAs WhatsApp/Orçamento e scroll para 'empresa'."
+    },
+    {
+      "id": "produtos_page",
+      "q": "Há página de produtos?",
+      "a": "Rota '/produtos' existe; pasta features/produtos com desktop/mobile/pages/data, não detalhada aqui (revisar antes de alterar)."
+    },
+    {
+      "id": "analytics_hook",
+      "q": "Como rastrear eventos?",
+      "a": "useAnalytics inicializa dataLayer, enriquece eventos com attribution (utm/gclid/fbclid) e event_id. Expõe: trackPageView, trackVideoEvent, trackWhatsAppClick, trackFormEvent, trackProductEvent, trackProductInteraction, trackConversionModalOpen, trackScrollDepth. Gera gtag config/Meta Pixel conforme consent e params."
+    },
+    {
+      "id": "attribution",
+      "q": "Como é tratada atribuição?",
+      "a": "useAttribution popula store.attribution com utm/ids; eventos usam esses dados via useAnalytics."
+    },
+    {
+      "id": "whatsapp",
+      "q": "Como funcionam os links de WhatsApp?",
+      "a": "generateWhatsAppURL e getWhatsAppMessage em shared/lib/whatsapp compõem mensagem por audience, incluindo UTM do attribution; usados em CTAs de Hero e Timeline. WhatsApp tracking via trackWhatsAppClick."
+    },
+    {
+      "id": "config_env",
+      "q": "Quais env vars são necessários?",
+      "a": "VITE_* em .env: VITE_GTM_ID, VITE_GA4_ID, VITE_META_PIXEL_ID (ver shared/lib/config). Não commitar segredos."
+    },
+    {
+      "id": "assets_data",
+      "q": "Onde ficam assets/dados?",
+      "a": "Vídeos hero apontam para Supabase storage URLs; outros assets em public/. Dados específicos em shared/data e features/*/data."
+    },
+    {
+      "id": "build_run",
+      "q": "Como rodar e testar?",
+      "a": "npm run dev (5173), build, build:dev, preview, lint, test, test:ui. Vite gera dist/. Vitest jsdom; setup em src/setupTests.ts."
+    },
+    {
+      "id": "styles_ui",
+      "q": "Qual abordagem de UI?",
+      "a": "Tailwind + shadcn/ui (button, card, badge, tooltip, toaster, sonner). Variants utilitárias nos componentes; preferir aliases em imports."
+    },
+    {
+      "id": "seo",
+      "q": "Como SEO é aplicado?",
+      "a": "Cada page desktop/mobile usa Helmet para title/description/keywords; viewport em mobile Home."
+    },
+    {
+      "id": "error_handling",
+      "q": "Existe tratamento de erro de rota?",
+      "a": "NotFound registra no console 404 com pathname e mostra layout simples com link para Home."
+    },
+    {
+      "id": "persistencia",
+      "q": "Quais dados são persistidos no cliente?",
+      "a": "Zustand persist para attribution, consent, currentAudience (localStorage 'm5max-storage'); ConsentBanner persiste consent separado em 'm5max-consent'."
+    },
+    {
+      "id": "modals",
+      "q": "Como abrir modais de conversão?",
+      "a": "useAppStore registra openConversionModal/openFormModal com audience + context; RootLayout monta ConversionModal e FormModal controlados pelo store. CTA handlers nas páginas chamam esses métodos."
+    },
+    {
+      "id": "testing_hotspots",
+      "q": "Onde já há testes?",
+      "a": "PlatformSwitch.test.tsx, Header.test.tsx, useAnalytics.test.ts, useIsDesktop.test.ts. Sem cobertura para modais/consent ainda."
+    },
+    {
+      "id": "design_tokens",
+      "q": "Há temas ou variantes especiais?",
+      "a": "Tema dark; SectionSeparator possui variantes (fire-line, ember-glow, sparkle, gradient-wave, geometric-pattern etc.) usados entre seções."
+    },
+    {
+      "id": "docs_guides",
+      "q": "Quais guias internos seguir?",
+      "a": "Ver AGENTS.md, docs/CONTEXT_ENGINEERING.md, docs/ARCHITECTURE_ATLAS.md, TEST_COVERAGE_ANALYSIS.md para padrões, fatos canônicos e checkpoints."
+    },
+    {
+      "id": "lint_style",
+      "q": "Quais convenções de código?",
+      "a": "Indentação 2 espaços, LF; arquivos de feature em PascalCase.tsx; shared ui em lowercase; ESLint+TS com hooks; unused tratados pelo TS."
+    },
+    {
+      "id": "commits_pr",
+      "q": "Qual padrão de commit/PR?",
+      "a": "Conventional Commits (ex: feat(scope): msg); PRs com descrição, issue, screenshots de UI; garantir lint/test/build ok."
+    }
+  ]
+}

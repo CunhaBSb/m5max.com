@@ -1,5 +1,6 @@
 import { renderHook, act } from '@testing-library/react';
 import { useAnalytics } from './useAnalytics';
+import config from '@/shared/lib/config';
 import { useAppStore } from '@/shared/store/appStore';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -113,7 +114,7 @@ describe('useAnalytics', () => {
         });
       });
 
-      expect(mockGtag).toHaveBeenCalledWith('config', 'GA_MEASUREMENT_ID', {
+      expect(mockGtag).toHaveBeenCalledWith('config', config.ga4Id, {
         page_title: 'Test Page',
         page_location: 'https://test.com/page',
         content_group1: 'general',

@@ -26,7 +26,7 @@ export interface ConsentState {
 
 export interface DataLayerEvent {
   event: string;
-  page_category: 'b2b' | 'cha' | 'kits' | 'general';
+  page_category: 'b2b' | 'b2c' | 'cha' | 'kits' | 'produtos' | 'general';
   page_slug: string;
   page_title: string;
   audience_segment?: string;
@@ -45,7 +45,7 @@ export interface DataLayerEvent {
 export interface PageViewParams {
   page_title: string;
   page_location: string;
-  page_category: 'b2b' | 'cha' | 'kits' | 'general';
+  page_category: 'b2b' | 'b2c' | 'cha' | 'kits' | 'produtos' | 'general';
   content_group1?: string;
 }
 
@@ -60,14 +60,14 @@ export interface VideoParams {
 }
 
 export interface WhatsAppParams {
-  audience: 'b2b' | 'cha' | 'kits';
+  audience: 'b2b' | 'b2c' | 'cha' | 'kits';
   source: string;
   message_template: string;
   phone_number: string;
 }
 
 export interface FormParams {
-  form_type: 'b2b' | 'cha' | 'kits';
+  form_type: 'b2b' | 'b2c' | 'cha' | 'kits';
   form_name: string;
   form_step?: number;
   lead_score?: number;
@@ -80,5 +80,25 @@ export interface ProductParams {
   item_category2?: string;
   price?: number;
   currency?: string;
-  audience: 'cha' | 'kits';
+  audience: 'b2b' | 'b2c' | 'cha' | 'kits';
+}
+
+// Novos tipos específicos para produtos
+export interface ProductInteractionParams {
+  product_id: string;
+  product_name: string;
+  product_category: 'kit-festa' | 'kit-cha-revelacao';
+  product_type?: string;
+  source: string;
+  audience?: 'b2b' | 'b2c';
+  price?: number;
+}
+
+export interface QuoteRequestParams {
+  product_id?: string;
+  product_name?: string;
+  category?: 'kit-festa' | 'kit-cha-revelacao';
+  source: string;
+  audience: 'b2b' | 'b2c';
+  estimated_value?: number;
 }

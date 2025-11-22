@@ -83,6 +83,9 @@ describe('Header', () => {
     document.querySelector = vi.fn().mockReturnValue({
       scrollIntoView: vi.fn(),
     });
+
+    // Ensure location pathname defaults to home for each test unless overridden
+    mockLocation.pathname = '/';
   });
 
   describe('platform switching', () => {
@@ -205,8 +208,8 @@ describe('Header', () => {
       
       // Find empresa dropdown items and click "Sobre a M5" 
       // This would be in the dropdown, but our mock shows it as a direct button
-      const empresaButton = screen.getByTestId('desktop-nav-empresa');
-      fireEvent.click(empresaButton);
+      const sobreNosButton = screen.getByTestId('desktop-nav-sobre nós');
+      fireEvent.click(sobreNosButton);
       
       expect(document.querySelector).toHaveBeenCalledWith('#empresa');
       expect(mockScrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth' });
@@ -223,8 +226,8 @@ describe('Header', () => {
       
       renderWithRouter(<Header />);
       
-      const empresaButton = screen.getByTestId('desktop-nav-empresa');
-      fireEvent.click(empresaButton);
+      const sobreNosButton2 = screen.getByTestId('desktop-nav-sobre nós');
+      fireEvent.click(sobreNosButton2);
       
       expect(mockNavigate).toHaveBeenCalledWith('/');
       
@@ -262,7 +265,7 @@ describe('Header', () => {
       
       // Check main navigation items
       expect(screen.getByTestId('desktop-nav-réveillon')).toBeInTheDocument();
-      expect(screen.getByTestId('desktop-nav-empresa')).toBeInTheDocument();
+      expect(screen.getByTestId('desktop-nav-sobre nós')).toBeInTheDocument();
     });
 
     it('includes M5 branding and styling', () => {

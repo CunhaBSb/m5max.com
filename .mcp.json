@@ -5,24 +5,23 @@
       "args": [
         "-y",
         "@supabase/mcp-server-supabase@latest",
-        "--read-only",
         "--project-ref=psvmzrzezgkklfjshhua"
       ],
       "env": {
-        "SUPABASE_ACCESS_TOKEN": "${SUPABASE_ACCESS_TOKEN}"
+        "SUPABASE_ACCESS_TOKEN": "sbp_96d2b12ed93fe488097646dfc827f433a4ffafbc",
+        "SUPABASE_URL": "https://psvmzrzezgkklfjshhua.supabase.co",
+        "SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBzdm16cnplemdra2xmanNoaHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM4MTIzMTAsImV4cCI6MjA2OTM4ODMxMH0.s0ngJl3nesmkfte9s2a0wSx5ouMp1uqydcChxRmJ1JQ"
       }
     },
     "context7": {
       "command": "npx",
       "args": [
         "-y",
-        "@upstash/context7-mcp@latest"
+        "@upstash/context7-mcp"
       ],
-      "env": {
-        "DEFAULT_MINIMUM_TOKENS": "10000"
-      }
+      "env": {}
     },
-    "Filesystem": {
+    "filesystem": {
       "command": "npx",
       "args": [
         "-y",
@@ -31,17 +30,17 @@
       ],
       "env": {}
     },
-    "Memory": {
+    "memory": {
       "command": "npx",
       "args": [
         "-y",
         "@modelcontextprotocol/server-memory"
       ],
       "env": {
-        "MEMORY_FILE_PATH": "memory.json"
+        "MEMORY_FILE_PATH": "/home/cunha/.mcp/memory.json"
       }
     },
-    "Playwright": {
+    "playwright": {
       "command": "npx",
       "args": [
         "-y",
@@ -49,16 +48,21 @@
       ],
       "env": {}
     },
-    "firecrawl-mcp": {
-      "command": "npx",
-      "args": ["-y", "firecrawl-mcp"],
-      "env": {
-        "FIRECRAWL_API_KEY": "${FIRECRAWL_API_KEY}"
-      }
-    },
     "gemini-cli": {
       "command": "npx",
-      "args": ["-y", "gemini-mcp-tool"]
+      "args": [
+        "-y",
+        "gemini-mcp-tool"
+      ],
+      "env": {}
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ],
+      "env": {}
     }
   }
 }
