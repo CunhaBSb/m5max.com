@@ -20,20 +20,7 @@ export const AnalyticsProvider: React.FC<AnalyticsProviderProps> = ({ children }
   useEffect(() => {
     // Inicializar GTM
     initGTM();
-
-    // Configurar consent mode
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('consent', 'default', {
-        ad_storage: 'denied',
-        ad_user_data: 'denied', 
-        ad_personalization: 'denied',
-        analytics_storage: 'denied',
-        functionality_storage: 'granted',
-        security_storage: 'granted'
-      });
-    }
-
-  }, [consent.ad_storage]);
+  }, []);
 
   // Atualizar consent quando mudado
   useEffect(() => {
@@ -42,9 +29,37 @@ export const AnalyticsProvider: React.FC<AnalyticsProviderProps> = ({ children }
     }
   }, [consent]);
 
+  // Reconfigurar gtag quando o consentimento permitir
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.gtag) {
+      if (config.ga4Id && consent.analytics_storage === 'granted') {
+        window.gtag('config', config.ga4Id, { send_page_view: false });
+      }
+      if (config.gAdsId && consent.ad_storage === 'granted') {
+        window.gtag('config', config.gAdsId);
+      }
+    }
+  }, [consent.analytics_storage, consent.ad_storage]);
+
   return (
     <>
       <Helmet>
+        {/* Consent default (gtag) - must run before gtag.js */}
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('consent', 'default', {
+              ad_storage: 'denied',
+              ad_user_data: 'denied',
+              ad_personalization: 'denied',
+              analytics_storage: 'denied',
+              functionality_storage: 'granted',
+              security_storage: 'granted'
+            });
+          `}
+        </script>
+
         {/* gtag loader (GA4 / Google Ads) */}
         {primaryGtagId && (
           <>
