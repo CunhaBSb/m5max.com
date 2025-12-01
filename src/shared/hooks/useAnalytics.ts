@@ -86,6 +86,23 @@ export const useAnalytics = () => {
       content_category: 'video'
     });
 
+    // GA4 video events
+    if (typeof window !== 'undefined' && window.gtag && config.ga4Id) {
+      const gaEvent =
+        eventType === 'start' ? 'video_start' :
+        eventType === 'complete' ? 'video_complete' :
+        eventType === 'click_to_play' ? 'video_click' : 'video_progress';
+
+      window.gtag('event', gaEvent, {
+        video_title: params.video_title,
+        video_provider: params.video_provider,
+        video_percent: ['progress_25','progress_50','progress_75'].includes(eventType)
+          ? Number(eventType.split('_')[1])
+          : undefined,
+        page_location: window.location.href
+      });
+    }
+
     // Meta Pixel video events
     if (typeof window !== 'undefined' && window.fbq) {
       const fbEventName = eventType === 'start' ? 'VideoView' : 
@@ -109,6 +126,17 @@ export const useAnalytics = () => {
       content_category: 'conversion'
     });
 
+    // GA4 Contact
+    if (typeof window !== 'undefined' && window.gtag && config.ga4Id) {
+      window.gtag('event', 'contact', {
+        method: 'whatsapp',
+        content_type: params.audience,
+        source: params.source,
+        page_location: window.location.href,
+        page_title: document.title
+      });
+    }
+
     // Meta Pixel Contact event
     if (typeof window !== 'undefined' && window.fbq) {
       window.fbq('track', 'Contact', {
@@ -130,6 +158,28 @@ export const useAnalytics = () => {
       content_category: 'form',
       value: params.lead_score
     });
+
+    // GA4 Lead funnel
+    if (typeof window !== 'undefined' && window.gtag && config.ga4Id) {
+      if (eventType === 'start') {
+        window.gtag('event', 'begin_checkout', {
+          item_list_name: params.form_type,
+          value: params.lead_score,
+          currency: 'BRL',
+          source: params.source,
+          page_location: window.location.href
+        });
+      } else {
+        window.gtag('event', 'generate_lead', {
+          value: params.lead_score,
+          currency: 'BRL',
+          form_name: params.form_name,
+          form_type: params.form_type,
+          source: params.source,
+          page_location: window.location.href
+        });
+      }
+    }
 
     // Meta Pixel form events
     if (typeof window !== 'undefined' && window.fbq) {
@@ -155,6 +205,27 @@ export const useAnalytics = () => {
       value: params.price,
       currency: params.currency || 'BRL'
     });
+
+    // GA4 ecommerce events
+    if (typeof window !== 'undefined' && window.gtag && config.ga4Id) {
+      const items = [
+        {
+          item_id: params.item_id,
+          item_name: params.item_name,
+          item_category: params.item_category,
+          item_variant: params.item_variant,
+          price: params.price,
+          currency: params.currency || 'BRL'
+        }
+      ];
+
+      window.gtag('event', eventName, {
+        items,
+        value: params.price,
+        currency: params.currency || 'BRL',
+        source: params.source
+      });
+    }
 
     // Meta Pixel product events
     if (typeof window !== 'undefined' && window.fbq) {
@@ -205,13 +276,19 @@ export const useAnalytics = () => {
     });
 
     // GA4 Enhanced Ecommerce
-    if (typeof window !== 'undefined' && window.gtag) {
+    if (typeof window !== 'undefined' && window.gtag && config.ga4Id) {
       window.gtag('event', eventName, {
-        item_id: params.product_id,
-        item_name: params.product_name,
-        item_category: params.product_category,
-        item_category2: params.product_type,
-        price: params.price || 0,
+        items: [
+          {
+            item_id: params.product_id,
+            item_name: params.product_name,
+            item_category: params.product_category,
+            item_category2: params.product_type,
+            price: params.price || 0,
+            currency: 'BRL'
+          }
+        ],
+        value: params.price || 0,
         currency: 'BRL',
         source: params.source
       });
@@ -243,7 +320,7 @@ export const useAnalytics = () => {
     });
 
     // GA4 Lead Generation
-    if (typeof window !== 'undefined' && window.gtag) {
+    if (typeof window !== 'undefined' && window.gtag && config.ga4Id) {
       window.gtag('event', 'generate_lead', {
         item_id: params.product_id,
         item_name: params.product_name,
