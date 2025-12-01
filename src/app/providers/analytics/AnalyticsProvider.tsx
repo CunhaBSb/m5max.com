@@ -46,7 +46,7 @@ export const AnalyticsProvider: React.FC<AnalyticsProviderProps> = ({ children }
     <>
       <Helmet>
         {/* gtag loader (GA4 / Google Ads) */}
-        {(canLoadGa4 || canLoadGAds) && primaryGtagId && (
+        {primaryGtagId && (
           <>
             <script
               async
