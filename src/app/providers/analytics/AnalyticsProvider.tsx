@@ -57,6 +57,11 @@ export const AnalyticsProvider: React.FC<AnalyticsProviderProps> = ({ children }
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
+                const __m5_debug_ga = window.location.search.includes('debug_ga=1');
+                if (__m5_debug_ga) {
+                  gtag('set', 'debug_mode', true);
+                  console.info('[m5max][analytics] GA debug_mode ativo');
+                }
                 ${canLoadGa4 ? `gtag('config', '${config.ga4Id}', { send_page_view: false });` : ''}
                 ${canLoadGAds ? `gtag('config', '${config.gAdsId}');` : ''}
               `}
