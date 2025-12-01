@@ -5,6 +5,7 @@ import ConversionModal from "@/shared/modal/ConversionModal";
 import FormModal from "@/shared/modal/FormModal";
 import ConsentBanner from "@/app/providers/analytics/ConsentBanner";
 import { useAppStore } from "@/shared/store/appStore";
+import config from '@/shared/lib/config';
 
 interface RootLayoutProps {
   children: ReactNode;
@@ -21,6 +22,15 @@ const RootLayout = ({ children }: RootLayoutProps) => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      {/* GTM noscript imediatamente após abertura do body */}
+      {config.gtmId && (
+        <div
+          dangerouslySetInnerHTML={{
+            __html: `<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${config.gtmId}" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>`
+          }}
+        />
+      )}
+
       <Header />
       
       <main className="flex-1">

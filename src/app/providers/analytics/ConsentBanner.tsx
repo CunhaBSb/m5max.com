@@ -11,13 +11,22 @@ const ConsentBanner: React.FC = () => {
   const { consent, updateConsent } = useAppStore();
 
   useEffect(() => {
-    // Check if user has already given consent
-    const hasConsent = localStorage.getItem('m5max-consent');
-    if (!hasConsent) {
-      // Show banner after a short delay
-      const timer = setTimeout(() => setIsVisible(true), 2000);
-      return () => clearTimeout(timer);
+    const savedConsent = localStorage.getItem('m5max-consent');
+
+    if (savedConsent) {
+      try {
+        const parsed = JSON.parse(savedConsent);
+        // Reidrata o estado global para garantir carregamento de scripts após refresh
+        updateConsent(parsed);
+        return; // não mostra banner se já houve escolha
+      } catch (err) {
+        console.warn('Falha ao restaurar consentimento salvo', err);
+      }
     }
+
+    // Nenhum consentimento: exibe banner após pequeno delay
+    const timer = setTimeout(() => setIsVisible(true), 2000);
+    return () => clearTimeout(timer);
   }, []);
 
   const handleAcceptAll = () => {

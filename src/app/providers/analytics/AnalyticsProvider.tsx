@@ -15,6 +15,7 @@ export const AnalyticsProvider: React.FC<AnalyticsProviderProps> = ({ children }
 
   const canLoadGa4 = Boolean(config.ga4Id && consent.analytics_storage === 'granted');
   const canLoadGAds = Boolean(config.gAdsId && consent.ad_storage === 'granted');
+  const primaryGtagId = config.gAdsId || config.ga4Id;
 
   useEffect(() => {
     // Inicializar GTM
@@ -45,11 +46,11 @@ export const AnalyticsProvider: React.FC<AnalyticsProviderProps> = ({ children }
     <>
       <Helmet>
         {/* gtag loader (GA4 / Google Ads) */}
-        {(canLoadGa4 || canLoadGAds) && (
+        {(canLoadGa4 || canLoadGAds) && primaryGtagId && (
           <>
             <script
               async
-              src={`https://www.googletagmanager.com/gtag/js?id=${config.ga4Id || config.gAdsId}`}
+              src={`https://www.googletagmanager.com/gtag/js?id=${primaryGtagId}`}
             />
             <script>
               {`
@@ -79,14 +80,6 @@ export const AnalyticsProvider: React.FC<AnalyticsProviderProps> = ({ children }
               fbq('track', 'PageView');
             `}
           </script>
-        )}
-        {/* GTM NoScript */}
-        {config.gtmId && (
-          <noscript
-            dangerouslySetInnerHTML={{
-              __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=${config.gtmId}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`
-            }}
-          />
         )}
       </Helmet>
       
