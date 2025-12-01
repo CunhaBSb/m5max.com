@@ -6,30 +6,30 @@ const TimelineSection = () => {
     {
       number: '01',
       title: 'Orçamento e Planejamento',
-      description: 'Analisamos suas necessidades e criamos o conceito personalizado para o seu espetáculo.',
+      description: 'Analisamos suas necessidades e criamos o conceito visual personalizado para o espetáculo.',
       icon: Calendar,
       features: ['Consulta personalizada', 'Orçamento detalhado', 'Cronograma definido']
     },
     {
       number: '02',
       title: 'Licenças e Autorizações',
-      description: 'Cuidamos de toda a documentação legal e autorizações necessárias para o evento.',
+      description: 'Cuidamos de toda a documentação (ART/CREA, licenças ambientais) e seguro incluído.',
       icon: Shield,
-      features: ['Licenças municipais', 'Corpo de bombeiros', 'Documentação legal']
+      features: ['Licenças oficiais', 'Seguro incluído', 'Documentação legal']
     },
     {
       number: '03',
       title: 'Logística e Preparação',
-      description: 'Coordenamos transporte dos equipamentos e preparação técnica no local.',
+      description: 'Coordenamos equipamentos e preparação técnica no local com testes controlados.',
       icon: Truck,
-      features: ['Simulação do espetáculo', 'Montagem técnica', 'Testes de segurança']
+      features: ['Simulação do show', 'Montagem técnica', 'Testes de segurança']
     },
     {
       number: '04',
-      title: 'Show Espetacular!',
-      description: 'Execução perfeita do espetáculo pirotécnico sincronizado e inesquecível.',
+      title: 'Show Visual Sincronizado',
+      description: 'Execução sincronizada do espetáculo de luz e efeitos, monitoramento e limpeza da área.',
       icon: Sparkles,
-      features: ['Execução perfeita', 'Efeitos espetaculares', 'Momentos únicos']
+      features: ['Execução monitorada', 'Efeitos sincronizados', 'Pós-show completo']
     }
   ];
 

@@ -173,7 +173,7 @@ const Hero = () => {
               </h1>
               
               <p className="text-base text-white/90 drop-shadow-md leading-relaxed px-2">
-                Transforme o Réveillon em um espetáculo inesquecível com segurança M5 Max
+                Entregamos um show visual sincronizado e autorizado para a virada em Brasília, com projeto técnico, licenças e seguro incluídos.
               </p>
 
               {/* Mobile Stats Header */}

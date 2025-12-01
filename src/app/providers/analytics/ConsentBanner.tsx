@@ -27,7 +27,7 @@ const ConsentBanner: React.FC = () => {
     // Nenhum consentimento: exibe banner após pequeno delay
     const timer = setTimeout(() => setIsVisible(true), 2000);
     return () => clearTimeout(timer);
-  }, []);
+  }, [updateConsent]);
 
   const handleAcceptAll = () => {
     const fullConsent = {

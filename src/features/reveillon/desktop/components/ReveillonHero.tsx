@@ -131,7 +131,7 @@ const ReveillonHero = () => {
               </h1>
               
               <p className="text-lg text-white/90 drop-shadow-md max-w-lg">
-                Transforme o Réveillon do seu público em um espetáculo inesquecível com a M5 Max
+                Produzimos um espetáculo de luz sincronizado e autorizado para a virada em Brasília, com projeto técnico, licenças e seguro incluídos.
               </p>
             </div>
 

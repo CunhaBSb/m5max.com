@@ -14,7 +14,7 @@ const ReveillonMobile = () => {
 
   useEffect(() => {
     trackPageView({
-      page_title: 'Réveillon 2025 | M5 Max (Mobile)',
+      page_title: 'Réveillon 2025 | Espetáculo de Luz (Mobile)',
       page_location: window.location.href,
       page_category: 'reveillon'
     });
@@ -23,9 +23,9 @@ const ReveillonMobile = () => {
   return (
     <>
       <Helmet>
-        <title>Réveillon 2025 | M5 Max Produções</title>
-        <meta name="description" content="Celebre a virada do ano com shows pirotécnicos espetaculares. Produção completa para eventos de Reveillon com segurança e qualidade M5 Max." />
-        <meta name="keywords" content="reveillon, ano novo, fogos de artifício, shows pirotécnicos, virada do ano, eventos, festa" />
+        <title>Réveillon 2025 | Espetáculo de Luz Autorizado</title>
+        <meta name="description" content="Show visual sincronizado para Réveillon em Brasília. Projeto técnico, licenças e seguro incluídos para clubes e eventos." />
+        <meta name="keywords" content="réveillon 2025, espetáculo de luz, efeitos sincronizados, show visual, virada do ano, eventos brasília" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Helmet>
 
