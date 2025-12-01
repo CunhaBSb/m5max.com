@@ -1,2 +1,3 @@
-// Main page container with PlatformSwitch integration
-export { default as Reveillon } from './pages/ReveillonPage';
+export { default as ReveillonPage } from './pages/ReveillonPage';
+export { default as ReveillonDesktop } from './desktop/Reveillon';
+export { default as ReveillonMobile } from './mobile/Reveillon';

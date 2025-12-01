@@ -1,423 +1,296 @@
-> **M5 MAX Context Engineering System**: This repository features a comprehensive context engineering architecture designed for zero-assumption development and maximum developer velocity.
+# CLAUDE.md
 
-## 🧠 CONTEXT ENGINEERING OVERVIEW
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-This repository includes a **complete context engineering system** with 9 specialized documentation files that eliminate guesswork and provide instant access to any architectural information:
-
-### 📚 DOCUMENTATION ARCHITECTURE
-```
-docs/
-├── CONTEXT_MAP.md           → Master inventory with source references
-├── ARCHITECTURE_ATLAS.md    → Component relationships & data flow
-├── DEVELOPMENT_PLAYBOOKS.md → Step-by-step development guides  
-├── COMPONENT_REGISTRY.md    → Complete UI component catalog
-├── STATE_MANAGEMENT.md      → Zustand patterns & usage
-├── FORM_VALIDATION.md       → Schema validation & lead scoring
-├── TEST_COVERAGE_ANALYSIS.md → Gap analysis & improvement roadmap
-├── BUILD_PERFORMANCE.md     → Optimization strategies & metrics
-└── MEMORY_PROTOCOL.md       → Anti-hallucination system
-```
-
-## 🚫 ANTI-HALLUCINATION PROTOCOL
-
-**CRITICAL**: Every architectural claim MUST be backed by source code reference (`file:line`) or marked `UNKNOWN → TODO`. Zero speculation allowed.
-
-### Source Reference Format
-```
-✅ CORRECT: "Platform detection at 1024px - src/shared/hooks/useIsDesktop.ts:3"
-✅ CORRECT: "Form validation with Zod - src/shared/types/forms.ts:4-19"
-❌ WRONG: "The app uses responsive design" (no source reference)
-❌ WRONG: "Forms are validated" (no implementation location)
-```
-
-### Before Making ANY Claim:
-1. **Verify source file exists** - Use Read tool to confirm
-2. **Reference exact location** - Include file:line citations
-3. **Cross-validate facts** - Check multiple sources when possible
-4. **Mark uncertainty** - Use `UNKNOWN → TODO` for unverified claims
-
-## 💡 INTELLIGENT DEVELOPMENT WORKFLOW
-
-### 1. RAPID INFORMATION ACCESS
-**Before starting any task, consult the relevant docs:**
-
-- **Adding components?** → `docs/COMPONENT_REGISTRY.md` for existing patterns
-- **Form work?** → `docs/FORM_VALIDATION.md` for schemas & validation
-- **State changes?** → `docs/STATE_MANAGEMENT.md` for Zustand patterns  
-- **New features?** → `docs/DEVELOPMENT_PLAYBOOKS.md` for step-by-step guides
-- **Performance issues?** → `docs/BUILD_PERFORMANCE.md` for optimization strategies
-- **Testing?** → `docs/TEST_COVERAGE_ANALYSIS.md` for gap analysis
-
-### 2. CONTEXT-AWARE DEVELOPMENT
-**Use the comprehensive context to:**
-
-- **Find modification points** in <2 minutes using source references
-- **Follow established patterns** documented in registries and playbooks
-- **Avoid architectural conflicts** by consulting the atlas and context map
-- **Implement with confidence** using verified, source-referenced patterns
-
-### 3. QUALITY ASSURANCE INTEGRATION
-**Leverage built-in quality intelligence:**
-
-- **Test Coverage**: Only 2.5% (3/121 files) - See `docs/TEST_COVERAGE_ANALYSIS.md` for priorities
-- **Performance**: 7-chunk strategy documented - See `docs/BUILD_PERFORMANCE.md`
-- **Forms**: Lead scoring system documented - See `docs/FORM_VALIDATION.md`
-- **Components**: 45 UI components cataloged - See `docs/COMPONENT_REGISTRY.md`
-
-## ⚡ DEVELOPMENT COMMANDS
+## Development Commands
 
 **Build & Development:**
-- `npm run dev` - Vite development server (localhost:5173)
-- `npm run build` - Production build with 7-chunk optimization
-- `npm run build:dev` - Development build with debugging
-- `npm run preview` - Preview production build
+- `npm run dev` - Start Vite development server on http://localhost:5173
+- `npm run build` - Production build with optimized 7-chunk bundle splitting
+- `npm run build:dev` - Development build with debugging enabled
+- `npm run preview` - Preview production build locally
 
-**Quality Gates:**
-- `npm run lint` - ESLint (required before commits)
-- `npm run test` - Vitest unit tests (currently 2.5% coverage)
-- `npm run test:ui` - Vitest UI interface
-- `npx tsc --noEmit` - TypeScript strict mode checking
+**Quality Checks:**
+- `npm run lint` - Run ESLint (TypeScript-ESLint with React hooks rules)
+- `npm run test` - Run Vitest unit tests
+- `npm run test:ui` - Open Vitest UI for interactive testing
+- `npx tsc --noEmit` - TypeScript type checking (strict mode enabled)
 
-**Performance Analysis:**
-- Bundle analysis available - See `docs/BUILD_PERFORMANCE.md`
-- Performance budgets defined - Critical path <250KB gzipped
-- Lazy loading implemented - ~60% bundle size reduction
+**TypeScript Configuration:**
+- Strict mode enabled with comprehensive strictness flags (tsconfig.json:12-22)
+- noImplicitAny, noUnusedParameters, noUnusedLocals, strictNullChecks all enabled
+- exactOptionalPropertyTypes and noUncheckedIndexedAccess for maximum safety
 
-## 🏗️ BIFURCATED ARCHITECTURE (Source: `docs/ARCHITECTURE_ATLAS.md`)
+## Architecture Overview
 
-**Pattern**: Desktop/mobile separation at component level
-**Breakpoint**: 1024px via `useIsDesktop()` hook - `src/shared/hooks/useIsDesktop.ts:3`
-**Structure**: Separate `desktop/` and `mobile/` directories per feature
+### Bifurcated Desktop/Mobile Architecture
 
+The codebase uses a **platform-specific component architecture** that separates desktop and mobile implementations at the component level:
+
+**Breakpoint:** 1024px (defined in src/shared/hooks/useIsDesktop.ts:3)
+
+**Structure Pattern:**
 ```
 src/features/<feature>/
-├── pages/FeaturePage.tsx    → Lazy loading container
-├── desktop/Feature.tsx      → Desktop implementation  
-├── mobile/Feature.tsx       → Mobile implementation
-└── components/              → Platform-specific components
+├── pages/FeaturePage.tsx          # Lazy-loading entry point
+├── desktop/Feature.tsx            # Desktop-specific implementation
+├── mobile/Feature.tsx             # Mobile-specific implementation
+└── components/                    # Shared feature components
+    ├── desktop/                   # Desktop-specific subcomponents
+    └── mobile/                    # Mobile-specific subcomponents
 ```
 
-**Implementation Details**: See `docs/ARCHITECTURE_ATLAS.md` for complete flow diagrams and relationships.
+**Implementation Example (src/features/home/pages/HomePage.tsx:1-32):**
+- Page components use `PlatformSwitch` to toggle between desktop/mobile
+- Both versions are lazy-loaded with React.lazy() and Suspense
+- Custom loading fallback with M5 Max branding
 
-## 🎯 TECHNOLOGY STACK (Source: `docs/CONTEXT_MAP.md`)
+**Key Hook:** `useIsDesktop()` (src/shared/hooks/useIsDesktop.ts:5-27)
+- Returns boolean | null to handle SSR/hydration
+- Uses window.matchMedia for responsive detection
+- Properly cleans up event listeners
 
-**Versions**: React 18.3.1, TypeScript 5.8.3, Vite 5.4.19, Zustand 5.0.8 - `package.json`  
-**Build**: SWC compilation, 7-chunk manual splitting - `vite.config.ts:17-41`  
-**UI**: Radix UI + shadcn/ui + Tailwind CSS - 45 components cataloged  
-**Forms**: React Hook Form + Zod validation + Portuguese messages - `src/shared/types/forms.ts`  
-**State**: Single Zustand store with selective persistence - `src/shared/store/appStore.ts:24-65`
+### State Management
 
-## 📋 COMPONENT DEVELOPMENT PATTERNS
+**Single Zustand Store** (src/shared/store/appStore.ts:27-76)
 
-**UI Components** (Source: `docs/COMPONENT_REGISTRY.md`):
-- **45 total components**, only 1 tested (Button) - `src/shared/ui/button.test.tsx`
-- **Variant system** with class-variance-authority - See registry for all options
-- **M5 Max theming** with fire/tech/safety color palette - `tailwind.config.ts:106-124`
+**State Shape:**
+- `attribution: AttributionData | null` - UTM tracking and campaign data
+- `consent: ConsentState` - GDPR consent for analytics (analytics_storage, ad_storage, etc.)
+- `conversionModalOpen: boolean` - Conversion flow modal state
+- `formModalOpen: boolean` - Form submission modal state
+- `currentAudience: AudienceType` - Current targeting context (b2b, b2c, general)
 
-**Forms** (Source: `docs/FORM_VALIDATION.md`):
-- **B2B lead scoring** algorithm with budget/attendees/date factors - `QualificationForm.tsx:32-69`
-- **Portuguese validation** messages for Brazilian market
-- **Schema-first** validation with automatic TypeScript types
+**Persistence Strategy:**
+- Uses zustand/persist middleware with localStorage
+- Storage key: 'm5max-storage'
+- Only persists: attribution, consent, currentAudience (lines 69-73)
+- UI state (modals) is NOT persisted intentionally
 
-**State Management** (Source: `docs/STATE_MANAGEMENT.md`):
+### Form System & Lead Scoring
 
-- **Attribution tracking** for UTM parameters and conversion analytics - `src/shared/store/appStore.ts:8-11`
-- **GDPR consent** management for analytics compliance - `src/shared/store/appStore.ts:29-36`
-- **Modal state** management for conversion workflows - `src/shared/store/appStore.ts:13,47-52`
+**Dual Form System** (src/shared/types/forms.ts:4-42):
+- `B2BFormSchema` - Corporate events (festivals, Réveillon, weddings 500+ people)
+- `B2CFormSchema` - Personal events (gender reveals, small parties, residential)
 
-## 🔍 RAPID REFERENCE SYSTEM
+**Lead Scoring Algorithm** (src/shared/types/forms.ts:77-136):
 
-### Instant File Location Guide:
-- **Platform detection**: `src/shared/hooks/useIsDesktop.ts:3-27`
-- **State management**: `src/shared/store/appStore.ts:24-65`
-- **Form validation**: `src/shared/types/forms.ts:4-19`
-- **Bundle config**: `vite.config.ts:17-41`  
-- **UI components**: `src/shared/ui/` (45 components, see registry)
-- **Page routing**: `src/app/router/AppRoutes.tsx:8-12` (3 routes)
+**B2B Scoring Weights:**
+- Budget Range: 15-40 points (5k-15k → 15pts, 200k+ → 40pts)
+- Attendees: 10-30 points (up to 500 → 10pts, 20k+ → 30pts)
+- Event Type: 10-30 points (corporate → 30pts, Réveillon → 25pts)
+- Product Type: 10-30 points (deluxe kit → 30pts, basic → 10pts)
 
-### Component Location Patterns:
-- **Feature pages**: `src/features/{feature}/pages/{Feature}Page.tsx`
-- **Desktop components**: `src/features/{feature}/desktop/`
-- **Mobile components**: `src/features/{feature}/mobile/`
-- **Shared UI**: `src/shared/ui/{component}.tsx`
-- **Layout components**: `src/shared/layout/`
+**B2C Scoring Weights:**
+- Budget Range: 10-40 points (up to 5k → 10pts, 30k+ → 40pts)
+- Attendees: 15-30 points (up to 50 → 15pts, 200+ → 30pts)
+- Event Type: 10-35 points (gender reveal → 35pts, wedding → 30pts)
+- Product Type: 15-35 points (surprise kit → 35pts, basic → 15pts)
 
-### Import Aliases (Source: `vite.config.ts:46-51`):
+**Form Validation:**
+- Uses Zod schemas with Portuguese error messages
+- React Hook Form integration via @hookform/resolvers
+- Type inference: `type B2BFormData = z.infer<typeof B2BFormSchema>`
+
+### Routing & Features
+
+**Routes** (src/app/router/AppRoutes.tsx:10-15):
+- `/` - HomePage (main landing)
+- `/reveillon` - ReveillonPage (New Year's Eve events)
+- `/produtos` - ProdutosPage (product catalog)
+- `/orcamento-iate-2026` - OrcamentoIatePage (yacht club quote 2026)
+- `*` - NotFound (404 page)
+
+**Current Features:**
+- home
+- reveillon
+- produtos
+- orcamento-iate
+
+Each feature follows the bifurcated architecture pattern.
+
+### Bundle Optimization Strategy
+
+**Manual Chunk Splitting** (vite.config.ts:17-41):
+
+The build uses 7 optimized chunks for performance:
+
+1. **react-vendor** (~40KB) - React core (react, react-dom, react-router-dom)
+2. **ui-vendor** (~35KB) - Most-used Radix UI components (dialog, accordion, dropdown, popover)
+3. **form-vendor** (~45KB) - Form dependencies (react-hook-form, @hookform/resolvers, zod)
+4. **icons-vendor** (~20KB) - Icon libraries (lucide-react, react-icons)
+5. **media-vendor** (~15KB) - Lazy-loaded media (react-youtube)
+6. **utils-vendor** (~12KB) - Shared utilities (clsx, tailwind-merge, class-variance-authority, date-fns)
+7. **modal-vendor** (~18KB) - On-demand UI (select, checkbox)
+8. **advanced-ui** (~10KB) - Rarely-used components (menubar, context-menu, navigation-menu)
+
+**Strategy:** Critical path first (react + ui + utils + icons ~107KB), on-demand loading for forms/modals/media.
+
+### Import Aliases
+
+**Path Mapping** (vite.config.ts:46-51):
 ```typescript
-@app/*     → src/app/*      // App routing & providers
+@app/*     → src/app/*      // Routing, providers, layouts
 @features/* → src/features/* // Feature modules
-@shared/*  → src/shared/*   // Shared components & utilities  
-@/*        → src/*          // General src imports
+@shared/*  → src/shared/*   // Shared components, hooks, types
+@/*        → src/*           // General imports
 ```
 
-## 🚀 PERFORMANCE-FIRST DEVELOPMENT
+Also configured in tsconfig.json:10 for TypeScript resolution.
 
-**Bundle Strategy** (Source: `docs/BUILD_PERFORMANCE.md`):
-- **Critical path**: ~167KB gzipped (react-vendor + ui-vendor + utils + icons)
-- **On-demand chunks**: ~85KB total (forms, modals, media, advanced UI)
-- **Lazy loading**: All page components with Suspense boundaries
-- **Tree shaking**: Optimized imports for minimal bundle impact
+### UI Component System
 
-**Performance Targets**:
-- **FCP**: <1.2s, **LCP**: <2.5s, **CLS**: <0.1, **TTI**: <3.5s
-- **Bundle budgets**: Critical <250KB, chunks <30KB each
-- **Loading strategy**: Critical path first, on-demand for interactions
+**Technology Stack:**
+- **Radix UI** - Headless, accessible component primitives
+- **shadcn/ui** - Styling patterns built on Radix
+- **Tailwind CSS** - Utility-first styling
+- **class-variance-authority** - Component variant management
 
-## 🧪 TESTING INTELLIGENCE
+**Component Location:** src/shared/ui/
 
-**Current State** (Source: `docs/TEST_COVERAGE_ANALYSIS.md`):
-- **Coverage**: 2.5% (3/121 files) - CRITICAL improvement needed
-- **Existing tests**: Button component, useIsDesktop hook, utils function
-- **Priority gaps**: Forms (0%), State (0%), Pages (0%), Features (0%)
+**M5 Max Theme Colors** (tailwind.config.ts:109-127):
+- **fire colors:** red, orange, gold, yellow (pyrotechnic theme)
+- **tech colors:** blue, blue-light (professional/technical)
+- **metal colors:** silver, platinum (premium feel)
+- **safety colors:** green (#16a34a), warning (#eab308)
 
-**Testing Strategy**:
-- **Priority 1**: Form system & state management (business critical)
-- **Priority 2**: Page components & user flows  
-- **Priority 3**: UI component library & integrations
-- **Target**: 70% coverage with focus on business logic
+**Primary Brand Color:** Orange #f97316 (tailwind.config.ts:53)
 
-## 💼 BUSINESS LOGIC UNDERSTANDING
+### Analytics & Tracking
 
-**Lead Generation System** (Source: `docs/FORM_VALIDATION.md`):
-- **B2B focus**: Professional fireworks for corporate events
-- **Lead scoring**: Budget (30pts) + Attendees (15pts) + Date (20pts) + Company (10pts)
-- **Conversion flow**: Hero → Modal → Form → Scoring → WhatsApp/Email
+**Environment Variables Required** (.env):
+- `VITE_GTM_ID` - Google Tag Manager container ID
+- `VITE_GA4_ID` - Google Analytics 4 measurement ID
+- `VITE_GADS_ID` - Google Ads conversion tracking
+- `VITE_META_PIXEL_ID` - Meta (Facebook) Pixel ID
+- `VITE_WHATSAPP_NUMBER` - WhatsApp Business number
+- `VITE_SUPABASE_URL` - Supabase project URL
+- `VITE_SUPABASE_ANON_KEY` - Supabase anonymous key
 
-**Market Focus**:
+**Analytics Provider** (src/app/providers/analytics/AnalyticsProvider.tsx):
+- Integrated GTM, GA4, and Meta Pixel
+- GDPR-compliant consent management via ConsentBanner
+- Consent state stored in Zustand store
 
-- **Portuguese-speaking**: Brazilian market with localized content
-- **Event types**: Réveillon, weddings, corporate events, festivals
-- **Safety emphasis**: Professional-grade safety protocols
+**Attribution Tracking:**
+- UTM parameters captured via useAttribution hook
+- Persisted in Zustand store for conversion attribution
+- Used in lead scoring and analytics events
 
-## 🔄 CONTEXT MAINTENANCE PROTOCOL
+### Business Context
 
-**Memory Integrity** (Source: `docs/MEMORY_PROTOCOL.md`):
-- **Verification cycle**: Check source files before major claims
-- **Update triggers**: package.json, vite.config.ts, store files changes
-- **Quality control**: All architectural decisions must be documented
-- **Session continuity**: Use docs for consistent knowledge across sessions
+**Company:** Fogos M5 - Professional fireworks and pyrotechnic events
+**Market:** Brazilian market (Portuguese language)
+**Target Audiences:**
+- **B2B:** Corporate events, festivals, large celebrations (500+ attendees)
+- **B2C:** Personal events, gender reveals, weddings, parties
 
-**Development Session Protocol**:
-1. **Start**: Verify critical facts from docs
-2. **Development**: Reference appropriate docs for patterns
-3. **Quality**: Run lint, test, build before commits
-4. **Documentation**: Update docs if architecture changes
+**Event Types:**
+- Réveillon (New Year's Eve) - Premium pricing, high demand
+- Corporate events - High-value leads
+- Weddings - Medium-value, high volume
+- Gender reveals (chá revelação) - Growing market segment
+- Festivals and public events - Large scale
 
----
+**Conversion Flow:**
+1. User arrives from marketing campaign (UTM tracked)
+2. Hero section with CTA
+3. Opens conversion modal (tracked in store)
+4. Fills form (B2B or B2C schema)
+5. Lead scoring calculation
+6. Redirect to WhatsApp or email based on score and preferences
 
-## 🎯 ULTRA-EFFICIENT DEVELOPMENT APPROACH
+## Development Guidelines
 
-**This repository is optimized for maximum developer velocity through:**
+### Before Making Changes
 
-1. **Zero Assumption Development**: Every fact is source-referenced
-2. **Instant Context Access**: Any architectural question answerable in <2 minutes  
-3. **Pattern Consistency**: All development patterns documented and examples provided
-4. **Quality Integration**: Testing, performance, and optimization strategies built-in
-5. **Business Alignment**: Deep understanding of M5 Max business model and conversion flows
+1. **Read files first** - Never propose changes to code you haven't read
+2. **Understand bifurcation** - Check if changes affect desktop, mobile, or both
+3. **Check state impact** - Verify if Zustand store needs updates
+4. **Validate forms** - Update Zod schemas if changing form fields
+5. **Test responsiveness** - Changes must work at 1024px breakpoint
 
-## 🔧 MCP INTEGRATION SYSTEM
+### Pattern Consistency
 
-This project leverages **9 specialized MCP servers** to create the most advanced AI-assisted development environment. Each MCP provides specific capabilities that complement the Context Engineering architecture.
+**When adding new features:**
+1. Create folder: `src/features/<feature-name>/`
+2. Add page component: `pages/<Feature>Page.tsx` with lazy loading
+3. Create desktop version: `desktop/<Feature>.tsx`
+4. Create mobile version: `mobile/<Feature>.tsx`
+5. Use PlatformSwitch in page component
+6. Update AppRoutes.tsx with new route
 
-### **Available MCP Servers & Capabilities**
+**When adding UI components:**
+- Add to `src/shared/ui/` if reusable across features
+- Add to `src/features/<feature>/components/` if feature-specific
+- Use class-variance-authority for variants
+- Follow M5 Max theme colors from tailwind.config.ts
 
-**🗄️ Data & Backend:**
-- **Supabase MCP** - Database operations, migrations, real-time queries, edge functions
-- **Memory MCP** - Project knowledge graph with 25+ entities and 33+ architectural relationships
+**When modifying forms:**
+1. Update Zod schema in src/shared/types/forms.ts
+2. Update lead scoring weights if needed (lines 77-136)
+3. Update form component to use new fields
+4. Test Portuguese validation messages
+5. Verify TypeScript types auto-update via z.infer
 
-**📚 Documentation & Analysis:**  
-- **Context7 MCP** - Up-to-date library documentation and code examples
-- **Gemini CLI MCP** - Deep analysis for large codebases, brainstorming, complex reviews
+### Code Quality
 
-**🔧 Development & Testing:**
-- **Filesystem MCP** - Advanced file operations, directory management, batch processing
-- **Playwright MCP** - Browser automation, E2E testing, UI validation
-- **IDE MCP** - VS Code diagnostics, code execution, development insights
+**ESLint Configuration** (eslint.config.js):
+- TypeScript-ESLint recommended rules enabled
+- React Hooks rules enforced
+- React Refresh for HMR
+- @typescript-eslint/no-unused-vars disabled (TypeScript handles this)
 
-**🚀 Deployment & Collaboration:**
-- **GitHub MCP** - Repository management, PR workflows, issue tracking, code reviews
-- **Firecrawl MCP** - Web content analysis, research, competitive intelligence
+**Testing:**
+- Current test coverage is very low (~3 files tested)
+- Priority: Add tests for form validation, state management, and core user flows
+- Use Vitest with jsdom environment (configured in vite.config.ts:58-63)
+- Testing library already configured (src/setupTests.ts)
 
-### **MCP Best Practices**
+### Performance Considerations
 
-**For Large Analysis Tasks (>50 files):**
-```bash
-Use Gemini MCP with larger context window:
-mcp__gemini-cli__ask-gemini --model=gemini-2.5-flash
-```
+**Lazy Loading:**
+- All page-level components use React.lazy()
+- Desktop and mobile versions loaded on-demand
+- Suspense boundaries with branded loading states
 
-**For Architectural Decisions:**
-```bash
-1. Query Memory MCP first: mcp__Memory__search_nodes
-2. Cross-reference with docs/
-3. Implement with established patterns
-```
+**Bundle Size:**
+- Monitor chunk sizes after changes
+- Keep critical path <250KB gzipped
+- Use dynamic imports for heavy dependencies
+- Tree-shake icon imports (import specific icons, not entire packages)
 
-**For Testing (Critical Gap - 2.5% coverage):**
-```bash
-Use Playwright MCP for comprehensive E2E testing:
-mcp__Playwright__playwright_navigate + test workflows
-```
+**Images:**
+- Use OptimizedImage component (src/shared/ui/optimized-image.tsx)
+- Implement lazy loading for below-fold images
+- Consider WebP format for better compression
 
-**For Library Research:**
-```bash
-Get latest docs via Context7 MCP:
-mcp__context7__resolve-library-id → mcp__context7__get-library-docs
-```
+## Anti-Patterns to Avoid
 
-## 🧠 INTELLIGENT DEVELOPMENT WORKFLOWS
+1. **Don't bypass the bifurcated architecture** - Always create desktop and mobile versions
+2. **Don't mutate Zustand state directly** - Use provided action methods
+3. **Don't skip lazy loading** - Page components must use React.lazy()
+4. **Don't hardcode analytics IDs** - Use environment variables
+5. **Don't create forms without Zod schemas** - Type safety and validation are critical
+6. **Don't ignore the 1024px breakpoint** - Test all changes at this width
+7. **Don't add heavy dependencies without chunk optimization** - Update vite.config.ts manual chunks
 
-### **MCP-Powered Context Engineering**
+## Quick Reference
 
-**Before Any Development Task:**
-1. **Query Memory MCP** for existing patterns and architectural decisions
-2. **Consult relevant docs/** for established guidelines  
-3. **Use Context7 MCP** for updated library documentation
-4. **Apply Gemini MCP** for complex analysis requiring large context windows
+**Platform detection:** src/shared/hooks/useIsDesktop.ts:3 (1024px)
+**State store:** src/shared/store/appStore.ts:27-76
+**Form schemas:** src/shared/types/forms.ts:4-42
+**Lead scoring:** src/shared/types/forms.ts:77-136
+**Routes:** src/app/router/AppRoutes.tsx:10-15
+**Bundle config:** vite.config.ts:17-41
+**Theme colors:** tailwind.config.ts:109-127
+**Import aliases:** vite.config.ts:46-51
 
-### **Quality Assurance Integration**
-
-**Testing Strategy (Addressing 2.5% Coverage Gap):**
-- **Playwright MCP** for E2E testing automation
-- **GitHub MCP** for PR workflows and code reviews
-- **IDE MCP** for development-time diagnostics and quality checks
-
-**Performance & Build Optimization:**
-- **Filesystem MCP** for batch file operations and build analysis
-- **Gemini MCP** for bundle analysis and optimization recommendations
-- **Supabase MCP** for database performance monitoring
-
-### **Advanced Workflows**
-
-**Feature Development Lifecycle:**
-```mermaid
-graph TD
-    A[Memory MCP Query] --> B[docs/ Consultation]
-    B --> C[Context7 MCP Research]
-    C --> D[Implementation]
-    D --> E[Playwright MCP Testing]
-    E --> F[GitHub MCP PR Creation]
-```
-
-**Research & Analysis Pipeline:**
-```mermaid
-graph TD
-    A[Firecrawl MCP Research] --> B[Gemini MCP Analysis]
-    B --> C[Memory MCP Storage]
-    C --> D[docs/ Update]
-```
-
-## 📚 ENHANCED MEMORY PROTOCOL
-
-### **Memory MCP Integration**
-
-**Triple-Verification System:**
-1. **docs/ System** - Static documentation with `file:line` references
-2. **Memory MCP** - Dynamic project knowledge graph with relationships  
-3. **Source Code** - Ground truth verification
-
-**Memory-Driven Development:**
-- Query `mcp__Memory__search_nodes` before architectural claims
-- Update `mcp__Memory__create_entities` for new patterns/decisions
-- Use `mcp__Memory__add_observations` to evolve understanding
-
-### **Anti-Hallucination 2.0**
-
-**Enhanced Verification Protocol:**
-```
-✅ CORRECT: "Platform detection at 1024px - src/shared/hooks/useIsDesktop.ts:3 + Memory MCP entity: 'Bifurcated Architecture'"
-❌ WRONG: Any claim without triple verification (docs/ + Memory MCP + source)
-```
-
-**Workflow:**
-1. **Claim Formation** - Make architectural statement
-2. **docs/ Verification** - Check static documentation
-3. **Memory MCP Query** - Validate against knowledge graph
-4. **Source Confirmation** - Verify in actual code
-5. **Update Protocol** - Sync any discrepancies across all three sources
-
-## ⚡ MCP QUICK REFERENCE
-
-### **Development Shortcuts**
-
-**Deep Analysis & Reviews:**
-```bash
-# For complex codebase analysis (>50 files)
-mcp__gemini-cli__ask-gemini --model=gemini-2.5-flash "Analyze entire feature architecture @src/features/"
-
-# For brainstorming new features
-mcp__gemini-cli__brainstorm --domain=software --ideaCount=15
-```
-
-**Memory & Context Queries:**
-```bash
-# Check existing patterns before implementation  
-mcp__Memory__search_nodes --query="form validation patterns"
-
-# Cross-reference architectural decisions
-mcp__Memory__open_nodes --names=["Bifurcated Architecture", "Lead Scoring Algorithm"]
-```
-
-**Testing & Quality Assurance:**
-```bash
-# E2E testing for critical user flows
-mcp__Playwright__playwright_navigate --url="localhost:5173"
-mcp__Playwright__playwright_screenshot --name="homepage-test"
-
-# GitHub workflow integration
-mcp__github__create_pull_request --title="Feature Implementation" --head="feature-branch"
-```
-
-**Research & Documentation:**
-```bash
-# Get latest library documentation
-mcp__context7__resolve-library-id --libraryName="react-hook-form"
-mcp__context7__get-library-docs --topic="validation"
-
-# Web research for competitive analysis
-mcp__firecrawl-mcp__firecrawl_search --query="React form libraries 2025"
-```
-
-### **Critical Gap Mitigation**
-
-**Testing Coverage Strategy (Current: 2.5% → Target: 70%):**
-
-**Priority 1 - Business Logic (0% → 60%):**
-```bash
-# Form system testing
-mcp__Playwright__playwright_fill + validation workflows
-# State management testing  
-Test Zustand store mutations and persistence
-# Page component testing
-E2E user journeys for all conversion flows
-```
-
-**Priority 2 - UI Components (2% → 80%):**
-```bash  
-# Component library testing
-45 components → Playwright visual regression testing
-# Responsive behavior testing
-Desktop/mobile bifurcation validation
-```
-
-**Priority 3 - Integration Testing (0% → 50%):**
-```bash
-# Analytics integration testing
-UTM tracking, conversion funnels, GDPR compliance
-# WhatsApp Business integration testing
-Lead scoring and attribution preservation
-```
-
-## 🎯 MCP-ENHANCED DEVELOPMENT APPROACH
-
-**This repository now combines the original Context Engineering system with MCP superpowers:**
-
-1. **Zero Assumption Development** - Every fact triple-verified (docs/ + Memory MCP + source)
-2. **Instant Context Access** - Any question answerable via specialized MCP in <2 minutes  
-3. **Pattern Consistency** - Memory MCP enforces architectural decisions across sessions
-4. **Quality Integration** - Playwright MCP addresses critical testing gap
-5. **Business Alignment** - Supabase MCP enables data-driven decision making
-6. **Research Acceleration** - Firecrawl + Context7 MCPs for external intelligence
-7. **Advanced Analysis** - Gemini MCP for complex reviews without token limits
-
-**Always consult the `docs/` directory first, then leverage appropriate MCPs for enhanced capabilities. The comprehensive documentation + MCP integration eliminates guesswork and ensures consistent, high-quality development.**
+**Common file locations:**
+- Feature pages: `src/features/{feature}/pages/{Feature}Page.tsx`
+- Desktop components: `src/features/{feature}/desktop/`
+- Mobile components: `src/features/{feature}/mobile/`
+- Shared UI: `src/shared/ui/`
+- Shared hooks: `src/shared/hooks/`
+- Types: `src/shared/types/`
+- Store: `src/shared/store/appStore.ts`

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAnalytics } from '@/shared/hooks/useAnalytics';
 import RootLayout from '@/app/layouts/RootLayout';
-import Hero from '@features/home/desktop/components/Hero';
+import Hero from './components/Hero';
 import FogosM5Complete from '@/shared/layout/desktop/FogosM5Complete';
 import Services from '@/shared/layout/desktop/Services';
 import FAQ from '@/shared/layout/desktop/FAQ';

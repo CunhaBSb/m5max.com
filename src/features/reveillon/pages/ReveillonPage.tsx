@@ -1,9 +1,9 @@
 import { lazy, Suspense } from 'react';
-import { useIsDesktop } from '@/shared/hooks/useIsDesktop';
+import { PlatformSwitch } from '@/shared/layout/switchers/PlatformSwitch';
 
 // Lazy load components
-const ReveillonDesktop = lazy(() => import('@/features/reveillon/desktop/Reveillon'));
-const ReveillonMobile = lazy(() => import('@/features/reveillon/mobile/Reveillon'));
+const ReveillonDesktop = lazy(() => import('../desktop/Reveillon'));
+const ReveillonMobile = lazy(() => import('../mobile/Reveillon'));
 
 // Fallback UI
 const ReveillonPageFallback = () => (
@@ -11,11 +11,12 @@ const ReveillonPageFallback = () => (
 );
 
 const ReveillonPage = () => {
-  const isDesktop = useIsDesktop();
-
   return (
     <Suspense fallback={<ReveillonPageFallback />}>
-      {isDesktop ? <ReveillonDesktop /> : <ReveillonMobile />}
+      <PlatformSwitch
+        desktop={<ReveillonDesktop />}
+        mobile={<ReveillonMobile />}
+      />
     </Suspense>
   );
 };
