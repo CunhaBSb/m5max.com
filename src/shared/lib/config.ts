@@ -1,6 +1,7 @@
 interface Config {
   gtmId: string;
   ga4Id: string;
+  gAdsId: string;
   metaPixelId: string;
   whatsappNumber: string;
   youtubeChannelId: string;
@@ -15,6 +16,7 @@ interface Config {
 const config: Config = {
   gtmId: import.meta.env.VITE_GTM_ID || '',
   ga4Id: import.meta.env.VITE_GA4_ID || '',
+  gAdsId: import.meta.env.VITE_GADS_ID || '',
   metaPixelId: import.meta.env.VITE_META_PIXEL_ID || '',
   whatsappNumber: import.meta.env.VITE_WHATSAPP_NUMBER || '5561982735575',
   youtubeChannelId: import.meta.env.VITE_YOUTUBE_CHANNEL_ID || '',

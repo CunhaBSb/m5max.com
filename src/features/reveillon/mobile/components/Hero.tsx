@@ -11,16 +11,22 @@ const Hero = () => {
   const [showSecondaryButtons, setShowSecondaryButtons] = useState(false);
   
   const videoRef = useRef<HTMLVideoElement>(null);
-  const { trackWhatsAppClick } = useAnalytics();
+  const { trackWhatsAppClick, trackEvent } = useAnalytics();
   const { openFormModal, attribution } = useAppStore();
 
   const handleOrçamentoClick = useCallback(() => {
+    trackEvent('cta_budget_click', {
+      page: 'reveillon',
+      source: 'hero_mobile',
+      audience: 'b2b'
+    });
+
     openFormModal({
       source: 'hero_mobile',
       audience: 'b2b',
       page: 'reveillon',
     });
-  }, [openFormModal]);
+  }, [openFormModal, trackEvent]);
 
   const handleWhatsAppClick = useCallback(() => {
     const message = getWhatsAppMessage('b2b');
@@ -41,11 +47,17 @@ const Hero = () => {
   }, [attribution?.utm, trackWhatsAppClick]);
 
   const handleVideoClick = useCallback(() => {
+    trackEvent('cta_view_expertise', {
+      page: 'reveillon',
+      source: 'hero_mobile',
+      audience: 'b2b'
+    });
+
     const empresaSection = document.getElementById('empresa');
     if (empresaSection) {
       empresaSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  }, []);
+  }, [trackEvent]);
 
   const handleVideoLoad = useCallback(() => {
     setVideoLoaded(true);

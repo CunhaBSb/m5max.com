@@ -15,16 +15,16 @@ const ReveillonDesktop = () => {
 
   useEffect(() => {
     trackPageView({
-      page_title: 'Shows de Réveillon 2025 | M5 Max Produções',
+      page_title: 'Réveillon 2025 | M5 Max (Desktop)',
       page_location: window.location.href,
-      page_category: 'b2b'
+      page_category: 'reveillon'
     });
   }, [trackPageView]);
 
   return (
     <>
       <Helmet>
-        <title>Shows de Réveillon 2025 | M5 Max Produções</title>
+        <title>Réveillon 2025 | M5 Max Produções</title>
         <meta name="description" content="Shows pirotécnicos espetaculares para Réveillon 2025. Múltiplos pontos de queima e segurança certificada. Faça seu evento ser inesquecível." />
         <meta name="keywords" content="réveillon 2025, shows pirotécnicos, fogos de artifício, virada do ano, festa de ano novo, pirotecnia" />
       </Helmet>

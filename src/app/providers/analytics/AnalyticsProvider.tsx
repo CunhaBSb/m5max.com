@@ -13,6 +13,9 @@ export const AnalyticsProvider: React.FC<AnalyticsProviderProps> = ({ children }
   const { consent } = useAppStore();
   const { attribution } = useAttribution();
 
+  const canLoadGa4 = Boolean(config.ga4Id && consent.analytics_storage === 'granted');
+  const canLoadGAds = Boolean(config.gAdsId && consent.ad_storage === 'granted');
+
   useEffect(() => {
     // Inicializar GTM
     initGTM();
@@ -29,24 +32,6 @@ export const AnalyticsProvider: React.FC<AnalyticsProviderProps> = ({ children }
       });
     }
 
-    // Inicializar Meta Pixel se consentido
-    if (config.metaPixelId && consent.ad_storage === 'granted') {
-      // Simple Meta Pixel initialization
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = 'https://connect.facebook.net/en_US/fbevents.js';
-      document.head.appendChild(script);
-
-      // Initialize dataLayer for fbq if not exists
-      if (!window.fbq) {
-        window.fbq = function(...args) {
-          (window.fbq.queue = window.fbq.queue || []).push(args);
-        };
-      }
-
-      window.fbq('init', config.metaPixelId);
-      window.fbq('track', 'PageView');
-    }
   }, [consent.ad_storage]);
 
   // Atualizar consent quando mudado
@@ -59,21 +44,20 @@ export const AnalyticsProvider: React.FC<AnalyticsProviderProps> = ({ children }
   return (
     <>
       <Helmet>
-        {/* Google Analytics GA4 */}
-        {config.ga4Id && consent.analytics_storage === 'granted' && (
+        {/* gtag loader (GA4 / Google Ads) */}
+        {(canLoadGa4 || canLoadGAds) && (
           <>
             <script
               async
-              src={`https://www.googletagmanager.com/gtag/js?id=${config.ga4Id}`}
+              src={`https://www.googletagmanager.com/gtag/js?id=${config.ga4Id || config.gAdsId}`}
             />
             <script>
               {`
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
-                gtag('config', '${config.ga4Id}', {
-                  send_page_view: false
-                });
+                ${canLoadGa4 ? `gtag('config', '${config.ga4Id}', { send_page_view: false });` : ''}
+                ${canLoadGAds ? `gtag('config', '${config.gAdsId}');` : ''}
               `}
             </script>
           </>

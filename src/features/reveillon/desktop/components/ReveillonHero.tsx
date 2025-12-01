@@ -12,15 +12,21 @@ const ReveillonHero = () => {
   
   const videoRef = useRef<HTMLVideoElement>(null);
   const { openFormModal, attribution } = useAppStore();
-  const { trackWhatsAppClick } = useAnalytics();
+  const { trackWhatsAppClick, trackEvent } = useAnalytics();
 
   const handleOrçamentoClick = useCallback(() => {
+    trackEvent('cta_budget_click', {
+      page: 'reveillon',
+      source: 'hero_desktop',
+      audience: 'b2b'
+    });
+
     openFormModal({
       source: 'hero',
       audience: 'b2b',
       page: 'reveillon',
     });
-  }, [openFormModal]);
+  }, [openFormModal, trackEvent]);
 
   const handleWhatsAppClick = useCallback(() => {
     const message = getWhatsAppMessage('b2b');
@@ -41,11 +47,17 @@ const ReveillonHero = () => {
   }, [attribution?.utm, trackWhatsAppClick]);
 
   const handleVideoClick = useCallback(() => {
-    const fogosSection = document.getElementById('fogos-m5-complete');
+    trackEvent('cta_view_expertise', {
+      page: 'reveillon',
+      source: 'hero_desktop',
+      audience: 'b2b'
+    });
+
+    const fogosSection = document.getElementById('empresa');
     if (fogosSection) {
       fogosSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  }, []);
+  }, [trackEvent]);
 
   const handleVideoLoad = useCallback(() => {
     setVideoLoaded(true);

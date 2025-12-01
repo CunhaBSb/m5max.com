@@ -14,16 +14,16 @@ const ReveillonMobile = () => {
 
   useEffect(() => {
     trackPageView({
-      page_title: 'Reveillon M5 Max - Mobile',
+      page_title: 'Réveillon 2025 | M5 Max (Mobile)',
       page_location: window.location.href,
-      page_category: 'b2b'
+      page_category: 'reveillon'
     });
   }, [trackPageView]);
 
   return (
     <>
       <Helmet>
-        <title>Reveillon M5 Max - Shows Pirotécnicos</title>
+        <title>Réveillon 2025 | M5 Max Produções</title>
         <meta name="description" content="Celebre a virada do ano com shows pirotécnicos espetaculares. Produção completa para eventos de Reveillon com segurança e qualidade M5 Max." />
         <meta name="keywords" content="reveillon, ano novo, fogos de artifício, shows pirotécnicos, virada do ano, eventos, festa" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
