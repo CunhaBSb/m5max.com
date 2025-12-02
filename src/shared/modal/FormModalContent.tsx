@@ -117,6 +117,16 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
   const derivedProfile = inferProfile(form.watch());
 
   const submitLead = async (values: z.infer<typeof schema>) => {
+    if (status === 'idle') {
+      trackFormEvent('start', {
+        form_type: audience,
+        form_name: 'site_budget_modal',
+        source,
+        page_category: audience,
+        lead_score: estimateLeadScore(values)
+      });
+    }
+
     setStatus('sending');
     setErrorMessage(null);
 
@@ -209,26 +219,24 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
   const prevStep = () => setStep((s) => Math.max(1, (s - 1) as typeof step));
 
   return (
-    <Card className="bg-gradient-to-br from-white/8 via-white/6 to-white/4 border border-white/10 shadow-elegant animate-in fade-in duration-300">
-      <CardContent className="p-4 sm:p-5 space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <Badge variant="outline" className="border-fire-orange/50 text-fire-orange">
-            Formulário profissional
-          </Badge>
-          <Badge variant="secondary" className="text-xs">Resposta em até 24h</Badge>
+    <Card className="bg-slate-950/90 border border-white/10 shadow-xl shadow-black/30 backdrop-blur-sm animate-in fade-in duration-200">
+      <CardContent className="p-4 sm:p-5 space-y-3">
+        <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
+          <Badge variant="outline" className="border-fire-orange/60 text-fire-orange bg-white/5">Triagem rápida</Badge>
+          <Badge variant="secondary" className="text-[11px]">Resposta em até 24h</Badge>
         </div>
 
-        <div className="flex items-center justify-between text-xs text-white/70">
-          <span>Etapa {step} de 3</span>
+        <div className="flex items-center justify-between text-[11px] text-white/70">
+          <span className="tracking-wide">Etapa {step} de 3</span>
           <span className="flex items-center gap-1">
             <Sparkles className="w-3 h-3" /> Proposta personalizada
           </span>
         </div>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(submitLead)} className="space-y-4">
+          <form onSubmit={form.handleSubmit(submitLead)} className="space-y-3 sm:space-y-4">
                     {step === 1 && (
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 animate-in slide-in-from-right duration-300">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 animate-in slide-in-from-right duration-200">
                         <FormField name="name" control={form.control} render={({ field }) => (
                           <FormItem>
                             <FormLabel>Nome</FormLabel>
@@ -256,7 +264,7 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
                     )}
 
             {step === 2 && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 animate-in slide-in-from-right duration-300">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 animate-in slide-in-from-right duration-200">
                 <FormField name="city" control={form.control} render={({ field }) => (
                   <FormItem>
                     <FormLabel>Cidade/UF</FormLabel>
@@ -332,7 +340,7 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
             )}
 
             {step === 3 && (
-              <div className="space-y-3 animate-in slide-in-from-right duration-300">
+              <div className="space-y-3 animate-in slide-in-from-right duration-200">
                 <FormField name="noiseRestrictions" control={form.control} render={({ field }) => (
                   <FormItem className="flex flex-row items-start space-x-2 space-y-0 rounded-md border border-white/10 px-3 py-2">
                     <FormControl>
@@ -379,7 +387,7 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
               </div>
             )}
 
-            <div className="flex flex-col sm:flex-row gap-3">
+            <div className="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
               {step > 1 ? (
                 <Button type="button" variant="ghost" onClick={prevStep} className="w-full sm:w-auto">
                   <ArrowLeft className="w-4 h-4 mr-2" /> Voltar

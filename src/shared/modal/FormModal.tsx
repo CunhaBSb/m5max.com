@@ -132,6 +132,16 @@ const FormModal: React.FC<FormModalProps> = ({
   const derivedAudience = inferAudience(form.watch());
 
   const submitLead = async (values: z.infer<typeof schema>) => {
+    if (status === 'idle') {
+      trackFormEvent('start', {
+        form_type: derivedAudience,
+        form_name: 'site_budget_modal',
+        source,
+        page_category: derivedAudience,
+        lead_score: estimateLeadScore(values)
+      });
+    }
+
     setStatus('sending');
     setErrorMessage(null);
 
@@ -225,28 +235,28 @@ const FormModal: React.FC<FormModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="w-[95vw] max-w-2xl mx-auto max-h-[90vh] overflow-y-auto p-4 sm:p-6">
+      <DialogContent className="w-[95vw] max-w-2xl mx-auto max-h-[90vh] overflow-y-auto p-3 sm:p-5">
             <DialogHeader>
-              <DialogTitle className="text-lg sm:text-xl font-bold text-center">Solicitar Orçamento</DialogTitle>
+              <DialogTitle className="text-lg sm:text-xl font-semibold text-center">Solicitar Orçamento</DialogTitle>
               <DialogDescription className="text-center text-sm text-muted-foreground">
-                Triagem inteligente em 3 fases curtas. Data já fixa para Réveillon 2026 e envio de uma simulação 3D do show.
+                Triagem inteligente em 3 etapas compactas. Data fixa para Réveillon 2026 e envio da simulação 3D.
               </DialogDescription>
             </DialogHeader>
 
-            <Card className="bg-gradient-to-br from-white/8 via-white/6 to-white/4 border border-white/10 shadow-elegant">
-              <CardContent className="p-4 sm:p-5 space-y-4">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <Badge variant="outline" className="border-fire-orange/50 text-fire-orange">Triagem profissional</Badge>
-                  <Badge variant="secondary" className="text-xs">Resposta em até 1 dia útil</Badge>
+            <Card className="bg-slate-950/90 border border-white/10 shadow-xl shadow-black/30 backdrop-blur-sm">
+              <CardContent className="p-4 sm:p-5 space-y-3">
+                <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
+                  <Badge variant="outline" className="border-fire-orange/60 text-fire-orange bg-white/5">Triagem rápida</Badge>
+                  <Badge variant="secondary" className="text-[11px]">Resposta em até 1 dia útil</Badge>
                 </div>
 
-                <div className="flex items-center justify-between text-xs text-white/70">
+                <div className="flex items-center justify-between text-[11px] text-white/70">
                   <span>Fase {step} de 3</span>
-                  <span className="flex items-center gap-1"><Sparkles className="w-3 h-3" /> Simulação 3D enviada após envio</span>
+                  <span className="flex items-center gap-1"><Sparkles className="w-3 h-3" /> Simulação 3D após envio</span>
                 </div>
 
                 <Form {...form}>
-                  <form onSubmit={form.handleSubmit(submitLead)} className="space-y-4">
+                  <form onSubmit={form.handleSubmit(submitLead)} className="space-y-3 sm:space-y-4">
                     {step === 1 && (
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <FormField name="name" control={form.control} render={({ field }) => (

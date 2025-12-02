@@ -72,6 +72,7 @@ export interface FormParams {
   form_step?: number;
   lead_score?: number;
   source: string;
+  page_category?: DataLayerEvent['page_category'];
 }
 
 export interface ProductParams {

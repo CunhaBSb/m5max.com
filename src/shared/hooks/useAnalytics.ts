@@ -66,7 +66,7 @@ export const useAnalytics = () => {
     // GA4 pageview
     const debugMode = typeof window !== 'undefined' && window.location.search.includes('debug_ga=1');
 
-    if (typeof window !== 'undefined' && window.gtag && config.ga4Id) {
+    if (consentAllowsPixels() && typeof window !== 'undefined' && window.gtag && config.ga4Id) {
       window.gtag('config', config.ga4Id, {
         page_title: params.page_title,
         page_location: params.page_location,
@@ -76,7 +76,7 @@ export const useAnalytics = () => {
     }
 
     // Meta Pixel PageView
-    if (typeof window !== 'undefined' && window.fbq) {
+    if (consentAllowsPixels() && typeof window !== 'undefined' && window.fbq) {
       window.fbq('track', 'PageView', {
         content_name: params.page_title,
         content_category: params.page_category
@@ -105,7 +105,7 @@ export const useAnalytics = () => {
       console.warn('[Analytics] GA4 ID ausente, evento não enviado para GA4:', eventType);
     }
 
-    if (typeof window !== 'undefined' && window.gtag && config.ga4Id) {
+    if (consentAllowsPixels() && typeof window !== 'undefined' && window.gtag && config.ga4Id) {
       const gaEvent =
         eventType === 'start' ? 'video_start' :
         eventType === 'complete' ? 'video_complete' :
@@ -122,7 +122,7 @@ export const useAnalytics = () => {
     }
 
     // Meta Pixel video events
-    if (typeof window !== 'undefined' && window.fbq) {
+    if (consentAllowsPixels() && typeof window !== 'undefined' && window.fbq) {
       const fbEventName = eventType === 'start' ? 'VideoView' : 
                          eventType === 'progress_50' ? 'Video50Percent' : 
                          eventType === 'complete' ? 'VideoComplete' :
@@ -145,7 +145,7 @@ export const useAnalytics = () => {
     });
 
     // GA4 Contact
-    if (typeof window !== 'undefined' && window.gtag && config.ga4Id) {
+    if (consentAllowsPixels() && typeof window !== 'undefined' && window.gtag && config.ga4Id) {
       window.gtag('event', 'contact', {
         method: 'whatsapp',
         content_type: params.audience,
@@ -156,7 +156,7 @@ export const useAnalytics = () => {
     }
 
     // Meta Pixel Contact event
-    if (typeof window !== 'undefined' && window.fbq) {
+    if (consentAllowsPixels() && typeof window !== 'undefined' && window.fbq) {
       window.fbq('track', 'Contact', {
         content_name: 'whatsapp',
         content_category: params.audience
@@ -169,7 +169,7 @@ export const useAnalytics = () => {
     
     pushToDataLayer({
       event: eventName,
-      page_category: params.form_type,
+      page_category: params.page_category || params.form_type,
       page_slug: window.location.pathname,
       page_title: document.title,
       content_name: params.form_name,
@@ -178,7 +178,7 @@ export const useAnalytics = () => {
     });
 
     // GA4 Lead funnel
-    if (typeof window !== 'undefined' && window.gtag && config.ga4Id) {
+    if (consentAllowsPixels() && typeof window !== 'undefined' && window.gtag && config.ga4Id) {
       if (eventType === 'start') {
         window.gtag('event', 'begin_checkout', {
           item_list_name: params.form_type,
@@ -200,7 +200,7 @@ export const useAnalytics = () => {
     }
 
     // Meta Pixel form events
-    if (typeof window !== 'undefined' && window.fbq) {
+    if (consentAllowsPixels() && typeof window !== 'undefined' && window.fbq) {
       const fbEventName = eventType === 'start' ? 'InitiateCheckout' : 'Lead';
       window.fbq('track', fbEventName, {
         content_name: params.form_name,
@@ -225,7 +225,7 @@ export const useAnalytics = () => {
     });
 
     // GA4 ecommerce events
-    if (typeof window !== 'undefined' && window.gtag && config.ga4Id) {
+    if (consentAllowsPixels() && typeof window !== 'undefined' && window.gtag && config.ga4Id) {
       const items = [
         {
           item_id: params.item_id,
@@ -246,7 +246,7 @@ export const useAnalytics = () => {
     }
 
     // Meta Pixel product events
-    if (typeof window !== 'undefined' && window.fbq) {
+    if (consentAllowsPixels() && typeof window !== 'undefined' && window.fbq) {
       const fbEventName = eventType === 'view' ? 'ViewContent' : 'AddToCart';
       window.fbq('track', fbEventName, {
         content_name: params.item_name,
@@ -294,7 +294,7 @@ export const useAnalytics = () => {
     });
 
     // GA4 Enhanced Ecommerce
-    if (typeof window !== 'undefined' && window.gtag && config.ga4Id) {
+    if (consentAllowsPixels() && typeof window !== 'undefined' && window.gtag && config.ga4Id) {
       window.gtag('event', eventName, {
         items: [
           {
@@ -313,7 +313,7 @@ export const useAnalytics = () => {
     }
 
     // Meta Pixel
-    if (typeof window !== 'undefined' && window.fbq) {
+    if (consentAllowsPixels() && typeof window !== 'undefined' && window.fbq) {
       window.fbq('track', 'ViewContent', {
         content_name: params.product_name,
         content_category: params.product_category,
@@ -338,7 +338,7 @@ export const useAnalytics = () => {
     });
 
     // GA4 Lead Generation
-    if (typeof window !== 'undefined' && window.gtag && config.ga4Id) {
+    if (consentAllowsPixels() && typeof window !== 'undefined' && window.gtag && config.ga4Id) {
       window.gtag('event', 'generate_lead', {
         item_id: params.product_id,
         item_name: params.product_name,
@@ -351,7 +351,7 @@ export const useAnalytics = () => {
     }
 
     // Meta Pixel Lead
-    if (typeof window !== 'undefined' && window.fbq) {
+    if (consentAllowsPixels() && typeof window !== 'undefined' && window.fbq) {
       window.fbq('track', 'Lead', {
         content_name: params.product_name || 'Quote Request',
         content_category: params.category || 'general',
@@ -375,10 +375,13 @@ export const useAnalytics = () => {
   };
 
   // Método genérico para eventos customizados
-  const trackEvent = (eventName: string, properties?: Record<string, unknown>) => {
+  const trackEvent = (
+    eventName: string,
+    properties?: Record<string, unknown> & { page_category?: DataLayerEvent['page_category'] }
+  ) => {
     pushToDataLayer({
       event: eventName,
-      page_category: 'produtos',
+      page_category: properties?.page_category || 'general',
       page_slug: window.location.pathname,
       page_title: document.title,
       ...properties
@@ -393,7 +396,7 @@ export const useAnalytics = () => {
   const trackPlatformSwitch = (from: 'desktop' | 'mobile', to: 'desktop' | 'mobile') => {
     pushToDataLayer({
       event: 'platform_switch',
-      page_category: 'engagement',
+      page_category: 'general',
       page_slug: window.location.pathname,
       page_title: document.title,
       content_name: 'platform_detection',
@@ -405,7 +408,7 @@ export const useAnalytics = () => {
     });
 
     // GA4 custom event
-    if (typeof window !== 'undefined' && window.gtag) {
+    if (consentAllowsPixels() && typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'platform_switch', {
         from_platform: from,
         to_platform: to,
@@ -425,7 +428,7 @@ export const useAnalytics = () => {
   }) => {
     pushToDataLayer({
       event: 'web_vitals',
-      page_category: 'performance',
+      page_category: 'general',
       page_slug: window.location.pathname,
       page_title: document.title,
       content_name: metric.name,
@@ -437,7 +440,7 @@ export const useAnalytics = () => {
     });
 
     // GA4 web vitals
-    if (typeof window !== 'undefined' && window.gtag) {
+    if (consentAllowsPixels() && typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'web_vitals', {
         event_category: 'Web Vitals',
         event_label: metric.name,
@@ -486,7 +489,7 @@ export const useAnalytics = () => {
 
     pushToDataLayer({
       event: 'session_quality',
-      page_category: 'engagement',
+      page_category: 'general',
       page_slug: window.location.pathname,
       page_title: document.title,
       content_name: 'session_metrics',
@@ -500,7 +503,7 @@ export const useAnalytics = () => {
     });
 
     // GA4 engagement event
-    if (typeof window !== 'undefined' && window.gtag) {
+    if (consentAllowsPixels() && typeof window !== 'undefined' && window.gtag) {
       window.gtag('event', 'session_quality', {
         engagement_score: engagementScore,
         engagement_level: engagementLevel,
@@ -512,7 +515,7 @@ export const useAnalytics = () => {
     }
 
     // Meta Pixel custom event
-    if (typeof window !== 'undefined' && window.fbq) {
+    if (consentAllowsPixels() && typeof window !== 'undefined' && window.fbq) {
       window.fbq('trackCustom', 'SessionQuality', {
         engagement_score: engagementScore,
         engagement_level: engagementLevel
@@ -539,3 +542,9 @@ export const useAnalytics = () => {
     trackSessionQuality
   };
 };
+  const consentAllowsPixels = () => {
+    const isProd = config.environment === 'production';
+    if (!consent || !isProd) return true; // Em dev liberamos para QA
+    const { analytics_storage, ad_storage, ad_user_data, ad_personalization } = consent;
+    return [analytics_storage, ad_storage, ad_user_data, ad_personalization].every((v) => v !== 'denied');
+  };

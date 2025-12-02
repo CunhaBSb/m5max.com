@@ -57,6 +57,16 @@ export const BudgetTriage: React.FC<Props> = ({ variant = 'desktop', source = 'o
   }, [attribution?.utm, source]);
 
   const onSubmit = async (values: FormValues) => {
+    if (status === 'idle') {
+      trackFormEvent('start', {
+        form_type: 'b2b',
+        form_name: 'orcamento_iate_triage',
+        source,
+        page_category: 'b2b',
+        lead_score: estimateLeadScore(values)
+      });
+    }
+
     setStatus('sending');
     setErrorMessage(null);
 

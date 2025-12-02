@@ -162,6 +162,16 @@ const QualificationForm: React.FC<QualificationFormProps> = ({
 
   const handleSubmit = (data: Record<string, unknown>) => {
     const leadScore = calculateLeadScore(data);
+    if (!submitSuccess && !submitError) {
+      trackFormEvent('start', {
+        form_type: audience,
+        form_name: `${audience}_qualification_form`,
+        source,
+        page_category: audience,
+        lead_score: leadScore
+      });
+    }
+
     setSubmitting(true);
     setSubmitError(null);
 
