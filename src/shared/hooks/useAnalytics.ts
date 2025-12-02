@@ -32,18 +32,24 @@ export const useAnalytics = () => {
   }, []);
 
   const pushToDataLayer = (data: DataLayerEvent) => {
-    if (typeof window !== 'undefined' && window.dataLayer) {
-      // Adicionar dados de attribution se disponível
-      const enrichedData = {
-        ...data,
-        ...attribution?.utm,
-        gclid: attribution?.gclid,
-        fbclid: attribution?.fbclid,
-        event_id: `${data.event}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
-      };
-      
-      window.dataLayer.push(enrichedData);
+    if (typeof window === 'undefined' || !window.dataLayer) return;
+
+    // GDPR Consent Check - não rastrear sem consentimento
+    if (consent && consent.analytics_storage === 'denied') {
+      console.debug('[Analytics] Tracking blocked - analytics consent denied');
+      return;
     }
+
+    // Adicionar dados de attribution se disponível
+    const enrichedData = {
+      ...data,
+      ...attribution?.utm,
+      gclid: attribution?.gclid,
+      fbclid: attribution?.fbclid,
+      event_id: `${data.event}_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+    };
+
+    window.dataLayer.push(enrichedData);
   };
 
   const trackPageView = (params: PageViewParams) => {

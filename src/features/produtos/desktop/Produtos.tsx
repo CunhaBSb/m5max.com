@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useAnalytics } from '@shared/hooks/useAnalytics';
-import { createEcommerceAnalytics } from '@shared/lib/analytics';
 import { useAppStore } from '@shared/store/appStore';
 import RootLayout from '@app/layouts/RootLayout';
 import LazySection from '@shared/layout/LazySection';
@@ -15,8 +14,6 @@ import FAQ from '@/shared/layout/desktop/FAQ';
 
 const Produtos = () => {
   const { trackPageView } = useAnalytics();
-  const { attribution } = useAppStore();
-  const [ecommerceAnalytics] = useState(() => createEcommerceAnalytics('desktop', attribution));
 
   useEffect(() => {
     trackPageView({
@@ -24,14 +21,7 @@ const Produtos = () => {
       page_location: window.location.href,
       page_category: 'produtos'
     });
-
-    // Track ecommerce page view
-    ecommerceAnalytics.trackPageView({
-      page_title: 'Produtos E-commerce - M5 Max',
-      page_location: window.location.href,
-      page_category: 'ecommerce'
-    });
-  }, [trackPageView, ecommerceAnalytics]);
+  }, [trackPageView]);
 
   return (
     <>

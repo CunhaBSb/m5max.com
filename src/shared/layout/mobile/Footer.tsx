@@ -2,8 +2,10 @@ import { Button } from "@/shared/ui/button";
 import { Card, CardContent } from "@/shared/ui/card";
 import { MessageSquare, Mail, MapPin, Phone, Shield, Award } from "lucide-react";
 import { FaInstagram as Instagram, FaWhatsapp as WhatsApp, FaYoutube as YouTube } from "react-icons/fa";
+import { useAppStore } from "@/shared/store/appStore";
 
 export const FooterMobile = () => {
+  const { openFormModal } = useAppStore();
   return (
     <footer className="relative bg-gradient-to-b from-slate-950 via-slate-900 to-black text-slate-300 overflow-hidden">
       {/* Fire-themed background system */}
@@ -64,7 +66,11 @@ export const FooterMobile = () => {
             <Button
               variant="outline-fire"
               className="w-full max-w-xs h-10 font-medium text-sm"
-              onClick={() => {/* Add conversion modal logic */}}
+              onClick={() => openFormModal({
+                source: 'footer_mobile',
+                audience: 'general',
+                page: 'home'
+              })}
             >
               <MessageSquare className="w-4 h-4 mr-2" />
               <span className="text-sm">Orçamento Gratuito</span>
