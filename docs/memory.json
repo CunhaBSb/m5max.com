@@ -1,170 +1,293 @@
 {
-  "source_id": "m5max_repo_2025-11-21",
-  "facts": [
-    {
-      "id": "stack",
-      "q": "Qual a stack principal?",
-      "a": "React + TypeScript (strict), Vite, React Router, Zustand (persist) para estado global, TanStack Query, Tailwind + shadcn/ui, next-themes para tema, react-helmet-async para SEO, lucide-react e react-icons para ícones; testes com Vitest + Testing Library (jsdom)."
-    },
-    {
-      "id": "aliases",
-      "q": "Quais aliases de path usar?",
-      "a": "Configurados no Vite: '@/*', '@app', '@features', '@shared'. Ex: import { Button } from '@shared/ui/button'."
-    },
-    {
-      "id": "providers",
-      "q": "Como é composta a árvore de providers?",
-      "a": "AppProviders empilha QueryClientProvider, HelmetProvider, AnalyticsProvider, ThemeProvider (next-themes, defaultTheme dark, enableSystem false), TooltipProvider, Toaster (shadcn), Sonner, e BrowserRouter."
-    },
-    {
-      "id": "theme",
-      "q": "Como funciona o tema?",
-      "a": "ThemeProvider de next-themes com attribute='class', defaultTheme='dark', enableSystem=false, sem transição."
-    },
-    {
-      "id": "analytics_provider",
-      "q": "Como a analítica é inicializada?",
-      "a": "AnalyticsProvider chama initGTM e configura consent mode (gtag consent default denied exceto funcional/segurança). Ativa GA4 scripts se consent.analytics_storage='granted', Meta Pixel se consent.ad_storage='granted'. Injeta noscript GTM iframe. Depende de config (ga4Id, gtmId, metaPixelId)."
-    },
-    {
-      "id": "consent_banner",
-      "q": "Como é o fluxo de consentimento?",
-      "a": "ConsentBanner exibe após 2s se localStorage 'm5max-consent' não existir. Botões: Aceitar Todos (granted para todos), Apenas Essenciais (denied para ads/analytics, granted para funcional/segurança) e Personalizar (abre modal para toggles analytics/marketing). Salva no localStorage e chama updateConsent no store."
-    },
-    {
-      "id": "store",
-      "q": "O que guarda o Zustand store?",
-      "a": "attribution, consent (default denied para ads/analytics), flags conversionModalOpen/formModalOpen, currentAudience ('general' default). Actions: setAttribution, updateConsent (merge), open/close modais, setCurrentAudience. Persistência em localStorage key 'm5max-storage' (partial: attribution, consent, currentAudience)."
-    },
-    {
-      "id": "routing",
-      "q": "Quais rotas existem?",
-      "a": "AppRoutes define '/', '/reveillon', '/produtos', e fallback '*'. NotFound loga 404 e oferece link Home."
-    },
-    {
-      "id": "layout_root",
-      "q": "O que compõe o RootLayout?",
-      "a": "Header, main children, Footer, ConversionModal, FormModal, ConsentBanner. Modais usam estado global e currentAudience."
-    },
-    {
-      "id": "shared_layouts",
-      "q": "Quais layouts compartilhados existem?",
-      "a": "Versões desktop e mobile de Header, Footer, FogosM5Complete, Services, FAQ. SectionSeparator aplica separadores animados; LazySection faz lazy render. PlatformSwitch decide desktop/mobile."
-    },
-    {
-      "id": "home_page",
-      "q": "Como a Home é renderizada?",
-      "a": "HomePage faz lazy-load de desktop/mobile e usa PlatformSwitch; fallback com logo pulsando. Desktop Home: Helmet SEO padrão, seções Hero, FogosM5Complete, Services, FAQ com SectionSeparators. Mobile Home semelhante, inclui openFormModal e tracking de WhatsApp; dados de vídeo em homeContent.ts."
-    },
-    {
-      "id": "reveillon_page",
-      "q": "Como a página Réveillon funciona?",
-      "a": "ReveillonPage escolhe desktop/mobile via useIsDesktop lazy. Desktop: Helmet com título 'Shows de Réveillon 2025', seções ReveillonHero, FogosM5Complete, Services, TimelineSection, FAQ + separadores. ReveillonHero tem vídeo BG supabase, CTAs WhatsApp e Orçamento, badges; animação de botões. TimelineSection descreve 4 etapas (Orçamento, Licenças, Logística, Show) com CTAs WhatsApp/Orçamento e scroll para 'empresa'."
-    },
-    {
-      "id": "produtos_page",
-      "q": "Há página de produtos?",
-      "a": "Rota '/produtos' existe; pasta features/produtos com desktop/mobile/pages/data, não detalhada aqui (revisar antes de alterar)."
-    },
-    {
-      "id": "analytics_hook",
-      "q": "Como rastrear eventos?",
-      "a": "useAnalytics inicializa dataLayer, enriquece eventos com attribution (utm/gclid/fbclid) e event_id. Expõe: trackPageView, trackVideoEvent, trackWhatsAppClick, trackFormEvent, trackProductEvent, trackProductInteraction, trackConversionModalOpen, trackScrollDepth. Gera gtag config/Meta Pixel conforme consent e params."
-    },
-    {
-      "id": "attribution",
-      "q": "Como é tratada atribuição?",
-      "a": "useAttribution popula store.attribution com utm/ids; eventos usam esses dados via useAnalytics."
-    },
-    {
-      "id": "whatsapp",
-      "q": "Como funcionam os links de WhatsApp?",
-      "a": "generateWhatsAppURL e getWhatsAppMessage em shared/lib/whatsapp compõem mensagem por audience, incluindo UTM do attribution; usados em CTAs de Hero e Timeline. WhatsApp tracking via trackWhatsAppClick."
-    },
-    {
-      "id": "config_env",
-      "q": "Quais env vars são necessários?",
-      "a": "VITE_* em .env: VITE_GTM_ID, VITE_GA4_ID, VITE_META_PIXEL_ID (ver shared/lib/config). Não commitar segredos."
-    },
-    {
-      "id": "assets_data",
-      "q": "Onde ficam assets/dados?",
-      "a": "Vídeos hero apontam para Supabase storage URLs; outros assets em public/. Dados específicos em shared/data e features/*/data."
-    },
-    {
-      "id": "build_run",
-      "q": "Como rodar e testar?",
-      "a": "npm run dev (5173), build, build:dev, preview, lint, test, test:ui. Vite gera dist/. Vitest jsdom; setup em src/setupTests.ts."
-    },
-    {
-      "id": "styles_ui",
-      "q": "Qual abordagem de UI?",
-      "a": "Tailwind + shadcn/ui (button, card, badge, tooltip, toaster, sonner). Variants utilitárias nos componentes; preferir aliases em imports."
-    },
-    {
-      "id": "seo",
-      "q": "Como SEO é aplicado?",
-      "a": "Cada page desktop/mobile usa Helmet para title/description/keywords; viewport em mobile Home."
-    },
-    {
-      "id": "error_handling",
-      "q": "Existe tratamento de erro de rota?",
-      "a": "NotFound registra no console 404 com pathname e mostra layout simples com link para Home."
-    },
-    {
-      "id": "persistencia",
-      "q": "Quais dados são persistidos no cliente?",
-      "a": "Zustand persist para attribution, consent, currentAudience (localStorage 'm5max-storage'); ConsentBanner persiste consent separado em 'm5max-consent'."
-    },
-    {
-      "id": "modals",
-      "q": "Como abrir modais de conversão?",
-      "a": "useAppStore registra openConversionModal/openFormModal com audience + context; RootLayout monta ConversionModal e FormModal controlados pelo store. CTA handlers nas páginas chamam esses métodos."
-    },
-    {
-      "id": "testing_hotspots",
-      "q": "Onde já há testes?",
-      "a": "PlatformSwitch.test.tsx, Header.test.tsx, useAnalytics.test.ts, useIsDesktop.test.ts. Sem cobertura para modais/consent ainda."
-    },
-    {
-      "id": "design_tokens",
-      "q": "Há temas ou variantes especiais?",
-      "a": "Tema dark; SectionSeparator possui variantes (fire-line, ember-glow, sparkle, gradient-wave, geometric-pattern etc.) usados entre seções."
-    },
-    {
-      "id": "docs_guides",
-      "q": "Quais guias internos seguir?",
-      "a": "Ver AGENTS.md, docs/CONTEXT_ENGINEERING.md, docs/ARCHITECTURE_ATLAS.md, TEST_COVERAGE_ANALYSIS.md para padrões, fatos canônicos e checkpoints."
-    },
-    {
-      "id": "lint_style",
-      "q": "Quais convenções de código?",
-      "a": "Indentação 2 espaços, LF; arquivos de feature em PascalCase.tsx; shared ui em lowercase; ESLint+TS com hooks; unused tratados pelo TS."
-    },
-    {
-      "id": "orcamento_route",
-      "q": "Como está estruturada a página de orçamento do Iate?",
-      "a": "Rota /orcamento-iate-2026 usa PlatformSwitch com lazy desktop/mobile. PDF integrado e disponível para download."
-    },
-    {
-      "id": "orcamento_assets",
-      "q": "Quais são o vídeo e o PDF do orçamento do Iate?",
-      "a": "Vídeo de fundo e simulação usam lGfy9082X7w (YouTube). PDF em ORCAMENTO_IATE_PDF_URL apontando para docs/Orçamento-IateClubedeBrasília-Réveillon26.pdf no GitHub raw."
-    },
-    {
-      "id": "orcamento_layout",
-      "q": "Como está o layout desktop/mobile do orçamento?",
-      "a": "Desktop mantém hero com vídeo de fundo da home, CTAs (simulação, contato, download PDF), seções simulação estilo FogosM5Complete, diferenciais, roadmap, escopo, M5Complete e bloco de orçamento. Mobile segue padrão home/reveillon, hero compacto, simulação, diferenciais, escopo, M5Complete mobile e bloco de orçamento com download."
-    },
-    {
-      "id": "orcamento_bg_fix",
-      "q": "O fundo de vídeo do hero do orçamento funciona?",
-      "a": "Sim, removida lógica de opacidade; vídeo toca sempre (autoplay, muted, loop) com overlay padrão."
-    },
-    {
-      "id": "commits_pr",
-      "q": "Qual padrão de commit/PR?",
-      "a": "Conventional Commits (ex: feat(scope): msg); PRs com descrição, issue, screenshots de UI; garantir lint/test/build ok."
+  "metadata": {
+    "project_name": "M5 Max Produções - Website",
+    "generated_at": "2025-02-12T00:00:00Z",
+    "version": "2.0.0",
+    "generator": "Claude Code - RAG Documentation System",
+    "description": "Complete RAG-optimized system memory for LLMs and development teams",
+    "previous_version": "1.0.0 (Q&A format)",
+    "codebase_stats": {
+      "total_files": 159,
+      "features": 4,
+      "shared_hooks": 8,
+      "ui_components": 46,
+      "test_coverage_percent": 2.5,
+      "tested_files": 7
     }
-  ]
+  },
+
+  "architecture": {
+    "pattern": "bifurcated",
+    "description": "Desktop/Mobile separation at component level with 1024px breakpoint",
+    "breakpoint_px": 1024,
+    "implementation": {
+      "detection_hook": {
+        "name": "useIsDesktop",
+        "file": "src/shared/hooks/useIsDesktop.ts",
+        "line": 3,
+        "media_query": "(min-width: 1024px)"
+      },
+      "platform_switch": {
+        "name": "PlatformSwitch",
+        "file": "src/shared/layout/switchers/PlatformSwitch.tsx",
+        "props": ["desktop", "mobile", "fallback", "breakpoint"]
+      }
+    },
+    "lazy_loading": {
+      "enabled": true,
+      "pattern": "React.lazy() + Suspense",
+      "fallback_component": "PageLoading",
+      "strategy": {
+        "pages": "All page components lazy loaded",
+        "desktop_sections": "LazySection with IntersectionObserver (100px margin)",
+        "mobile_sections": "Immediate loading (no LazySection)"
+      }
+    },
+    "consistency": "4/4 features follow bifurcated pattern"
+  },
+
+  "tech_stack": {
+    "framework": "React",
+    "framework_version": "18.3.1",
+    "language": "TypeScript",
+    "language_version": "5.8.3",
+    "build_tool": "Vite",
+    "build_version": "5.4.19",
+    "compiler": "SWC",
+    "state_management": {
+      "library": "Zustand",
+      "version": "5.0.8",
+      "persistence": "localStorage"
+    },
+    "ui_framework": {
+      "base": "shadcn/ui",
+      "primitives": "Radix UI",
+      "total_components": 46
+    },
+    "styling": {
+      "framework": "Tailwind CSS",
+      "utility": "class-variance-authority (CVA)",
+      "merge": "clsx + tailwind-merge"
+    },
+    "forms": {
+      "library": "React Hook Form",
+      "validation": "Zod",
+      "resolver": "@hookform/resolvers/zod"
+    },
+    "analytics": ["Google Analytics 4", "Meta Pixel (Facebook)", "Google Tag Manager"],
+    "backend": "Supabase",
+    "routing": "React Router DOM",
+    "icons": ["lucide-react", "react-icons"],
+    "media": ["react-youtube"],
+    "testing": {
+      "framework": "Vitest",
+      "coverage": "2.5%"
+    }
+  },
+
+  "features": [
+    {
+      "id": "home",
+      "name": "Home",
+      "route": "/",
+      "description": "Homepage principal com hero, informações da empresa, serviços e FAQ",
+      "category": "general",
+      "files": {
+        "page": "src/features/home/pages/HomePage.tsx",
+        "desktop_container": "src/features/home/desktop/Home.tsx",
+        "mobile_container": "src/features/home/mobile/Home.tsx",
+        "desktop_components": ["src/features/home/desktop/components/Hero.tsx"],
+        "mobile_components": ["src/features/home/mobile/components/Hero.tsx"],
+        "data": ["src/features/home/data/homeContent.ts"],
+        "index": "src/features/home/index.ts"
+      },
+      "sections": ["Hero", "FogosM5Complete", "Services", "FAQ"],
+      "analytics": {
+        "page_title": "M5 Max Produções",
+        "page_category": "general"
+      }
+    },
+    {
+      "id": "reveillon",
+      "name": "Reveillon",
+      "route": "/reveillon",
+      "description": "Página dedicada ao espetáculo de Réveillon 2025",
+      "category": "reveillon",
+      "files": {
+        "page": "src/features/reveillon/pages/ReveillonPage.tsx",
+        "desktop_container": "src/features/reveillon/desktop/Reveillon.tsx",
+        "mobile_container": "src/features/reveillon/mobile/Reveillon.tsx"
+      },
+      "sections": ["ReveillonHero", "TimelineSection", "FogosM5Complete", "Services", "FAQ"]
+    },
+    {
+      "id": "produtos",
+      "name": "Produtos",
+      "route": "/produtos",
+      "description": "Catálogo de produtos (kits de festa, chá revelação) com Supabase",
+      "category": "produtos",
+      "supabase_integration": true
+    },
+    {
+      "id": "orcamento-iate",
+      "name": "Orçamento Iate",
+      "route": "/orcamento-iate-2026",
+      "description": "Página privada de orçamento para Iate Clube de Brasília 2026",
+      "category": "b2b",
+      "meta_robots": "noindex, nofollow"
+    }
+  ],
+
+  "shared": {
+    "hooks": [
+      {
+        "name": "useAnalytics",
+        "file": "src/shared/hooks/useAnalytics.ts",
+        "responsibility": "Complete analytics tracking (GA4, Meta Pixel, GTM)",
+        "total_methods": 14,
+        "key_methods": ["trackPageView", "trackFormEvent", "trackWhatsAppClick", "trackWebVitals", "trackPlatformSwitch", "trackSessionQuality"]
+      },
+      {
+        "name": "useAttribution",
+        "file": "src/shared/hooks/useAttribution.ts",
+        "responsibility": "Capture and store attribution data (UTM + click IDs)"
+      },
+      {
+        "name": "useIsDesktop",
+        "file": "src/shared/hooks/useIsDesktop.ts",
+        "responsibility": "Detect desktop vs mobile (1024px breakpoint)"
+      },
+      {
+        "name": "usePlatformDetection",
+        "file": "src/shared/hooks/usePlatformDetection.ts",
+        "responsibility": "Track desktop ↔ mobile viewport switches",
+        "phase": "FASE 3"
+      },
+      {
+        "name": "useWebVitals",
+        "file": "src/shared/hooks/useWebVitals.ts",
+        "responsibility": "Automatic Core Web Vitals tracking",
+        "phase": "FASE 3",
+        "metrics": ["FCP", "LCP", "CLS", "FID", "TTFB", "INP"]
+      },
+      {
+        "name": "useSupabaseProducts",
+        "file": "src/shared/hooks/useSupabaseProducts.ts",
+        "responsibility": "Load products from Supabase with caching",
+        "cache_ttl_minutes": 5
+      }
+    ],
+
+    "store": {
+      "name": "appStore",
+      "file": "src/shared/store/appStore.ts",
+      "type": "Zustand",
+      "persistence": {
+        "enabled": true,
+        "storage": "localStorage",
+        "key": "m5max-storage",
+        "persisted_fields": ["attribution", "consent", "currentAudience"]
+      },
+      "state_fields": ["attribution", "consent", "conversionModalOpen", "formModalOpen", "currentAudience"]
+    },
+
+    "ui_components": {
+      "total": 46,
+      "library": "shadcn/ui + Radix UI",
+      "tested_count": 1,
+      "categories": ["controls", "layout", "feedback", "navigation", "content", "forms", "media", "custom"]
+    }
+  },
+
+  "integrations": {
+    "analytics": {
+      "platforms": ["Google Analytics 4", "Meta Pixel", "Google Tag Manager"],
+      "events_total": 14,
+      "consent_type": "GDPR",
+      "attribution_captured": ["UTM params", "gclid", "fbclid", "referrer", "landing page"]
+    },
+
+    "supabase": {
+      "tables": ["kit_festa", "kit_cha_revelacao", "tortas"],
+      "cache_enabled": true,
+      "cache_ttl_minutes": 5,
+      "fallback": "Local data if unavailable"
+    },
+
+    "forms": {
+      "library": "React Hook Form + Zod",
+      "schemas": ["B2BFormSchema", "B2CFormSchema"],
+      "lead_scoring": {
+        "B2B_max_points": 165,
+        "B2C_max_points": 155
+      }
+    }
+  },
+
+  "patterns": {
+    "bifurcated_architecture": {
+      "description": "Complete desktop/mobile separation at component level",
+      "breakpoint_px": 1024,
+      "advantages": ["Optimized UX per platform", "Independent development", "Code clarity", "Better performance"]
+    },
+
+    "lazy_loading": {
+      "pattern": "React.lazy() + Suspense",
+      "desktop_sections": "LazySection with IntersectionObserver",
+      "mobile_sections": "Immediate load"
+    },
+
+    "analytics_tracking": {
+      "pattern": "useAnalytics hook",
+      "consent_check": "Before every event",
+      "attribution_enrichment": "Automatic"
+    }
+  },
+
+  "development": {
+    "commands": {
+      "dev": "npm run dev - Vite dev server (localhost:5173)",
+      "build": "npm run build - Production build",
+      "lint": "npm run lint - ESLint",
+      "test": "npm run test - Vitest"
+    },
+
+    "conventions": {
+      "imports": {
+        "intra_feature": "Relative paths",
+        "cross_feature": "Forbidden",
+        "shared": "Aliases @shared/... or @/shared/..."
+      },
+      "naming": {
+        "components": "PascalCase",
+        "hooks": "useXxx",
+        "types": "PascalCase interfaces"
+      }
+    },
+
+    "testing": {
+      "framework": "Vitest",
+      "coverage_percent": 2.5,
+      "priority_gaps": ["Forms", "Hooks", "UI Components", "E2E"]
+    }
+  },
+
+  "quick_reference": {
+    "env_vars_required": ["VITE_GTM_ID", "VITE_GA4_ID", "VITE_META_PIXEL_ID", "VITE_SUPABASE_URL", "VITE_SUPABASE_ANON_KEY"],
+
+    "key_files": {
+      "routing": "src/app/router/AppRoutes.tsx",
+      "state": "src/shared/store/appStore.ts",
+      "analytics": "src/shared/hooks/useAnalytics.ts",
+      "config": "src/shared/lib/config.ts",
+      "vite": "vite.config.ts"
+    },
+
+    "common_tasks": {
+      "add_new_page": "Create in src/features/{feature}/pages/, add route to AppRoutes.tsx",
+      "track_event": "Use useAnalytics() hook, call appropriate track method",
+      "add_ui_component": "Create in src/shared/ui/, follow shadcn/ui patterns",
+      "modify_consent": "Update ConsentBanner.tsx and appStore consent state"
+    }
+  }
 }
