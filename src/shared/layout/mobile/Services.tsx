@@ -1,87 +1,5 @@
-import { Card, CardContent } from '@/shared/ui/card';
-import { YouTubeEmbed } from '@/shared/ui/youtube-embed';
-import { Badge } from '@/shared/ui/badge';
+import { ShowcaseVideoCard } from '@/shared/ui/showcase-video-card';
 import { FaInstagram as Instagram, FaYoutube as YouTube } from 'react-icons/fa';
-
-interface ShowcaseVideoCardProps {
-  youtubeId: string;
-  title: string;
-  description: string;
-  badges: string[];
-  features: string[];
-}
-
-const ShowcaseVideoCard = ({ youtubeId, title, description, badges, features }: ShowcaseVideoCardProps) => {
-
-  return (
-    <div className="relative group animate-fade-in-up h-full" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
-      {/* Mobile showcase decorative particles */}
-      <div className="absolute -inset-1 opacity-15 pointer-events-none">
-        <div className="absolute top-1/4 right-1/4 w-0.5 h-0.5 bg-fire-gold/60 rounded-full animate-ping opacity-40" style={{ animationDelay: '1.5s', animationDuration: '3s' }} />
-        <div className="absolute bottom-1/3 left-1/5 w-1 h-1 bg-fire-orange/50 rounded-full animate-pulse opacity-30" style={{ animationDelay: '2.8s', animationDuration: '2s' }} />
-      </div>
-
-      {/* Enhanced mobile glow effect with fire theme */}
-      <div className="absolute -inset-1 bg-gradient-to-r from-fire-orange/12 via-fire-gold/20 to-fire-orange/12 rounded-xl blur-md opacity-50 group-hover:opacity-80 animate-pulse transition-opacity duration-500" style={{ animationDuration: '4s' }} />
-      
-      <Card className="relative h-full flex flex-col bg-gradient-to-br from-black/70 via-gray-900/50 to-black/70 backdrop-blur-sm border-2 border-fire-orange/25 hover:border-fire-gold/40 overflow-hidden shadow-xl shadow-fire-orange/15 group-hover:shadow-fire-gold/25 transition-all duration-500 hover:transform hover:scale-[1.02]">
-        {/* Enhanced Mobile Video Player Section */}
-        <div className="aspect-video relative overflow-hidden">
-          {/* Video background glow */}
-          <div className="absolute -inset-1 bg-gradient-to-br from-fire-gold/8 via-fire-orange/10 to-fire-gold/8 rounded-t-xl blur opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
-          
-          <div className="relative z-10">
-            <YouTubeEmbed 
-              youtubeId={youtubeId || ""}
-              title={title}
-              className="w-full h-full rounded-t-lg"
-            />
-          </div>
-          
-          {/* Enhanced overlay with mobile badges */}
-          <div className="absolute top-2 left-2 flex flex-wrap gap-1 max-w-[calc(100%-4rem)] pointer-events-none z-20">
-            {badges.map((badge, index) => (
-              <Badge 
-                key={badge} 
-                className="bg-gradient-to-r from-fire-orange/90 to-fire-orange text-white text-xs font-bold shadow-lg backdrop-blur-md px-2 py-1 border border-fire-orange/50 animate-fade-in-up"
-                style={{ animationDelay: `${index * 0.1}s`, animationFillMode: 'both' }}
-              >
-                {badge}
-              </Badge>
-            ))}
-          </div>
-
-          {/* Mobile video enhancement overlay */}
-          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-black/60 via-black/30 to-transparent pointer-events-none z-15" />
-        </div>
-        
-        {/* Compact Mobile Card Content */}
-        <CardContent className="p-3 space-y-2 flex-1 flex flex-col bg-gradient-to-br from-gray-900/40 via-black/50 to-gray-900/40 backdrop-blur-sm border-t border-fire-orange/20">
-          <div className="flex-1">
-            {/* Compact mobile title with fire gradient on hover */}
-            <h3 className="text-sm font-bold text-white mb-2 group-hover:text-fire-gradient transition-all duration-300 leading-tight">
-              {title}
-            </h3>
-            <p className="text-xs text-white/85 leading-relaxed group-hover:text-white/95 transition-colors duration-300">{description}</p>
-          </div>
-          
-          {/* Compact Mobile Features Section */}
-          <div className="flex flex-wrap gap-1 text-xs mt-auto pt-2 border-t border-fire-orange/25 group-hover:border-fire-gold/30 transition-colors duration-300">
-            {features.map((feature, index) => (
-              <span 
-                key={index}
-                className="px-2 py-0.5 bg-gradient-to-r from-fire-orange/20 to-fire-gold/15 text-fire-orange hover:text-fire-gold rounded-full text-xs font-medium border border-fire-orange/40 hover:border-fire-gold/50 backdrop-blur-sm transition-all duration-300 group-hover:shadow-sm group-hover:shadow-fire-orange/20 animate-fade-in-up"
-                style={{ animationDelay: `${0.3 + (index * 0.1)}s`, animationFillMode: 'both' }}
-              >
-                {feature}
-              </span>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
-};
 
 
 const Services = () => {
@@ -140,10 +58,11 @@ const Services = () => {
           </div>
 
           <div className="grid grid-cols-1 gap-8 mb-12 items-stretch relative z-10">
-            
+
             {/* Enhanced Réveillon Video Card */}
             <div className="relative animate-fade-in-up" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
-              <ShowcaseVideoCard 
+              <ShowcaseVideoCard
+                variant="mobile"
                 youtubeId="xUPt4tZIM-s"
                 title="Réveillon 2025 no Iate Clube de Brasília"
                 description="Show pirotécnico espetacular para celebrar a virada do ano com sincronização perfeita e efeitos únicos que iluminaram Brasília"
@@ -151,10 +70,11 @@ const Services = () => {
                 features={["Sincronização Multi-Ponto", "Efeitos Premium", "Segurança Total"]}
               />
             </div>
-            
+
             {/* Enhanced Festa do Mimosa Video Card */}
             <div className="relative animate-fade-in-up" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
-              <ShowcaseVideoCard 
+              <ShowcaseVideoCard
+                variant="mobile"
                 youtubeId="AY1CF0LRKUw"
                 title="Show Pirotécnico Espetacular | Festa do Mimosa 2025"
                 description="Espetáculo completo com queima coordenada e efeitos especiais que marcaram a celebração e encantaram todos os presentes"

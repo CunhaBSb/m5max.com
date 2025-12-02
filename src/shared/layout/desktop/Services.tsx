@@ -1,67 +1,10 @@
-import { Card, CardContent } from '@/shared/ui/card';
 import { Button } from '@/shared/ui/button';
-import { YouTubeEmbed } from '@/shared/ui/youtube-embed';
-import { Badge } from '@/shared/ui/badge';
+import { ShowcaseVideoCard } from '@/shared/ui/showcase-video-card';
 import { Sparkles, TrendingUp } from 'lucide-react';
 import { FaWhatsapp as WhatsApp, FaInstagram as Instagram, FaYoutube as YouTube } from 'react-icons/fa';
 import { useAnalytics } from '@/shared/hooks/useAnalytics';
 import { useAppStore } from '@/shared/store/appStore';
 import { generateWhatsAppURL, getWhatsAppMessage } from '@/shared/lib/whatsapp';
-
-interface ShowcaseVideoCardProps {
-  youtubeId: string;
-  title: string;
-  description: string;
-  badges: string[];
-}
-
-const ShowcaseVideoCard = ({ youtubeId, title, description, badges }: ShowcaseVideoCardProps) => {
-  // Limit badges to 3 maximum for cleaner design
-  const displayBadges = badges.slice(0, 3);
-  
-  return (
-    <Card className="h-full flex flex-col bg-black/30 hover:bg-black/40 backdrop-blur-sm border border-white/10 hover:border-fire-orange/30 overflow-hidden shadow-lg group hover:shadow-fire-orange/10 transition-all duration-300">
-      {/* Video Thumbnail with YouTube Watermark */}
-      <div className="aspect-video relative overflow-hidden rounded-t-lg">
-        <YouTubeEmbed 
-          youtubeId={youtubeId}
-          title={title}
-          className="w-full h-full"
-        />
-        {/* Discrete YouTube Watermark */}
-        <div className="absolute bottom-2 right-2 bg-black/60 backdrop-blur-sm rounded px-2 py-1 flex items-center gap-1.5">
-          <YouTube className="w-3 h-3 text-red-500" />
-          <span className="text-xs text-white/80 font-medium">YouTube</span>
-        </div>
-      </div>
-      
-      {/* Card Content - Reduced padding */}
-      <CardContent className="p-4 space-y-3 flex-1 flex flex-col">
-        {/* Badges moved to top */}
-        <div className="flex flex-wrap gap-1.5">
-          {displayBadges.map(badge => (
-            <Badge 
-              key={badge} 
-              className="bg-white/10 hover:bg-fire-orange/20 text-white hover:text-fire-orange text-xs px-2 py-0.5 font-medium border border-white/20 transition-colors duration-200"
-            >
-              {badge}
-            </Badge>
-          ))}
-        </div>
-        
-        {/* Content with better hierarchy */}
-        <div className="flex-1 space-y-2">
-          <h3 className="text-lg font-bold text-white leading-tight group-hover:text-fire-orange transition-colors duration-200">
-            {title}
-          </h3>
-          <p className="text-sm text-white/70 leading-relaxed line-clamp-3">
-            {description}
-          </p>
-        </div>
-      </CardContent>
-    </Card>
-  );
-};
 
 const Services = () => {
   const { openConversionModal } = useAppStore();
@@ -180,14 +123,16 @@ const Services = () => {
 
         {/* Content Grid - Optimized spacing */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-          <ShowcaseVideoCard 
+          <ShowcaseVideoCard
+            variant="desktop"
             youtubeId="xUPt4tZIM-s"
             title="Réveillon 2025 no Iate Clube de Brasília"
             description="Show pirotécnico espetacular para celebrar a virada do ano com sincronização perfeita e efeitos únicos"
             badges={["Réveillon", "Corporativo", "Sincronizado"]}
           />
-          
-          <ShowcaseVideoCard 
+
+          <ShowcaseVideoCard
+            variant="desktop"
             youtubeId="AY1CF0LRKUw"
             title="Show Pirotécnico Espetacular | Festa do Mimosa 2025"
             description="Espetáculo completo com queima coordenada e efeitos especiais que marcaram a celebração"
