@@ -29,6 +29,7 @@ dist-ssr
 !.vscode/extensions.json
 # Exception: RAG documentation system
 !docs/memory.json
+!docs/MEMORY_MAINTENANCE.md
 .idea
 .DS_Store
 *.suo
