@@ -25,9 +25,9 @@ dist-ssr
 
 # Editor directories and files
 .vscode/*
-/docs
 !.vscode/extensions.json
-# Exception: RAG documentation system
+# Docs directory (auto-generated content ignored, RAG docs allowed)
+/docs/*
 !docs/memory.json
 !docs/MEMORY_MAINTENANCE.md
 .idea
