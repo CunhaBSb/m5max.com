@@ -15,6 +15,7 @@ import { Card, CardContent } from '@/shared/ui/card';
 import { Badge } from '@/shared/ui/badge';
 import { Loader2, MessageCircle, AlertCircle, CheckCircle2, Send, ArrowRight, ArrowLeft, Sparkles } from 'lucide-react';
 import { supabase, isSupabaseConfigured } from '@/shared/lib/supabase';
+import type { PostgrestError } from '@supabase/supabase-js';
 import { generateWhatsAppURL, getWhatsAppMessage } from '@/shared/lib/whatsapp';
 
 interface FormModalContentProps {
@@ -77,13 +78,15 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
-      eventType: context?.eventType as any || '',
+      eventType: (context?.eventType as z.infer<typeof schema>['eventType'] | undefined) || '',
       eventDate: '',
       audienceSize: mapAttendeesRange(initialData?.attendeesRange),
       budget: mapBudgetRange(initialData?.budgetRange),
       noiseRestrictions: false,
     }
   });
+
+  type FormFieldName = keyof z.infer<typeof schema>;
 
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -150,7 +153,7 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
       setErrorMessage(`Erro ao enviar: ${error.message ?? 'tente novamente ou use WhatsApp.'}`);
       trackEvent('budget_triage_supabase_error', {
         reason: error.message,
-        code: (error as any)?.code,
+        code: (error as PostgrestError | null)?.code,
       });
       return;
     }
@@ -387,8 +390,10 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
 
               {step < 3 ? (
                 <Button type="button" onClick={() => {
-                  const fields = step === 1 ? ['name','email','phone'] : ['city','eventType','audienceSize','budget','eventDate'];
-                  form.trigger(fields as any).then((ok) => {
+                  const fields: FormFieldName[] = step === 1
+                    ? ['name','email','phone']
+                    : ['city','eventType','audienceSize','budget','eventDate'];
+                  form.trigger(fields).then((ok) => {
                     if (ok) nextStep();
                   });
                 }} className="w-full sm:w-auto">

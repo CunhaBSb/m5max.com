@@ -5,7 +5,7 @@ const SUPABASE_ROUTE = '**/rest/v1/lead_submissions';
 // E2E do fluxo de Orçamento até a chamada ao Supabase
 // Usa interceptação para validar payload e header Prefer (return=minimal)
 test('fluxo de orçamento envia lead para Supabase com return=minimal', async ({ page }) => {
-  const captured: any[] = [];
+  const captured: { body: Record<string, unknown>; headers: Record<string, string> }[] = [];
 
   await page.route(SUPABASE_ROUTE, async (route) => {
     const request = route.request();

@@ -16,6 +16,7 @@ import { Card, CardContent } from '@/shared/ui/card';
 import { Badge } from '@/shared/ui/badge';
 import { Loader2, MessageCircle, AlertCircle, CheckCircle2, Send, ArrowRight, ArrowLeft, Sparkles } from 'lucide-react';
 import { supabase, isSupabaseConfigured } from '@/shared/lib/supabase';
+import type { PostgrestError } from '@supabase/supabase-js';
 import { generateWhatsAppURL, getWhatsAppMessage } from '@/shared/lib/whatsapp';
 
 interface FormModalProps {
@@ -57,6 +58,8 @@ const FormModal: React.FC<FormModalProps> = ({
     message: z.string().optional(),
   });
 
+  type FormFieldName = keyof z.infer<typeof schema>;
+
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -91,7 +94,7 @@ const FormModal: React.FC<FormModalProps> = ({
         message: '',
       });
     }
-  }, [isOpen]);
+  }, [isOpen, form, reveillonDate]);
 
   const whatsappUrl = useMemo(() => {
     const message = getWhatsAppMessage('b2b', {
@@ -100,7 +103,7 @@ const FormModal: React.FC<FormModalProps> = ({
       eventDate: form.getValues('eventDate') || reveillonDate,
     });
     return generateWhatsAppURL(message, attribution?.utm, { audience: 'b2b', source });
-  }, [attribution?.utm, source, form]);
+  }, [attribution?.utm, source, form, reveillonDate]);
 
   const inferProfile = (values: Partial<z.infer<typeof schema>>) => {
     const { eventType, audienceSize, budget } = values;
@@ -165,7 +168,7 @@ const FormModal: React.FC<FormModalProps> = ({
       setErrorMessage(`Erro ao enviar: ${error.message ?? 'tente novamente ou use WhatsApp.'}`);
       trackEvent('budget_triage_supabase_error', {
         reason: error.message,
-        code: (error as any)?.code,
+        code: (error as PostgrestError | null)?.code,
       });
       return;
     }
@@ -403,8 +406,10 @@ const FormModal: React.FC<FormModalProps> = ({
                     {step < 3 ? (
                         <Button type="button" onClick={() => {
                           // validate current step fields before advancing
-                          const fields = step === 1 ? ['name','email','phone'] : ['city','eventType','audienceSize','budget','eventDate'];
-                          form.trigger(fields as any).then((ok) => {
+                          const fields: FormFieldName[] = step === 1
+                            ? ['name','email','phone']
+                            : ['city','eventType','audienceSize','budget','eventDate'];
+                          form.trigger(fields).then((ok) => {
                             if (ok) nextStep();
                           });
                         }} className="w-full sm:w-auto">
