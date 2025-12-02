@@ -4,3 +4,7 @@ export { useIsDesktop } from './useIsDesktop';
 export { useMedia } from './useMedia';
 export { useSupabaseProducts } from './useSupabaseProducts';
 export { useToast } from './useToast';
+
+// FASE 3: Otimizações de Analytics
+export { useWebVitals } from './useWebVitals';
+export { usePlatformDetection } from './usePlatformDetection';

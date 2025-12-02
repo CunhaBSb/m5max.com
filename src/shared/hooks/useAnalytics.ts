@@ -373,6 +373,141 @@ export const useAnalytics = () => {
     });
   };
 
+  // FASE 3: OTIMIZAÇÕES
+
+  /**
+   * Platform Detection - Rastreia mudanças entre desktop/mobile
+   */
+  const trackPlatformSwitch = (from: 'desktop' | 'mobile', to: 'desktop' | 'mobile') => {
+    pushToDataLayer({
+      event: 'platform_switch',
+      page_category: 'engagement',
+      page_slug: window.location.pathname,
+      page_title: document.title,
+      content_name: 'platform_detection',
+      content_category: 'ux',
+      from_platform: from,
+      to_platform: to,
+      viewport_width: window.innerWidth,
+      viewport_height: window.innerHeight
+    });
+
+    // GA4 custom event
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'platform_switch', {
+        from_platform: from,
+        to_platform: to,
+        viewport_size: `${window.innerWidth}x${window.innerHeight}`
+      });
+    }
+  };
+
+  /**
+   * Core Web Vitals - Rastreia métricas de performance
+   */
+  const trackWebVitals = (metric: {
+    name: 'FCP' | 'LCP' | 'CLS' | 'FID' | 'TTFB' | 'INP';
+    value: number;
+    rating: 'good' | 'needs-improvement' | 'poor';
+    delta?: number;
+  }) => {
+    pushToDataLayer({
+      event: 'web_vitals',
+      page_category: 'performance',
+      page_slug: window.location.pathname,
+      page_title: document.title,
+      content_name: metric.name,
+      content_category: 'core_web_vitals',
+      metric_name: metric.name,
+      metric_value: metric.value,
+      metric_rating: metric.rating,
+      metric_delta: metric.delta || 0
+    });
+
+    // GA4 web vitals
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'web_vitals', {
+        event_category: 'Web Vitals',
+        event_label: metric.name,
+        value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
+        metric_rating: metric.rating,
+        non_interaction: true
+      });
+    }
+  };
+
+  /**
+   * Session Quality - Calcula e rastreia score de engajamento
+   */
+  const trackSessionQuality = (metrics: {
+    timeOnPage: number;      // em segundos
+    scrollDepth: number;      // 0-100%
+    interactionCount: number; // cliques, scrolls, etc
+    pagesViewed: number;
+  }) => {
+    // Algoritmo de scoring (max 100 pontos)
+    const calculateScore = () => {
+      let score = 0;
+
+      // Tempo na página (max 40 pontos)
+      // 10 pontos por minuto, max 4 minutos
+      score += Math.min((metrics.timeOnPage / 60) * 10, 40);
+
+      // Profundidade de scroll (max 30 pontos)
+      score += (metrics.scrollDepth / 100) * 30;
+
+      // Interações (max 20 pontos)
+      // 5 pontos por interação, max 4 interações
+      score += Math.min(metrics.interactionCount * 5, 20);
+
+      // Páginas visitadas (max 10 pontos)
+      // 2 pontos por página, max 5 páginas
+      score += Math.min(metrics.pagesViewed * 2, 10);
+
+      return Math.round(score);
+    };
+
+    const engagementScore = calculateScore();
+    const engagementLevel =
+      engagementScore >= 70 ? 'high' :
+      engagementScore >= 40 ? 'medium' : 'low';
+
+    pushToDataLayer({
+      event: 'session_quality',
+      page_category: 'engagement',
+      page_slug: window.location.pathname,
+      page_title: document.title,
+      content_name: 'session_metrics',
+      content_category: 'quality',
+      time_on_page: metrics.timeOnPage,
+      scroll_depth: metrics.scrollDepth,
+      interaction_count: metrics.interactionCount,
+      pages_viewed: metrics.pagesViewed,
+      engagement_score: engagementScore,
+      engagement_level: engagementLevel
+    });
+
+    // GA4 engagement event
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'session_quality', {
+        engagement_score: engagementScore,
+        engagement_level: engagementLevel,
+        time_on_page: metrics.timeOnPage,
+        scroll_depth: metrics.scrollDepth,
+        interaction_count: metrics.interactionCount,
+        pages_viewed: metrics.pagesViewed
+      });
+    }
+
+    // Meta Pixel custom event
+    if (typeof window !== 'undefined' && window.fbq) {
+      window.fbq('trackCustom', 'SessionQuality', {
+        engagement_score: engagementScore,
+        engagement_level: engagementLevel
+      });
+    }
+  };
+
   return {
     trackPageView,
     trackVideoEvent,
@@ -385,6 +520,10 @@ export const useAnalytics = () => {
     trackProductInteraction,
     trackQuoteRequest,
     trackCategorySwitch,
-    trackEvent
+    trackEvent,
+    // FASE 3: Otimizações
+    trackPlatformSwitch,
+    trackWebVitals,
+    trackSessionQuality
   };
 };
