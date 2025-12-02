@@ -23,7 +23,6 @@ const ReveillonHero = () => {
 
     openFormModal({
       source: 'hero',
-      audience: 'b2b',
       page: 'reveillon',
     });
   }, [openFormModal, trackEvent]);

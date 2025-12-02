@@ -30,11 +30,8 @@ const ProductSelector = () => {
   };
 
   const handleProductQuote = (produto: ProdutoUnificado) => {
-    const audience = selectedCategory === 'kit_festa' ? 'b2b' : 'b2c';
-    
     openFormModal({
       source: 'product_selector_mobile',
-      audience,
       page: 'produtos',
       productId: produto.id
     });
@@ -235,7 +232,6 @@ const ProductSelector = () => {
             <Button
               onClick={() => openFormModal({
                 source: 'custom_request_mobile',
-                audience: 'b2c',
                 page: 'produtos'
               })}
               variant="outline"

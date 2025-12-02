@@ -18,7 +18,6 @@ const Hero = () => {
   const handleOrçamentoClick = useCallback(() => {
     openFormModal({
       source: 'hero_mobile',
-      audience: 'general',
       page: 'home'
     });
   }, [openFormModal]);

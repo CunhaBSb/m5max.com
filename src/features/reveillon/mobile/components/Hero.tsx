@@ -23,7 +23,6 @@ const Hero = () => {
 
     openFormModal({
       source: 'hero_mobile',
-      audience: 'b2b',
       page: 'reveillon',
     });
   }, [openFormModal, trackEvent]);

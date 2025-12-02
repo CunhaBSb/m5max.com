@@ -17,7 +17,26 @@ export interface TrackingProps {
   };
 }
 
-export type AudienceType = 'b2b' | 'general';
+// Tipo de audiência (específico)
+export type AudienceType =
+  | 'b2b-corporate'     // Eventos corporativos grandes (500+ pessoas, 50k+)
+  | 'b2c-personal'      // Eventos pessoais/familiares (até 200 pessoas, até 30k)
+  | 'b2b-specialized'   // Clientes especiais/privados (Iate Clube, projetos customizados)
+  | 'general';          // Não classificado ainda
+
+// Categoria de audiência (agregada para analytics)
+export type AudienceCategory = 'b2b' | 'b2c' | 'general';
+
+// Helper function para converter AudienceType em AudienceCategory
+export function getAudienceCategory(audienceType: AudienceType): AudienceCategory {
+  if (audienceType === 'b2b-corporate' || audienceType === 'b2b-specialized') {
+    return 'b2b';
+  }
+  if (audienceType === 'b2c-personal') {
+    return 'b2c';
+  }
+  return 'general';
+}
 
 export type ConversionSource = 'header' | 'hero' | 'cta' | 'exit-intent' | 'floating' | 'footer';
 

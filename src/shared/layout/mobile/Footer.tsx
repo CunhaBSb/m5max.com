@@ -68,7 +68,6 @@ export const FooterMobile = () => {
               className="w-full max-w-xs h-10 font-medium text-sm"
               onClick={() => openFormModal({
                 source: 'footer_mobile',
-                audience: 'general',
                 page: 'home'
               })}
             >

@@ -13,7 +13,6 @@ const TimelineSection = () => {
   const handleOrçamentoClick = () => {
     openFormModal({
       source: 'reveillon_timeline',
-      audience: 'general',
       page: 'reveillon'
     });
   };

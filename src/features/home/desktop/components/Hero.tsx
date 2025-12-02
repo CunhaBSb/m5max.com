@@ -18,7 +18,6 @@ const Hero = () => {
   const handleOrçamentoClick = useCallback(() => {
     openFormModal({
       source: 'hero',
-      audience: 'general',
       page: 'home'
     });
   }, [openFormModal]);
@@ -195,6 +194,7 @@ const Hero = () => {
                   variant="ghost"
                   className="flex-1 h-12 bg-gradient-to-r from-blue-600/20 via-blue-500/30 to-blue-600/20 border border-blue-500/50 text-white hover:from-blue-500/30 hover:via-blue-400/40 hover:to-blue-500/30 hover:border-blue-400/70 backdrop-blur-md transition-all duration-300 group relative overflow-hidden shadow-md shadow-blue-500/20"
                   onClick={handleOrçamentoClick}
+                  data-testid="cta-orcamento"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-400/10 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700" />
                   <Calendar className="w-4 h-4 mr-2" />

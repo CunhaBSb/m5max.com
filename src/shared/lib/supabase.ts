@@ -27,8 +27,34 @@ interface Database {
         Insert: Omit<Torta, 'id' | 'created_at' | 'updated_at'>;
         Update: Partial<Omit<Torta, 'id' | 'created_at' | 'updated_at'>>;
       };
+      lead_submissions: {
+        Row: LeadSubmission;
+        Insert: Omit<LeadSubmission, 'id' | 'created_at' | 'updated_at'>;
+        Update: Partial<Omit<LeadSubmission, 'id' | 'created_at' | 'updated_at'>>;
+      };
     };
   };
+}
+
+export interface LeadSubmission {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+  city?: string;
+  event_type?: string;
+  event_date?: string;
+  audience_size?: string;
+  budget?: string;
+  noise_restrictions?: boolean;
+  audience?: string;
+  audience_profile?: string;
+  source?: string;
+  page?: string;
+  lead_score?: number;
+  message?: string | null;
+  created_at?: string;
+  updated_at?: string;
 }
 
 // Variáveis de ambiente
@@ -89,21 +115,22 @@ export const createSupabaseClient = (): SupabaseClient<Database> => {
  */
 const createMockSupabaseClient = (): SupabaseClient<Database> => {
   console.warn('Supabase: Usando cliente mock para desenvolvimento');
-  
-  const mockQuery = {
-    select: () => mockQuery,
-    eq: () => mockQuery,
-    neq: () => mockQuery,
-    gt: () => mockQuery,
-    gte: () => mockQuery,
-    lt: () => mockQuery,
-    lte: () => mockQuery,
-    like: () => mockQuery,
-    ilike: () => mockQuery,
-    in: () => mockQuery,
-    order: () => mockQuery,
-    limit: () => mockQuery,
+
+  const createMockQuery = () => ({
+    select: () => createMockQuery(),
+    eq: () => createMockQuery(),
+    neq: () => createMockQuery(),
+    gt: () => createMockQuery(),
+    gte: () => createMockQuery(),
+    lt: () => createMockQuery(),
+    lte: () => createMockQuery(),
+    like: () => createMockQuery(),
+    ilike: () => createMockQuery(),
+    in: () => createMockQuery(),
+    order: () => createMockQuery(),
+    limit: () => createMockQuery(),
     single: () => Promise.resolve({ data: null, error: { message: 'Mock: No data available' } }),
+    insert: async () => ({ data: null, error: null }),
     then: (resolve: (value: { data: unknown[]; error: unknown }) => void) => {
       setTimeout(() => {
         resolve({ 
@@ -113,10 +140,10 @@ const createMockSupabaseClient = (): SupabaseClient<Database> => {
       }, 100);
       return Promise.resolve();
     }
-  };
+  });
 
   return {
-    from: () => mockQuery,
+    from: () => createMockQuery(),
     auth: {
       getSession: () => Promise.resolve({ data: { session: null }, error: null }),
       signInAnonymously: () => Promise.resolve({ data: { user: null, session: null }, error: null }),

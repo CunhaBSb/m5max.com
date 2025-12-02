@@ -16,11 +16,8 @@ const PricingSection = () => {
   const { data: kitsCha } = useKitsChaRevelacao({ fallbackToLocal: false });
 
   const handleQuoteRequest = () => {
-    const audience = selectedCategory === 'kit_festa' ? 'b2b' : 'b2c';
-    
     openFormModal({
       source: 'pricing_section_mobile',
-      audience,
       page: 'produtos',
       productId: undefined
     });

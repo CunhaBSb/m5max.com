@@ -14,7 +14,6 @@ export const FooterDesktop = () => {
   const handleOrçamentoClick = () => {
     openFormModal({
       source: 'footer',
-      audience: 'general',
       page: 'home'
     });
   };

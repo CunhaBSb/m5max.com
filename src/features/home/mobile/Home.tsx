@@ -25,7 +25,6 @@ const HomeMobile = () => {
   const handleOrçamentoClick = () => {
     openFormModal({
       source: 'hero_mobile',
-      audience: 'b2b',
       page: 'home',
     });
   };

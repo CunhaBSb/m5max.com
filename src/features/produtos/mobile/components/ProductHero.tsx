@@ -17,7 +17,6 @@ const ProductHero = () => {
   const handleOrçamentoClick = useCallback(() => {
     openFormModal({
       source: 'hero_mobile',
-      audience: 'b2c',
       page: 'produtos',
     });
   }, [openFormModal]);

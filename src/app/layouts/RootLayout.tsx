@@ -2,9 +2,10 @@ import { ReactNode } from "react";
 import Header from "@/shared/layout/Header";
 import Footer from "@/shared/layout/Footer";
 import ConversionModal from "@/shared/modal/ConversionModal";
-import FormModal from "@/shared/modal/FormModal";
+import BudgetRequestFlow from "@/shared/modal/BudgetRequestFlow";
 import ConsentBanner from "@/app/providers/analytics/ConsentBanner";
 import { useAppStore } from "@/shared/store/appStore";
+import { useAudienceDetection } from "@/shared/hooks";
 import config from '@/shared/lib/config';
 
 interface RootLayoutProps {
@@ -12,13 +13,16 @@ interface RootLayoutProps {
 }
 
 const RootLayout = ({ children }: RootLayoutProps) => {
-  const { 
-    conversionModalOpen, 
-    closeConversionModal, 
-    formModalOpen, 
-    closeFormModal, 
-    currentAudience 
+  const {
+    conversionModalOpen,
+    closeConversionModal,
+    formModalOpen,
+    closeFormModal,
+    currentAudience
   } = useAppStore();
+
+  // Inicializar detecção automática de audiência
+  useAudienceDetection();
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -46,10 +50,9 @@ const RootLayout = ({ children }: RootLayoutProps) => {
         source="modal"
       />
       
-      <FormModal
+      <BudgetRequestFlow
         isOpen={formModalOpen}
         onClose={closeFormModal}
-        audience={currentAudience}
         source="form_modal"
       />
       

@@ -12,6 +12,7 @@ import { useAppStore } from '@/shared/store/appStore';
 import { generateWhatsAppURL, getWhatsAppMessage } from '@/shared/lib/whatsapp';
 import { Shield, DownloadCloud, MessageSquare, Sparkles, CheckCircle2, Clock3, FileCheck, Zap, Play } from 'lucide-react';
 import { ORCAMENTO_IATE_PDF_URL, ORCAMENTO_IATE_VIDEO_ID, ORCAMENTO_IATE_BG_VIDEO } from '../data/constants';
+import BudgetTriage from '../components/BudgetTriage';
 import { useEffect, useMemo, useState } from 'react';
 
 const OrcamentoIateMobile = () => {
@@ -129,6 +130,12 @@ const OrcamentoIateMobile = () => {
           </section>
 
           {/* Simulação */}
+          <SectionSeparator variant="fire-line" spacing="md" />
+
+          <div className="px-4">
+            <BudgetTriage variant="mobile" source="orcamento_iate_2026_mobile" />
+          </div>
+
           <SectionSeparator variant="fire-line" spacing="md" />
           <section id="simulacao-section" className="px-4 py-10 space-y-4">
             <div className="text-center space-y-2">

@@ -88,9 +88,9 @@ const UnifiedProductCatalog = ({
     });
   }, [openFormModal, trackEvent]);
 
-  const handleQuickQuote = useCallback((audience: 'b2b' | 'b2c' = 'b2b') => {
-    openFormModal({ source: 'unified_catalog_quick', audience, page: 'produtos' });
-    trackEvent('quick_quote_click', { audience });
+  const handleQuickQuote = useCallback(() => {
+    openFormModal({ source: 'unified_catalog_quick', page: 'produtos' });
+    trackEvent('quick_quote_click');
   }, [openFormModal, trackEvent]);
 
   const handleQuickView = useCallback((produto: ProdutoUnificado) => {
@@ -363,7 +363,7 @@ const UnifiedProductCatalog = ({
           <div className="bg-card backdrop-blur-md rounded-3xl p-8 lg:p-12 border border-fire-orange/30 shadow-elegant">
             <h3 className="text-2xl lg:text-3xl font-bold text-foreground mb-4">Pronto para um orçamento?</h3>
             <p className="text-muted-foreground mb-8 max-w-2xl mx-auto text-lg leading-relaxed">Conte-nos sobre seu evento e enviaremos um orçamento sob medida.</p>
-            <Button onClick={() => openFormModal({ source: 'unified_catalog_footer', audience: 'b2b', page: 'produtos' })} variant="fire" size="lg" className="shadow-fire hover:scale-105 transition-bounce">
+            <Button onClick={() => openFormModal({ source: 'unified_catalog_footer', page: 'produtos' })} variant="fire" size="lg" className="shadow-fire hover:scale-105 transition-bounce">
               Solicitar Orçamento
             </Button>
           </div>

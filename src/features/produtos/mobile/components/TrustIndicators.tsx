@@ -45,7 +45,7 @@ const TrustIndicators = () => {
   const { trackEvent } = useAnalytics();
 
   const handleQuickQuote = () => {
-    openFormModal({ source: 'trust_indicators_mobile', audience: 'b2c', page: 'produtos' });
+    openFormModal({ source: 'trust_indicators_mobile', page: 'produtos' });
     trackEvent('quick_quote_click', { location: 'trust_indicators_mobile' });
   };
 

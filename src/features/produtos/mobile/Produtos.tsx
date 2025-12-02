@@ -26,7 +26,6 @@ const ProdutosMobile = () => {
   const handleOrçamentoClick = () => {
     openFormModal({
       source: 'produtos_mobile',
-      audience: 'b2c',
       page: 'produtos',
     });
   };

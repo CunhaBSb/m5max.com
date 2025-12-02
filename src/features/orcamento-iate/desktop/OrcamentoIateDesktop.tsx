@@ -14,6 +14,7 @@ import { generateWhatsAppURL, getWhatsAppMessage } from '@/shared/lib/whatsapp';
 import { Shield, DownloadCloud, MessageSquare, Sparkles, CheckCircle2, Clock3, FileCheck, Zap, Play, Award } from 'lucide-react';
 import { heroContent as homeHeroContent } from '@/features/home/data/homeContent';
 import { ORCAMENTO_IATE_PDF_URL, ORCAMENTO_IATE_VIDEO_ID } from '../data/constants';
+import BudgetTriage from '../components/BudgetTriage';
 
 const OrcamentoIateDesktop = () => {
   const { trackPageView, trackWhatsAppClick } = useAnalytics();
@@ -202,6 +203,11 @@ const OrcamentoIateDesktop = () => {
 
           {/* Seção de simulação inspirada em FogosM5Complete */}
           <SectionSeparator variant="fire-line" spacing="md" />
+          <section className="container mx-auto px-6 max-w-5xl py-8">
+            <BudgetTriage variant="desktop" source="orcamento_iate_2026" />
+          </section>
+
+          <SectionSeparator variant="ember-glow" spacing="md" />
           <section id="simulacao-section" className="relative py-12 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-b from-background via-slate-900/15 to-background" />
             <div className="absolute inset-0 bg-gradient-to-br from-fire-orange/12 via-fire-gold/8 to-fire-orange/6" />
