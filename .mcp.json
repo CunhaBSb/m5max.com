@@ -31,13 +31,25 @@
       "env": {}
     },
     "memory": {
-      "command": "npx",
+      "command": "node",
       "args": [
-        "-y",
-        "@modelcontextprotocol/server-memory"
+        "/home/cunha/.npm/_npx/15b07286cbcc3329/node_modules/@modelcontextprotocol/server-memory/dist/index.js"
       ],
       "env": {
-        "MEMORY_FILE_PATH": "/home/cunha/.mcp/memory.json"
+        "MEMORY_FILE_PATH": "/home/cunha/m5max/docs/memory.jsonl",
+        "NPM_CONFIG_CACHE": "/home/cunha/m5max/.npm-cache",
+        "NODE_PATH": "/home/cunha/.npm/_npx/15b07286cbcc3329/node_modules"
+      }
+    },
+    "Memory": {
+      "command": "node",
+      "args": [
+        "/home/cunha/.npm/_npx/15b07286cbcc3329/node_modules/@modelcontextprotocol/server-memory/dist/index.js"
+      ],
+      "env": {
+        "MEMORY_FILE_PATH": "/home/cunha/m5max/docs/memory.jsonl",
+        "NPM_CONFIG_CACHE": "/home/cunha/m5max/.npm-cache",
+        "NODE_PATH": "/home/cunha/.npm/_npx/15b07286cbcc3329/node_modules"
       }
     },
     "playwright": {

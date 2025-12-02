@@ -91,12 +91,10 @@ const Produtos = () => {
 
           <SectionSeparator variant="fire-line" spacing="lg" />
           
-          {/* Empresa Section */}
-          <LazySection>
-            <div id="empresa">
-              <FogosM5Complete />
-            </div>
-          </LazySection>
+          {/* Expertise section must render immediately for the CTA anchor */}
+          <div id="empresa">
+            <FogosM5Complete />
+          </div>
 
           <SectionSeparator variant="ember-glow" spacing="md" />
 

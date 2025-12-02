@@ -35,11 +35,10 @@ const ReveillonDesktop = () => {
 
           <SectionSeparator variant="fire-line" spacing="lg" />
 
-          <LazySection>
-            <div id="empresa">
-              <FogosM5Complete />
-            </div>
-          </LazySection>
+          {/* Expertise section must be present immediately for the CTA anchor */}
+          <div id="empresa">
+            <FogosM5Complete />
+          </div>
 
           <SectionSeparator variant="ember-glow" spacing="md" />
 
