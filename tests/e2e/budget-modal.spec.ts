@@ -18,16 +18,60 @@ test('fluxo de orçamento envia lead para Supabase com return=minimal', async ({
   });
 
   await page.goto('/');
+  await page.waitForLoadState('networkidle');
 
-  await page.getByTestId('cta-orcamento').click();
+  // Espera hydration mínima; tenta múltiplos CTAs e loga HTML se falhar
+  await page.waitForFunction(() => {
+    return !!document.querySelector('[data-testid="cta-orcamento"]') ||
+           !!document.querySelector('header');
+  }, { timeout: 30000 });
+
+  const ctaSelectors = [
+    '[data-testid="cta-orcamento"]',
+    'text=Orçamento Gratuito',
+    'text=Orçamento'
+  ];
+
+  let clicked = false;
+  const clickFirstVisible = async () => {
+    for (const selector of ctaSelectors) {
+      const locator = page.locator(selector).first();
+      const count = await locator.count();
+      if (count > 0) {
+        const visible = await locator.first().isVisible();
+        if (visible) {
+          await locator.first().click({ timeout: 10000 });
+          return true;
+        }
+      }
+    }
+    return false;
+  };
+
+  clicked = await clickFirstVisible();
+
+  // Tentativa 2: abrir menu mobile e buscar CTA
+  if (!clicked) {
+    const menuBtn = page.getByRole('button', { name: 'Menu' });
+    if (await menuBtn.count()) {
+      await menuBtn.first().click({ timeout: 5000, force: true });
+      clicked = await clickFirstVisible();
+    }
+  }
+
+  if (!clicked) {
+    const html = await page.content();
+    console.error('CTA não encontrado. Dump HTML início:\n', html.slice(0, 5000));
+    throw new Error('CTA orçamento não disponível após hydration');
+  }
   await expect(page.getByText('Solicitar Orçamento')).toBeVisible();
 
   // Etapa 1 do wizard: escolher audiência
-  await page.getByText('Corporativo', { exact: true }).click();
+  await page.getByText('Corporativo', { exact: true }).first().click();
 
   // Etapa 2 do wizard: público e orçamento
-  await page.getByText('500+', { exact: true }).click();
-  await page.getByText('R$ 100k+', { exact: true }).click();
+  await page.getByText('500+', { exact: true }).first().click();
+  await page.getByText('R$ 100k+', { exact: true }).first().click();
   await page.getByRole('button', { name: 'Continuar para formulário' }).click();
 
   // Form step 1

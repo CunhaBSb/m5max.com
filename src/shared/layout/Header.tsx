@@ -1,6 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { PlatformSwitch } from "./switchers/PlatformSwitch";
+import { Button } from "@/shared/ui/button";
+import { Calendar } from "lucide-react";
+import { useAppStore } from "@/shared/store/appStore";
+import { useAnalytics } from "@/shared/hooks/useAnalytics";
 import { DesktopHeader } from "./desktop/Header";
 import { MobileHeader } from "./mobile/Header";
 
@@ -98,15 +102,37 @@ const Header = () => {
     setIsOpen(false);
   };
 
+  const { openFormModal } = useAppStore();
+  const { trackEvent } = useAnalytics();
+
+  const handleHeaderBudget = () => {
+    openFormModal({ source: 'header_cta', audience: 'general', page: location.pathname });
+    trackEvent('header_budget_click', { page_category: 'general', source: 'header' });
+  };
+
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 bg-background/20 backdrop-blur-sm border-b border-border/10 transition-transform duration-300 ease-in-out ${
       isVisible ? 'translate-y-0' : '-translate-y-full'
     }`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <PlatformSwitch
-          desktop={<DesktopHeader navigation={navigation} handleNavigation={handleNavigation} location={location} isActive={isActive} />}
-          mobile={<MobileHeader navigation={navigation} handleNavigation={handleNavigation} isOpen={isOpen} setIsOpen={setIsOpen} location={location} isActive={isActive} />}
-        />
+        <div className="flex items-center justify-between gap-2 py-2">
+          <div className="flex-1">
+            <PlatformSwitch
+              desktop={<DesktopHeader navigation={navigation} handleNavigation={handleNavigation} location={location} isActive={isActive} />}
+              mobile={<MobileHeader navigation={navigation} handleNavigation={handleNavigation} isOpen={isOpen} setIsOpen={setIsOpen} location={location} isActive={isActive} />}
+            />
+          </div>
+
+          <Button
+            size="sm"
+            variant="outline"
+            className="hidden sm:inline-flex items-center gap-2 border-blue-400/60 text-blue-50 bg-blue-500/10"
+            data-testid="cta-orcamento"
+            onClick={handleHeaderBudget}
+          >
+            <Calendar className="w-4 h-4" /> Orçamento
+          </Button>
+        </div>
       </div>
     </header>
   );

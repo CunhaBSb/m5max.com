@@ -22,7 +22,7 @@ declare global {
 }
 
 export const useAnalytics = () => {
-  const { consent, attribution } = useAppStore();
+  const { consent: userConsent, attribution } = useAppStore();
 
   // Inicializar dataLayer se não existir
   useEffect(() => {
@@ -36,7 +36,7 @@ export const useAnalytics = () => {
 
     // Consent: em produção respeitamos; em dev/staging liberamos para QA
     const isProd = config.environment === 'production';
-    if (consent && consent.analytics_storage === 'denied' && isProd) {
+    if (userConsent && userConsent.analytics_storage === 'denied' && isProd) {
       console.debug('[Analytics] Tracking blocked - analytics consent denied');
       return;
     }
@@ -523,6 +523,13 @@ export const useAnalytics = () => {
     }
   };
 
+  const consentAllowsPixels = () => {
+    const isProd = config.environment === 'production';
+    if (!userConsent || !isProd) return true; // Em dev liberamos para QA
+    const { analytics_storage, ad_storage, ad_user_data, ad_personalization } = userConsent;
+    return [analytics_storage, ad_storage, ad_user_data, ad_personalization].every((v) => v !== 'denied');
+  };
+
   return {
     trackPageView,
     trackVideoEvent,
@@ -542,9 +549,3 @@ export const useAnalytics = () => {
     trackSessionQuality
   };
 };
-  const consentAllowsPixels = () => {
-    const isProd = config.environment === 'production';
-    if (!consent || !isProd) return true; // Em dev liberamos para QA
-    const { analytics_storage, ad_storage, ad_user_data, ad_personalization } = consent;
-    return [analytics_storage, ad_storage, ad_user_data, ad_personalization].every((v) => v !== 'denied');
-  };

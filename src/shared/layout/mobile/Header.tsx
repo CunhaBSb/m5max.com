@@ -116,9 +116,10 @@ export const MobileHeader = ({ navigation, handleNavigation, isOpen, setIsOpen, 
                     <button
                       className="basis-[70%] flex items-center justify-between rounded-xl bg-gradient-to-b from-fire-orange/15 to-fire-orange/10 hover:from-fire-orange/20 hover:to-fire-orange/15 border border-fire-orange/25 px-4 py-3 transition-all duration-300 hover:scale-[1.02] shadow-sm"
                       onClick={() => {
-                        useAppStore.getState().openConversionModal({ audience: 'general' });
+                        useAppStore.getState().openFormModal({ audience: 'general', source: 'header_mobile_cta', page: location.pathname });
                         setIsOpen(false);
                       }}
+                      data-testid="cta-orcamento"
                       aria-label="Abrir orçamento"
                     >
                       <span className="text-sm font-semibold text-fire-orange tracking-wide">Orçamento</span>

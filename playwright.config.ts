@@ -25,10 +25,14 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'], viewport: { width: 1280, height: 720 } }
+    },
+    {
+      name: 'mobile-chrome',
+      use: { ...devices['Pixel 7'], viewport: { width: 412, height: 915 } }
     }
   ],
   webServer: {
-    command: 'VITE_SUPABASE_URL=http://localhost:9999 VITE_SUPABASE_ANON_KEY=dummy npm run dev -- --host --port 4173',
+    command: 'VITE_SUPABASE_URL=http://localhost:9999 VITE_SUPABASE_ANON_KEY=dummy npm run preview -- --host --port 4173',
     reuseExistingServer: !process.env.CI,
     url: 'http://localhost:4173',
     timeout: 60_000,

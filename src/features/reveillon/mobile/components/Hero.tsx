@@ -233,6 +233,7 @@ const Hero = () => {
                   variant="outline-fire"
                   className="w-full h-10 font-medium text-sm"
                   onClick={handleOrçamentoClick}
+                  data-testid="cta-orcamento"
                 >
                   <Calendar className="w-4 h-4 mr-2" />
                   <span className="text-sm">Orçamento Gratuito</span>
