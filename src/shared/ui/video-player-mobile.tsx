@@ -33,9 +33,9 @@ export const VideoPlayerMobile: React.FC<VideoPlayerMobileProps> = ({
   const [duration, setDuration] = useState(0);
   const [firstPlay, setFirstPlay] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [fired25, setFired25] = useState(false);
   const [fired50, setFired50] = useState(false);
   const [fired75, setFired75] = useState(false);
+  const [fired90, setFired90] = useState(false);
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -67,6 +67,9 @@ export const VideoPlayerMobile: React.FC<VideoPlayerMobileProps> = ({
     const handleLoadedMetadata = () => {
       setDuration(video.duration || 0);
       video.muted = muted;
+      setFired50(false);
+      setFired75(false);
+      setFired90(false);
       if (autoplay) {
         setIsLoading(true);
         video.play().catch(() => setIsLoading(false));
@@ -84,10 +87,6 @@ export const VideoPlayerMobile: React.FC<VideoPlayerMobileProps> = ({
       const t = video.currentTime;
       setCurrentTime(t);
       const ratio = duration > 0 ? t / duration : 0;
-      if (!fired25 && ratio >= 0.25) {
-        setFired25(true);
-        trackVideoEvent('progress_25', { video_title: title, video_provider: 'native' });
-      }
       if (!fired50 && ratio >= 0.5) {
         setFired50(true);
         trackVideoEvent('progress_50', { video_title: title, video_provider: 'native' });
@@ -95,6 +94,10 @@ export const VideoPlayerMobile: React.FC<VideoPlayerMobileProps> = ({
       if (!fired75 && ratio >= 0.75) {
         setFired75(true);
         trackVideoEvent('progress_75', { video_title: title, video_provider: 'native' });
+      }
+      if (!fired90 && ratio >= 0.9) {
+        setFired90(true);
+        trackVideoEvent('progress_90', { video_title: title, video_provider: 'native' });
       }
     };
     const handlePlay = () => {
@@ -117,6 +120,9 @@ export const VideoPlayerMobile: React.FC<VideoPlayerMobileProps> = ({
       setIsPlaying(false);
       setShowControls(true);
       setFirstPlay(true);
+      setFired50(false);
+      setFired75(false);
+      setFired90(false);
       trackVideoEvent('complete', { video_title: title, video_provider: 'native' });
     };
     const handleError = () => {
@@ -128,7 +134,7 @@ export const VideoPlayerMobile: React.FC<VideoPlayerMobileProps> = ({
     video.addEventListener('loadedmetadata', handleLoadedMetadata);
     video.addEventListener('canplay', handleCanPlay);
     video.addEventListener('playing', handlePlaying);
-    video.addEventListener('timeupdate', handleTimeUpdate);
+      video.addEventListener('timeupdate', handleTimeUpdate);
     video.addEventListener('play', handlePlay);
     video.addEventListener('pause', handlePause);
     video.addEventListener('waiting', handleWaiting);
@@ -149,7 +155,7 @@ export const VideoPlayerMobile: React.FC<VideoPlayerMobileProps> = ({
       video.removeEventListener('error', handleError);
       document.removeEventListener('fullscreenchange', onFsChange);
     };
-  }, [autoplay, muted, showControlsTemporarily, firstPlay, title, trackVideoEvent, duration, fired25, fired50, fired75]);
+  }, [autoplay, muted, showControlsTemporarily, firstPlay, title, trackVideoEvent, duration, fired50, fired75, fired90]);
 
   const enterMobileFullscreen = useCallback(async () => {
     const video = videoRef.current as WebKitVideo | null;

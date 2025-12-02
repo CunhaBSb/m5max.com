@@ -38,6 +38,10 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
   const [hasError, setHasError] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [firstPlay, setFirstPlay] = useState(true);
+  const [fired50, setFired50] = useState(false);
+  const [fired75, setFired75] = useState(false);
+  const [fired90, setFired90] = useState(false);
   const [volume, setVolume] = useState(muted ? 0 : 0.8);
   const [isMuted, setIsMuted] = useState(muted);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -80,6 +84,10 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
       setIsLoading(false);
       setHasError(false);
       setDuration(video.duration || 0);
+      setFirstPlay(true);
+      setFired50(false);
+      setFired75(false);
+      setFired90(false);
       video.volume = volume;
       video.muted = isMuted;
     };
@@ -91,9 +99,39 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
       setIsBuffering(false);
     };
 
-    const handleTimeUpdate = () => setCurrentTime(video.currentTime);
-    const handlePlay = () => setIsPlaying(true);
+    const handleTimeUpdate = () => {
+      const t = video.currentTime;
+      setCurrentTime(t);
+      const ratio = duration > 0 ? t / duration : 0;
+      if (!fired50 && ratio >= 0.5) {
+        setFired50(true);
+        trackVideoEvent('progress_50', { video_title: title, video_provider: 'native' });
+      }
+      if (!fired75 && ratio >= 0.75) {
+        setFired75(true);
+        trackVideoEvent('progress_75', { video_title: title, video_provider: 'native' });
+      }
+      if (!fired90 && ratio >= 0.9) {
+        setFired90(true);
+        trackVideoEvent('progress_90', { video_title: title, video_provider: 'native' });
+      }
+    };
+    const handlePlay = () => {
+      setIsPlaying(true);
+      if (firstPlay) {
+        trackVideoEvent('start', { video_title: title, video_provider: 'native' });
+        setFirstPlay(false);
+      }
+    };
     const handlePause = () => setIsPlaying(false);
+    const handleEnded = () => {
+      setIsPlaying(false);
+      setFirstPlay(true);
+      setFired50(false);
+      setFired75(false);
+      setFired90(false);
+      trackVideoEvent('complete', { video_title: title, video_provider: 'native' });
+    };
     const handleWaiting = () => setIsBuffering(true);
     const handleCanPlay = () => setIsBuffering(false);
     const handleVolumeChange = () => {
@@ -104,6 +142,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
 
     video.addEventListener('loadeddata', handleLoadedData);
     video.addEventListener('timeupdate', handleTimeUpdate);
+    video.addEventListener('ended', handleEnded);
     video.addEventListener('play', handlePlay);
     video.addEventListener('pause', handlePause);
     video.addEventListener('waiting', handleWaiting);
@@ -116,6 +155,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
     return () => {
       video.removeEventListener('loadeddata', handleLoadedData);
       video.removeEventListener('timeupdate', handleTimeUpdate);
+      video.removeEventListener('ended', handleEnded);
       video.removeEventListener('play', handlePlay);
       video.removeEventListener('pause', handlePause);
       video.removeEventListener('waiting', handleWaiting);
@@ -125,7 +165,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
       video.removeEventListener('loadedmetadata', () => setIsLoading(false));
       document.removeEventListener('fullscreenchange', handleFullscreenChange);
     };
-  }, [volume, isMuted]);
+  }, [volume, isMuted, duration, fired50, fired75, fired90, firstPlay, title, trackVideoEvent]);
 
   const togglePlay = useCallback(() => {
     const video = videoRef.current;

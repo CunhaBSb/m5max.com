@@ -34,8 +34,9 @@ export const useAnalytics = () => {
   const pushToDataLayer = (data: DataLayerEvent) => {
     if (typeof window === 'undefined' || !window.dataLayer) return;
 
-    // GDPR Consent Check - não rastrear sem consentimento
-    if (consent && consent.analytics_storage === 'denied') {
+    // Consent: em produção respeitamos; em dev/staging liberamos para QA
+    const isProd = config.environment === 'production';
+    if (consent && consent.analytics_storage === 'denied' && isProd) {
       console.debug('[Analytics] Tracking blocked - analytics consent denied');
       return;
     }
@@ -63,11 +64,14 @@ export const useAnalytics = () => {
     });
 
     // GA4 pageview
+    const debugMode = typeof window !== 'undefined' && window.location.search.includes('debug_ga=1');
+
     if (typeof window !== 'undefined' && window.gtag && config.ga4Id) {
       window.gtag('config', config.ga4Id, {
         page_title: params.page_title,
         page_location: params.page_location,
-        content_group1: params.page_category
+        content_group1: params.page_category,
+        debug_mode: debugMode
       });
     }
 
@@ -80,8 +84,12 @@ export const useAnalytics = () => {
     }
   };
 
-  const trackVideoEvent = (eventType: 'start' | 'progress_25' | 'progress_50' | 'progress_75' | 'complete' | 'click_to_play', params: VideoParams) => {
+  const trackVideoEvent = (
+    eventType: 'start' | 'progress_25' | 'progress_50' | 'progress_75' | 'progress_90' | 'complete' | 'click_to_play',
+    params: VideoParams
+  ) => {
     const eventName = `video_${eventType}`;
+    const debugMode = typeof window !== 'undefined' && window.location.search.includes('debug_ga=1');
     
     pushToDataLayer({
       event: eventName,
@@ -93,19 +101,23 @@ export const useAnalytics = () => {
     });
 
     // GA4 video events
+    if (!config.ga4Id) {
+      console.warn('[Analytics] GA4 ID ausente, evento não enviado para GA4:', eventType);
+    }
+
     if (typeof window !== 'undefined' && window.gtag && config.ga4Id) {
       const gaEvent =
         eventType === 'start' ? 'video_start' :
         eventType === 'complete' ? 'video_complete' :
         eventType === 'click_to_play' ? 'video_click' : 'video_progress';
 
+      const isProgress = ['progress_25','progress_50','progress_75','progress_90'].includes(eventType);
       window.gtag('event', gaEvent, {
         video_title: params.video_title,
         video_provider: params.video_provider,
-        video_percent: ['progress_25','progress_50','progress_75'].includes(eventType)
-          ? Number(eventType.split('_')[1])
-          : undefined,
-        page_location: window.location.href
+        video_percent: isProgress ? Number(eventType.split('_')[1]) : undefined,
+        page_location: window.location.href,
+        debug_mode: debugMode
       });
     }
 
