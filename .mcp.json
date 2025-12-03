@@ -8,9 +8,11 @@
         "--project-ref=psvmzrzezgkklfjshhua"
       ],
       "env": {
-        "SUPABASE_ACCESS_TOKEN": "sbp_96d2b12ed93fe488097646dfc827f433a4ffafbc",
+        "SUPABASE_ACCESS_TOKEN": "sbp_964f28fbf9c7c04f0338cf4390b4794412d68",
         "SUPABASE_URL": "https://psvmzrzezgkklfjshhua.supabase.co",
-        "SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBzdm16cnplemdra2xmanNoaHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM4MTIzMTAsImV4cCI6MjA2OTM4ODMxMH0.s0ngJl3nesmkfte9s2a0wSx5ouMp1uqydcChxRmJ1JQ"
+        "SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBzdm16cnplemdra2xmanNoaHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM4MTIzMTAsImV4cCI6MjA2OTM4ODMxMH0.s0ngJl3nesmkfte9s2a0wSx5ouMp1uqydcChxRmJ1JQ",
+        "SUPABASE_SERVICE_ROLE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBzdm16cnplemdra2xmanNoaHVhIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MzgxMjMxMCwiZXhwIjoyMDY5Mzg4MzEwfQ.SraCdRqopddbmH42jPwtlshhBVdghJ_Sp92b4kj44dc",
+        "NPM_CONFIG_CACHE": "/home/cunha/m5max/.npm-cache"
       }
     },
     "context7": {
