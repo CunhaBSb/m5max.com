@@ -1,4 +1,3 @@
-import { Helmet } from 'react-helmet-async';
 import RootLayout from '@/app/layouts/RootLayout';
 import SectionSeparator from '@/shared/layout/SectionSeparator';
 import FogosM5Complete from '@/shared/layout/mobile/FogosM5Complete';
@@ -14,6 +13,10 @@ import { Shield, DownloadCloud, MessageSquare, Sparkles, CheckCircle2, Clock3, F
 import { ORCAMENTO_IATE_PDF_URL, ORCAMENTO_IATE_VIDEO_ID, ORCAMENTO_IATE_BG_VIDEO } from '../data/constants';
 import BudgetTriage from '../components/BudgetTriage';
 import { useEffect, useMemo, useState } from 'react';
+import { buildSeo, seoOrcamentoIate } from '@/shared/data/seo';
+import { SeoHead } from '@/shared/layout/SeoHead';
+
+const orcamentoSeo = buildSeo(seoOrcamentoIate);
 
 const OrcamentoIateMobile = () => {
   const { trackPageView, trackWhatsAppClick } = useAnalytics();
@@ -53,11 +56,7 @@ const OrcamentoIateMobile = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Orçamento • Iate Clube de Brasília 2026 | M5 Max</title>
-        <meta name="description" content="Orçamento exclusivo para o show pirotécnico do Iate Clube de Brasília em 2026." />
-        <meta name="robots" content="noindex,nofollow" />
-      </Helmet>
+      <SeoHead meta={orcamentoSeo} />
 
       <RootLayout>
         <main className="min-h-screen bg-background">

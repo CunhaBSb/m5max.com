@@ -10,6 +10,10 @@ import ProductHero from './components/ProductHero';
 import ProductSelector from './components/ProductSelector';
 import TrustIndicators from './components/TrustIndicators';
 import PricingSection from './components/PricingSection';
+import { buildSeo, seoProdutos } from '@/shared/data/seo';
+import { SeoHead } from '@/shared/layout/SeoHead';
+
+const produtosSeo = buildSeo(seoProdutos);
 
 const ProdutosMobile = () => {
   const { trackPageView, trackWhatsAppClick } = useAnalytics();
@@ -50,13 +54,11 @@ const ProdutosMobile = () => {
 
   return (
     <>
+      <SeoHead meta={produtosSeo} />
+
       <Helmet>
-        <title>Produtos - Shows Pirotécnicos | M5 Max Produções</title>
-        <meta name="description" content="Escolha o show pirotécnico perfeito: Kit Festa para casamentos e eventos ou Kit Chá Revelação para momentos especiais. 40+ anos de experiência." />
-        <meta name="keywords" content="shows pirotécnicos, kit festa, chá revelação, fogos de artifício, casamentos, eventos, pirotecnia profissional" />
+        {/* Mantemos viewport aqui para garantir compatibilidade em navegadores antigos */}
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta property="og:title" content="Produtos - Shows Pirotécnicos | M5 Max Produções" />
-        <meta property="og:description" content="Kit Festa e Kit Chá Revelação - Shows pirotécnicos profissionais para seus momentos especiais" />
       </Helmet>
 
       <RootLayout>

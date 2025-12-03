@@ -11,6 +11,10 @@ import UnifiedProductCatalog from './components/UnifiedProductCatalog';
 import FogosM5Complete from '@/shared/layout/desktop/FogosM5Complete';
 import Services from '@/shared/layout/desktop/Services';
 import FAQ from '@/shared/layout/desktop/FAQ';
+import { buildSeo, seoProdutos } from '@/shared/data/seo';
+import { SeoHead } from '@/shared/layout/SeoHead';
+
+const produtosSeo = buildSeo(seoProdutos);
 
 const Produtos = () => {
   const { trackPageView } = useAnalytics();
@@ -25,45 +29,40 @@ const Produtos = () => {
 
   return (
     <>
+      <SeoHead meta={produtosSeo} />
+
       <Helmet>
-        <title>Produtos - Shows Pirotécnicos | M5 Max Produções</title>
-        <meta name="description" content="Shows pirotécnicos profissionais: Kit Festa para casamentos e celebrações, Kit Chá Revelação para momentos especiais e Tortas Pirotécnicas para shows personalizados. 40+ anos de experiência." />
-        <meta name="keywords" content="shows pirotécnicos, kit festa, chá revelação, tortas pirotécnicas, fogos de artifício, casamentos, eventos, pirotecnia profissional, M5 Max" />
-        <meta property="og:title" content="Produtos - Shows Pirotécnicos | M5 Max Produções" />
-        <meta property="og:description" content="Kit Festa, Kit Chá Revelação e Tortas Pirotécnicas - Shows pirotécnicos profissionais para seus momentos especiais" />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://m5max.com.br/produtos" />
-        
         {/* Schema.org para produtos */}
         <script type="application/ld+json">
           {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ItemList",
-            "name": "Shows Pirotécnicos M5 Max",
-            "description": "Kit Festa, Kit Chá Revelação e Tortas Pirotécnicas - Shows pirotécnicos profissionais",
-            "itemListElement": [
+            '@context': 'https://schema.org',
+            '@type': 'ItemList',
+            name: 'Shows Pirotécnicos M5 Max',
+            description:
+              'Kits para celebrações e shows sob medida para empresas, prefeituras e resorts.',
+            itemListElement: [
               {
-                "@type": "Product",
-                "name": "Kit Festa",
-                "description": "Shows pirotécnicos para casamentos, aniversários e celebrações",
-                "brand": { "@type": "Brand", "name": "M5 Max Produções" },
-                "category": "Entertainment Services"
+                '@type': 'Product',
+                name: 'Kit Festa',
+                description: 'Shows pirotécnicos para casamentos, aniversários e celebrações',
+                brand: { '@type': 'Brand', name: 'M5 Max Produções' },
+                category: 'Entertainment Services',
               },
               {
-                "@type": "Product", 
-                "name": "Kit Chá Revelação",
-                "description": "Espetáculos especiais para revelação do sexo do bebê",
-                "brand": { "@type": "Brand", "name": "M5 Max Produções" },
-                "category": "Entertainment Services"
+                '@type': 'Product',
+                name: 'Kit Chá Revelação',
+                description: 'Espetáculos especiais para revelação do sexo do bebê',
+                brand: { '@type': 'Brand', name: 'M5 Max Produções' },
+                category: 'Entertainment Services',
               },
               {
-                "@type": "Product", 
-                "name": "Tortas Pirotécnicas",
-                "description": "Componentes profissionais para shows personalizados",
-                "brand": { "@type": "Brand", "name": "M5 Max Produções" },
-                "category": "Entertainment Services"
-              }
-            ]
+                '@type': 'Product',
+                name: 'Tortas Pirotécnicas',
+                description: 'Componentes profissionais para shows personalizados',
+                brand: { '@type': 'Brand', name: 'M5 Max Produções' },
+                category: 'Entertainment Services',
+              },
+            ],
           })}
         </script>
       </Helmet>

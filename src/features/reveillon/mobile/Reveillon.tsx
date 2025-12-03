@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { useAnalytics } from '@/shared/hooks/useAnalytics';
 import RootLayout from '@/app/layouts/RootLayout';
 import Hero from './components/Hero';
@@ -8,6 +7,10 @@ import SectionSeparator from '@/shared/layout/SectionSeparator';
 import FogosM5Complete from '@/shared/layout/mobile/FogosM5Complete';
 import Services from '@/shared/layout/mobile/Services';
 import FAQ from '@/shared/layout/mobile/FAQ';
+import { buildSeo, seoReveillon } from '@/shared/data/seo';
+import { SeoHead } from '@/shared/layout/SeoHead';
+
+const reveillonSeo = buildSeo(seoReveillon);
 
 const ReveillonMobile = () => {
   const { trackPageView } = useAnalytics();
@@ -22,12 +25,7 @@ const ReveillonMobile = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Réveillon 2025 | Espetáculo de Luz Autorizado</title>
-        <meta name="description" content="Show visual sincronizado para Réveillon em Brasília. Projeto técnico, licenças e seguro incluídos para clubes e eventos." />
-        <meta name="keywords" content="réveillon 2025, espetáculo de luz, efeitos sincronizados, show visual, virada do ano, eventos brasília" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </Helmet>
+      <SeoHead meta={reveillonSeo} />
 
       <RootLayout>
         <main className="min-h-screen">

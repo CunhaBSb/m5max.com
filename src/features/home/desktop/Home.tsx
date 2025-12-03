@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { useAnalytics } from '@/shared/hooks/useAnalytics';
 import RootLayout from '@/app/layouts/RootLayout';
 import Hero from './components/Hero';
@@ -8,6 +7,10 @@ import Services from '@/shared/layout/desktop/Services';
 import FAQ from '@/shared/layout/desktop/FAQ';
 import LazySection from '@/shared/layout/LazySection';
 import SectionSeparator from '@/shared/layout/SectionSeparator';
+import { buildSeo, seoHome } from '@/shared/data/seo';
+import { SeoHead } from '@/shared/layout/SeoHead';
+
+const homeSeo = buildSeo(seoHome);
 
 const Home = () => {
   const { trackPageView } = useAnalytics();
@@ -22,11 +25,7 @@ const Home = () => {
 
   return (
     <>
-      <Helmet>
-        <title>M5 Max Produções</title>
-        <meta name="description" content="Shows pirotécnicos profissionais para eventos corporativos, casamentos, formaturas e festivais. 40 anos de experiência em espetáculos seguros e inesquecíveis." />
-        <meta name="keywords" content="shows pirotécnicos, fogos de artifício, eventos corporativos, casamentos, formaturas, festivais, pirotecnia profissional" />
-      </Helmet>
+      <SeoHead meta={homeSeo} />
 
       <RootLayout>
         <main className="min-h-screen">
