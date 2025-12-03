@@ -8,12 +8,17 @@ interface PlatformSwitchProps {
   breakpoint?: string; // For future extensibility
 }
 
-export const PlatformSwitch = ({ desktop, mobile }: PlatformSwitchProps) => {
+const DefaultFallback = () => (
+  <div className="min-h-screen flex items-center justify-center">
+    <div className="h-10 w-10 rounded-full border-2 border-white/20 border-t-fire-orange animate-spin" />
+  </div>
+);
+
+export const PlatformSwitch = ({ desktop, mobile, fallback }: PlatformSwitchProps) => {
   const isDesktop = useIsDesktop();
 
-  // Renderiza mobile como safe-default até saber o breakpoint, evitando tela em branco
   if (isDesktop === null) {
-    return <>{mobile}</>;
+    return <>{fallback ?? <DefaultFallback />}</>;
   }
 
   return <>{isDesktop ? desktop : mobile}</>;

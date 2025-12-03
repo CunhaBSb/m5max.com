@@ -35,20 +35,6 @@ interface FormModalContentProps {
   onStepChange?: (step: number) => void;
 }
 
-const FormModalContent: React.FC<FormModalContentProps> = ({
-  audience,
-  source,
-  initialData,
-  onComplete,
-  onSuccess,
-  isOpen,
-  context
-  ,
-  onStepChange
-}) => {
-  const { trackFormEvent, trackWhatsAppClick, trackEvent, trackAdsConversion } = useAnalytics();
-  const { attribution } = useAppStore();
-
 const formSchema = z.object({
   name: z.string().min(2, 'Nome obrigatório'),
   email: z.string().email('E-mail inválido'),
@@ -83,6 +69,20 @@ const mapAttendeesRange = (wizardAttendees?: string): AudienceSizeOption => {
   if (wizardAttendees === '500+') return '5k-20k';
   return '5k-20k';
 };
+
+const FormModalContent: React.FC<FormModalContentProps> = ({
+  audience,
+  source,
+  initialData,
+  onComplete,
+  onSuccess,
+  isOpen,
+  context
+  ,
+  onStepChange
+}) => {
+  const { trackFormEvent, trackWhatsAppClick, trackEvent, trackAdsConversion } = useAnalytics();
+  const { attribution } = useAppStore();
 
   // Map wizard budget ranges to form budget ranges
   const form = useForm<FormValues>({

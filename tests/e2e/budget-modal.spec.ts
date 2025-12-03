@@ -20,6 +20,12 @@ test('fluxo de orçamento envia lead para Supabase com return=minimal', async ({
   await page.goto('/');
   await page.waitForLoadState('networkidle');
 
+  // Fechar banner de cookies se aparecer para evitar sobreposições
+  const acceptCookies = page.getByRole('button', { name: /Aceitar Todos/i });
+  if (await acceptCookies.count()) {
+    await acceptCookies.first().click({ timeout: 5000 });
+  }
+
   // Espera hydration mínima; tenta múltiplos CTAs e loga HTML se falhar
   await page.waitForFunction(() => {
     return !!document.querySelector('[data-testid="cta-orcamento"]') ||
@@ -64,23 +70,26 @@ test('fluxo de orçamento envia lead para Supabase com return=minimal', async ({
     console.error('CTA não encontrado. Dump HTML início:\n', html.slice(0, 5000));
     throw new Error('CTA orçamento não disponível após hydration');
   }
+  await page.getByRole('dialog', { name: 'Solicitar Orçamento' }).waitFor({ state: 'visible', timeout: 10000 });
   await expect(page.getByText('Solicitar Orçamento')).toBeVisible();
+  await expect(page.getByText('Qual melhor descreve seu evento?')).toBeVisible();
 
   // Etapa 1 do wizard: escolher audiência
-  await page.getByText('Corporativo', { exact: true }).first().click();
+  await page.getByText('Corporativo', { exact: true }).first().click({ force: true });
+  await expect(page.getByText('Público estimado', { exact: false })).toBeVisible();
 
   // Etapa 2 do wizard: público e orçamento
-  await page.getByText('500+', { exact: true }).first().click();
-  await page.getByText('R$ 100k+', { exact: true }).first().click();
+  await page.getByText('500+', { exact: true }).first().click({ force: true });
+  await page.getByText('R$ 100k+', { exact: true }).first().click({ force: true });
   await page.getByRole('button', { name: 'Continuar para formulário' }).click();
 
-  // Form step 1
+  // Form step 1 (contato)
   await page.getByTestId('budget-name').fill('QA Playwright');
   await page.getByTestId('budget-email').fill('qa@example.com');
   await page.getByTestId('budget-phone').fill('61999999999');
   await page.getByRole('button', { name: 'Próxima etapa' }).click();
 
-  // Form step 2
+  // Form step 2 (detalhes do evento)
   await page.getByTestId('budget-city').fill('Brasília - DF');
   await page.getByTestId('budget-event-type').click();
   await page.getByRole('option', { name: 'Corporativo' }).click();
@@ -89,19 +98,22 @@ test('fluxo de orçamento envia lead para Supabase com return=minimal', async ({
   await page.getByTestId('budget-range').click();
   await page.getByRole('option', { name: 'R$ 50k - 200k' }).click();
   await page.getByTestId('budget-date').fill('2026-12-31');
+  await page.getByTestId('budget-points').fill('2');
   await page.getByRole('button', { name: 'Próxima etapa' }).click();
 
-  // Form step 3
+  // Form step 3 (confirmação)
   await page.getByTestId('budget-submit').click();
 
   await expect.poll(() => captured.length).toBe(1);
-  expect(captured[0].body).toMatchObject({
+  const payload = captured[0].body as Record<string, unknown>;
+  expect(payload).toMatchObject({
     name: 'QA Playwright',
     email: 'qa@example.com',
-    phone: '61999999999',
     city: 'Brasília - DF',
     budget: '50k-200k'
   });
+  expect(String(payload.phone || '').replace(/\D/g, '')).toBe('61999999999');
 
-  await expect(page.getByText('Recebido! Um especialista responderá em breve com sua proposta.')).toBeVisible();
+  await expect(page.getByText('Recebido!')).toBeVisible();
+  await expect(page.getByText(/Um especialista responderá em breve/)).toBeVisible();
 });

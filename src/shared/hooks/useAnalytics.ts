@@ -24,6 +24,15 @@ declare global {
 export const useAnalytics = () => {
   const { consent: userConsent, attribution } = useAppStore();
 
+  const safeLocation = () => {
+    if (typeof window !== 'undefined' && window.location) {
+      return window.location;
+    }
+    return { pathname: '', href: '', search: '' } as Location;
+  };
+
+  const safeTitle = () => (typeof document !== 'undefined' ? document.title : '');
+
   // Inicializar dataLayer se não existir
   useEffect(() => {
     if (typeof window !== 'undefined' && !window.dataLayer) {
@@ -54,25 +63,31 @@ export const useAnalytics = () => {
   };
 
   const trackPageView = (params: PageViewParams) => {
+    const loc = safeLocation();
+
     pushToDataLayer({
       event: 'page_view',
       page_category: params.page_category,
-      page_slug: window.location.pathname,
+      page_slug: loc.pathname,
       page_title: params.page_title,
       content_name: params.page_title,
       content_category: params.page_category
     });
 
     // GA4 pageview
-    const debugMode = typeof window !== 'undefined' && window.location.search.includes('debug_ga=1');
+    const debugMode =
+      typeof window !== 'undefined' && typeof loc.search === 'string' && loc.search.includes('debug_ga=1');
 
     if (consentAllowsPixels() && typeof window !== 'undefined' && window.gtag && config.ga4Id) {
-      window.gtag('config', config.ga4Id, {
+      const gaConfig: Record<string, unknown> = {
         page_title: params.page_title,
         page_location: params.page_location,
         content_group1: params.page_category,
-        debug_mode: debugMode
-      });
+      };
+
+      if (debugMode) gaConfig.debug_mode = true;
+
+      window.gtag('config', config.ga4Id, gaConfig);
     }
 
     // Meta Pixel PageView
@@ -89,13 +104,15 @@ export const useAnalytics = () => {
     params: VideoParams
   ) => {
     const eventName = `video_${eventType}`;
-    const debugMode = typeof window !== 'undefined' && window.location.search.includes('debug_ga=1');
+    const loc = safeLocation();
+    const debugMode =
+      typeof window !== 'undefined' && typeof loc.search === 'string' && loc.search.includes('debug_ga=1');
     
     pushToDataLayer({
       event: eventName,
       page_category: 'general',
-      page_slug: window.location.pathname,
-      page_title: document.title,
+      page_slug: loc.pathname,
+      page_title: safeTitle(),
       content_name: params.video_title,
       content_category: 'video'
     });
@@ -116,7 +133,7 @@ export const useAnalytics = () => {
         video_title: params.video_title,
         video_provider: params.video_provider,
         video_percent: isProgress ? Number(eventType.split('_')[1]) : undefined,
-        page_location: window.location.href,
+        page_location: loc.href,
         debug_mode: debugMode
       });
     }
@@ -138,8 +155,8 @@ export const useAnalytics = () => {
     pushToDataLayer({
       event: 'whatsapp_click',
       page_category: params.audience,
-      page_slug: window.location.pathname,
-      page_title: document.title,
+      page_slug: safeLocation().pathname,
+      page_title: safeTitle(),
       content_name: 'whatsapp_button',
       content_category: 'conversion'
     });
@@ -150,8 +167,8 @@ export const useAnalytics = () => {
         method: 'whatsapp',
         content_type: params.audience,
         source: params.source,
-        page_location: window.location.href,
-        page_title: document.title
+        page_location: safeLocation().href,
+        page_title: safeTitle()
       });
     }
 
@@ -170,8 +187,8 @@ export const useAnalytics = () => {
     pushToDataLayer({
       event: eventName,
       page_category: params.page_category || params.form_type,
-      page_slug: window.location.pathname,
-      page_title: document.title,
+      page_slug: safeLocation().pathname,
+      page_title: safeTitle(),
       content_name: params.form_name,
       content_category: 'form',
       value: params.lead_score
@@ -185,7 +202,7 @@ export const useAnalytics = () => {
           value: params.lead_score,
           currency: 'BRL',
           source: params.source,
-          page_location: window.location.href
+          page_location: safeLocation().href
         });
       } else {
         window.gtag('event', 'generate_lead', {
@@ -194,7 +211,7 @@ export const useAnalytics = () => {
           form_name: params.form_name,
           form_type: params.form_type,
           source: params.source,
-          page_location: window.location.href
+          page_location: safeLocation().href
         });
       }
     }
@@ -216,8 +233,8 @@ export const useAnalytics = () => {
     pushToDataLayer({
       event: eventName,
       page_category: params.audience,
-      page_slug: window.location.pathname,
-      page_title: document.title,
+      page_slug: safeLocation().pathname,
+      page_title: safeTitle(),
       content_name: params.item_name,
       content_category: params.item_category,
       value: params.price,
@@ -259,34 +276,37 @@ export const useAnalytics = () => {
   };
 
   const trackConversionModalOpen = (audience: AudienceType, source: string) => {
+    const loc = safeLocation();
     pushToDataLayer({
       event: 'conversion_modal_open',
       page_category: audience,
-      page_slug: window.location.pathname,
-      page_title: document.title,
+      page_slug: loc.pathname,
+      page_title: safeTitle(),
       content_name: 'conversion_modal',
       content_category: 'conversion'
     });
   };
 
   const trackScrollDepth = (depth: 25 | 50 | 75 | 100) => {
+    const loc = safeLocation();
     pushToDataLayer({
       event: `scroll_depth_${depth}`,
       page_category: 'general',
-      page_slug: window.location.pathname,
-      page_title: document.title
+      page_slug: loc.pathname,
+      page_title: safeTitle()
     });
   };
 
   // Novos eventos específicos para produtos
   const trackProductInteraction = (eventType: 'select' | 'view_details' | 'compare', params: ProductInteractionParams) => {
     const eventName = `product_${eventType}`;
-    
+    const loc = safeLocation();
+
     pushToDataLayer({
       event: eventName,
       page_category: params.audience === 'b2b' ? 'b2b' : 'b2c',
-      page_slug: window.location.pathname,
-      page_title: document.title,
+      page_slug: loc.pathname,
+      page_title: safeTitle(),
       content_name: params.product_name,
       content_category: params.product_category,
       value: params.price || 0,
