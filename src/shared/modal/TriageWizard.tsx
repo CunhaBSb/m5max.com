@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/shared/ui/card';
 import { Badge } from '@/shared/ui/badge';
 import { Button } from '@/shared/ui/button';
@@ -15,9 +15,10 @@ interface TriageData {
 interface TriageWizardProps {
   step: 1 | 2;
   onComplete: (data: TriageData) => void;
+  onStepChange?: (step: 1 | 2) => void;
 }
 
-const TriageWizard: React.FC<TriageWizardProps> = ({ step: initialStep, onComplete }) => {
+const TriageWizard: React.FC<TriageWizardProps> = ({ step: initialStep, onComplete, onStepChange }) => {
   const [currentStep, setCurrentStep] = useState<1 | 2>(initialStep);
   const [selectedAudience, setSelectedAudience] = useState<AudienceType | null>(null);
   const [selectedAttendees, setSelectedAttendees] = useState<string | null>(null);
@@ -26,10 +27,12 @@ const TriageWizard: React.FC<TriageWizardProps> = ({ step: initialStep, onComple
   const handleAudienceSelect = (audience: AudienceType) => {
     setSelectedAudience(audience);
     setCurrentStep(2);
+    onStepChange?.(2);
   };
 
   const handleComplete = () => {
     if (selectedAudience && selectedAttendees && selectedBudget) {
+      onStepChange?.(2);
       onComplete({
         audience: selectedAudience,
         attendeesRange: selectedAttendees,
@@ -38,21 +41,25 @@ const TriageWizard: React.FC<TriageWizardProps> = ({ step: initialStep, onComple
     }
   };
 
+  const whatsappHref = "https://wa.me/5561982735575?text=Quero%20um%20or%C3%A7amento%20para%20fogos%20M5";
+
+  // sincroniza passo inicial com pai
+  useEffect(() => {
+    onStepChange?.(currentStep);
+  }, [currentStep, onStepChange]);
+
   const canProceed = selectedAudience && selectedAttendees && selectedBudget;
 
   if (currentStep === 1) {
     return (
-      <div className="space-y-6 animate-in fade-in duration-300">
-        <div className="text-center space-y-2">
-          <h3 className="text-lg font-semibold text-white animate-in slide-in-from-top duration-500">
+      <div className="space-y-3.5 animate-in fade-in duration-300 max-w-4xl mx-auto">
+        <div className="text-center space-y-1">
+          <h3 className="text-xs sm:text-sm font-semibold text-white animate-in slide-in-from-top duration-500">
             Qual melhor descreve seu evento?
           </h3>
-          <p className="text-sm text-white/70 animate-in slide-in-from-top duration-500 delay-100">
-            Escolha a categoria que mais se encaixa
-          </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {/* B2C Personal Card */}
           <Card
             onClick={() => handleAudienceSelect('b2c-personal')}
@@ -122,22 +129,19 @@ const TriageWizard: React.FC<TriageWizardProps> = ({ step: initialStep, onComple
 
   // Step 2: Quick Qualifier
   return (
-    <div className="space-y-6 animate-in fade-in duration-300">
-      <div className="text-center space-y-2">
-        <h3 className="text-lg font-semibold text-white animate-in slide-in-from-top duration-500">
+    <div className="space-y-3.5 animate-in fade-in duration-300 pb-14 max-w-4xl mx-auto">
+      <div className="text-center space-y-1">
+        <h3 className="text-xs sm:text-sm font-semibold text-white animate-in slide-in-from-top duration-500">
           Quase lá!
         </h3>
-        <p className="text-sm text-white/70 animate-in slide-in-from-top duration-500 delay-100">
-          Nos ajude a personalizar sua proposta
-        </p>
       </div>
 
-      <div className="space-y-5">
+      <div className="space-y-3">
         {/* Público Estimado */}
-        <div className="space-y-3">
+        <div className="space-y-2.5">
           <div className="flex items-center gap-2">
             <Users className="w-4 h-4 text-fire-orange" />
-            <label className="text-sm font-medium text-white">Público estimado</label>
+            <label className="text-xs sm:text-sm font-medium text-white">Público estimado</label>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {[
@@ -151,7 +155,7 @@ const TriageWizard: React.FC<TriageWizardProps> = ({ step: initialStep, onComple
                 onClick={() => setSelectedAttendees(option.value)}
                 variant={selectedAttendees === option.value ? 'default' : 'outline'}
                 className={cn(
-                  'cursor-pointer py-2 px-3 justify-center text-sm transition-all duration-200 hover:scale-105',
+                  'cursor-pointer h-9 py-2 px-2.5 justify-center text-[11px] sm:text-xs transition-all duration-200 hover:scale-105',
                   selectedAttendees === option.value
                     ? 'bg-fire-orange border-fire-orange text-white shadow-lg'
                     : 'border-white/20 text-white/80 hover:border-fire-orange/50 hover:bg-fire-orange/10'
@@ -164,10 +168,10 @@ const TriageWizard: React.FC<TriageWizardProps> = ({ step: initialStep, onComple
         </div>
 
         {/* Orçamento Estimado */}
-        <div className="space-y-3">
+        <div className="space-y-2.5">
           <div className="flex items-center gap-2">
             <DollarSign className="w-4 h-4 text-fire-gold" />
-            <label className="text-sm font-medium text-white">Orçamento estimado</label>
+            <label className="text-xs sm:text-sm font-medium text-white">Orçamento estimado</label>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {[
@@ -181,7 +185,7 @@ const TriageWizard: React.FC<TriageWizardProps> = ({ step: initialStep, onComple
                 onClick={() => setSelectedBudget(option.value)}
                 variant={selectedBudget === option.value ? 'default' : 'outline'}
                 className={cn(
-                  'cursor-pointer py-2 px-3 justify-center text-sm transition-all duration-200 hover:scale-105',
+                  'cursor-pointer h-9 py-2 px-2.5 justify-center text-[11px] sm:text-xs transition-all duration-200 hover:scale-105',
                   selectedBudget === option.value
                     ? 'bg-fire-gold border-fire-gold text-gray-900 shadow-lg font-medium'
                     : 'border-white/20 text-white/80 hover:border-fire-gold/50 hover:bg-fire-gold/10'
@@ -195,20 +199,41 @@ const TriageWizard: React.FC<TriageWizardProps> = ({ step: initialStep, onComple
       </div>
 
       {/* Continue Button */}
-      <div className="flex justify-end pt-2">
-        <Button
-          onClick={handleComplete}
-          disabled={!canProceed}
-          className={cn(
-            'gap-2 transition-all duration-300',
-            canProceed
-              ? 'bg-gradient-to-r from-fire-orange to-fire-gold hover:from-fire-gold hover:to-fire-orange shadow-lg'
-              : 'opacity-50 cursor-not-allowed'
-          )}
-        >
-          Continuar para formulário
-          <ArrowRight className="w-4 h-4" />
-        </Button>
+      <div className="sticky bottom-0 left-0 right-0 pt-3 -mx-2 sm:-mx-3 px-2 sm:px-3 bg-slate-950/92 backdrop-blur-sm border-t border-white/10">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+          <Button
+            type="button"
+            variant="ghost"
+            onClick={() => {
+              setCurrentStep(1);
+              onStepChange?.(1);
+            }}
+            className="w-full sm:w-auto h-10 text-sm"
+          >
+            Voltar
+          </Button>
+
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => window.open(whatsappHref, '_blank')}
+            className="w-full sm:w-auto h-10 text-sm"
+          >
+            Continuar no WhatsApp
+          </Button>
+
+          <Button
+            onClick={handleComplete}
+            disabled={!canProceed}
+            className={cn(
+              'gap-2 w-full sm:w-auto sm:ml-auto transition-all duration-150 h-10 text-sm',
+              canProceed ? '' : 'opacity-60 cursor-not-allowed'
+            )}
+          >
+            Continuar para formulário
+            <ArrowRight className="w-4 h-4" />
+          </Button>
+        </div>
       </div>
     </div>
   );

@@ -6,13 +6,19 @@ import {
   Award,
   Users,
   Zap,
-  MessageCircle,
-  ArrowRight
+  Sparkles,
+  TrendingUp
 } from "lucide-react";
+import { FaWhatsapp as WhatsApp } from "react-icons/fa";
+import { useAnalytics } from "@/shared/hooks/useAnalytics";
+import { useAppStore } from "@/shared/store/appStore";
+import { generateWhatsAppURL, getWhatsAppMessage } from "@/shared/lib/whatsapp";
 
 const FogosM5Complete = () => {
+  const { openConversionModal } = useAppStore();
+  const { trackWhatsAppClick, trackEvent } = useAnalytics();
+
   // URL do vídeo da empresa - usando video disponível como fallback
-  // TODO: Substituir com URL correta quando vídeo M5Max estiver disponível
   const videoSrc = "https://psvmzrzezgkklfjshhua.supabase.co/storage/v1/object/sign/M5Max/V2.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81ZDUwMmRjNy00OTM1LTQ0OGMtOWExNC1lNjNjMjY1NjQwMzciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNNU1heC9WMi5tcDQiLCJpYXQiOjE3NTYyMzg1MjQsImV4cCI6MjEzNDY3MDUyNH0.P9v2SUKcQUtFf9Fn4SdSg_Bfr3Snh4oJcsaAp5dFt40";
   const thumbnailUrl = "/assets/thumbapresentação.webp";
 
@@ -42,6 +48,30 @@ const FogosM5Complete = () => {
       description: "Autorização oficial completa"
     }
   ];
+
+  const handleBudget = () => {
+    trackEvent('cta_budget_click', { source: 'fogosm5complete_mobile', placement: 'after_video' });
+    openConversionModal({
+      source: 'fogosm5complete_mobile',
+      audience: 'general',
+      page: 'home'
+    });
+  };
+
+  const handleWhats = () => {
+    const message = getWhatsAppMessage('b2b');
+    const url = generateWhatsAppURL(message, undefined, { audience: 'b2b', source: 'fogosm5complete_mobile' });
+
+    trackWhatsAppClick({
+      audience: 'b2b',
+      source: 'fogosm5complete_mobile',
+      message_template: message,
+      phone_number: '5561982735575'
+    });
+
+    trackEvent('cta_whatsapp_click', { source: 'fogosm5complete_mobile', placement: 'after_video' });
+    window.open(url, '_blank');
+  };
 
   return (
     <section className="relative py-8 overflow-hidden">
@@ -183,48 +213,32 @@ const FogosM5Complete = () => {
           </div>
         </div>
 
-        {/* Compact Mobile CTA Section - Professional */}
-        <div className="text-center space-y-3">
-          <div className="relative">
-            {/* Simplified ambient glow */}
-            <div className="absolute -inset-1 bg-gradient-to-r from-fire-orange/6 via-fire-gold/8 to-fire-orange/6 rounded-xl blur opacity-30" />
-            
-            <div className="relative bg-gradient-to-r from-fire-orange/6 to-fire-gold/6 p-4 rounded-xl border border-fire-orange/15 backdrop-blur-sm shadow-md shadow-fire-orange/8">
-              <h3 className="text-lg font-bold text-fire-gradient mb-2">
-                Pronto para um espetáculo inesquecível?
-              </h3>
-              <p className="text-sm text-white/80 mb-3 leading-relaxed">
-                Solicite um orçamento personalizado para o seu evento
-              </p>
-              
-              <div className="flex flex-col gap-2">
-                <Button
-                  variant="ghost"
-                  className="w-full h-10 bg-gradient-to-r from-green-600/20 via-green-500/25 to-green-600/20 border border-green-500/40 text-white hover:from-green-500/25 hover:via-green-400/35 hover:to-green-500/25 hover:border-green-400/60 backdrop-blur-md transition-all duration-300 group relative overflow-hidden shadow-sm shadow-green-500/15"
-                  onClick={() => window.open('https://wa.me/5561982735575', '_blank')}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-green-400/8 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700" />
-                  <MessageCircle className="w-4 h-4 mr-2" />
-                  <span className="text-sm font-medium">WhatsApp Direto</span>
-                  <div className="flex items-center gap-1 ml-auto bg-green-400/15 px-1.5 py-0.5 rounded-full">
-                    <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
-                    <span className="text-xs text-green-200">Online</span>
-                  </div>
-                </Button>
-                
-                <Button
-                  variant="outline-fire"
-                  className="w-full h-10 font-medium text-sm"
-                  onClick={() => {/* Add conversion modal logic */}}
-                >
-                  <ArrowRight className="w-4 h-4 mr-2" />
-                  <span className="text-sm">Orçamento Gratuito</span>
-                  <div className="flex items-center gap-1 ml-auto bg-fire-orange/15 px-1.5 py-0.5 rounded-full">
-                    <span className="text-xs text-fire-orange font-bold">Grátis</span>
-                  </div>
-                </Button>
-              </div>
-            </div>
+        {/* CTA alinhada imediatamente após o vídeo - mobile */}
+        <div className="text-center py-6 max-w-2xl mx-auto space-y-3">
+          <div className="flex items-center justify-center gap-2">
+            <Sparkles className="w-4 h-4 text-fire-orange animate-pulse" />
+            <h3 className="text-lg sm:text-xl font-bold text-white">
+              Pronto para criar um <span className="text-fire-gradient">espetáculo</span>?
+            </h3>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+            <Button
+              onClick={handleWhats}
+              className="h-11 w-full sm:w-auto px-5 bg-green-600 hover:bg-green-500 hover:scale-105 text-white font-medium transition-all duration-300 shadow-lg hover:shadow-green-500/25 min-w-[160px]"
+            >
+              <WhatsApp className="w-4 h-4 mr-3" />
+              WhatsApp
+            </Button>
+
+            <Button
+              variant="outline-fire"
+              onClick={handleBudget}
+              className="h-11 w-full sm:w-auto px-5 hover:scale-105 font-medium min-w-[160px]"
+            >
+              <TrendingUp className="w-4 h-4 mr-3" />
+              Orçamento
+            </Button>
           </div>
         </div>
 

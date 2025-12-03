@@ -12,8 +12,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@
 import { Checkbox } from '@/shared/ui/checkbox';
 import { Button } from '@/shared/ui/button';
 import { Card, CardContent } from '@/shared/ui/card';
-import { Badge } from '@/shared/ui/badge';
-import { Loader2, MessageCircle, AlertCircle, CheckCircle2, Send, ArrowRight, ArrowLeft, Sparkles } from 'lucide-react';
+import { Loader2, MessageCircle, AlertCircle, Send, ArrowRight, ArrowLeft, Sparkles } from 'lucide-react';
 import { supabase, isSupabaseConfigured } from '@/shared/lib/supabase';
 import type { PostgrestError } from '@supabase/supabase-js';
 import { generateWhatsAppURL, getWhatsAppMessage } from '@/shared/lib/whatsapp';
@@ -26,11 +25,14 @@ interface FormModalContentProps {
     budgetRange?: string;
   };
   onComplete?: () => void;
+  onSuccess?: () => void;
+  isOpen?: boolean;
   context?: {
     page: string;
     eventType?: string;
     productId?: string;
   };
+  onStepChange?: (step: number) => void;
 }
 
 const FormModalContent: React.FC<FormModalContentProps> = ({
@@ -38,59 +40,78 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
   source,
   initialData,
   onComplete,
+  onSuccess,
+  isOpen,
   context
+  ,
+  onStepChange
 }) => {
   const { trackFormEvent, trackWhatsAppClick, trackEvent } = useAnalytics();
   const { attribution } = useAppStore();
 
-  const schema = z.object({
-    name: z.string().min(2, 'Nome obrigatório'),
-    email: z.string().email('E-mail inválido'),
-    phone: z.string().min(10, 'Telefone obrigatório'),
-    eventType: z.enum(['reveillon', 'corporativo', 'casamento', 'cha-revelacao', 'festa', 'outro']),
-    city: z.string().min(2, 'Cidade/UF obrigatória'),
-    eventDate: z.string().min(1, 'Data obrigatória'),
-    audienceSize: z.enum(['ate-500', '500-5k', '5k-20k', '20k+']),
-    budget: z.enum(['5k-15k', '15k-50k', '50k-200k', '200k+']),
-    noiseRestrictions: z.boolean().default(false),
-    message: z.string().optional(),
-  });
+const formSchema = z.object({
+  name: z.string().min(2, 'Nome obrigatório'),
+  email: z.string().email('E-mail inválido'),
+  phone: z.string().min(10, 'Telefone obrigatório'),
+  eventType: z.enum(['reveillon', 'corporativo', 'casamento', 'cha-revelacao', 'festa', 'outro']),
+  city: z.string().min(2, 'Cidade/UF obrigatória'),
+  eventDate: z.string().min(1, 'Data obrigatória'),
+  audienceSize: z.enum(['ate-500', '500-5k', '5k-20k', '20k+']),
+  budget: z.enum(['5k-15k', '15k-50k', '50k-200k', '200k+']),
+  fireworkPoints: z.string().min(1, 'Informe a quantidade de pontos'),
+  noiseRestrictions: z.boolean().default(false),
+  message: z.string().optional(),
+});
+
+type FormValues = z.infer<typeof formSchema>;
+type BudgetOption = FormValues['budget'];
+type AudienceSizeOption = FormValues['audienceSize'];
+
+const mapBudgetRange = (wizardBudget?: string): BudgetOption => {
+  if (!wizardBudget) return '50k-200k';
+  if (wizardBudget === '5k') return '5k-15k';
+  if (wizardBudget === '15k') return '15k-50k';
+  if (wizardBudget === '50k') return '50k-200k';
+  if (wizardBudget === '100k+') return '200k+';
+  return '50k-200k';
+};
+
+const mapAttendeesRange = (wizardAttendees?: string): AudienceSizeOption => {
+  if (!wizardAttendees) return '5k-20k';
+  if (wizardAttendees === 'ate-50' || wizardAttendees === '50-200') return 'ate-500';
+  if (wizardAttendees === '200-500') return '500-5k';
+  if (wizardAttendees === '500+') return '5k-20k';
+  return '5k-20k';
+};
 
   // Map wizard budget ranges to form budget ranges
-  const mapBudgetRange = (wizardBudget?: string): typeof schema._type.budget => {
-    if (!wizardBudget) return '50k-200k';
-    if (wizardBudget === '5k') return '5k-15k';
-    if (wizardBudget === '15k') return '15k-50k';
-    if (wizardBudget === '50k') return '50k-200k';
-    if (wizardBudget === '100k+') return '200k+';
-    return '50k-200k';
-  };
-
-  // Map wizard attendees to form audienceSize
-  const mapAttendeesRange = (wizardAttendees?: string): typeof schema._type.audienceSize => {
-    if (!wizardAttendees) return '5k-20k';
-    if (wizardAttendees === 'ate-50' || wizardAttendees === '50-200') return 'ate-500';
-    if (wizardAttendees === '200-500') return '500-5k';
-    if (wizardAttendees === '500+') return '5k-20k';
-    return '5k-20k';
-  };
-
-  const form = useForm<z.infer<typeof schema>>({
-    resolver: zodResolver(schema),
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
-      eventType: (context?.eventType as z.infer<typeof schema>['eventType'] | undefined) || '',
+      eventType: (context?.eventType as FormValues['eventType'] | undefined) || '',
       eventDate: '',
       audienceSize: mapAttendeesRange(initialData?.attendeesRange),
       budget: mapBudgetRange(initialData?.budgetRange),
+      fireworkPoints: '',
       noiseRestrictions: false,
     }
   });
 
-  type FormFieldName = keyof z.infer<typeof schema>;
+  type FormFieldName = keyof FormValues;
 
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [step, setStep] = useState<1 | 2 | 3>(1);
+  const formatPhone = (value: string) => {
+    const digits = value.replace(/\D/g, '').slice(0, 11);
+    const d1 = digits.slice(0, 2);
+    const d2 = digits.slice(2, 7);
+    const d3 = digits.slice(7, 11);
+    if (digits.length > 7) return `(${d1}) ${d2}-${d3}`;
+    if (digits.length > 2) return `(${d1}) ${d2}`;
+    if (digits.length > 0) return `(${d1}`;
+    return '';
+  };
 
   const whatsappUrl = useMemo(() => {
     const message = getWhatsAppMessage(
@@ -104,7 +125,7 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
     return generateWhatsAppURL(message, attribution?.utm, { audience, source });
   }, [attribution?.utm, source, audience, form]);
 
-  const inferProfile = (values: Partial<z.infer<typeof schema>>) => {
+  const inferProfile = (values: Partial<FormValues>) => {
     const { eventType, audienceSize, budget } = values;
     if (eventType === 'reveillon' && (audienceSize === '5k-20k' || audienceSize === '20k+')) return 'promotor-clube';
     if (eventType === 'corporativo') return 'promotor-corporativo';
@@ -116,7 +137,8 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
 
   const derivedProfile = inferProfile(form.watch());
 
-  const submitLead = async (values: z.infer<typeof schema>) => {
+  const submitLead = async (values: FormValues) => {
+    if (step !== 3) return; // segurança extra
     if (status === 'idle') {
       trackFormEvent('start', {
         form_type: audience,
@@ -137,7 +159,7 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
       return;
     }
 
-    const { eventType, eventDate, audienceSize, noiseRestrictions, ...rest } = values;
+    const { eventType, eventDate, audienceSize, noiseRestrictions, fireworkPoints, ...rest } = values;
 
     const payload = {
       ...rest,
@@ -145,6 +167,7 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
       event_date: eventDate,
       audience_size: audienceSize,
       noise_restrictions: noiseRestrictions,
+      firework_points: fireworkPoints,
       audience,
       audience_profile: derivedProfile,
       source,
@@ -185,6 +208,7 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
     });
 
     setStatus('success');
+    onSuccess?.(); // pai decide fechar o modal e exibir banner
   };
 
   const handleWhatsapp = () => {
@@ -206,7 +230,17 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
 
   const nextStep = () => {
     const next = Math.min(3, (step + 1) as typeof step);
+    setStatus('idle');
+    setErrorMessage(null);
     setStep(next);
+    onStepChange?.(next);
+    if (next === 3) {
+      trackEvent('budget_form_final_step', {
+        audience,
+        source,
+        page_category: audience,
+      });
+    }
     trackEvent('budget_triage_step_view', {
       step: next,
       audience,
@@ -216,32 +250,64 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
       audience_size: form.getValues('audienceSize'),
     });
   };
-  const prevStep = () => setStep((s) => Math.max(1, (s - 1) as typeof step));
+  const prevStep = () => {
+    const prev = Math.max(1, (step - 1) as typeof step);
+    setStatus('idle');
+    setErrorMessage(null);
+    setStep(prev);
+    onStepChange?.(prev);
+  };
+
+  useEffect(() => {
+    onStepChange?.(step);
+    if (step === 3) {
+      trackEvent('budget_form_final_step', {
+        audience,
+        source,
+        page_category: audience,
+      });
+    }
+  }, [onStepChange, step, audience, source, trackEvent]);
+
+  // Reset apenas na transição de abrir (evita apagar enquanto o usuário digita)
+  const prevOpen = React.useRef<boolean>(false);
+  useEffect(() => {
+    const justOpened = isOpen && !prevOpen.current;
+    prevOpen.current = !!isOpen;
+    if (!justOpened) return;
+
+    setStatus('idle');
+    setErrorMessage(null);
+    setStep(1);
+    form.reset({
+      eventType: (context?.eventType as FormValues['eventType'] | undefined) || '',
+      eventDate: '',
+      audienceSize: mapAttendeesRange(initialData?.attendeesRange),
+      budget: mapBudgetRange(initialData?.budgetRange),
+      fireworkPoints: '',
+      noiseRestrictions: false,
+      name: '',
+      email: '',
+      phone: '',
+      city: '',
+      message: '',
+    });
+  }, [isOpen, form, initialData?.attendeesRange, initialData?.budgetRange, context?.eventType]);
 
   return (
-    <Card className="bg-slate-950/90 border border-white/10 shadow-xl shadow-black/30 backdrop-blur-sm animate-in fade-in duration-200">
-      <CardContent className="p-4 sm:p-5 space-y-3">
-        <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
-          <Badge variant="outline" className="border-fire-orange/60 text-fire-orange bg-white/5">Triagem rápida</Badge>
-          <Badge variant="secondary" className="text-[11px]">Resposta em até 24h</Badge>
-        </div>
-
-        <div className="flex items-center justify-between text-[11px] text-white/70">
-          <span className="tracking-wide">Etapa {step} de 3</span>
-          <span className="flex items-center gap-1">
-            <Sparkles className="w-3 h-3" /> Proposta personalizada
-          </span>
-        </div>
+    <Card className="bg-slate-950/90 border border-white/10 shadow-[0_10px_35px_-22px_rgba(0,0,0,0.85)] backdrop-blur-md animate-in fade-in duration-200">
+      <CardContent className="p-4 sm:p-6 space-y-3 pb-16">
+        <div className="flex flex-col gap-1" />
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(submitLead)} className="space-y-3 sm:space-y-4">
+          <form className="space-y-3" noValidate>
                     {step === 1 && (
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 animate-in slide-in-from-right duration-200">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 animate-in slide-in-from-right duration-150">
                         <FormField name="name" control={form.control} render={({ field }) => (
                           <FormItem>
                             <FormLabel>Nome</FormLabel>
                             <FormControl><Input data-testid="budget-name" placeholder="Responsável pelo evento" {...field} /></FormControl>
-                            <FormMessage />
+                            <FormMessage className="text-[11px]" />
                           </FormItem>
                         )} />
 
@@ -249,98 +315,122 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
                           <FormItem>
                             <FormLabel>E-mail</FormLabel>
                             <FormControl><Input data-testid="budget-email" type="email" placeholder="email@empresa.com" {...field} /></FormControl>
-                            <FormMessage />
+                            <FormMessage className="text-[11px]" />
                           </FormItem>
                         )} />
 
-                        <FormField name="phone" control={form.control} render={({ field }) => (
-                          <FormItem className="sm:col-span-2">
-                            <FormLabel>Telefone/WhatsApp</FormLabel>
-                            <FormControl><Input data-testid="budget-phone" placeholder="(61) 9 9999-9999" {...field} /></FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )} />
+                <FormField name="phone" control={form.control} render={({ field }) => (
+                  <FormItem className="sm:col-span-2">
+                    <FormLabel>Telefone/WhatsApp</FormLabel>
+                    <FormControl>
+                              <Input
+                                data-testid="budget-phone"
+                                placeholder="(61) 99999-1234"
+                                value={field.value || ''}
+                                inputMode="tel"
+                                onChange={(e) => field.onChange(formatPhone(e.target.value))}
+                              />
+                    </FormControl>
+                    <FormMessage className="text-[11px]" />
+                  </FormItem>
+                )} />
                       </div>
                     )}
 
             {step === 2 && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 animate-in slide-in-from-right duration-200">
-                <FormField name="city" control={form.control} render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Cidade/UF</FormLabel>
-                    <FormControl><Input data-testid="budget-city" placeholder="Brasília - DF" {...field} /></FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
+              <div className="space-y-2.5 animate-in slide-in-from-right duration-150">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+                  <FormField name="eventType" control={form.control} render={({ field }) => (
+                    <FormItem className="lg:col-span-1">
+                      <FormLabel>Tipo de evento</FormLabel>
+                      <FormControl>
+                        <Select onValueChange={field.onChange} value={field.value || undefined}>
+                          <SelectTrigger data-testid="budget-event-type"><SelectValue placeholder="Selecione" /></SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="reveillon">Réveillon</SelectItem>
+                            <SelectItem value="corporativo">Corporativo</SelectItem>
+                            <SelectItem value="casamento">Casamento</SelectItem>
+                            <SelectItem value="cha-revelacao">Chá revelação</SelectItem>
+                            <SelectItem value="festa">Festa</SelectItem>
+                            <SelectItem value="outro">Outro</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormMessage className="text-[11px]" />
+                    </FormItem>
+                  )} />
 
-                <FormField name="eventType" control={form.control} render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Tipo de evento</FormLabel>
-                    <FormControl>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <SelectTrigger data-testid="budget-event-type"><SelectValue placeholder="Selecione" /></SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="reveillon">Réveillon</SelectItem>
-                          <SelectItem value="corporativo">Corporativo</SelectItem>
-                          <SelectItem value="casamento">Casamento</SelectItem>
-                          <SelectItem value="cha-revelacao">Chá revelação</SelectItem>
-                          <SelectItem value="festa">Festa</SelectItem>
-                          <SelectItem value="outro">Outro</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
+                  <FormField name="eventDate" control={form.control} render={({ field }) => (
+                    <FormItem className="lg:col-span-1">
+                      <FormLabel>Data do evento</FormLabel>
+                      <FormControl><Input data-testid="budget-date" type="date" {...field} /></FormControl>
+                      <FormMessage className="text-[11px]" />
+                    </FormItem>
+                  )} />
 
-                <FormField name="audienceSize" control={form.control} render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Público estimado</FormLabel>
-                    <FormControl>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <SelectTrigger data-testid="budget-audience"><SelectValue placeholder="Selecione" /></SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="ate-500">Até 500</SelectItem>
-                          <SelectItem value="500-5k">500 a 5.000</SelectItem>
-                          <SelectItem value="5k-20k">5.000 a 20.000</SelectItem>
-                          <SelectItem value="20k+">20.000+</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
+                  <FormField name="city" control={form.control} render={({ field }) => (
+                    <FormItem className="sm:col-span-2 lg:col-span-1">
+                      <FormLabel>Cidade/UF</FormLabel>
+                      <FormControl><Input data-testid="budget-city" placeholder="Brasília - DF" {...field} /></FormControl>
+                      <FormMessage className="text-[11px]" />
+                    </FormItem>
+                  )} />
 
-                <FormField name="budget" control={form.control} render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Orçamento estimado</FormLabel>
-                    <FormControl>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <SelectTrigger data-testid="budget-range"><SelectValue placeholder="Selecione" /></SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="5k-15k">R$ 5k - 15k</SelectItem>
-                          <SelectItem value="15k-50k">R$ 15k - 50k</SelectItem>
-                          <SelectItem value="50k-200k">R$ 50k - 200k</SelectItem>
-                          <SelectItem value="200k+">R$ 200k+</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
+                  <FormField name="audienceSize" control={form.control} render={({ field }) => (
+                    <FormItem className="lg:col-span-1">
+                      <FormLabel>Público estimado</FormLabel>
+                      <FormControl>
+                        <Select onValueChange={field.onChange} value={field.value || undefined}>
+                          <SelectTrigger data-testid="budget-audience"><SelectValue placeholder="Selecione" /></SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="ate-500">Até 500</SelectItem>
+                            <SelectItem value="500-5k">500 a 5.000</SelectItem>
+                            <SelectItem value="5k-20k">5.000 a 20.000</SelectItem>
+                            <SelectItem value="20k+">20.000+</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormMessage className="text-[11px]" />
+                    </FormItem>
+                  )} />
 
-                <FormField name="eventDate" control={form.control} render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Data do evento</FormLabel>
-                    <FormControl><Input data-testid="budget-date" type="date" {...field} /></FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
+                  <FormField name="budget" control={form.control} render={({ field }) => (
+                    <FormItem className="lg:col-span-1">
+                      <FormLabel>Orçamento estimado</FormLabel>
+                      <FormControl>
+                        <Select onValueChange={field.onChange} value={field.value || undefined}>
+                          <SelectTrigger data-testid="budget-range"><SelectValue placeholder="Selecione" /></SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="5k-15k">R$ 5k - 15k</SelectItem>
+                            <SelectItem value="15k-50k">R$ 15k - 50k</SelectItem>
+                            <SelectItem value="50k-200k">R$ 50k - 200k</SelectItem>
+                            <SelectItem value="200k+">R$ 200k+</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormMessage className="text-[11px]" />
+                    </FormItem>
+                  )} />
+
+                  <FormField name="fireworkPoints" control={form.control} render={({ field }) => (
+                    <FormItem className="sm:col-span-2 lg:col-span-1">
+                      <FormLabel>Quantidade de pontos de fogos</FormLabel>
+                      <FormControl>
+                        <Input
+                          data-testid="budget-points"
+                          placeholder="Ex: 2 pontos (palco e ilha)"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className="text-[11px]" />
+                    </FormItem>
+                  )} />
+                </div>
               </div>
             )}
 
             {step === 3 && (
-              <div className="space-y-3 animate-in slide-in-from-right duration-200">
+              <div className="space-y-2.5 animate-in slide-in-from-right duration-150">
                 <FormField name="noiseRestrictions" control={form.control} render={({ field }) => (
                   <FormItem className="flex flex-row items-start space-x-2 space-y-0 rounded-md border border-white/10 px-3 py-2">
                     <FormControl>
@@ -356,15 +446,18 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
                 <FormField name="message" control={form.control} render={({ field }) => (
                   <FormItem>
                     <FormLabel>Observações (opcional)</FormLabel>
-                    <FormControl><Textarea rows={3} placeholder="Pontos de filmagem, horários, logística..." {...field} /></FormControl>
-                    <FormMessage />
+                    <FormControl>
+                      <Textarea
+                        rows={1}
+                        className="min-h-[44px]"
+                        placeholder="Pontos de filmagem, horários, logística..."
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage className="text-[11px]" />
                   </FormItem>
                 )} />
 
-                <div className="text-sm text-white/80 bg-white/5 border border-white/10 rounded-md p-3 flex items-start gap-2">
-                  <Sparkles className="w-4 h-4 text-fire-orange mt-0.5" />
-                  <span>Após enviar, nossa equipe técnica responderá com uma proposta personalizada.</span>
-                </div>
               </div>
             )}
 
@@ -375,48 +468,46 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
               </div>
             )}
 
-            {status === 'success' && (
-              <div className="flex flex-col items-center text-center gap-3 bg-emerald-500/10 border border-emerald-500/30 rounded-md p-4">
-                <div className="flex items-center gap-2 text-emerald-100 text-sm">
-                  <CheckCircle2 className="w-4 h-4" />
-                  <span>Recebido! Um especialista responderá em breve com sua proposta.</span>
-                </div>
-                <Button variant="default" onClick={handleWhatsapp} className="min-w-[220px]">
-                  <MessageCircle className="w-4 h-4 mr-2" /> Prosseguir no WhatsApp
-                </Button>
-              </div>
-            )}
+            {/* Mensagem de sucesso será exibida fora do modal pelo fluxo pai */}
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
-              {step > 1 ? (
-                <Button type="button" variant="ghost" onClick={prevStep} className="w-full sm:w-auto">
+            <div className="sticky bottom-0 pt-3 mt-3 bg-slate-950/92 backdrop-blur-sm -mx-4 sm:-mx-6 px-4 sm:px-6 border-t border-white/10">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                <Button type="button" variant="ghost" onClick={prevStep} disabled={step === 1} className="w-full sm:w-auto h-10 text-sm">
                   <ArrowLeft className="w-4 h-4 mr-2" /> Voltar
                 </Button>
-              ) : (
-                <div className="w-full sm:w-auto" />
-              )}
 
-              {step < 3 ? (
-                <Button type="button" onClick={() => {
-                  const fields: FormFieldName[] = step === 1
-                    ? ['name','email','phone']
-                    : ['city','eventType','audienceSize','budget','eventDate'];
-                  form.trigger(fields).then((ok) => {
-                    if (ok) nextStep();
-                  });
-                }} className="w-full sm:w-auto">
-                  Próxima etapa <ArrowRight className="w-4 h-4 ml-2" />
+                <Button type="button" variant="outline" onClick={handleWhatsapp} className="w-full sm:w-auto h-10 text-sm">
+                  <MessageCircle className="w-4 h-4 mr-2" /> Continuar no WhatsApp
                 </Button>
-              ) : (
-                <Button data-testid="budget-submit" type="submit" disabled={status === 'sending'} className="w-full sm:w-auto">
-                  {status === 'sending' ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Send className="w-4 h-4 mr-2" />}
-                  Enviar para análise técnica
-                </Button>
-              )}
 
-              <Button type="button" variant="outline" onClick={handleWhatsapp} className="w-full sm:w-auto">
-                <MessageCircle className="w-4 h-4 mr-2" /> Continuar no WhatsApp
-              </Button>
+                {step < 3 ? (
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      const fields: FormFieldName[] = step === 1
+                        ? ['name','email','phone']
+                        : ['city','eventType','audienceSize','budget','eventDate','fireworkPoints'];
+                      form.trigger(fields).then((ok) => {
+                        if (ok) nextStep();
+                      });
+                    }}
+                    className="w-full sm:w-auto sm:ml-auto h-10 text-sm"
+                  >
+                    Próxima etapa <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                ) : (
+                  <Button
+                    data-testid="budget-submit"
+                    type="button"
+                    onClick={() => form.handleSubmit(submitLead)()}
+                    disabled={status === 'sending'}
+                    className="w-full sm:w-auto sm:ml-auto h-10 text-sm"
+                  >
+                    {status === 'sending' ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Send className="w-4 h-4 mr-2" />}
+                    Enviar para análise técnica
+                  </Button>
+                )}
+              </div>
             </div>
           </form>
         </Form>
@@ -428,7 +519,7 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
 export default FormModalContent;
 
 // Lead score calculation
-const estimateLeadScore = (values: z.infer<ReturnType<typeof z.object>>) => {
+const estimateLeadScore = (values: FormValues) => {
   let score = 0;
   const budgetScore = {
     '5k-15k': 10,

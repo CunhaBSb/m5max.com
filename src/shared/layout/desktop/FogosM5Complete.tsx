@@ -4,13 +4,47 @@ import {
   Shield, 
   Award,
   Users,
-  Zap
+  Zap,
+  Sparkles,
+  TrendingUp
 } from "lucide-react";
+import { Button } from "@/shared/ui/button";
+import { FaWhatsapp as WhatsApp } from "react-icons/fa";
+import { useAnalytics } from "@/shared/hooks/useAnalytics";
+import { useAppStore } from "@/shared/store/appStore";
+import { generateWhatsAppURL, getWhatsAppMessage } from "@/shared/lib/whatsapp";
 
 const FogosM5Complete = () => {
 
+  const { openConversionModal } = useAppStore();
+  const { trackWhatsAppClick, trackEvent } = useAnalytics();
+
   const videoSrc = "https://psvmzrzezgkklfjshhua.supabase.co/storage/v1/object/sign/M5Max/V2.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81ZDUwMmRjNy00OTM1LTQ0OGMtOWExNC1lNjNjMjY1NjQwMzciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNNU1heC9WMi5tcDQiLCJpYXQiOjE3NTYyMzg1MjQsImV4cCI6MjEzNDY3MDUyNH0.P9v2SUKcQUtFf9Fn4SdSg_Bfr3Snh4oJcsaAp5dFt40";
   const thumbnailUrl = "/assets/thumbapresentação.webp";
+
+  const handleBudget = () => {
+    trackEvent('cta_budget_click', { source: 'fogosm5complete', placement: 'after_video' });
+    openConversionModal({
+      source: 'fogosm5complete',
+      audience: 'general',
+      page: 'home'
+    });
+  };
+
+  const handleWhats = () => {
+    const message = getWhatsAppMessage('b2b');
+    const url = generateWhatsAppURL(message, undefined, { audience: 'b2b', source: 'fogosm5complete' });
+
+    trackWhatsAppClick({
+      audience: 'b2b',
+      source: 'fogosm5complete',
+      message_template: message,
+      phone_number: '5561982735575'
+    });
+
+    trackEvent('cta_whatsapp_click', { source: 'fogosm5complete', placement: 'after_video' });
+    window.open(url, '_blank');
+  };
 
   const stats = [
     {
@@ -208,6 +242,35 @@ const FogosM5Complete = () => {
                 </div>
               );
             })}
+          </div>
+        </div>
+
+        {/* CTA alinhada imediatamente após o vídeo */}
+        <div className="text-center py-6 max-w-3xl mx-auto px-4 sm:px-0">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <Sparkles className="w-4 h-4 text-fire-orange animate-pulse" />
+            <h3 className="text-xl sm:text-2xl font-bold text-white">
+              Pronto para criar um <span className="text-fire-gradient">espetáculo</span>?
+            </h3>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+            <Button
+              onClick={handleWhats}
+              className="h-11 w-full sm:w-auto px-5 bg-green-600 hover:bg-green-500 hover:scale-105 text-white font-medium transition-all duration-300 shadow-lg hover:shadow-green-500/25 min-w-[160px]"
+            >
+              <WhatsApp className="w-4 h-4 mr-3" />
+              WhatsApp
+            </Button>
+
+            <Button
+              variant="outline-fire"
+              onClick={handleBudget}
+              className="h-11 w-full sm:w-auto px-5 hover:scale-105 font-medium min-w-[160px]"
+            >
+              <TrendingUp className="w-4 h-4 mr-3" />
+              Orçamento
+            </Button>
           </div>
         </div>
       </div>

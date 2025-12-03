@@ -8,9 +8,10 @@ import { generateWhatsAppURL, getWhatsAppMessage } from '@/shared/lib/whatsapp';
 
 const Services = () => {
   const { openConversionModal } = useAppStore();
-  const { trackWhatsAppClick } = useAnalytics();
+  const { trackWhatsAppClick, trackEvent } = useAnalytics();
 
   const handleOrçamentoClick = () => {
+    trackEvent('cta_budget_click', { source: 'services_showcase', placement: 'videos_cta' });
     openConversionModal({
       source: 'services_showcase',
       audience: 'general',
@@ -32,6 +33,8 @@ const Services = () => {
       message_template: message,
       phone_number: '5561982735575'
     });
+
+    trackEvent('cta_whatsapp_click', { source: 'services_showcase', placement: 'videos_cta' });
 
     window.open(url, '_blank');
   };
@@ -138,38 +141,6 @@ const Services = () => {
             description="Espetáculo completo com queima coordenada e efeitos especiais que marcaram a celebração"
             badges={["Festa", "Premium", "Espetacular"]}
           />
-        </div>
-
-
-        {/* Modern CTA Section - Framer/Notion Style */}
-        <div className="text-center py-6 max-w-2xl mx-auto">
-          {/* Emocional Header with Icon */}
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <Sparkles className="w-4 h-4 text-fire-orange animate-pulse" />
-            <h3 className="text-xl font-bold text-white">
-              Pronto para criar um <span className="text-fire-gradient">espetáculo</span>?
-            </h3>
-          </div>
-          
-          {/* Modern Button Layout */}
-          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
-            <Button
-              onClick={handleWhatsAppClick}
-              className="h-10 px-5 bg-green-600 hover:bg-green-500 hover:scale-105 text-white font-medium transition-all duration-300 shadow-lg hover:shadow-green-500/25 min-w-[140px]"
-            >
-              <WhatsApp className="w-4 h-4 mr-3" />
-              WhatsApp
-            </Button>
-            
-            <Button 
-              variant="outline-fire"
-              onClick={handleOrçamentoClick}
-              className="h-10 px-5 hover:scale-105 font-medium min-w-[140px]"
-            >
-              <TrendingUp className="w-4 h-4 mr-3" />
-              Orçamento
-            </Button>    
-          </div>
         </div>
       </div>
     </section>

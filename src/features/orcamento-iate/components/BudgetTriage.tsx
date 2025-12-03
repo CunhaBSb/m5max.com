@@ -57,6 +57,8 @@ export const BudgetTriage: React.FC<Props> = ({ variant = 'desktop', source = 'o
   }, [attribution?.utm, source]);
 
   const onSubmit = async (values: FormValues) => {
+    setStatus('sending');
+    setErrorMessage(null);
     if (status === 'idle') {
       trackFormEvent('start', {
         form_type: 'b2b',
@@ -66,9 +68,6 @@ export const BudgetTriage: React.FC<Props> = ({ variant = 'desktop', source = 'o
         lead_score: estimateLeadScore(values)
       });
     }
-
-    setStatus('sending');
-    setErrorMessage(null);
 
     if (!isSupabaseConfigured()) {
       setStatus('error');
