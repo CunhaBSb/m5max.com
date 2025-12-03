@@ -16,7 +16,7 @@ import { generateWhatsAppURL, getWhatsAppMessage } from "@/shared/lib/whatsapp";
 
 const FogosM5Complete = () => {
 
-  const { openConversionModal } = useAppStore();
+  const { openFormModal } = useAppStore();
   const { trackWhatsAppClick, trackEvent } = useAnalytics();
 
   const videoSrc = "https://psvmzrzezgkklfjshhua.supabase.co/storage/v1/object/sign/M5Max/V2.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81ZDUwMmRjNy00OTM1LTQ0OGMtOWExNC1lNjNjMjY1NjQwMzciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJNNU1heC9WMi5tcDQiLCJpYXQiOjE3NTYyMzg1MjQsImV4cCI6MjEzNDY3MDUyNH0.P9v2SUKcQUtFf9Fn4SdSg_Bfr3Snh4oJcsaAp5dFt40";
@@ -24,7 +24,7 @@ const FogosM5Complete = () => {
 
   const handleBudget = () => {
     trackEvent('cta_budget_click', { source: 'fogosm5complete', placement: 'after_video' });
-    openConversionModal({
+    openFormModal({
       source: 'fogosm5complete',
       audience: 'general',
       page: 'home'

@@ -7,12 +7,12 @@ import { useAppStore } from '@/shared/store/appStore';
 import { generateWhatsAppURL, getWhatsAppMessage } from '@/shared/lib/whatsapp';
 
 const Services = () => {
-  const { openConversionModal } = useAppStore();
+  const { openFormModal } = useAppStore();
   const { trackWhatsAppClick, trackEvent } = useAnalytics();
 
   const handleOrçamentoClick = () => {
     trackEvent('cta_budget_click', { source: 'services_showcase', placement: 'videos_cta' });
-    openConversionModal({
+    openFormModal({
       source: 'services_showcase',
       audience: 'general',
       page: 'home'

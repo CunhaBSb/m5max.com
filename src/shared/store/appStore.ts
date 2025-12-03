@@ -29,19 +29,45 @@ interface AppState {
   setTriageData: (data: TriageData) => void;
 }
 
+// Attempt to load previously granted consent before first render to avoid
+// dropping analytics events on page reloads (GA4 requires consent prior to send).
+const loadInitialConsent = (): ConsentState => {
+  if (typeof window === 'undefined') {
+    return {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'denied',
+      functionality_storage: 'granted',
+      security_storage: 'granted'
+    };
+  }
+
+  try {
+    const saved = window.localStorage.getItem('m5max-consent');
+    if (saved) {
+      return JSON.parse(saved) as ConsentState;
+    }
+  } catch (err) {
+    console.warn('[consent] Falha ao restaurar consentimento inicial', err);
+  }
+
+  return {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted'
+  };
+};
+
 export const useAppStore = create<AppState>()(
   persist(
     (set, get) => ({
       // Initial state
       attribution: null,
-      consent: {
-        ad_storage: 'denied',
-        ad_user_data: 'denied',
-        ad_personalization: 'denied',
-        analytics_storage: 'denied',
-        functionality_storage: 'granted',
-        security_storage: 'granted'
-      },
+      consent: loadInitialConsent(),
       conversionModalOpen: false,
       formModalOpen: false,
       currentAudience: 'general',

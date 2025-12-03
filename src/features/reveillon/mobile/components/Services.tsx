@@ -6,10 +6,8 @@ import {
   Calendar,
   ArrowRight
 } from 'lucide-react';
-import { FaWhatsapp as WhatsApp } from 'react-icons/fa';
 import { useAnalytics } from '@/shared/hooks/useAnalytics';
 import { useAppStore } from '@/shared/store/appStore';
-import { generateWhatsAppURL, getWhatsAppMessage } from '@/shared/lib/whatsapp';
 
 interface ShowcaseVideoCardProps {
   youtubeId: string;
@@ -20,25 +18,20 @@ interface ShowcaseVideoCardProps {
 }
 
 const ShowcaseVideoCardMobile = ({ youtubeId, title, description, badges, features }: ShowcaseVideoCardProps) => {
-  const { trackWhatsAppClick } = useAnalytics();
-  const { attribution } = useAppStore();
+  const { trackEvent } = useAnalytics();
+  const { openFormModal } = useAppStore();
 
-  const handleWhatsAppClick = () => {
-    const message = getWhatsAppMessage('b2b');
-    const url = generateWhatsAppURL(
-      message,
-      attribution?.utm,
-      { audience: 'b2b', source: 'reveillon_services_mobile' }
-    );
-
-    trackWhatsAppClick({
-      audience: 'b2b',
+  const handleBudgetClick = () => {
+    trackEvent('cta_budget_click', {
       source: 'reveillon_services_mobile',
-      message_template: message,
-      phone_number: '5561982735575'
+      page_category: 'reveillon',
     });
 
-    window.open(url, '_blank');
+    openFormModal({
+      source: 'reveillon_services_mobile',
+      audience: 'b2b',
+      page: 'reveillon'
+    });
   };
 
   return (
@@ -84,10 +77,10 @@ const ShowcaseVideoCardMobile = ({ youtubeId, title, description, badges, featur
         
         {/* CTA Button */}
         <Button 
-          onClick={handleWhatsAppClick}
+          onClick={handleBudgetClick}
           className="w-full bg-fire-gradient hover:opacity-90 text-white font-semibold"
         >
-          <WhatsApp className="w-4 h-4 mr-2" />
+          <Calendar className="w-4 h-4 mr-2" />
           Solicitar Orçamento
           <ArrowRight className="w-4 h-4 ml-2" />
         </Button>

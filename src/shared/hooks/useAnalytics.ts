@@ -523,6 +523,18 @@ export const useAnalytics = () => {
     }
   };
 
+  // Google Ads conversion helper (gtag)
+  const trackAdsConversion = (sendTo: string, value = 1, currency = 'BRL') => {
+    if (!consentAllowsPixels()) return;
+    if (typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', 'conversion', {
+        send_to: sendTo,
+        value,
+        currency,
+      });
+    }
+  };
+
   const consentAllowsPixels = () => {
     const isProd = config.environment === 'production';
     if (!userConsent || !isProd) return true; // Em dev liberamos para QA
@@ -543,6 +555,7 @@ export const useAnalytics = () => {
     trackQuoteRequest,
     trackCategorySwitch,
     trackEvent,
+    trackAdsConversion,
     // FASE 3: Otimizações
     trackPlatformSwitch,
     trackWebVitals,

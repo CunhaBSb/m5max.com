@@ -46,7 +46,7 @@ export const BudgetTriage: React.FC<Props> = ({ variant = 'desktop', source = 'o
     noiseRestrictions: false,
   } });
 
-  const { trackFormEvent, trackWhatsAppClick } = useAnalytics();
+  const { trackFormEvent, trackWhatsAppClick, trackAdsConversion } = useAnalytics();
   const { attribution } = useAppStore();
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -97,6 +97,9 @@ export const BudgetTriage: React.FC<Props> = ({ variant = 'desktop', source = 'o
       form_name: 'orcamento_iate_triage',
       lead_score: payload.lead_score,
     });
+
+    // Google Ads conversion (lead Iate)
+    trackAdsConversion('AW-17513080416/-rh5COHrhY8bEODM8Z5B', 1, 'BRL');
 
     setStatus('success');
   };

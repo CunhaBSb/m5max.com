@@ -46,7 +46,7 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
   ,
   onStepChange
 }) => {
-  const { trackFormEvent, trackWhatsAppClick, trackEvent } = useAnalytics();
+  const { trackFormEvent, trackWhatsAppClick, trackEvent, trackAdsConversion } = useAnalytics();
   const { attribution } = useAppStore();
 
 const formSchema = z.object({
@@ -206,6 +206,9 @@ const mapAttendeesRange = (wizardAttendees?: string): AudienceSizeOption => {
       noise_restrictions: values.noiseRestrictions,
       lead_id: undefined,
     });
+
+    // Google Ads conversion (lead enviado)
+    trackAdsConversion('AW-17513080416/-rh5COHrhY8bEODM8Z5B', 1, 'BRL');
 
     setStatus('success');
     onSuccess?.(); // pai decide fechar o modal e exibir banner

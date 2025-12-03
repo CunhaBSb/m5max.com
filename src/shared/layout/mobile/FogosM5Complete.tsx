@@ -15,7 +15,7 @@ import { useAppStore } from "@/shared/store/appStore";
 import { generateWhatsAppURL, getWhatsAppMessage } from "@/shared/lib/whatsapp";
 
 const FogosM5Complete = () => {
-  const { openConversionModal } = useAppStore();
+  const { openFormModal } = useAppStore();
   const { trackWhatsAppClick, trackEvent } = useAnalytics();
 
   // URL do vídeo da empresa - usando video disponível como fallback
@@ -51,7 +51,7 @@ const FogosM5Complete = () => {
 
   const handleBudget = () => {
     trackEvent('cta_budget_click', { source: 'fogosm5complete_mobile', placement: 'after_video' });
-    openConversionModal({
+    openFormModal({
       source: 'fogosm5complete_mobile',
       audience: 'general',
       page: 'home'
