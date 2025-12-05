@@ -2,7 +2,6 @@ import { lazy } from 'react';
 import { withLazyLoading } from './lazy-ui-utils';
 
 // Lazy load heavy UI components
-const LazyVideoPlayer = lazy(() => import('./video-player-optimized'));
 const LazyVideoPlayerMobile = lazy(() => import('./video-player-mobile'));
 const LazyMenubar = lazy(() => import('./menubar'));
 const LazyDropdownMenu = lazy(() => import('./dropdown-menu'));
@@ -17,7 +16,6 @@ const LazyToast = lazy(() => import('./toast'));
 const LazyNavigationMenu = lazy(() => import('./navigation-menu'));
 
 // Export optimized lazy components
-export const VideoPlayer = withLazyLoading(LazyVideoPlayer, 'lg');
 export const VideoPlayerMobile = withLazyLoading(LazyVideoPlayerMobile, 'lg');
 export const Menubar = withLazyLoading(LazyMenubar, 'md');
 export const DropdownMenu = withLazyLoading(LazyDropdownMenu);
@@ -50,19 +48,12 @@ export { default as Skeleton } from './skeleton';
 export { default as Tooltip } from './tooltip';
 export { default as Popover } from './popover';
 export { default as HoverCard } from './hover-card';
-export { default as Calendar } from './calendar';
-export { default as Command } from './command';
 export { default as AspectRatio } from './aspect-ratio';
 export { default as Accordion } from './accordion';
 export { default as Collapsible } from './collapsible';
 export { default as Toggle } from './toggle';
 export { default as ToggleGroup } from './toggle-group';
-export { default as Table } from './table';
-export { default as Breadcrumb } from './breadcrumb';
-export { default as Drawer } from './drawer';
 export { default as Sonner } from './sonner';
-export { default as Resizable } from './resizable';
-export { default as Sidebar } from './sidebar';
 
 // Optimized YouTube embed for better performance
 export { default as YouTubeEmbed } from './youtube-embed';

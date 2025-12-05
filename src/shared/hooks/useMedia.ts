@@ -29,7 +29,7 @@ export const useMedia = (query: string): boolean | null => {
 // Predefined hooks for common breakpoints
 export const useIsMobile = () => useMedia('(max-width: 767px)');
 export const useIsTablet = () => useMedia('(min-width: 768px) and (max-width: 1023px)');
-export const useIsDesktop = () => useMedia('(min-width: 1024px)');
+// useIsDesktop removed - use the one from ./useIsDesktop.ts instead
 export const useIsLargeDesktop = () => useMedia('(min-width: 1280px)');
 
 // Screen orientation

@@ -19,6 +19,8 @@ test-results
 .env.staging
 .env
 .claude
+.npm-cache/
+npm-cache/
 node_modules
 dist
 dist-ssr
