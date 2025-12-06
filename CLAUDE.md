@@ -214,11 +214,28 @@ Also configured in tsconfig.json:10 for TypeScript resolution.
 
 **When adding new features:**
 1. Create folder: `src/features/<feature-name>/`
-2. Add page component: `pages/<Feature>Page.tsx` with lazy loading
+2. Add page component: `pages/<Feature>Page.tsx` with lazy loading pattern:
+   ```tsx
+   import { ChunkErrorBoundary } from '@/shared/ui/ChunkErrorBoundary';
+   import { ConditionalLazy } from '@/shared/layout/switchers/ConditionalLazy';
+   import { PageLoading } from '@/shared/ui/page-loading';
+
+   const FeaturePage = () => (
+     <ChunkErrorBoundary>
+       <ConditionalLazy
+         desktopLoader={() => import('../desktop/Feature')}
+         mobileLoader={() => import('../mobile/Feature')}
+         fallback={<PageLoading />}
+       />
+     </ChunkErrorBoundary>
+   );
+   ```
 3. Create desktop version: `desktop/<Feature>.tsx`
 4. Create mobile version: `mobile/<Feature>.tsx`
-5. Use PlatformSwitch in page component
+5. For mobile pages, wrap below-fold sections with LazySection for viewport-based lazy loading
 6. Update AppRoutes.tsx with new route
+
+**Note:** `PlatformSwitch` is deprecated for lazy-loaded pages. Use it only for non-lazy components (Header, Footer, inline components).
 
 **When adding UI components:**
 - Add to `src/shared/ui/` if reusable across features
@@ -249,10 +266,19 @@ Also configured in tsconfig.json:10 for TypeScript resolution.
 
 ### Performance Considerations
 
-**Lazy Loading:**
-- All page-level components use React.lazy()
-- Desktop and mobile versions loaded on-demand
-- Suspense boundaries with branded loading states
+**Lazy Loading (Optimized Pattern):**
+- All page-level components use ConditionalLazy + ChunkErrorBoundary
+- Platform detection happens FIRST (synchronous), THEN lazy loading starts
+- Only loads the needed chunk (desktop OR mobile), reducing network traffic by ~50%
+- Eliminates dual loading state flash (single consistent PageLoading)
+- ChunkErrorBoundary catches chunk loading failures with retry UI
+- Mobile pages use LazySection for below-fold content (Intersection Observer)
+
+**Key Components:**
+- `ConditionalLazy` (src/shared/layout/switchers/ConditionalLazy.tsx) - Conditional lazy loading
+- `ChunkErrorBoundary` (src/shared/ui/ChunkErrorBoundary.tsx) - Error recovery for chunk failures
+- `LazySection` (src/shared/layout/LazySection.tsx) - Viewport-based lazy loading for sections
+- `useIsDesktop()` returns boolean immediately (never null), mobile-first SSR (returns false)
 
 **Bundle Size:**
 - Monitor chunk sizes after changes
@@ -269,11 +295,13 @@ Also configured in tsconfig.json:10 for TypeScript resolution.
 
 1. **Don't bypass the bifurcated architecture** - Always create desktop and mobile versions
 2. **Don't mutate Zustand state directly** - Use provided action methods
-3. **Don't skip lazy loading** - Page components must use React.lazy()
-4. **Don't hardcode analytics IDs** - Use environment variables
-5. **Don't create forms without Zod schemas** - Type safety and validation are critical
-6. **Don't ignore the 1024px breakpoint** - Test all changes at this width
-7. **Don't add heavy dependencies without chunk optimization** - Update vite.config.ts manual chunks
+3. **Don't skip lazy loading** - Page components must use ConditionalLazy + ChunkErrorBoundary
+4. **Don't use PlatformSwitch for lazy-loaded pages** - Use ConditionalLazy instead (PlatformSwitch is for non-lazy components only)
+5. **Don't hardcode analytics IDs** - Use environment variables
+6. **Don't create forms without Zod schemas** - Type safety and validation are critical
+7. **Don't ignore the 1024px breakpoint** - Test all changes at this width
+8. **Don't add heavy dependencies without chunk optimization** - Update vite.config.ts manual chunks
+9. **Don't forget LazySection for mobile below-fold content** - Improves initial load performance
 
 ## Quick Reference
 

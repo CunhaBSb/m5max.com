@@ -7,6 +7,7 @@ import FogosM5Complete from '@/shared/layout/mobile/FogosM5Complete';
 import Services from '@/shared/layout/mobile/Services';
 import FAQ from '@/shared/layout/mobile/FAQ';
 import SectionSeparator from '@/shared/layout/SectionSeparator';
+import { LazySection } from '@/shared/layout/LazySection';
 import Hero from './components/Hero';
 import { buildSeo, seoHome } from '@/shared/data/seo';
 import { SeoHead } from '@/shared/layout/SeoHead';
@@ -60,21 +61,25 @@ const HomeMobile = () => {
 
           <SectionSeparator variant="sparkle-trail" spacing="md" />
 
-          <div id="empresa">
-            <FogosM5Complete />
-          </div>
+          <LazySection>
+            <div id="empresa">
+              <FogosM5Complete />
+            </div>
+          </LazySection>
 
           <SectionSeparator variant="gradient-wave" spacing="sm" />
 
-          <div id="servicos">
-            <Services />
-          </div>
+          <LazySection>
+            <div id="servicos">
+              <Services />
+            </div>
+          </LazySection>
 
-
-
-          <div id="faq">
-            <FAQ />
-          </div>
+          <LazySection>
+            <div id="faq">
+              <FAQ />
+            </div>
+          </LazySection>
 
           <div id="contato">
             {/* Contact section will be shared */}

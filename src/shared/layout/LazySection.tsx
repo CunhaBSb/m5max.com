@@ -1,5 +1,4 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Loader2 } from 'lucide-react';
 
 interface LazySectionProps {
   children: React.ReactNode;
@@ -44,13 +43,25 @@ export const LazySection: React.FC<LazySectionProps> = ({
 
   const defaultFallback = (
     <div className="flex items-center justify-center py-20">
-      <Loader2 className="w-6 h-6 animate-spin text-fire-orange" />
+      <img
+        src="/m5logo.svg"
+        alt="Carregando..."
+        className="w-12 h-12 opacity-60 animate-pulse"
+        style={{ willChange: 'opacity' }}
+      />
     </div>
   );
 
   return (
     <div ref={ref} className={className}>
-      {isVisible ? children : (fallback || defaultFallback)}
+      <div
+        className={`
+          transition-opacity duration-400 ease-in-out
+          ${isVisible ? 'opacity-100' : 'opacity-0'}
+        `}
+      >
+        {isVisible ? children : (fallback || defaultFallback)}
+      </div>
     </div>
   );
 };

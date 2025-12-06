@@ -5,6 +5,7 @@ import { useAppStore } from '@/shared/store/appStore';
 import { generateWhatsAppURL, getWhatsAppMessage } from '@/shared/lib/whatsapp';
 import RootLayout from '@/app/layouts/RootLayout';
 import SectionSeparator from '@/shared/layout/SectionSeparator';
+import { LazySection } from '@/shared/layout/LazySection';
 
 import ProductHero from './components/ProductHero';
 import ProductSelector from './components/ProductSelector';
@@ -67,21 +68,27 @@ const ProdutosMobile = () => {
 
           <SectionSeparator variant="sparkle-trail" spacing="md" />
 
-          <div id="seletor-produtos">
-            <ProductSelector />
-          </div>
+          <LazySection>
+            <div id="seletor-produtos">
+              <ProductSelector />
+            </div>
+          </LazySection>
 
           <SectionSeparator variant="gradient-wave" spacing="sm" />
 
-          <div id="confianca">
-            <TrustIndicators />
-          </div>
+          <LazySection>
+            <div id="confianca">
+              <TrustIndicators />
+            </div>
+          </LazySection>
 
           <SectionSeparator variant="sparkle-trail" spacing="md" />
 
-          <div id="precos">
-            <PricingSection />
-          </div>
+          <LazySection>
+            <div id="precos">
+              <PricingSection />
+            </div>
+          </LazySection>
         </main>
       </RootLayout>
     </>

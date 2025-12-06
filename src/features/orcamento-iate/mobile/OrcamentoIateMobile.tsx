@@ -1,5 +1,6 @@
 import RootLayout from '@/app/layouts/RootLayout';
 import SectionSeparator from '@/shared/layout/SectionSeparator';
+import { LazySection } from '@/shared/layout/LazySection';
 import FogosM5Complete from '@/shared/layout/mobile/FogosM5Complete';
 import { Button } from '@/shared/ui/button';
 import { Badge } from '@/shared/ui/badge';
@@ -131,12 +132,15 @@ const OrcamentoIateMobile = () => {
           {/* Simulação */}
           <SectionSeparator variant="fire-line" spacing="md" />
 
-          <div className="px-4">
-            <BudgetTriage variant="mobile" source="orcamento_iate_2026_mobile" />
-          </div>
+          <LazySection>
+            <div className="px-4">
+              <BudgetTriage variant="mobile" source="orcamento_iate_2026_mobile" />
+            </div>
+          </LazySection>
 
           <SectionSeparator variant="fire-line" spacing="md" />
-          <section id="simulacao-section" className="px-4 py-10 space-y-4">
+          <LazySection>
+            <section id="simulacao-section" className="px-4 py-10 space-y-4">
             <div className="text-center space-y-2">
               <Badge variant="outline" className="border-fire-gold/50 text-white">Simulação 3D</Badge>
               <h2 className="text-2xl font-bold text-white">Visual previsto</h2>
@@ -156,10 +160,12 @@ const OrcamentoIateMobile = () => {
               </CardContent>
             </Card>
           </section>
+          </LazySection>
 
           {/* Por que é único */}
           <SectionSeparator variant="fire-line" spacing="md" />
-          <section className="px-4 py-10 space-y-6">
+          <LazySection>
+            <section className="px-4 py-10 space-y-6">
             <div className="text-center space-y-2">
               <Badge variant="outline" className="border-fire-gold/50 text-white">Diferenciais</Badge>
               <h2 className="text-2xl font-bold text-white">Entrega dedicada ao Iate</h2>
@@ -194,10 +200,12 @@ const OrcamentoIateMobile = () => {
               ))}
             </div>
           </section>
+          </LazySection>
 
           {/* Escopo */}
           <SectionSeparator variant="sparkle" spacing="md" />
-          <section className="px-4 py-10 space-y-6">
+          <LazySection>
+            <section className="px-4 py-10 space-y-6">
             <div className="text-center space-y-2">
               <Badge variant="outline" className="border-fire-orange/40 text-white">Escopo</Badge>
               <h2 className="text-2xl font-bold text-white">O que está incluído</h2>
@@ -220,14 +228,18 @@ const OrcamentoIateMobile = () => {
               ))}
             </div>
           </section>
+          </LazySection>
 
           {/* Sobre M5 */}
           <SectionSeparator variant="ember-glow" spacing="md" />
-          <FogosM5Complete />
+          <LazySection>
+            <FogosM5Complete />
+          </LazySection>
 
           {/* Orçamento */}
           <SectionSeparator variant="sparkle" spacing="md" />
-          <section className="px-4 pb-16">
+          <LazySection>
+            <section className="px-4 pb-16">
             <Card className="bg-white/8 border-white/10 shadow-elegant">
               <CardContent className="p-5 space-y-3">
                 <div className="flex items-center gap-2">
@@ -253,6 +265,7 @@ const OrcamentoIateMobile = () => {
               </CardContent>
             </Card>
           </section>
+          </LazySection>
         </main>
 
         <Dialog open={pdfOpen} onOpenChange={setPdfOpen}>

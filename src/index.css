@@ -299,8 +299,32 @@ All colors MUST be HSL.
   }
   
   .ambient-particles {
-    background-image: 
+    background-image:
       radial-gradient(circle at 20% 80%, hsl(var(--fire-orange) / 0.1) 0%, transparent 50%),
       radial-gradient(circle at 80% 20%, hsl(var(--fire-gold) / 0.1) 0%, transparent 50%);
+  }
+
+  /* Smooth transition utilities for loading states */
+  .transition-opacity-smooth {
+    transition-property: opacity;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 400ms;
+  }
+
+  /* Performance hints for GPU acceleration */
+  .will-change-opacity {
+    will-change: opacity;
+  }
+
+  /* Accessibility: Respect reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .transition-opacity,
+    .transition-opacity-smooth,
+    .animate-fade-in-up,
+    .subtle-pulse,
+    .gentle-glow {
+      transition: none !important;
+      animation: none !important;
+    }
   }
 }

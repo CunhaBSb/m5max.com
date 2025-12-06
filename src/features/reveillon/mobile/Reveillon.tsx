@@ -4,6 +4,7 @@ import RootLayout from '@/app/layouts/RootLayout';
 import Hero from './components/Hero';
 import TimelineSection from './components/TimelineSection';
 import SectionSeparator from '@/shared/layout/SectionSeparator';
+import { LazySection } from '@/shared/layout/LazySection';
 import FogosM5Complete from '@/shared/layout/mobile/FogosM5Complete';
 import Services from '@/shared/layout/mobile/Services';
 import FAQ from '@/shared/layout/mobile/FAQ';
@@ -33,27 +34,35 @@ const ReveillonMobile = () => {
 
           <SectionSeparator variant="fire-line" spacing="lg" />
 
-          <div id="empresa">
-            <FogosM5Complete />
-          </div>
+          <LazySection>
+            <div id="empresa">
+              <FogosM5Complete />
+            </div>
+          </LazySection>
 
           <SectionSeparator variant="ember-glow" spacing="md" />
 
-          <div id="servicos">
-            <Services />
-          </div>
+          <LazySection>
+            <div id="servicos">
+              <Services />
+            </div>
+          </LazySection>
 
           <SectionSeparator variant="sparkle" spacing="lg" />
 
-          <div id="como-funciona">
-            <TimelineSection />
-          </div>
+          <LazySection>
+            <div id="como-funciona">
+              <TimelineSection />
+            </div>
+          </LazySection>
 
           <SectionSeparator variant="gradient-wave" spacing="md" />
 
-          <div id="faq">
-            <FAQ />
-          </div>
+          <LazySection>
+            <div id="faq">
+              <FAQ />
+            </div>
+          </LazySection>
         </main>
       </RootLayout>
     </>

@@ -1,19 +1,16 @@
-import { lazy, Suspense } from 'react';
-import { PlatformSwitch } from '@/shared/layout/switchers/PlatformSwitch';
+import { ChunkErrorBoundary } from '@/shared/ui/ChunkErrorBoundary';
+import { ConditionalLazy } from '@/shared/layout/switchers/ConditionalLazy';
 import { PageLoading } from '@/shared/ui/page-loading';
-
-// Lazy load desktop and mobile versions
-const ProdutosDesktop = lazy(() => import('../desktop/Produtos'));
-const ProdutosMobile = lazy(() => import('../mobile/Produtos'));
 
 const ProdutosPage = () => {
   return (
-    <Suspense fallback={<PageLoading />}>
-      <PlatformSwitch
-        desktop={<ProdutosDesktop />}
-        mobile={<ProdutosMobile />}
+    <ChunkErrorBoundary>
+      <ConditionalLazy
+        desktopLoader={() => import('../desktop/Produtos')}
+        mobileLoader={() => import('../mobile/Produtos')}
+        fallback={<PageLoading />}
       />
-    </Suspense>
+    </ChunkErrorBoundary>
   );
 };
 

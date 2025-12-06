@@ -7,6 +7,15 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 vi.mock('@/shared/hooks/useIsDesktop');
 const mockUseIsDesktop = vi.mocked(useIsDesktop);
 
+/**
+ * PlatformSwitch Tests (Updated for new behavior)
+ *
+ * Note: PlatformSwitch is now deprecated for lazy-loaded pages.
+ * Use ConditionalLazy instead for page-level components.
+ *
+ * PlatformSwitch should only be used for non-lazy components like Header, Footer.
+ * useIsDesktop() now returns boolean (never null), so no loading states.
+ */
 describe('PlatformSwitch', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -14,7 +23,6 @@ describe('PlatformSwitch', () => {
 
   const desktopContent = <div data-testid="desktop-content">Desktop Component</div>;
   const mobileContent = <div data-testid="mobile-content">Mobile Component</div>;
-  const fallbackContent = <div data-testid="fallback-content">Loading...</div>;
 
   it('renders desktop content when isDesktop is true', () => {
     mockUseIsDesktop.mockReturnValue(true);
@@ -44,57 +52,10 @@ describe('PlatformSwitch', () => {
     expect(screen.queryByTestId('desktop-content')).not.toBeInTheDocument();
   });
 
-  it('renders default loading state when isDesktop is null (SSR)', () => {
-    mockUseIsDesktop.mockReturnValue(null);
-
-    const { container } = render(
-      <PlatformSwitch
-        desktop={desktopContent}
-        mobile={mobileContent}
-      />
-    );
-
-    // Check for the loading spinner
-    const loadingSpinner = container.querySelector('.animate-spin');
-    expect(loadingSpinner).toBeInTheDocument();
-    
-    expect(screen.queryByTestId('desktop-content')).not.toBeInTheDocument();
-    expect(screen.queryByTestId('mobile-content')).not.toBeInTheDocument();
-  });
-
-  it('renders custom fallback when provided and isDesktop is null', () => {
-    mockUseIsDesktop.mockReturnValue(null);
-
-    render(
-      <PlatformSwitch
-        desktop={desktopContent}
-        mobile={mobileContent}
-        fallback={fallbackContent}
-      />
-    );
-
-    expect(screen.getByTestId('fallback-content')).toBeInTheDocument();
-    expect(screen.queryByTestId('desktop-content')).not.toBeInTheDocument();
-    expect(screen.queryByTestId('mobile-content')).not.toBeInTheDocument();
-  });
-
-  it('properly handles SSR-safe rendering pattern', () => {
-    // Simulate SSR phase (null)
-    mockUseIsDesktop.mockReturnValue(null);
-    
-    const { rerender, container } = render(
-      <PlatformSwitch
-        desktop={desktopContent}
-        mobile={mobileContent}
-      />
-    );
-
-    // Should show loading state
-    expect(container.querySelector('.animate-spin')).toBeInTheDocument();
-
-    // Simulate hydration with desktop
+  it('handles platform switching correctly (e.g., window resize)', () => {
     mockUseIsDesktop.mockReturnValue(true);
-    rerender(
+
+    const { rerender } = render(
       <PlatformSwitch
         desktop={desktopContent}
         mobile={mobileContent}
@@ -103,29 +64,34 @@ describe('PlatformSwitch', () => {
 
     // Should show desktop content
     expect(screen.getByTestId('desktop-content')).toBeInTheDocument();
-    expect(container.querySelector('.animate-spin')).not.toBeInTheDocument();
-  });
 
-  it('maintains M5 branding in loading state', () => {
-    mockUseIsDesktop.mockReturnValue(null);
-
-    const { container } = render(
+    // Simulate window resize to mobile
+    mockUseIsDesktop.mockReturnValue(false);
+    rerender(
       <PlatformSwitch
         desktop={desktopContent}
         mobile={mobileContent}
       />
     );
 
-    // Check for M5 brand colors in spinner - look for the border-t-fire-orange class
-    const spinner = container.querySelector('.border-t-fire-orange');
-    expect(spinner).toBeInTheDocument();
-    
-    // Also check for the animate-spin class
-    expect(spinner).toHaveClass('animate-spin');
-    
-    // Check for proper centering by checking multiple classes
-    const loadingContainer = container.querySelector('.min-h-screen');
-    expect(loadingContainer).toBeInTheDocument();
-    expect(loadingContainer).toHaveClass('flex', 'items-center', 'justify-center');
+    // Should show mobile content
+    expect(screen.getByTestId('mobile-content')).toBeInTheDocument();
+    expect(screen.queryByTestId('desktop-content')).not.toBeInTheDocument();
+  });
+
+  it('defaults to mobile-first on SSR (returns false)', () => {
+    // useIsDesktop returns false during SSR (mobile-first approach)
+    mockUseIsDesktop.mockReturnValue(false);
+
+    render(
+      <PlatformSwitch
+        desktop={desktopContent}
+        mobile={mobileContent}
+      />
+    );
+
+    // Should show mobile content (mobile-first)
+    expect(screen.getByTestId('mobile-content')).toBeInTheDocument();
+    expect(screen.queryByTestId('desktop-content')).not.toBeInTheDocument();
   });
 });

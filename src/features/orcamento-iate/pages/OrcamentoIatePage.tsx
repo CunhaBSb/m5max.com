@@ -1,14 +1,15 @@
-import { Suspense, lazy } from 'react';
-import { PlatformSwitch } from '@/shared/layout/switchers/PlatformSwitch';
+import { ChunkErrorBoundary } from '@/shared/ui/ChunkErrorBoundary';
+import { ConditionalLazy } from '@/shared/layout/switchers/ConditionalLazy';
 import { PageLoading } from '@/shared/ui/page-loading';
 
-const OrcamentoIateDesktop = lazy(() => import('../desktop/OrcamentoIateDesktop'));
-const OrcamentoIateMobile = lazy(() => import('../mobile/OrcamentoIateMobile'));
-
 const OrcamentoIatePage = () => (
-  <Suspense fallback={<PageLoading />}>
-    <PlatformSwitch desktop={<OrcamentoIateDesktop />} mobile={<OrcamentoIateMobile />} />
-  </Suspense>
+  <ChunkErrorBoundary>
+    <ConditionalLazy
+      desktopLoader={() => import('../desktop/OrcamentoIateDesktop')}
+      mobileLoader={() => import('../mobile/OrcamentoIateMobile')}
+      fallback={<PageLoading />}
+    />
+  </ChunkErrorBoundary>
 );
 
 export default OrcamentoIatePage;

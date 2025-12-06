@@ -107,15 +107,16 @@ describe('Header', () => {
       expect(screen.queryByTestId('desktop-header')).not.toBeInTheDocument();
     });
 
-    it('shows loading state during SSR', () => {
-      mockUseIsDesktop.mockReturnValue(null);
-      
-      const { container } = renderWithRouter(<Header />);
-      
-      // Should show loading spinner from PlatformSwitch
+    it('defaults to mobile header during SSR (mobile-first)', () => {
+      // useIsDesktop returns false during SSR (mobile-first approach)
+      mockUseIsDesktop.mockReturnValue(false);
+
+      renderWithRouter(<Header />);
+
+      // Should show mobile header (mobile-first SSR)
       expect(screen.getByRole('banner')).toBeInTheDocument();
-      // Check for loading spinner element by class
-      expect(container.querySelector('.animate-spin')).toBeInTheDocument();
+      expect(screen.getByTestId('mobile-header')).toBeInTheDocument();
+      expect(screen.queryByTestId('desktop-header')).not.toBeInTheDocument();
     });
   });
 
