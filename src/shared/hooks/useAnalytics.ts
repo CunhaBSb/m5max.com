@@ -46,7 +46,9 @@ export const useAnalytics = () => {
     // Consent: em produção respeitamos; em dev/staging liberamos para QA
     const isProd = config.environment === 'production';
     if (userConsent && userConsent.analytics_storage === 'denied' && isProd) {
-      console.debug('[Analytics] Tracking blocked - analytics consent denied');
+      if (import.meta.env.DEV) {
+        console.debug('[Analytics] Tracking blocked - analytics consent denied');
+      }
       return;
     }
 
@@ -119,7 +121,9 @@ export const useAnalytics = () => {
 
     // GA4 video events
     if (!config.ga4Id) {
-      console.warn('[Analytics] GA4 ID ausente, evento não enviado para GA4:', eventType);
+      if (import.meta.env.DEV) {
+        console.warn('[Analytics] GA4 ID ausente, evento não enviado para GA4:', eventType);
+      }
     }
 
     if (consentAllowsPixels() && typeof window !== 'undefined' && window.gtag && config.ga4Id) {

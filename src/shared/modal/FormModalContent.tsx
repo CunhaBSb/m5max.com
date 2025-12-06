@@ -181,7 +181,9 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
       .insert(payload, { returning: 'minimal' });
 
     if (error) {
-      console.error('Supabase insert error', error);
+      if (import.meta.env.DEV) {
+        console.error('Supabase insert error', error);
+      }
       setStatus('error');
       setErrorMessage(`Erro ao enviar: ${error.message ?? 'tente novamente ou use WhatsApp.'}`);
       trackEvent('budget_triage_supabase_error', {

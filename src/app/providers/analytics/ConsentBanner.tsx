@@ -20,7 +20,9 @@ const ConsentBanner: React.FC = () => {
         updateConsent(parsed);
         return; // não mostra banner se já houve escolha
       } catch (err) {
-        console.warn('Falha ao restaurar consentimento salvo', err);
+        if (import.meta.env.DEV) {
+          console.warn('Falha ao restaurar consentimento salvo', err);
+        }
       }
     }
 

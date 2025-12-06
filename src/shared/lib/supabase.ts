@@ -74,11 +74,13 @@ let supabaseClient: SupabaseClient<Database> | null = null;
 export const createSupabaseClient = (): SupabaseClient<Database> => {
   // Verificar se as variáveis de ambiente estão configuradas
   if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-    console.warn('Supabase: Variáveis de ambiente não configuradas', {
-      hasUrl: !!SUPABASE_URL,
-      hasKey: !!SUPABASE_ANON_KEY
-    });
-    
+    if (import.meta.env.DEV) {
+      console.warn('Supabase: Variáveis de ambiente não configuradas', {
+        hasUrl: !!SUPABASE_URL,
+        hasKey: !!SUPABASE_ANON_KEY
+      });
+    }
+
     // Retornar um cliente mock para desenvolvimento
     return createMockSupabaseClient();
   }
@@ -97,11 +99,12 @@ export const createSupabaseClient = (): SupabaseClient<Database> => {
       global: {}
     });
 
-    console.log('Supabase: Cliente inicializado com sucesso');
     return supabaseClient;
 
   } catch (error) {
-    console.error('Supabase: Erro ao criar cliente:', error);
+    if (import.meta.env.DEV) {
+      console.error('Supabase: Erro ao criar cliente:', error);
+    }
     return createMockSupabaseClient();
   }
 };
@@ -114,7 +117,9 @@ export const createSupabaseClient = (): SupabaseClient<Database> => {
  * Cliente mock para desenvolvimento quando Supabase não está configurado
  */
 const createMockSupabaseClient = (): SupabaseClient<Database> => {
-  console.warn('Supabase: Usando cliente mock para desenvolvimento');
+  if (import.meta.env.DEV) {
+    console.warn('Supabase: Usando cliente mock para desenvolvimento');
+  }
 
   const createMockQuery = () => ({
     select: () => createMockQuery(),
@@ -177,20 +182,23 @@ export const testSupabaseConnection = async (): Promise<boolean> => {
 
   try {
     const client = createSupabaseClient();
-    
+
     // Testar uma consulta simples
     const { error } = await client.from('kit_festa').select('id').limit(1);
-    
+
     if (error) {
-      console.warn('Supabase: Teste de conexão falhou:', error);
+      if (import.meta.env.DEV) {
+        console.warn('Supabase: Teste de conexão falhou:', error);
+      }
       return false;
     }
 
-    console.log('Supabase: Teste de conexão bem-sucedido');
     return true;
 
   } catch (error) {
-    console.warn('Supabase: Erro no teste de conexão:', error);
+    if (import.meta.env.DEV) {
+      console.warn('Supabase: Erro no teste de conexão:', error);
+    }
     return false;
   }
 };

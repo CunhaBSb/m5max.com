@@ -103,7 +103,9 @@ export const useWebVitals = () => {
         }
       } catch (error) {
         // Fallback: usar Performance Observer API
-        console.debug('[WebVitals] web-vitals library not available, using Performance Observer fallback');
+        if (import.meta.env.DEV) {
+          console.debug('[WebVitals] web-vitals library not available, using Performance Observer fallback');
+        }
 
         // FCP via Performance Observer
         const fcpObserver = new PerformanceObserver((list) => {
@@ -124,7 +126,9 @@ export const useWebVitals = () => {
           fcpObserver.observe({ type: 'paint', buffered: true });
         } catch (e) {
           // Navegador não suporta
-          console.debug('[WebVitals] Paint timing not supported');
+          if (import.meta.env.DEV) {
+            console.debug('[WebVitals] Paint timing not supported');
+          }
         }
 
         // LCP via Performance Observer
@@ -143,7 +147,9 @@ export const useWebVitals = () => {
         try {
           lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true });
         } catch (e) {
-          console.debug('[WebVitals] LCP timing not supported');
+          if (import.meta.env.DEV) {
+            console.debug('[WebVitals] LCP timing not supported');
+          }
         }
 
         // CLS via Performance Observer
@@ -159,7 +165,9 @@ export const useWebVitals = () => {
         try {
           clsObserver.observe({ type: 'layout-shift', buffered: true });
         } catch (e) {
-          console.debug('[WebVitals] Layout shift timing not supported');
+          if (import.meta.env.DEV) {
+            console.debug('[WebVitals] Layout shift timing not supported');
+          }
         }
 
         // Rastrear CLS ao sair da página

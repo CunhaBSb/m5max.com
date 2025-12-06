@@ -86,7 +86,9 @@ export const BudgetTriage: React.FC<Props> = ({ variant = 'desktop', source = 'o
 
     const { error } = await supabase.from('lead_submissions').insert(payload, { returning: 'minimal' });
     if (error) {
-      console.error('Supabase insert error', error);
+      if (import.meta.env.DEV) {
+        console.error('Supabase insert error', error);
+      }
       setStatus('error');
       setErrorMessage('Não conseguimos enviar. Tente novamente ou use WhatsApp.');
       return;

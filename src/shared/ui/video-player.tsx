@@ -93,7 +93,9 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
     };
 
     const handleError = (e: Event) => {
-      console.error('Video error:', e);
+      if (import.meta.env.DEV) {
+        console.error('Video error:', e);
+      }
       setIsLoading(false);
       setHasError(true);
       setIsBuffering(false);
@@ -180,7 +182,9 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
           video_provider: 'native'
         });
       }).catch(error => {
-        console.error('Error playing video:', error);
+        if (import.meta.env.DEV) {
+          console.error('Error playing video:', error);
+        }
         setHasError(true);
       });
     }
@@ -219,7 +223,11 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
     const container = containerRef.current;
     if (!container) return;
     if (!document.fullscreenElement) {
-      container.requestFullscreen().catch(err => console.error(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`));
+      container.requestFullscreen().catch(err => {
+        if (import.meta.env.DEV) {
+          console.error(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+        }
+      });
     } else {
       document.exitFullscreen();
     }

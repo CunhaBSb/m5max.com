@@ -51,7 +51,9 @@ const createCacheManager = (): CacheManager => {
         };
         localStorage.setItem(key, JSON.stringify(cache));
       } catch (error) {
-        console.warn('Cache storage failed:', error);
+        if (import.meta.env.DEV) {
+          console.warn('Cache storage failed:', error);
+        }
       }
     },
 
@@ -65,7 +67,9 @@ const createCacheManager = (): CacheManager => {
             .forEach(key => localStorage.removeItem(key));
         }
       } catch (error) {
-        console.warn('Cache clear failed:', error);
+        if (import.meta.env.DEV) {
+          console.warn('Cache clear failed:', error);
+        }
       }
     },
 
@@ -204,7 +208,7 @@ export const useSupabaseProducts = (
   
   // Log de debug para desenvolvimento
   useEffect(() => {
-    if (categoria) {
+    if (import.meta.env.DEV && categoria) {
       console.log('useSupabaseProducts: Configuração', {
         categoria,
         filters: normalizedFilters,
@@ -232,13 +236,15 @@ export const useSupabaseProducts = (
   // Fallback to local data
   const getFallbackData = useCallback(() => {
     if (!fallbackToLocal) return [];
-    
+
     // Converter dados legacy para formato unificado
     let fallbackProducts = produtosKits
       .filter(p => !categoria || p.category === categoria)
       .map(convertLegacyProduct);
 
-    console.log(`Fallback: Carregados ${fallbackProducts.length} produtos locais da categoria ${categoria}`);
+    if (import.meta.env.DEV) {
+      console.log(`Fallback: Carregados ${fallbackProducts.length} produtos locais da categoria ${categoria}`);
+    }
 
     // Aplicar filtros de busca
     if (normalizedFilters?.search) {
@@ -376,13 +382,17 @@ export const useSupabaseProducts = (
       let response = await query;
 
       if (response.error) {
-        console.error('Supabase query error:', response.error);
+        if (import.meta.env.DEV) {
+          console.error('Supabase query error:', response.error);
+        }
         throw new Error(response.error.message || 'Falha na consulta Supabase');
       }
 
       // Se nenhum resultado com ativo=true, tentar sem filtro de ativo
       if (!response.error && Array.isArray(response.data) && response.data.length === 0) {
-        console.warn(`Supabase: zero resultados para ${tableName} com ativo=true. Tentando sem filtro de ativo.`);
+        if (import.meta.env.DEV) {
+          console.warn(`Supabase: zero resultados para ${tableName} com ativo=true. Tentando sem filtro de ativo.`);
+        }
         response = await supabase.from(tableName).select('*');
       }
 
@@ -403,11 +413,15 @@ export const useSupabaseProducts = (
           throw new Error(`Transformação não implementada para categoria: ${categoria}`);
       }
 
-      console.log(`Supabase: Carregados ${transformed.length} produtos da categoria ${categoria}`);
+      if (import.meta.env.DEV) {
+        console.log(`Supabase: Carregados ${transformed.length} produtos da categoria ${categoria}`);
+      }
       return transformed;
 
     } catch (err) {
-      console.warn('Supabase fetch failed:', err);
+      if (import.meta.env.DEV) {
+        console.warn('Supabase fetch failed:', err);
+      }
       throw err;
     }
   }, [categoria, normalizedSort, normalizedFilters]);
@@ -436,21 +450,29 @@ export const useSupabaseProducts = (
 
       // Fetch from Supabase
       let products: ProdutoUnificado[];
-      
+
       try {
         products = await fetchFromSupabase();
-        console.log('Supabase fetch result:', products?.length || 0, 'products');
-        
+        if (import.meta.env.DEV) {
+          console.log('Supabase fetch result:', products?.length || 0, 'products');
+        }
+
         // Se Supabase retornar array vazio, usar fallback
         if (!products || products.length === 0) {
-          console.warn('Supabase returned empty data, using fallback');
+          if (import.meta.env.DEV) {
+            console.warn('Supabase returned empty data, using fallback');
+          }
           throw new Error('Supabase returned empty data');
         }
       } catch (supabaseError) {
-        console.warn('Supabase failed, using fallback:', supabaseError);
+        if (import.meta.env.DEV) {
+          console.warn('Supabase failed, using fallback:', supabaseError);
+        }
         products = getFallbackData();
-        console.log('Fallback data:', products?.length || 0, 'products');
-        
+        if (import.meta.env.DEV) {
+          console.log('Fallback data:', products?.length || 0, 'products');
+        }
+
         if (!products || products.length === 0) {
           setError({
             message: 'Falha ao carregar produtos do Supabase e fallback vazio',
@@ -475,8 +497,10 @@ export const useSupabaseProducts = (
           
           return searchableText.includes(searchTerm);
         });
-        
-        console.log(`Filtro de busca "${searchTerm}": ${products.length} produtos restantes`);
+
+        if (import.meta.env.DEV) {
+          console.log(`Filtro de busca "${searchTerm}": ${products.length} produtos restantes`);
+        }
       }
 
       // Cache the results

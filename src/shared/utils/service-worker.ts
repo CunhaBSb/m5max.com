@@ -23,18 +23,14 @@ class ServiceWorkerManager {
   async register(config: ServiceWorkerConfig = {}): Promise<void> {
     // Only register in production and if supported (Vite env)
     if (!import.meta.env.PROD) {
-      console.log('[SW] Service Worker disabled in development');
       return;
     }
 
     if (!('serviceWorker' in navigator)) {
-      console.log('[SW] Service Worker not supported');
       return;
     }
 
     try {
-      console.log('[SW] Registering Service Worker...');
-      
       const registration = await navigator.serviceWorker.register('/sw.js', {
         scope: '/',
         updateViaCache: 'none' // Always check for updates
@@ -44,20 +40,16 @@ class ServiceWorkerManager {
 
       // Handle different registration states
       if (registration.installing) {
-        console.log('[SW] Service Worker installing...');
         this.trackInstalling(registration.installing, config);
       } else if (registration.waiting) {
-        console.log('[SW] Service Worker waiting...');
         this.updateAvailable = true;
         config.onUpdate?.(registration);
       } else if (registration.active) {
-        console.log('[SW] Service Worker active');
         config.onSuccess?.(registration);
       }
 
       // Listen for updates
       registration.addEventListener('updatefound', () => {
-        console.log('[SW] Service Worker update found...');
         const newWorker = registration.installing;
         if (newWorker) {
           this.trackInstalling(newWorker, config);
@@ -68,7 +60,9 @@ class ServiceWorkerManager {
       this.scheduleUpdateCheck();
 
     } catch (error) {
-      console.error('[SW] Service Worker registration failed:', error);
+      if (import.meta.env.DEV) {
+        console.error('[SW] Service Worker registration failed:', error);
+      }
       config.onError?.(error as Error);
     }
   }
@@ -78,12 +72,10 @@ class ServiceWorkerManager {
       if (worker.state === 'installed') {
         if (navigator.serviceWorker.controller) {
           // New content available
-          console.log('[SW] New content available');
           this.updateAvailable = true;
           config.onUpdate?.(this.registration!);
         } else {
           // Content cached for first time
-          console.log('[SW] Content cached for offline use');
           config.onSuccess?.(this.registration!);
         }
       }
@@ -92,14 +84,12 @@ class ServiceWorkerManager {
 
   async skipWaiting(): Promise<void> {
     if (this.registration?.waiting) {
-      console.log('[SW] Skipping waiting...');
       this.registration.waiting.postMessage({ type: 'SKIP_WAITING' });
     }
   }
 
   async update(): Promise<void> {
     if (this.registration) {
-      console.log('[SW] Checking for updates...');
       await this.registration.update();
     }
   }
@@ -127,7 +117,6 @@ class ServiceWorkerManager {
     await Promise.all(
       names.map(name => caches.delete(name))
     );
-    console.log('[SW] Cache cleared');
   }
 
   async getCacheSize(): Promise<{ name: string; size: number }[]> {

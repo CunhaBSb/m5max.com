@@ -9,15 +9,13 @@ createRoot(document.getElementById("root")!).render(<App />);
 
 // Register Service Worker for offline performance
 registerSW({
-  onSuccess: () => {
-    console.log('M5 Max app is ready for offline use');
-  },
   onUpdate: () => {
-    console.log('New version available! Please refresh to update.');
-    // You could show a toast notification here
+    // TODO: Show toast notification for available updates
   },
   onError: (error) => {
-    console.error('Service Worker registration failed:', error);
+    if (import.meta.env.DEV) {
+      console.error('Service Worker registration failed:', error);
+    }
   }
 });
 

@@ -49,7 +49,9 @@ const loadInitialConsent = (): ConsentState => {
       return JSON.parse(saved) as ConsentState;
     }
   } catch (err) {
-    console.warn('[consent] Falha ao restaurar consentimento inicial', err);
+    if (import.meta.env.DEV) {
+      console.warn('[consent] Falha ao restaurar consentimento inicial', err);
+    }
   }
 
   return {
