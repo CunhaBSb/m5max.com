@@ -137,11 +137,20 @@ const BudgetRequestFlow: React.FC<BudgetRequestFlowProps> = ({
           <div className="p-5 sm:p-6 space-y-4">
             <DialogHeader className="space-y-2 text-center">
               <DialogTitle className="text-lg sm:text-2xl font-semibold bg-gradient-to-r from-fire-orange to-fire-gold bg-clip-text text-transparent drop-shadow">
-                Solicitar Orçamento
+                Reserve a sua data
               </DialogTitle>
               <DialogDescription className="text-sm sm:text-base text-white/85">
-                Finalize para receber o orçamento e a simulação 3D do show.
+                Finalize para receber proposta e simulacao 3D. Condicoes especiais para casamento e festa junina.
               </DialogDescription>
+              <div className="rounded-xl border border-fire-orange/35 bg-gradient-to-r from-fire-orange/10 via-fire-gold/5 to-fire-orange/10 px-3 py-2">
+                <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.15em] text-fire-gold/85 font-semibold">
+                  <span>Oferta Premium</span>
+                  <span className="text-fire-orange">Agenda Limitada</span>
+                </div>
+                <p className="mt-1 text-[11px] text-white/88">
+                  Bonus de temporada para projetos de <span className="text-fire-gold font-semibold">casamento</span> e <span className="text-fire-gold font-semibold">festa junina</span>.
+                </p>
+              </div>
             </DialogHeader>
 
             {/* Progress Indicator */}

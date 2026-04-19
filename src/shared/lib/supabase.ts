@@ -32,6 +32,11 @@ interface Database {
         Insert: Omit<LeadSubmission, 'id' | 'created_at' | 'updated_at'>;
         Update: Partial<Omit<LeadSubmission, 'id' | 'created_at' | 'updated_at'>>;
       };
+      solicitacoes_orcamento: {
+        Row: SolicitacaoOrcamento;
+        Insert: Omit<SolicitacaoOrcamento, 'id' | 'created_at'>;
+        Update: Partial<Omit<SolicitacaoOrcamento, 'id' | 'created_at'>>;
+      };
     };
   };
 }
@@ -55,6 +60,21 @@ export interface LeadSubmission {
   message?: string | null;
   created_at?: string;
   updated_at?: string;
+}
+
+export interface SolicitacaoOrcamento {
+  id: string;
+  nome_completo: string;
+  whatsapp: string;
+  tipo_solicitacao: string;
+  email?: string | null;
+  tipo_evento?: string | null;
+  data_evento?: string | null;
+  localizacao_evento?: string | null;
+  kit_selecionado?: string | null;
+  observacoes?: string | null;
+  enviado_email?: boolean;
+  created_at?: string;
 }
 
 // Variáveis de ambiente

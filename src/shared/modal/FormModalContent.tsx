@@ -43,8 +43,7 @@ const formSchema = z.object({
   city: z.string().min(2, 'Cidade/UF obrigatória'),
   eventDate: z.string().min(1, 'Data obrigatória'),
   audienceSize: z.enum(['ate-500', '500-5k', '5k-20k', '20k+']),
-  budget: z.enum(['5k-15k', '15k-50k', '50k-200k', '200k+']),
-  fireworkPoints: z.string().min(1, 'Informe a quantidade de pontos'),
+  budget: z.enum(['2k-5k', '5k-15k', '15k-50k', '50k-200k', '200k+']),
   noiseRestrictions: z.boolean().default(false),
   message: z.string().optional(),
 });
@@ -53,8 +52,34 @@ type FormValues = z.infer<typeof formSchema>;
 type BudgetOption = FormValues['budget'];
 type AudienceSizeOption = FormValues['audienceSize'];
 
+const getErrorMessage = (error: unknown): string => {
+  if (error && typeof error === 'object' && 'message' in error) {
+    const message = (error as { message?: unknown }).message;
+    if (typeof message === 'string') return message;
+  }
+
+  if (typeof error === 'string') return error;
+
+  return 'Erro inesperado ao enviar. Tente novamente em instantes.';
+};
+
+const getFriendlySubmitError = (message: string): string => {
+  const normalized = message.toLowerCase();
+
+  if (normalized.includes('failed to fetch') || normalized.includes('networkerror') || normalized.includes('load failed')) {
+    return 'Nao foi possivel conectar ao servidor no momento. Verifique sua conexao e tente novamente ou use o WhatsApp.';
+  }
+
+  if (normalized.includes('timeout')) {
+    return 'A solicitacao demorou para responder. Tente novamente em instantes.';
+  }
+
+  return `Erro ao enviar: ${message}`;
+};
+
 const mapBudgetRange = (wizardBudget?: string): BudgetOption => {
   if (!wizardBudget) return '50k-200k';
+  if (wizardBudget === '2k') return '2k-5k';
   if (wizardBudget === '5k') return '5k-15k';
   if (wizardBudget === '15k') return '15k-50k';
   if (wizardBudget === '50k') return '50k-200k';
@@ -92,7 +117,6 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
       eventDate: '',
       audienceSize: mapAttendeesRange(initialData?.attendeesRange),
       budget: mapBudgetRange(initialData?.budgetRange),
-      fireworkPoints: '',
       noiseRestrictions: false,
     }
   });
@@ -131,7 +155,7 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
     if (eventType === 'corporativo') return 'promotor-corporativo';
     if (eventType === 'cha-revelacao') return 'cha-revelacao';
     if (eventType === 'casamento') return 'casamento-noivos';
-    if (eventType === 'festa' || budget === '5k-15k') return 'residencial';
+    if (eventType === 'festa' || budget === '2k-5k' || budget === '5k-15k') return 'residencial';
     return 'outro';
   };
 
@@ -159,35 +183,50 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
       return;
     }
 
-    const { eventType, eventDate, audienceSize, noiseRestrictions, fireworkPoints, ...rest } = values;
+    const leadScore = estimateLeadScore(values);
+    const observacoes = [
+      values.message?.trim() ? `Observações: ${values.message.trim()}` : null,
+      `Público estimado: ${values.audienceSize}`,
+      `Faixa de orçamento: ${values.budget}`,
+      `Restrição de ruído: ${values.noiseRestrictions ? 'Sim' : 'Não'}`,
+      `Perfil detectado: ${derivedProfile}`,
+      `Audiência: ${audience}`,
+      `Origem: ${source}`,
+      `Página: ${typeof window !== 'undefined' ? window.location.pathname : context?.page ?? ''}`,
+      `Lead score: ${leadScore}`,
+    ].filter(Boolean).join('\n');
 
     const payload = {
-      ...rest,
-      event_type: eventType,
-      event_date: eventDate,
-      audience_size: audienceSize,
-      noise_restrictions: noiseRestrictions,
-      firework_points: fireworkPoints,
-      audience,
-      audience_profile: derivedProfile,
-      source,
-      page: typeof window !== 'undefined' ? window.location.pathname : context?.page,
-      lead_score: estimateLeadScore(values),
-      created_at: new Date().toISOString(),
+      nome_completo: values.name,
+      email: values.email,
+      whatsapp: values.phone,
+      tipo_solicitacao: values.eventType,
+      tipo_evento: values.eventType,
+      data_evento: values.eventDate || null,
+      localizacao_evento: values.city || null,
+      kit_selecionado: values.budget || null,
+      observacoes: observacoes || null,
+      enviado_email: false,
     };
 
-    const { error } = await supabase
-      .from('lead_submissions')
-      .insert(payload, { returning: 'minimal' });
+    try {
+      const { error } = await supabase
+        .from('solicitacoes_orcamento')
+        .insert(payload, { returning: 'minimal' });
 
-    if (error) {
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
       if (import.meta.env.DEV) {
         console.error('Supabase insert error', error);
       }
+
+      const message = getErrorMessage(error);
       setStatus('error');
-      setErrorMessage(`Erro ao enviar: ${error.message ?? 'tente novamente ou use WhatsApp.'}`);
+      setErrorMessage(getFriendlySubmitError(message));
       trackEvent('budget_triage_supabase_error', {
-        reason: error.message,
+        reason: message,
         code: (error as PostgrestError | null)?.code,
       });
       return;
@@ -196,7 +235,7 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
     trackFormEvent('submit', {
       form_type: audience,
       form_name: 'site_budget_modal',
-      lead_score: payload.lead_score,
+      lead_score: leadScore,
     });
 
     trackEvent('budget_triage_submit', {
@@ -289,7 +328,6 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
       eventDate: '',
       audienceSize: mapAttendeesRange(initialData?.attendeesRange),
       budget: mapBudgetRange(initialData?.budgetRange),
-      fireworkPoints: '',
       noiseRestrictions: false,
       name: '',
       email: '',
@@ -406,6 +444,7 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
                         <Select onValueChange={field.onChange} value={field.value || undefined}>
                           <SelectTrigger data-testid="budget-range"><SelectValue placeholder="Selecione" /></SelectTrigger>
                           <SelectContent>
+                            <SelectItem value="2k-5k">R$ 2k - 5k</SelectItem>
                             <SelectItem value="5k-15k">R$ 5k - 15k</SelectItem>
                             <SelectItem value="15k-50k">R$ 15k - 50k</SelectItem>
                             <SelectItem value="50k-200k">R$ 50k - 200k</SelectItem>
@@ -417,19 +456,6 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
                     </FormItem>
                   )} />
 
-                  <FormField name="fireworkPoints" control={form.control} render={({ field }) => (
-                    <FormItem className="sm:col-span-2 lg:col-span-1">
-                      <FormLabel>Quantidade de pontos de fogos</FormLabel>
-                      <FormControl>
-                        <Input
-                          data-testid="budget-points"
-                          placeholder="Ex: 2 pontos (palco e ilha)"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage className="text-[11px]" />
-                    </FormItem>
-                  )} />
                 </div>
               </div>
             )}
@@ -491,7 +517,7 @@ const FormModalContent: React.FC<FormModalContentProps> = ({
                     onClick={() => {
                       const fields: FormFieldName[] = step === 1
                         ? ['name','email','phone']
-                        : ['city','eventType','audienceSize','budget','eventDate','fireworkPoints'];
+                        : ['city','eventType','audienceSize','budget','eventDate'];
                       form.trigger(fields).then((ok) => {
                         if (ok) nextStep();
                       });
@@ -527,6 +553,7 @@ export default FormModalContent;
 const estimateLeadScore = (values: FormValues) => {
   let score = 0;
   const budgetScore = {
+    '2k-5k': 5,
     '5k-15k': 10,
     '15k-50k': 20,
     '50k-200k': 30,

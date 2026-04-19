@@ -175,6 +175,7 @@ const TriageWizard: React.FC<TriageWizardProps> = ({ step: initialStep, onComple
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {[
+              { value: '2k', label: '2k' },
               { value: '5k', label: '5k' },
               { value: '15k', label: '15k' },
               { value: '50k', label: '50k' },

@@ -69,11 +69,20 @@ export const FooterDesktop = () => {
             <Button 
               variant="outline-fire"
               onClick={handleOrçamentoClick}
-              className="h-11 flex items-center gap-2 text-sm"
+              className="h-11 flex items-center gap-2 text-sm font-semibold border-fire-orange/60 bg-gradient-to-r from-fire-orange/15 via-fire-gold/10 to-fire-orange/15 shadow-[0_14px_30px_-16px_rgba(249,115,22,0.85)] hover:scale-[1.01] transition-all"
             >
               <Calendar className="w-4 h-4" />
-              Orçamento Online
+              Reserve a sua data
             </Button>
+          </div>
+          <div className="mt-3 inline-flex flex-col rounded-xl border border-fire-orange/30 bg-gradient-to-r from-fire-orange/10 via-fire-gold/5 to-fire-orange/10 px-4 py-2">
+            <div className="flex items-center justify-between gap-6 text-[10px] uppercase tracking-[0.16em] text-fire-gold/85 font-semibold">
+              <span>Oferta De Temporada</span>
+              <span className="text-fire-orange">Alta Demanda</span>
+            </div>
+            <p className="mt-1 text-xs text-white/88">
+              Condicoes para <span className="text-fire-gold font-semibold">casamento</span> e <span className="text-fire-gold font-semibold">festa junina</span> em agenda selecionada.
+            </p>
           </div>
         </div>
 

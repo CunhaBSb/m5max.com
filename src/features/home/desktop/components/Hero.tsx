@@ -192,17 +192,26 @@ const Hero = () => {
                 {/* Orçamento Button - Desktop */}
                 <Button
                   variant="ghost"
-                  className="flex-1 h-12 bg-gradient-to-r from-blue-600/20 via-blue-500/30 to-blue-600/20 border border-blue-500/50 text-white hover:from-blue-500/30 hover:via-blue-400/40 hover:to-blue-500/30 hover:border-blue-400/70 backdrop-blur-md transition-all duration-300 group relative overflow-hidden shadow-md shadow-blue-500/20"
+                  className="flex-1 h-12 bg-gradient-to-r from-fire-orange/22 via-fire-gold/18 to-fire-orange/22 border border-fire-orange/55 text-white hover:from-fire-orange/30 hover:via-fire-gold/24 hover:to-fire-orange/30 hover:border-fire-gold/70 backdrop-blur-md transition-all duration-300 group relative overflow-hidden shadow-[0_18px_34px_-18px_rgba(249,115,22,0.85)]"
                   onClick={handleOrçamentoClick}
                   data-testid="cta-orcamento"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-400/10 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-fire-gold/20 to-transparent transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[200%] transition-transform duration-700" />
                   <Calendar className="w-4 h-4 mr-2" />
-                  <span className="text-sm font-medium">Orçamento</span>
-                  <div className="flex items-center gap-1 ml-2 bg-blue-400/20 px-1.5 py-0.5 rounded-full">
-                    <span className="text-xs text-blue-200 font-bold">Grátis</span>
+                  <span className="text-sm font-medium">Reserve a sua data</span>
+                  <div className="flex items-center gap-1 ml-2 bg-fire-orange/25 px-1.5 py-0.5 rounded-full">
+                    <span className="text-xs text-fire-gold font-bold">Vagas</span>
                   </div>
                 </Button>
+              </div>
+              <div className="rounded-xl border border-fire-orange/35 bg-gradient-to-r from-fire-orange/10 via-fire-gold/5 to-fire-orange/10 px-3 py-2.5">
+                <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.18em] text-fire-gold/85 font-semibold">
+                  <span>Oferta Premium</span>
+                  <span className="text-fire-orange">Alta Procura</span>
+                </div>
+                <p className="mt-1 text-xs text-white/88 leading-relaxed">
+                  Condicoes exclusivas para <span className="text-fire-gold font-semibold">casamento</span> e <span className="text-fire-gold font-semibold">festa junina</span> em datas selecionadas.
+                </p>
               </div>
             </div>
 

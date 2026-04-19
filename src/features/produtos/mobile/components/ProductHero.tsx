@@ -208,15 +208,24 @@ const ProductHero = () => {
                 {/* Orçamento Button - Mobile */}
                 <Button
                   variant="outline-fire"
-                  className="w-full h-10 font-medium text-sm"
+                  className="w-full h-11 font-semibold text-sm border-fire-orange/60 bg-gradient-to-r from-fire-orange/15 via-fire-gold/10 to-fire-orange/15 shadow-[0_12px_28px_-16px_rgba(249,115,22,0.85)] hover:scale-[1.01] transition-all"
                   onClick={handleOrçamentoClick}
                 >
                   <Calendar className="w-4 h-4 mr-2" />
-                  <span className="text-sm">Orçamento Gratuito</span>
+                  <span className="text-sm">Reserve a sua data</span>
                   <div className="flex items-center gap-1 ml-auto bg-fire-orange/20 px-1.5 py-0.5 rounded-full">
-                    <span className="text-xs text-fire-orange font-bold">Grátis</span>
+                    <span className="text-xs text-fire-orange font-bold">Agenda</span>
                   </div>
                 </Button>
+                <div className="w-full rounded-xl border border-fire-orange/30 bg-gradient-to-r from-fire-orange/10 via-fire-gold/5 to-fire-orange/10 px-3 py-2">
+                  <div className="flex items-center justify-between gap-2 text-[10px] uppercase tracking-[0.14em] text-fire-gold/90 font-semibold">
+                    <span>Oferta Sazonal</span>
+                    <span className="text-fire-orange">Disponibilidade Curta</span>
+                  </div>
+                  <p className="mt-1 text-[11px] text-white/90 leading-relaxed text-center">
+                    Beneficios especiais para <span className="text-fire-gold font-semibold">casamento</span> e <span className="text-fire-gold font-semibold">festa junina</span>.
+                  </p>
+                </div>
               </div>
             </div>
 

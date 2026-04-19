@@ -7,7 +7,7 @@ export const B2BFormSchema = z.object({
   cityUF: z.string().min(1, 'Cidade/UF obrigatório'),
   eventDate: z.string().min(1, 'Data obrigatória'),
   attendeesRange: z.enum(['ate-500', '500-5k', '5k-20k', '20k+']),
-  budgetRange: z.enum(['5k-15k', '15k-50k', '50k-200k', '200k+']),
+  budgetRange: z.enum(['2k-5k', '5k-15k', '15k-50k', '50k-200k', '200k+']),
   venueType: z.enum(['indoor', 'outdoor']),
   hasNoiseRestrictions: z.boolean(),
   needsMusicSync: z.boolean(),
@@ -77,6 +77,7 @@ export interface ConversionContext {
 export const LEAD_SCORING_WEIGHTS = {
   B2B: {
     budgetRange: {
+      '2k-5k': 8,
       '5k-15k': 15,
       '15k-50k': 25,
       '50k-200k': 35,

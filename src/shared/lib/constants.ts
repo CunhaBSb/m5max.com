@@ -85,7 +85,8 @@ export const LEAD_SCORING = {
     '200k+': 30,
     '50k-200k': 20,
     '15k-50k': 10,
-    '5k-15k': 5
+    '5k-15k': 5,
+    '2k-5k': 3
   },
   eventDates: {
     'next-30d': 20,

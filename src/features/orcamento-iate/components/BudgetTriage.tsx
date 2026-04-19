@@ -75,16 +75,32 @@ export const BudgetTriage: React.FC<Props> = ({ variant = 'desktop', source = 'o
       return;
     }
 
+    const leadScore = estimateLeadScore(values);
+    const observacoes = [
+      values.message?.trim() ? `Observações: ${values.message.trim()}` : null,
+      `Público estimado: ${values.audienceSize}`,
+      `Faixa de orçamento: ${values.budget}`,
+      `Restrição de ruído: ${values.noiseRestrictions ? 'Sim' : 'Não'}`,
+      `Audiência: b2b`,
+      `Origem: ${source}`,
+      `Página: ${typeof window !== 'undefined' ? window.location.pathname : '/orcamento-iate-2026'}`,
+      `Lead score: ${leadScore}`,
+    ].filter(Boolean).join('\n');
+
     const payload = {
-      ...values,
-      audience: 'b2b',
-      page: typeof window !== 'undefined' ? window.location.pathname : '/orcamento-iate-2026',
-      source,
-      lead_score: estimateLeadScore(values),
-      created_at: new Date().toISOString(),
+      nome_completo: values.name,
+      email: values.email,
+      whatsapp: values.phone,
+      tipo_solicitacao: values.eventType,
+      tipo_evento: values.eventType,
+      data_evento: values.eventDate || null,
+      localizacao_evento: values.city || null,
+      kit_selecionado: values.budget,
+      observacoes: observacoes || null,
+      enviado_email: false,
     };
 
-    const { error } = await supabase.from('lead_submissions').insert(payload, { returning: 'minimal' });
+    const { error } = await supabase.from('solicitacoes_orcamento').insert(payload, { returning: 'minimal' });
     if (error) {
       if (import.meta.env.DEV) {
         console.error('Supabase insert error', error);
@@ -97,7 +113,7 @@ export const BudgetTriage: React.FC<Props> = ({ variant = 'desktop', source = 'o
     trackFormEvent('submit', {
       form_type: 'b2b',
       form_name: 'orcamento_iate_triage',
-      lead_score: payload.lead_score,
+      lead_score: leadScore,
     });
 
     // Google Ads conversion (lead Iate)

@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const SUPABASE_ROUTE = '**/rest/v1/lead_submissions';
+const SUPABASE_ROUTE = '**/rest/v1/solicitacoes_orcamento';
 
 // E2E do fluxo de Orçamento até a chamada ao Supabase
 // Usa interceptação para validar payload e header Prefer (return=minimal)
@@ -34,6 +34,7 @@ test('fluxo de orçamento envia lead para Supabase com return=minimal', async ({
 
   const ctaSelectors = [
     '[data-testid="cta-orcamento"]',
+    'text=Reserve a sua data',
     'text=Orçamento Gratuito',
     'text=Orçamento'
   ];
@@ -98,7 +99,6 @@ test('fluxo de orçamento envia lead para Supabase com return=minimal', async ({
   await page.getByTestId('budget-range').click();
   await page.getByRole('option', { name: 'R$ 50k - 200k' }).click();
   await page.getByTestId('budget-date').fill('2026-12-31');
-  await page.getByTestId('budget-points').fill('2');
   await page.getByRole('button', { name: 'Próxima etapa' }).click();
 
   // Form step 3 (confirmação)
@@ -107,12 +107,12 @@ test('fluxo de orçamento envia lead para Supabase com return=minimal', async ({
   await expect.poll(() => captured.length).toBe(1);
   const payload = captured[0].body as Record<string, unknown>;
   expect(payload).toMatchObject({
-    name: 'QA Playwright',
+    nome_completo: 'QA Playwright',
     email: 'qa@example.com',
-    city: 'Brasília - DF',
-    budget: '50k-200k'
+    localizacao_evento: 'Brasília - DF',
+    kit_selecionado: '50k-200k'
   });
-  expect(String(payload.phone || '').replace(/\D/g, '')).toBe('61999999999');
+  expect(String(payload.whatsapp || '').replace(/\D/g, '')).toBe('61999999999');
 
   await expect(page.getByText('Recebido!')).toBeVisible();
   await expect(page.getByText(/Um especialista responderá em breve/)).toBeVisible();
