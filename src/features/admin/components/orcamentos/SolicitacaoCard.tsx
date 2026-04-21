@@ -99,6 +99,15 @@ export const SolicitacaoCard = ({
             </div>
           </div>
         </div>
+        
+        {solicitacao.observacoes && (
+          <div className="mb-4 rounded-xl bg-primary/5 p-3 border border-primary/10">
+            <span className="text-muted-foreground block font-medium uppercase text-[9px] tracking-tight mb-1">Observações:</span>
+            <p className="text-xs text-foreground/80 leading-relaxed italic">
+              "{solicitacao.observacoes}"
+            </p>
+          </div>
+        )}
 
         <div className="flex items-center justify-end gap-1.5 border-t border-white/10 pt-4 sm:gap-2">
           {!solicitacao.enviado_email && (

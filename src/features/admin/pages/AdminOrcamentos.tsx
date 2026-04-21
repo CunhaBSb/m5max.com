@@ -539,7 +539,12 @@ const AdminOrcamentos = () => {
   };
 
   const getTipoLabel = (tipo: string) => {
-    return tipo === "artigos_pirotecnicos" ? "Artigos Pirotécnicos" : "Contratar Equipe";
+    switch (tipo) {
+      case "artigos_pirotecnicos": return "Artigos Pirotécnicos";
+      case "contratar_equipe": return "Contratar Equipe";
+      case "festa_junina": return "Festa Junina / São João";
+      default: return tipo;
+    }
   };
 
   // Evita deslocamento de fuso: formata usando apenas a parte da data (YYYY-MM-DD)

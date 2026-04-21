@@ -44,10 +44,22 @@ const AdminLogin = () => {
       });
 
       if (error) {
-        console.error('❌ AdminLogin: Erro no login:', error.message);
+        console.error('❌ AdminLogin: Erro no login:', error.code, error.message);
+        let description = "Credenciais inválidas ou erro de conexão.";
+        
+        if (error.message === "Invalid login credentials") {
+          description = "E-mail ou senha incorretos. Verifique suas credenciais.";
+        } else if (error.message.includes("Email not confirmed")) {
+          description = "Seu e-mail ainda não foi confirmado. Verifique sua caixa de entrada.";
+        } else if (error.message.includes("Network fetch fetch")) {
+          description = "Erro de conexão com o servidor. Verifique sua internet.";
+        } else {
+          description = `Erro: ${error.message}`;
+        }
+
         toast({
           title: "Erro no login",
-          description: "Credenciais inválidas ou erro de conexão.",
+          description,
           variant: "destructive",
         });
         setIsLoading(false);
@@ -113,7 +125,7 @@ const AdminLogin = () => {
                   <Input
                     id="email"
                     type="email"
-                    placeholder="nome@m5max.com.br"
+                    placeholder="seu-email@m5max.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="bg-background border-input h-11 px-3 rounded-lg focus-visible:ring-1 focus-visible:ring-primary transition-all"
