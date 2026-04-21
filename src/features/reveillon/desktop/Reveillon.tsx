@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useAnalytics } from '@/shared/hooks/useAnalytics';
 import RootLayout from '@/app/layouts/RootLayout';
-import ReveillonHero from './components/ReveillonHero';
+import ReveillonHeroDesktop from '../components/ReveillonHeroDesktop';
 import FogosM5Complete from '@/shared/layout/desktop/FogosM5Complete';
-import TimelineSection from './components/TimelineSection';
+import ReveillonTimelineDesktop from '../components/ReveillonTimelineDesktop';
 import Services from '@/shared/layout/desktop/Services';
 import FAQ from '@/shared/layout/desktop/FAQ';
 import LazySection from '@/shared/layout/LazySection';
@@ -30,7 +30,7 @@ const ReveillonDesktop = () => {
 
       <RootLayout>
         <main className="min-h-screen">
-          <ReveillonHero />
+          <ReveillonHeroDesktop />
 
           <SectionSeparator variant="fire-line" spacing="lg" />
 
@@ -51,7 +51,7 @@ const ReveillonDesktop = () => {
 
           <LazySection>
             <div id="como-funciona">
-              <TimelineSection />
+              <ReveillonTimelineDesktop />
             </div>
           </LazySection>
 

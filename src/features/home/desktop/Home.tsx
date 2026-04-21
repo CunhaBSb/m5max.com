@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useAnalytics } from '@/shared/hooks/useAnalytics';
 import RootLayout from '@/app/layouts/RootLayout';
-import Hero from './components/Hero';
+import HomeHeroDesktop from '../components/HomeHeroDesktop';
 import FogosM5Complete from '@/shared/layout/desktop/FogosM5Complete';
 import Services from '@/shared/layout/desktop/Services';
 import FAQ from '@/shared/layout/desktop/FAQ';
@@ -30,7 +30,7 @@ const Home = () => {
       <RootLayout>
         <main className="min-h-screen">
           <div id="hero">
-            <Hero />
+            <HomeHeroDesktop />
           </div>
 
           <SectionSeparator variant="fire-line" spacing="lg" />

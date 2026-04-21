@@ -69,3 +69,13 @@ export const seoOrcamentoIate: SeoMeta = {
   path: '/orcamento-iate-2026',
   noIndex: true,
 };
+
+export const seoSaoJoao: SeoMeta = {
+  title: 'São João e Festas Juninas | Shows Pirotécnicos M5 Max',
+  description:
+    'Shows pirotécnicos de alta qualidade e espetáculos visuais seguros para Festas Juninas e São João. Encante o seu público com cores e segurança garantida.',
+  keywords:
+    'são joão, festa junina, show pirotécnico, fogos de artifício, festa julina, arraial, eventos corporativos',
+  path: '/sao-joao',
+  ogImage: '/assets/kits.show.webp',
+};

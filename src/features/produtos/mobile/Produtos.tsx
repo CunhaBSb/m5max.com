@@ -7,10 +7,10 @@ import RootLayout from '@/app/layouts/RootLayout';
 import SectionSeparator from '@/shared/layout/SectionSeparator';
 import { LazySection } from '@/shared/layout/LazySection';
 
-import ProductHero from './components/ProductHero';
-import ProductSelector from './components/ProductSelector';
-import TrustIndicators from './components/TrustIndicators';
-import PricingSection from './components/PricingSection';
+import ProductHeroMobile from '../components/ProductHeroMobile';
+import ProductSelector from '../components/ProductSelector';
+import TrustIndicators from '../components/TrustIndicators';
+import PricingSection from '../components/PricingSection';
 import { buildSeo, seoProdutos } from '@/shared/data/seo';
 import { SeoHead } from '@/shared/layout/SeoHead';
 
@@ -64,7 +64,7 @@ const ProdutosMobile = () => {
 
       <RootLayout>
         <main className="min-h-screen">
-          <ProductHero />
+          <ProductHeroMobile />
 
           <SectionSeparator variant="sparkle-trail" spacing="md" />
 

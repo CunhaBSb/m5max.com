@@ -6,8 +6,8 @@ import RootLayout from '@app/layouts/RootLayout';
 import LazySection from '@shared/layout/LazySection';
 import SectionSeparator from '@shared/layout/SectionSeparator';
 
-import ProductHero from './components/ProductHero';
-import UnifiedProductCatalog from './components/UnifiedProductCatalog';
+import ProductHeroDesktop from '../components/ProductHeroDesktop';
+import UnifiedProductCatalog from '../components/UnifiedProductCatalog';
 import FogosM5Complete from '@/shared/layout/desktop/FogosM5Complete';
 import Services from '@/shared/layout/desktop/Services';
 import FAQ from '@/shared/layout/desktop/FAQ';
@@ -71,7 +71,7 @@ const Produtos = () => {
         <main className="min-h-screen gradient-hero">
           {/* Hero Section */}
           <div id="hero-produtos">
-            <ProductHero />
+            <ProductHeroDesktop />
           </div>
 
           <SectionSeparator variant="fire-line" spacing="lg" />

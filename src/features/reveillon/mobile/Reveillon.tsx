@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useAnalytics } from '@/shared/hooks/useAnalytics';
 import RootLayout from '@/app/layouts/RootLayout';
-import Hero from './components/Hero';
-import TimelineSection from './components/TimelineSection';
+import ReveillonHeroMobile from '../components/ReveillonHeroMobile';
+import ReveillonTimelineMobile from '../components/ReveillonTimelineMobile';
 import SectionSeparator from '@/shared/layout/SectionSeparator';
 import { LazySection } from '@/shared/layout/LazySection';
 import FogosM5Complete from '@/shared/layout/mobile/FogosM5Complete';
@@ -30,7 +30,7 @@ const ReveillonMobile = () => {
 
       <RootLayout>
         <main className="min-h-screen">
-          <Hero />
+          <ReveillonHeroMobile />
 
           <SectionSeparator variant="fire-line" spacing="lg" />
 
@@ -52,7 +52,7 @@ const ReveillonMobile = () => {
 
           <LazySection>
             <div id="como-funciona">
-              <TimelineSection />
+              <ReveillonTimelineMobile />
             </div>
           </LazySection>
 

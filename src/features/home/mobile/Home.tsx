@@ -8,7 +8,7 @@ import Services from '@/shared/layout/mobile/Services';
 import FAQ from '@/shared/layout/mobile/FAQ';
 import SectionSeparator from '@/shared/layout/SectionSeparator';
 import { LazySection } from '@/shared/layout/LazySection';
-import Hero from './components/Hero';
+import HomeHeroMobile from '../components/HomeHeroMobile';
 import { buildSeo, seoHome } from '@/shared/data/seo';
 import { SeoHead } from '@/shared/layout/SeoHead';
 
@@ -57,7 +57,7 @@ const HomeMobile = () => {
 
       <RootLayout>
         <main className="min-h-screen">
-          <Hero />
+          <HomeHeroMobile />
 
           <SectionSeparator variant="sparkle-trail" spacing="md" />
 
