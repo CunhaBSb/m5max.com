@@ -84,39 +84,40 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
   const currentTitle = menuItems.find((m) => isActive(m.path))?.label || "Admin";
 
   return (
-    <div className="relative flex min-h-[100dvh] w-full flex-col bg-background text-foreground">
-      {/* TOP HEADER — charcoal sólido (sempre visível, área de marca) */}
-      <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-border bg-sidebar px-4 text-sidebar-foreground shadow-soft-sm md:h-16 md:px-6">
+    <div className="relative flex min-h-[100dvh] w-full flex-col bg-app text-text-primary">
+      {/* TOP HEADER — branco limpo com borda warm gray */}
+      <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-border bg-card px-4 shadow-soft-sm md:h-16 md:px-6">
         <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold text-sm shadow-fire">
+          {/* Logo M5 com fundo laranja (marca) */}
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold text-sm shadow-soft-sm">
             M5
           </div>
           <div className="hidden sm:block">
-            <p className="text-xs font-semibold tracking-wide text-sidebar-foreground/90">M5 Max Produções</p>
-            <p className="text-[10px] uppercase tracking-wider text-sidebar-foreground/50">Painel Administrativo</p>
+            <p className="text-sm font-semibold tracking-tight text-text-primary">M5 Max Produções</p>
+            <p className="text-[10px] uppercase tracking-wider text-text-tertiary">Painel Administrativo</p>
           </div>
         </div>
 
         {/* Título da seção atual (mobile) */}
         <div className="sm:hidden">
-          <h1 className="text-sm font-semibold text-sidebar-foreground">{currentTitle}</h1>
+          <h1 className="text-sm font-semibold text-text-primary">{currentTitle}</h1>
         </div>
 
         <div className="flex items-center gap-2">
           <button
             type="button"
             aria-label="Notificações"
-            className="touch-target flex h-10 w-10 items-center justify-center rounded-lg text-sidebar-foreground/70 transition-colors hover:bg-sidebar-accent hover:text-sidebar-foreground"
+            className="touch-target flex h-10 w-10 items-center justify-center rounded-lg text-text-secondary transition-colors hover:bg-sunken hover:text-text-primary"
           >
             <Bell className="h-5 w-5" />
           </button>
-          <div className="hidden md:flex items-center gap-3 pl-3 ml-1 border-l border-sidebar-border">
+          <div className="hidden md:flex items-center gap-3 pl-3 ml-1 border-l border-border">
             <div className="h-9 w-9 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-semibold text-sm">
               {(userData?.nome || "A").charAt(0).toUpperCase()}
             </div>
             <div className="text-left">
-              <p className="text-xs font-medium text-sidebar-foreground leading-tight">{userData?.nome || "Admin"}</p>
-              <p className="text-[10px] uppercase tracking-wider text-sidebar-foreground/50 leading-tight">{userData?.role || "Operador"}</p>
+              <p className="text-xs font-semibold text-text-primary leading-tight">{userData?.nome || "Admin"}</p>
+              <p className="text-[10px] uppercase tracking-wider text-text-tertiary leading-tight">{userData?.role || "Operador"}</p>
             </div>
           </div>
         </div>
@@ -131,10 +132,10 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
         </div>
       </main>
 
-      {/* BOTTOM NAVIGATION (Mobile) — fixed, com safe area */}
+      {/* BOTTOM NAVIGATION (Mobile) — fixed, com safe area, branco com borda warm gray */}
       <nav
         aria-label="Navegação principal"
-        className="fixed inset-x-0 bottom-0 z-40 flex h-16 items-center justify-around border-t border-border bg-card/95 px-2 shadow-soft-lg backdrop-blur-md md:hidden pb-[env(safe-area-inset-bottom)]"
+        className="fixed inset-x-0 bottom-0 z-40 flex h-16 items-center justify-around border-t border-border bg-card px-2 shadow-soft-lg md:hidden pb-[env(safe-area-inset-bottom)]"
       >
         {bottomNavItems.map((item) => {
           const active = isActive(item.path);
@@ -146,11 +147,11 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
               aria-label={item.label}
               className={cn(
                 "touch-target relative flex h-full min-w-[56px] flex-col items-center justify-center gap-0.5 rounded-lg px-2 transition-colors",
-                active ? "text-primary" : "text-muted-foreground hover:text-foreground"
+                active ? "text-primary" : "text-text-secondary hover:text-text-primary"
               )}
             >
               <item.icon className={cn("h-5 w-5", active && "scale-110")} strokeWidth={active ? 2.5 : 2} />
-              <span className="text-[10px] font-medium tracking-wide">{item.label}</span>
+              <span className="text-[10px] font-semibold tracking-wide">{item.label}</span>
               {active && (
                 <motion.span
                   layoutId="bottom-indicator"
@@ -165,17 +166,17 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
           type="button"
           onClick={() => setMenuOpen(true)}
           aria-label="Abrir menu completo"
-          className="touch-target flex h-full min-w-[56px] flex-col items-center justify-center gap-0.5 rounded-lg px-2 text-muted-foreground transition-colors hover:text-foreground"
+          className="touch-target flex h-full min-w-[56px] flex-col items-center justify-center gap-0.5 rounded-lg px-2 text-text-secondary transition-colors hover:text-text-primary"
         >
           <Menu className="h-5 w-5" strokeWidth={2} />
-          <span className="text-[10px] font-medium tracking-wide">Menu</span>
+          <span className="text-[10px] font-semibold tracking-wide">Menu</span>
         </button>
       </nav>
 
       {/* BOTTOM NAVIGATION (Desktop) — horizontal top abaixo do header */}
       <nav
         aria-label="Navegação desktop"
-        className="hidden md:block sticky top-14 z-20 border-b border-border bg-card/80 backdrop-blur"
+        className="hidden md:block sticky top-14 z-20 border-b border-border bg-card"
         style={{ top: "3.5rem" }}
       >
         <div className="mx-auto flex max-w-[1400px] items-center gap-1 px-4 lg:px-8">
@@ -188,7 +189,7 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
                 aria-current={active ? "page" : undefined}
                 className={cn(
                   "touch-target relative flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors",
-                  active ? "text-primary" : "text-muted-foreground hover:text-foreground"
+                  active ? "text-primary" : "text-text-secondary hover:text-text-primary"
                 )}
               >
                 <item.icon className="h-4 w-4" />
@@ -226,18 +227,18 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
               role="dialog"
               aria-modal="true"
               aria-label="Menu de navegação"
-              className="fixed inset-y-0 right-0 z-[110] flex w-full max-w-sm flex-col border-l border-sidebar-border bg-card shadow-soft-xl"
+              className="fixed inset-y-0 right-0 z-[110] flex w-full max-w-sm flex-col border-l border-border bg-card shadow-soft-xl"
             >
               <div className="flex items-center justify-between border-b border-border p-4">
                 <div>
-                  <p className="text-[10px] font-semibold tracking-widest text-muted-foreground uppercase">Navegação</p>
-                  <p className="text-sm font-semibold text-foreground">Menu completo</p>
+                  <p className="text-[10px] font-semibold tracking-widest text-text-tertiary uppercase">Navegação</p>
+                  <p className="text-sm font-semibold text-text-primary">Menu completo</p>
                 </div>
                 <button
                   type="button"
                   onClick={() => setMenuOpen(false)}
                   aria-label="Fechar menu"
-                  className="touch-target flex h-10 w-10 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                  className="touch-target flex h-10 w-10 items-center justify-center rounded-lg text-text-secondary transition-colors hover:bg-sunken hover:text-text-primary"
                 >
                   <X className="h-5 w-5" />
                 </button>
@@ -254,19 +255,19 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
                         "flex items-center justify-between rounded-lg px-3 py-3 transition-colors",
                         active
                           ? "bg-primary-soft text-primary"
-                          : "text-foreground hover:bg-muted"
+                          : "text-text-primary hover:bg-sunken"
                       )}
                     >
                       <div className="flex items-center gap-3">
                         <div className={cn(
                           "flex h-9 w-9 items-center justify-center rounded-lg",
-                          active ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
+                          active ? "bg-primary text-primary-foreground" : "bg-sunken text-text-secondary"
                         )}>
                           <item.icon className="h-4 w-4" />
                         </div>
                         <div>
                           <p className="text-sm font-semibold leading-tight">{item.label}</p>
-                          <p className="text-xs text-muted-foreground leading-tight">{item.description}</p>
+                          <p className="text-xs text-text-secondary leading-tight">{item.description}</p>
                         </div>
                       </div>
                       {active && <ChevronRight className="h-4 w-4 text-primary" />}
@@ -276,23 +277,22 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
               </div>
 
               <div className="mt-auto space-y-3 border-t border-border p-4">
-                <div className="flex items-center gap-3 rounded-lg bg-muted/50 p-3">
+                <div className="flex items-center gap-3 rounded-lg bg-sunken p-3">
                   <div className="h-10 w-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-semibold">
                     {(userData?.nome || "A").charAt(0).toUpperCase()}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-foreground truncate">{userData?.nome || "Administrador"}</p>
-                    <p className="text-xs text-muted-foreground truncate">{userData?.role || "Operador"}</p>
+                    <p className="text-sm font-semibold text-text-primary truncate">{userData?.nome || "Administrador"}</p>
+                    <p className="text-xs text-text-secondary truncate">{userData?.role || "Operador"}</p>
                   </div>
                 </div>
-
                 <Button
-                  variant="ghost"
+                  variant="outline"
                   onClick={handleSignOut}
-                  className="touch-target w-full justify-start text-destructive hover:bg-destructive/10 hover:text-destructive"
+                  className="w-full"
                 >
                   <LogOut className="mr-2 h-4 w-4" />
-                  Sair da Conta
+                  Sair do painel
                 </Button>
               </div>
             </motion.aside>

@@ -97,9 +97,9 @@ const AdminLogin = () => {
   };
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background p-4 selection:bg-primary/20 sm:p-6">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-app p-4 selection:bg-primary-soft sm:p-6">
       {/* Background sutil e corporativo */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/5 via-background to-background pointer-events-none"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary-soft via-app to-app pointer-events-none"></div>
       
       <div className="relative z-10 w-full max-w-md">
         <div className="mb-10 hidden text-center sm:block">
@@ -116,8 +116,10 @@ const AdminLogin = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.1 }}
           >
-            <h1 className="text-3xl font-bold tracking-tight text-foreground mb-1">M5 MAX <span className="font-normal text-muted-foreground">PRODUÇÕES</span></h1>
-            <p className="text-muted-foreground font-medium text-xs tracking-widest uppercase">Painel Administrativo</p>
+            <h1 className="text-3xl font-bold tracking-tight text-text-primary mb-1">
+              M5 MAX <span className="font-normal text-text-secondary">PRODUÇÕES</span>
+            </h1>
+            <p className="text-text-secondary font-medium text-xs tracking-widest uppercase">Painel Administrativo</p>
           </motion.div>
         </div>
 
@@ -126,32 +128,33 @@ const AdminLogin = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <Card className="overflow-hidden rounded-[28px] border-border/50 bg-card shadow-xl sm:rounded-[32px]">
-            <div className="h-1 w-full bg-primary"></div>
+          <Card className="overflow-hidden rounded-2xl border-border bg-card shadow-soft-lg sm:rounded-3xl">
+            {/* Faixa laranja superior — identidade de marca, sutil */}
+            <div className="h-1 w-full bg-primary" aria-hidden="true"></div>
             <CardHeader className="space-y-1 px-5 pt-6 sm:px-6 sm:pt-8">
-              <CardTitle className="text-xl font-bold text-center text-foreground">Acesso Restrito</CardTitle>
-              <CardDescription className="text-center text-sm font-medium">
+              <CardTitle className="text-xl font-bold text-center text-text-primary">Acesso Restrito</CardTitle>
+              <CardDescription className="text-center text-sm font-medium text-text-secondary">
                 Insira suas credenciais corporativas
               </CardDescription>
             </CardHeader>
             <CardContent className="px-5 pb-6 sm:px-8 sm:pb-8">
               <form onSubmit={handleLogin} className="space-y-5">
                 <div className="space-y-1.5">
-                  <Label htmlFor="email" className="text-xs font-semibold text-foreground">E-mail Corporativo</Label>
+                  <Label htmlFor="email" className="text-xs font-semibold text-text-primary">E-mail Corporativo</Label>
                   <Input
                     id="email"
                     type="email"
                     placeholder="seu-email@m5max.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="bg-background border-input h-11 px-3 rounded-lg focus-visible:ring-1 focus-visible:ring-primary transition-all"
+                    className="bg-app border-input h-11 px-3 rounded-lg focus-visible:ring-1 focus-visible:ring-primary transition-all"
                     required
                   />
                 </div>
                 
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <Label htmlFor="password" className="text-xs font-semibold text-foreground">Senha</Label>
+                    <Label htmlFor="password" className="text-xs font-semibold text-text-primary">Senha</Label>
                     <a href="mailto:suporte@m5max.com.br?subject=Recuperação de Senha - Painel" className="text-xs font-medium text-primary hover:text-primary/80 transition-colors">
                       Esqueceu a senha?
                     </a>
@@ -163,14 +166,14 @@ const AdminLogin = () => {
                       placeholder="Sua senha de acesso"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="bg-background border-input h-11 px-3 rounded-lg focus-visible:ring-1 focus-visible:ring-primary transition-all pr-10"
+                      className="bg-app border-input h-11 px-3 rounded-lg focus-visible:ring-1 focus-visible:ring-primary transition-all pr-10"
                       required
                     />
                     <Button
                       type="button"
                       variant="ghost"
                       size="sm"
-                      className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0 text-muted-foreground hover:text-foreground"
+                      className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0 text-text-secondary hover:text-text-primary"
                       onClick={() => setShowPassword(!showPassword)}
                     >
                       {showPassword ? (
@@ -184,7 +187,7 @@ const AdminLogin = () => {
 
                 <Button 
                   type="submit" 
-                  className="w-full h-11 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-lg transition-all duration-200 mt-2" 
+                  className="w-full h-11 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-lg transition-all duration-200 mt-2 shadow-soft-sm" 
                   disabled={isLoading}
                 >
                   {isLoading ? (
@@ -196,16 +199,16 @@ const AdminLogin = () => {
                 </Button>
               </form>
 
-              <div className="mt-8 pt-6 border-t border-border/50 text-center">
-                <p className="text-xs text-muted-foreground">
-                  Problemas com seu acesso? <a href="mailto:suporte@m5max.com.br" className="text-foreground hover:text-primary font-medium transition-colors">Contate o Suporte TI</a>
+              <div className="mt-8 pt-6 border-t border-border-subtle text-center">
+                <p className="text-xs text-text-secondary">
+                  Problemas com seu acesso? <a href="mailto:suporte@m5max.com.br" className="text-text-primary hover:text-primary font-medium transition-colors">Contate o Suporte TI</a>
                 </p>
               </div>
             </CardContent>
           </Card>
         </motion.div>
         
-        <div className="mt-6 space-y-1 text-center text-xs font-medium text-muted-foreground/60 sm:mt-8">
+        <div className="mt-6 space-y-1 text-center text-xs font-medium text-text-tertiary sm:mt-8">
           <p>&copy; {new Date().getFullYear()} M5 Max Produções. Todos os direitos reservados.</p>
           <p className="text-[10px] uppercase tracking-wider opacity-70">Acesso Restrito e Monitorado</p>
         </div>

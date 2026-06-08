@@ -56,7 +56,7 @@ export const OrcamentoCard = ({
   const dataEvento = orcamento.evento_data ? parseISO(orcamento.evento_data) : null;
 
   return (
-    <Card className="glass-card group relative overflow-hidden rounded-[2rem] border-white/5 p-6 sm:p-8 shadow-2xl transition-all duration-500 hover:border-primary/20">
+    <Card className="glass-card group relative overflow-hidden rounded-[2rem] border-border-subtle p-6 sm:p-8 shadow-2xl transition-all duration-500 hover:border-primary/20">
       {/* Background Decorativo Sutil */}
       <div className="absolute top-0 right-0 p-12 opacity-[0.02] group-hover:opacity-[0.05] transition-opacity -rotate-12 pointer-events-none">
          <Package className="h-40 w-40" />
@@ -67,7 +67,7 @@ export const OrcamentoCard = ({
           {/* Timeline Section: Date + Time side by side */}
           <div className="flex items-center gap-5">
             <div className={cn(
-              "flex h-16 w-16 flex-col items-center justify-center rounded-2xl border border-white/5 shadow-sm transition-transform duration-300 group-hover:scale-105 sm:h-20 sm:w-20",
+              "flex h-16 w-16 flex-col items-center justify-center rounded-2xl border border-border-subtle shadow-sm transition-transform duration-300 group-hover:scale-105 sm:h-20 sm:w-20",
               isStatusLocked ? "bg-emerald-500 text-white" : "bg-primary text-white"
             )}>
                <span className="text-[10px] font-black opacity-60 uppercase tracking-[0.2em] mb-1">
@@ -79,7 +79,7 @@ export const OrcamentoCard = ({
             </div>
 
             {orcamento.evento_hora && (
-              <div className="flex flex-col justify-center border-l border-white/10 pl-5 h-12">
+              <div className="flex flex-col justify-center border-l border-border pl-5 h-12">
                  <span className="text-[9px] font-black text-muted-foreground/20 uppercase tracking-[0.3em] mb-1">Horário</span>
                  <div className="flex items-center gap-2 text-white group-hover:text-primary transition-colors">
                    <Clock className="h-4 w-4 opacity-40" />
@@ -109,8 +109,8 @@ export const OrcamentoCard = ({
             )}>
               {statusMeta.label}
             </Badge>
-            <div className="h-1 w-1 rounded-full bg-white/10" />
-            <span className="text-[10px] font-bold text-muted-foreground/30 uppercase tracking-[0.2em]">
+            <div className="h-1 w-1 rounded-full bg-sunken" />
+            <span className="text-[10px] font-bold text-text-disabled uppercase tracking-[0.2em]">
               {orcamento.tipo === 'show_pirotecnico' ? 'PROPOSTA TÁTICA' : 'VENDA DIRETA'}
             </span>
           </div>
@@ -120,14 +120,14 @@ export const OrcamentoCard = ({
           </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-            <div className="flex items-center gap-3 text-white/40 group/info">
-              <div className="p-2 rounded-xl bg-white/5 text-primary transition-all group-hover/info:bg-primary group-hover/info:text-white">
+            <div className="flex items-center gap-3 text-text-tertiary group/info">
+              <div className="p-2 rounded-xl bg-sunken text-primary transition-all group-hover/info:bg-primary group-hover/info:text-white">
                 <Package className="h-4 w-4" />
               </div>
               <span className="text-sm font-bold text-muted-foreground truncate">{orcamento.evento_nome || 'Orçamento S/N'}</span>
             </div>
-            <div className="flex items-center gap-3 text-white/40 group/info">
-              <div className="p-2 rounded-xl bg-white/5 text-primary transition-all group-hover/info:bg-primary group-hover/info:text-white">
+            <div className="flex items-center gap-3 text-text-tertiary group/info">
+              <div className="p-2 rounded-xl bg-sunken text-primary transition-all group-hover/info:bg-primary group-hover/info:text-white">
                 <MapPin className="h-4 w-4" />
               </div>
               <span className="text-sm font-medium leading-relaxed truncate">{orcamento.evento_local || 'Local não definido'}</span>
@@ -136,14 +136,14 @@ export const OrcamentoCard = ({
         </div>
 
         {/* Footer: Responsável + Actions */}
-        <div className="mt-4 pt-6 border-t border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+        <div className="mt-4 pt-6 border-t border-border-subtle flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
-            <div className="h-10 w-10 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-[11px] font-black text-primary shadow-inner">
+            <div className="h-10 w-10 rounded-2xl bg-sunken border border-border flex items-center justify-center text-[11px] font-black text-primary shadow-inner">
               {(orcamento.usuarios?.nome || 'A').charAt(0)}
             </div>
             <div className="flex flex-col">
               <span className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/20">Responsável</span>
-              <span className="text-xs font-bold text-white/60">{orcamento.usuarios?.nome || 'Sistema M5'}</span>
+              <span className="text-xs font-bold text-text-secondary">{orcamento.usuarios?.nome || 'Sistema M5'}</span>
             </div>
           </div>
 
@@ -151,7 +151,7 @@ export const OrcamentoCard = ({
             <Button 
               variant="ghost" 
               size="sm"
-              className="h-11 rounded-2xl bg-white/5 hover:bg-primary hover:text-white px-6 text-[10px] font-black uppercase tracking-widest transition-all active:scale-95"
+              className="h-11 rounded-2xl bg-sunken hover:bg-primary hover:text-text-primary px-6 text-[10px] font-black uppercase tracking-widest transition-all active:scale-95"
               onClick={() => onView(orcamento)}
             >
               <Eye className="h-4 w-4 mr-2" />
@@ -163,12 +163,12 @@ export const OrcamentoCard = ({
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-11 w-11 rounded-2xl bg-white/5 hover:bg-white/10 text-white/40 hover:text-white transition-all"
+                  className="h-11 w-11 rounded-2xl bg-sunken hover:bg-sunken text-text-tertiary hover:text-text-primary transition-all"
                 >
                   <MoreVertical className="h-5 w-5" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56 bg-card border-white/10 rounded-2xl p-2 shadow-2xl backdrop-blur-xl">
+              <DropdownMenuContent align="end" className="w-56 bg-card border-border rounded-2xl p-2 shadow-2xl backdrop-blur-xl">
                 <DropdownMenuItem onClick={() => onGeneratePdf(orcamento)} className="rounded-xl focus:bg-primary/10 focus:text-primary cursor-pointer py-3 font-bold text-xs uppercase tracking-widest">
                   <FileText className="h-4 w-4 mr-3 opacity-50" />
                   Gerar PDF Oficial
@@ -183,7 +183,7 @@ export const OrcamentoCard = ({
                     Mudar Status
                   </DropdownMenuItem>
                 )}
-                <div className="h-px bg-white/5 my-2" />
+                <div className="h-px bg-sunken my-2" />
                 <DropdownMenuItem onClick={() => onDelete(orcamento.id)} className="rounded-xl focus:bg-red-500/10 focus:text-destructive text-destructive/70 cursor-pointer py-3 font-bold text-xs uppercase tracking-widest">
                   <Trash2 className="h-4 w-4 mr-3" />
                   Excluir Proposta

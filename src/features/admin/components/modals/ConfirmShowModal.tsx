@@ -281,7 +281,7 @@ export const ConfirmShowModal = ({
                         value={finalTotal}
                         onChange={(event) => handleFinalTotalChange(event.target.value)}
                         disabled={isSubmitting}
-                        className="mt-2 h-11 rounded-xl border-white/10 bg-background/70 text-base md:text-sm"
+                        className="mt-2 h-11 rounded-xl border-border bg-background/70 text-base md:text-sm"
                       />
                     </div>
 
@@ -316,7 +316,7 @@ export const ConfirmShowModal = ({
                         </ul>
                       </div>
 
-                      <div className="rounded-2xl border border-white/10 bg-background/70 p-4 md:max-w-sm">
+                      <div className="rounded-2xl border border-border bg-background/70 p-4 md:max-w-sm">
                         <div className="flex items-start gap-3">
                           <Checkbox
                             id="allow-finalize-without-stock"
@@ -355,7 +355,7 @@ export const ConfirmShowModal = ({
                     </div>
                     <Badge
                       variant="outline"
-                      className="border-white/10 bg-white/[0.03] px-3 py-1 text-xs text-muted-foreground"
+                      className="border-border bg-sunken px-3 py-1 text-xs text-muted-foreground"
                     >
                       {availability.length} item(ns)
                     </Badge>
@@ -369,7 +369,7 @@ export const ConfirmShowModal = ({
                           "rounded-2xl border p-4 shadow-floating",
                           item.estoque_insuficiente
                             ? "border-destructive/30 bg-destructive/5"
-                            : "border-white/10 bg-white/[0.03]",
+                            : "border-border bg-sunken",
                         )}
                       >
                         <div className="flex items-start justify-between gap-3">
@@ -398,7 +398,7 @@ export const ConfirmShowModal = ({
                         </div>
 
                         <div className="mt-4 grid grid-cols-2 gap-3">
-                          <div className="rounded-2xl border border-white/10 bg-background/60 p-3">
+                          <div className="rounded-2xl border border-border bg-background/60 p-3">
                             <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground">
                               Estoque atual
                             </p>
@@ -414,7 +414,7 @@ export const ConfirmShowModal = ({
                             </p>
                           </div>
 
-                          <div className="rounded-2xl border border-white/10 bg-background/60 p-3">
+                          <div className="rounded-2xl border border-border bg-background/60 p-3">
                             <Label
                               htmlFor={`show-usage-${item.produto_id}-${index}`}
                               className="text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground"
@@ -429,7 +429,7 @@ export const ConfirmShowModal = ({
                               onChange={(event) =>
                                 handleItemUsageChange(index, event.target.value)
                               }
-                              className="mt-2 h-11 rounded-xl border-white/10 bg-background/80 text-base"
+                              className="mt-2 h-11 rounded-xl border-border bg-background/80 text-base"
                             />
                           </div>
                         </div>
@@ -491,7 +491,7 @@ export const ConfirmShowModal = ({
                                 onChange={(event) =>
                                   handleItemUsageChange(index, event.target.value)
                                 }
-                                className="h-11 w-28 rounded-xl border-white/10 bg-background/80"
+                                className="h-11 w-28 rounded-xl border-border bg-background/80"
                               />
                             </TableCell>
                           </TableRow>
@@ -504,7 +504,7 @@ export const ConfirmShowModal = ({
 
               <div className="admin-modal-footer">
                 <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-                  <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3">
+                  <div className="rounded-2xl border border-border bg-sunken px-4 py-3">
                     <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary/70">
                       Consumo informado
                     </p>
@@ -521,7 +521,7 @@ export const ConfirmShowModal = ({
                       variant="outline"
                       onClick={() => handleDialogOpenChange(false)}
                       disabled={isSubmitting}
-                      className="touch-target h-11 rounded-xl border-white/10 bg-white/[0.03]"
+                      className="touch-target h-11 rounded-xl border-border bg-sunken"
                     >
                       Fechar
                     </Button>

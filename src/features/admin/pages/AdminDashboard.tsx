@@ -36,23 +36,23 @@ const StatCardView = ({ stat, index }: { stat: StatCard; index: number }) => (
     className="group relative overflow-hidden rounded-xl border border-border bg-card p-5 shadow-soft-sm transition-shadow hover:shadow-soft-md md:p-6"
   >
     <div className="flex items-start justify-between gap-3">
-      <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+      <p className="text-[10px] font-bold uppercase tracking-widest text-text-tertiary">
         {stat.label}
       </p>
       <div className={cn(
         "flex h-9 w-9 items-center justify-center rounded-lg shrink-0",
-        stat.accent ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground"
+        stat.accent ? "bg-primary-soft text-primary" : "bg-sunken text-text-secondary"
       )}>
         {stat.icon}
       </div>
     </div>
     <p className={cn(
       "mt-4 text-2xl font-bold tracking-tight md:text-3xl",
-      stat.accent ? "text-primary" : "text-foreground"
+      stat.accent ? "text-primary" : "text-text-primary"
     )}>
       {stat.value}
     </p>
-    <p className="mt-1.5 text-xs text-muted-foreground">
+    <p className="mt-1.5 text-xs text-text-secondary">
       {stat.description}
     </p>
   </motion.div>
@@ -68,10 +68,10 @@ const ActivityItem = ({ activity }: { activity: Activity }) => (
       activity.tipo === 'solicitacao' ? "bg-primary" : "bg-tech-blue"
     )} />
     <div className="flex-1 min-w-0">
-      <p className="text-sm font-medium text-foreground leading-snug">
+      <p className="text-sm font-medium text-text-primary leading-snug">
         {activity.descricao}
       </p>
-      <p className="mt-0.5 text-[10px] text-muted-foreground font-semibold uppercase tracking-wider">
+      <p className="mt-0.5 text-[10px] text-text-tertiary font-semibold uppercase tracking-wider">
         {formatTimeAgo(activity.data)}
       </p>
     </div>
@@ -85,28 +85,28 @@ const EventoCard = ({ evento, onClick }: { evento: EventoResumo; onClick: () => 
   <button
     type="button"
     onClick={onClick}
-    className="group flex w-full items-center justify-between gap-3 rounded-xl border border-border bg-card p-3.5 text-left shadow-soft-sm transition-colors hover:bg-muted/50 md:p-4"
+    className="group flex w-full items-center justify-between gap-3 rounded-xl border border-border bg-card p-3.5 text-left shadow-soft-sm transition-colors hover:bg-sunken md:p-4"
   >
     <div className="flex items-center gap-3 md:gap-4 min-w-0">
-      <div className="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-lg border border-border bg-muted/50">
+      <div className="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-lg border border-border bg-sunken">
         <span className="text-[9px] font-bold uppercase text-primary leading-none mb-0.5">
           {evento.data ? format(parseISO(evento.data), "MMM", { locale: ptBR }) : "—"}
         </span>
-        <span className="text-base font-bold leading-none text-foreground">
+        <span className="text-base font-bold leading-none text-text-primary">
           {evento.data ? format(parseISO(evento.data), "dd") : "—"}
         </span>
       </div>
       <div className="flex flex-col min-w-0">
-        <p className="truncate text-sm font-semibold leading-tight text-foreground md:text-base">
+        <p className="truncate text-sm font-semibold leading-tight text-text-primary md:text-base">
           {evento.nome}
         </p>
-        <p className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground min-w-0">
+        <p className="mt-1 flex items-center gap-1.5 text-xs text-text-secondary min-w-0">
           <MapPin className="h-3 w-3 shrink-0" />
           <span className="truncate">{evento.local}</span>
         </p>
       </div>
     </div>
-    <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground transition-colors group-hover:text-foreground" />
+    <ChevronRight className="h-5 w-5 shrink-0 text-text-tertiary transition-colors group-hover:text-text-primary" />
   </button>
 );
 
@@ -312,13 +312,13 @@ const AdminDashboard = () => {
         {/* Header */}
         <div className="flex items-center justify-between gap-3">
           <div className="min-w-0">
-            <h1 className="text-xl font-bold text-foreground md:text-2xl">Visão geral</h1>
-            <p className="text-xs text-muted-foreground md:text-sm">
+            <h1 className="text-xl font-bold text-text-primary md:text-2xl">Visão geral</h1>
+            <p className="text-xs text-text-secondary md:text-sm">
               Acompanhe o desempenho em tempo real
             </p>
           </div>
           {isRefetching && (
-            <Activity className="h-4 w-4 animate-pulse text-muted-foreground shrink-0" />
+            <Activity className="h-4 w-4 animate-pulse text-text-tertiary shrink-0" />
           )}
         </div>
 
@@ -334,14 +334,14 @@ const AdminDashboard = () => {
           {/* Próximos eventos */}
           <section className="space-y-3 lg:col-span-4">
             <div className="flex items-center justify-between px-1">
-              <h2 className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+              <h2 className="text-xs font-bold uppercase tracking-widest text-text-tertiary">
                 Próximos eventos
               </h2>
               <Button
                 variant="link"
                 size="sm"
                 onClick={() => navigate('/admin/eventos')}
-                className="h-auto p-0 text-xs font-semibold"
+                className="h-auto p-0 text-xs font-semibold text-primary"
               >
                 Ver agenda
                 <ChevronRight className="ml-1 h-3 w-3" />
@@ -349,9 +349,9 @@ const AdminDashboard = () => {
             </div>
 
             {eventosProximos.length === 0 ? (
-              <div className="rounded-xl border border-dashed border-border bg-muted/30 py-16 text-center">
-                <Calendar className="mx-auto h-8 w-8 text-muted-foreground/50" />
-                <p className="mt-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+              <div className="rounded-xl border border-dashed border-border bg-card py-16 text-center">
+                <Calendar className="mx-auto h-8 w-8 text-text-tertiary" />
+                <p className="mt-2 text-xs font-semibold uppercase tracking-widest text-text-tertiary">
                   Agenda vazia
                 </p>
               </div>
@@ -370,13 +370,13 @@ const AdminDashboard = () => {
 
           {/* Atividades recentes */}
           <section className="space-y-3 lg:col-span-3">
-            <h2 className="text-xs font-bold uppercase tracking-widest text-muted-foreground px-1">
+            <h2 className="text-xs font-bold uppercase tracking-widest text-text-tertiary px-1">
               Atividades recentes
             </h2>
-            <Card className="rounded-xl border-border shadow-soft-sm">
+            <Card className="rounded-xl border-border shadow-soft-sm bg-card">
               <CardContent className="p-5">
                 {recentActivities.length === 0 ? (
-                  <p className="py-8 text-center text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                  <p className="py-8 text-center text-xs font-semibold uppercase tracking-widest text-text-tertiary">
                     Sem atividade
                   </p>
                 ) : (

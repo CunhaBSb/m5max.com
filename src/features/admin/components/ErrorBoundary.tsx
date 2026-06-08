@@ -60,7 +60,7 @@ export class ErrorBoundary extends Component<Props, State> {
                 <RefreshCcw className="mr-2 h-4 w-4" />
                 Tentar Novamente
               </Button>
-              <Button variant="outline" onClick={() => window.location.href = '/admin/dashboard'} className="w-full h-11 border-border hover:bg-white/5">
+              <Button variant="outline" onClick={() => window.location.href = '/admin/dashboard'} className="w-full h-11 border-border hover:bg-sunken">
                 <Home className="mr-2 h-4 w-4" />
                 Voltar ao Início
               </Button>

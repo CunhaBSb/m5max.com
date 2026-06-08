@@ -143,17 +143,17 @@ export default function AdminProdutos() {
                 placeholder="Pesquisar por SKU, Nome ou Categoria..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="h-14 w-full rounded-[22px] border-white/[0.06] bg-white/[0.02] pl-12 text-base font-medium shadow-2xl transition-all placeholder:text-muted-foreground/10 focus:border-primary/40 focus:ring-0 sm:h-16 sm:rounded-[24px] sm:pl-16 sm:text-lg"
+                className="h-14 w-full rounded-[22px] border-border bg-sunken pl-12 text-base font-medium shadow-2xl transition-all placeholder:text-text-disabled focus:border-primary/40 focus:ring-0 sm:h-16 sm:rounded-[24px] sm:pl-16 sm:text-lg"
               />
             </div>
 
             {/* Painel de Controle de Filtros (Centralizado e Paralelo) */}
             <div className="flex justify-center w-full">
-              <div className="w-full max-w-5xl bg-white/[0.01] border border-white/5 rounded-[28px] sm:rounded-[40px] p-2 shadow-2xl backdrop-blur-md">
+              <div className="w-full max-w-5xl bg-app border border-border-subtle rounded-[28px] sm:rounded-[40px] p-2 shadow-2xl backdrop-blur-md">
                 <div className="flex flex-col lg:flex-row items-stretch gap-2">
                   
                   {/* Lado Esquerdo: Efeitos */}
-                  <div className="flex-1 bg-white/[0.02] rounded-[24px] sm:rounded-[32px] p-4 sm:p-6 flex flex-col items-center justify-center border border-white/5">
+                  <div className="flex-1 bg-sunken rounded-[24px] sm:rounded-[32px] p-4 sm:p-6 flex flex-col items-center justify-center border border-border-subtle">
                     <span className="text-[10px] font-black uppercase text-muted-foreground/20 tracking-[0.4em] mb-4">Categorias de Fogos</span>
                     <div className="flex flex-wrap items-center justify-center gap-2">
                       {EFEITOS_RAPIDOS.map((effect) => (
@@ -164,7 +164,7 @@ export default function AdminProdutos() {
                             "px-4 py-2 rounded-full text-[9px] font-black uppercase tracking-[0.18em] transition-all duration-300 border sm:px-6 sm:py-2.5 sm:text-[10px]",
                             filterEffect === effect.id
                               ? "bg-primary border-primary text-white shadow-[0_4px_20px_rgba(249,115,22,0.3)] scale-105"
-                              : "bg-white/[0.03] border-white/[0.08] text-white/40 hover:bg-white/[0.08] hover:text-white"
+                              : "bg-sunken border-border text-text-tertiary hover:bg-sunken hover:text-text-primary"
                           )}
                         >
                           {effect.label}
@@ -174,17 +174,17 @@ export default function AdminProdutos() {
                   </div>
 
                   {/* Lado Direito: Ordenação */}
-                  <div className="flex-1 bg-white/[0.02] rounded-[24px] sm:rounded-[32px] p-4 sm:p-6 flex flex-col items-center justify-center border border-white/5">
+                  <div className="flex-1 bg-sunken rounded-[24px] sm:rounded-[32px] p-4 sm:p-6 flex flex-col items-center justify-center border border-border-subtle">
                     <span className="text-[10px] font-black uppercase text-muted-foreground/20 tracking-[0.4em] mb-4">Ordenação Estratégica</span>
                     <div className="flex flex-col items-center gap-4 w-full">
-                      <div className="flex gap-2 p-1.5 bg-muted/60 rounded-2xl border border-white/5 w-fit">
+                      <div className="flex gap-2 p-1.5 bg-muted/60 rounded-2xl border border-border-subtle w-fit">
                         <button
                           onClick={() => setPriceSort(prev => prev === "none" ? "asc" : prev === "asc" ? "desc" : "none")}
                           className={cn(
                             "px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-[0.18em] transition-all duration-300 flex items-center gap-2 border sm:px-5",
                             priceSort !== "none"
                               ? "bg-primary/10 border-primary/30 text-primary"
-                              : "border-transparent text-muted-foreground/30 hover:bg-white/5"
+                              : "border-transparent text-text-disabled hover:bg-sunken"
                           )}
                         >
                           Preço {priceSort === "asc" ? "↓" : priceSort === "desc" ? "↑" : ""}
@@ -196,7 +196,7 @@ export default function AdminProdutos() {
                             "px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-[0.18em] transition-all duration-300 flex items-center gap-2 border sm:px-5",
                             durationSort !== "none"
                               ? "bg-blue-500/10 border-blue-500/30 text-tech-blue"
-                              : "border-transparent text-muted-foreground/30 hover:bg-white/5"
+                              : "border-transparent text-text-disabled hover:bg-sunken"
                           )}
                         >
                           Duração {durationSort === "asc" ? "↓" : durationSort === "desc" ? "↑" : ""}
@@ -222,13 +222,13 @@ export default function AdminProdutos() {
             {isLoading ? (
               <div className="grid grid-cols-1 gap-2 pb-28 md:grid-cols-2 lg:gap-3">
                 {[1, 2, 3, 4, 5, 6].map((i) => (
-                  <div key={i} className="h-28 w-full rounded-2xl border border-white/5 bg-white/[0.02] animate-pulse" />
+                  <div key={i} className="h-28 w-full rounded-2xl border border-border-subtle bg-sunken animate-pulse" />
                 ))}
               </div>
             ) : produtos?.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-28 sm:py-40 border border-white/[0.04] bg-white/[0.01] rounded-[28px] sm:rounded-[40px]">
-                <PackageSearch className="h-16 w-16 text-muted-foreground/10 mb-6" />
-                <h3 className="text-xl font-bold text-white/60 uppercase tracking-widest">Nenhum produto indexado</h3>
+              <div className="flex flex-col items-center justify-center py-28 sm:py-40 border border-border-subtle bg-app rounded-[28px] sm:rounded-[40px]">
+                <PackageSearch className="h-16 w-16 text-text-disabled mb-6" />
+                <h3 className="text-xl font-bold text-text-secondary uppercase tracking-widest">Nenhum produto indexado</h3>
                 <button
                   onClick={() => {
                     setFilterEffect("all");
@@ -236,7 +236,7 @@ export default function AdminProdutos() {
                     setDurationSort("none");
                     setSearchTerm("");
                   }}
-                  className="mt-8 px-10 h-14 rounded-full border border-primary/20 bg-primary/5 text-primary text-[10px] font-black uppercase tracking-[0.2em] hover:bg-primary hover:text-white transition-all"
+                  className="mt-8 px-10 h-14 rounded-full border border-primary/20 bg-primary/5 text-primary text-[10px] font-black uppercase tracking-[0.2em] hover:bg-primary hover:text-text-primary transition-all"
                 >
                   Resetar Catálogo
                 </button>
@@ -253,7 +253,7 @@ export default function AdminProdutos() {
                       transition={{ duration: 0.5, delay: i * 0.02 }}
                       key={produto.id}
                       onClick={() => setSelectedProduct(produto)}
-                      className="group relative flex items-center gap-3 overflow-hidden rounded-2xl border border-white/10 bg-zinc-900/35 px-3 py-2.5 shadow-[0_10px_24px_rgba(0,0,0,0.35)] transition-all duration-300 cursor-pointer backdrop-blur-md hover:border-primary/45 hover:bg-zinc-900/55 sm:px-4 sm:py-3 sm:gap-4"
+                      className="group relative flex items-center gap-3 overflow-hidden rounded-2xl border border-border bg-sunken px-3 py-2.5 shadow-[0_10px_24px_rgba(0,0,0,0.35)] transition-all duration-300 cursor-pointer backdrop-blur-md hover:border-primary/45 hover:bg-sunken sm:px-4 sm:py-3 sm:gap-4"
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-primary/[0.03] via-transparent to-blue-500/[0.04] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
@@ -262,10 +262,10 @@ export default function AdminProdutos() {
                           <span className="rounded-md border border-primary/30 bg-primary/10 px-1.5 py-0.5 text-[8px] font-black uppercase tracking-[0.18em] text-primary">
                             M5 MAX
                           </span>
-                          <span className="rounded-md border border-white/10 bg-white/5 px-1.5 py-0.5 text-[8px] font-black uppercase tracking-widest text-white/40">
+                          <span className="rounded-md border border-border bg-sunken px-1.5 py-0.5 text-[8px] font-black uppercase tracking-widest text-text-tertiary">
                             {getCategoryDisplayName(produto.categoria)}
                           </span>
-                          <span className="rounded-md border border-white/10 bg-muted/60 px-1.5 py-0.5 text-[8px] font-mono font-bold uppercase tracking-widest text-white/35">
+                          <span className="rounded-md border border-border bg-muted/60 px-1.5 py-0.5 text-[8px] font-mono font-bold uppercase tracking-widest text-text-tertiary">
                             ID {produto.codigo}
                           </span>
                         </div>
@@ -275,7 +275,7 @@ export default function AdminProdutos() {
                         </h4>
 
                         {produto.efeito && (
-                          <p className="mt-1 truncate text-[10px] font-semibold uppercase tracking-[0.16em] text-white/35">
+                          <p className="mt-1 truncate text-[10px] font-semibold uppercase tracking-[0.16em] text-text-tertiary">
                             Efeito: {produto.efeito}
                           </p>
                         )}
@@ -290,7 +290,7 @@ export default function AdminProdutos() {
 
                       <div className="relative z-10 flex shrink-0 items-center gap-2.5 sm:gap-3">
                         <div className="text-right">
-                          <span className="block text-[8px] font-black uppercase tracking-[0.18em] text-white/35">
+                          <span className="block text-[8px] font-black uppercase tracking-[0.18em] text-text-tertiary">
                             Preço
                           </span>
                           <p className="text-sm font-black tracking-tight text-white group-hover:text-primary transition-colors sm:text-base">
@@ -302,7 +302,7 @@ export default function AdminProdutos() {
                           </p>
                         </div>
 
-                        <div className="h-8 w-px bg-white/10" />
+                        <div className="h-8 w-px bg-sunken" />
 
                         <div className="min-w-[54px] text-right">
                           <div className="mb-0.5 flex items-center justify-end gap-1">
@@ -313,7 +313,7 @@ export default function AdminProdutos() {
                               {produto.quantidade_disponivel ?? "—"}
                             </span>
                           </div>
-                          <span className="text-[8px] font-black uppercase tracking-[0.16em] text-white/35">
+                          <span className="text-[8px] font-black uppercase tracking-[0.16em] text-text-tertiary">
                             Estoque
                           </span>
                         </div>
@@ -339,15 +339,15 @@ export default function AdminProdutos() {
             
             {selectedProduct && (
               <div className="p-5 sm:p-6 space-y-6">
-                <div className="flex items-center justify-between rounded-2xl border border-white/[0.05] bg-muted/60 p-4 sm:p-5">
+                <div className="flex items-center justify-between rounded-2xl border border-border bg-muted/60 p-4 sm:p-5">
                   <div className="flex flex-col">
-                    <span className="mb-1 text-[9px] uppercase tracking-widest text-white/40 font-bold">Preço de Venda</span>
+                    <span className="mb-1 text-[9px] uppercase tracking-widest text-text-tertiary font-bold">Preço de Venda</span>
                     <span className="text-xl sm:text-2xl font-black tracking-tighter text-primary">
                       {new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(selectedProduct.valor_venda)}
                     </span>
                   </div>
                   <div className="flex flex-col items-end">
-                    <span className="mb-1 text-[9px] uppercase tracking-widest text-white/40 font-bold">Disponibilidade</span>
+                    <span className="mb-1 text-[9px] uppercase tracking-widest text-text-tertiary font-bold">Disponibilidade</span>
                     <span className={cn("text-xl sm:text-2xl font-black tracking-tighter", getStockColor(selectedProduct.quantidade_disponivel))}>
                       {selectedProduct.quantidade_disponivel ?? "—"}
                     </span>
@@ -358,7 +358,7 @@ export default function AdminProdutos() {
                   <div>
                     <h4 className="text-lg sm:text-xl font-black leading-tight tracking-tight text-white mb-3">{selectedProduct.nome_produto}</h4>
                     <div className="flex flex-wrap items-center gap-2">
-                      <Badge variant="secondary" className="border-none bg-white/[0.04] px-3 py-1 font-mono text-[10px] tracking-widest text-white/60 font-bold">
+                      <Badge variant="secondary" className="border-none bg-sunken px-3 py-1 font-mono text-[10px] tracking-widest text-text-secondary font-bold">
                         {selectedProduct.codigo}
                       </Badge>
                       <Badge variant="outline" className="border-primary/20 bg-primary/5 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-primary">
@@ -367,21 +367,21 @@ export default function AdminProdutos() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 gap-4 border-t border-white/[0.05] pt-5 text-sm sm:grid-cols-2">
-                    <div className="space-y-1 bg-black/20 p-3 rounded-xl border border-white/[0.02]">
-                      <span className="block text-[8px] font-black uppercase tracking-widest text-white/40">Fabricante</span>
+                  <div className="grid grid-cols-1 gap-4 border-t border-border pt-5 text-sm sm:grid-cols-2">
+                    <div className="space-y-1 bg-sunken p-3 rounded-xl border border-border-subtle">
+                      <span className="block text-[8px] font-black uppercase tracking-widest text-text-tertiary">Fabricante</span>
                       <span className="font-bold text-muted-foreground">{selectedProduct.fabricante || "Não informado"}</span>
                     </div>
-                    <div className="space-y-1 bg-black/20 p-3 rounded-xl border border-white/[0.02]">
-                      <span className="block text-[8px] font-black uppercase tracking-widest text-white/40">Tipo de Efeito</span>
+                    <div className="space-y-1 bg-sunken p-3 rounded-xl border border-border-subtle">
+                      <span className="block text-[8px] font-black uppercase tracking-widest text-text-tertiary">Tipo de Efeito</span>
                       <span className="font-bold text-muted-foreground">{selectedProduct.efeito || "Não informado"}</span>
                     </div>
-                    <div className="space-y-1 bg-black/20 p-3 rounded-xl border border-white/[0.02]">
-                      <span className="block text-[8px] font-black uppercase tracking-widest text-white/40">Tubos / Tiros</span>
+                    <div className="space-y-1 bg-sunken p-3 rounded-xl border border-border-subtle">
+                      <span className="block text-[8px] font-black uppercase tracking-widest text-text-tertiary">Tubos / Tiros</span>
                       <span className="font-bold text-muted-foreground">{selectedProduct.tubos || "N/A"}</span>
                     </div>
-                    <div className="space-y-1 bg-black/20 p-3 rounded-xl border border-white/[0.02]">
-                      <span className="block text-[8px] font-black uppercase tracking-widest text-white/40">Duração Show</span>
+                    <div className="space-y-1 bg-sunken p-3 rounded-xl border border-border-subtle">
+                      <span className="block text-[8px] font-black uppercase tracking-widest text-text-tertiary">Duração Show</span>
                       <span className="font-bold text-muted-foreground">{selectedProduct.duracao_segundos ? `${selectedProduct.duracao_segundos}s` : "N/A"}</span>
                     </div>
                   </div>
@@ -391,7 +391,7 @@ export default function AdminProdutos() {
                   <Button 
                     onClick={() => setSelectedProduct(null)} 
                     variant="ghost"
-                    className="h-10 px-6 rounded-xl text-xs font-bold uppercase tracking-widest bg-white/[0.05] hover:bg-white/[0.1] transition-colors text-white"
+                    className="h-10 px-6 rounded-xl text-xs font-bold uppercase tracking-widest bg-sunken hover:bg-sunken transition-colors text-white"
                   >
                     Fechar Ficha
                   </Button>

@@ -47,7 +47,7 @@ export const backgrounds = {
   muted: "bg-muted/20",
   primary: "bg-primary/5",
   glass: "bg-background/40 backdrop-blur-md",
-  overlay: "bg-black/40",
+  overlay: "bg-charcoal-900/40",
 } as const;
 
 // Estilos para seções

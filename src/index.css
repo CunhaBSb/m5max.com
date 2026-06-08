@@ -3,102 +3,131 @@
 @tailwind utilities;
 
 /* =====================================================================
-   M5 Max Produções — Design System v2
-   Light theme only · Charcoal + Âmbar · B2B profissional
-   Todas as cores em HSL para permitir manipulação via opacity.
+   M5 Max Produções — Design System v3
+   Light theme only · Branco + Laranja (ação) · B2B profissional
+   
+   Princípios:
+   1. Superfícies brancas / areadas (warm sand) para o admin
+   2. Laranja APENAS para ação (CTAs, links ativos, badges importantes)
+   3. Texto: marrom-pretado (#1A1612) — NÃO preto puro, contraste 14.8:1
+   4. Status têm cor própria (verde/mostarda/vermelho) — laranja é só ação
+   5. Borda: warm gray (#E8DFD2), nunca cinza frio
    ===================================================================== */
 
 @layer base {
   :root {
-    /* ---------- Superfícies (Charcoal suave, não preto) ---------- */
-    --background: 210 20% 98%;        /* #f7f8fa - off-white azulado */
-    --foreground: 220 25% 12%;        /* #181c24 - charcoal escuro */
+    /* ---------- Superfícies (warm white / sand) ---------- */
+    --background: 35 30% 98%;          /* #FBF9F5 — fundo geral, levemente areado */
+    --foreground: 22 20% 9%;           /* #1A1612 — marrom-pretado (NÃO preto) */
 
-    --card: 0 0% 100%;                /* branco puro */
-    --card-foreground: 220 25% 12%;
+    --card: 0 0% 100%;                 /* #FFFFFF — cards brancos puros */
+    --card-foreground: 22 20% 9%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 25% 12%;
+    --popover-foreground: 22 20% 9%;
 
-    /* ---------- Marca: Âmbar profissional (não laranja berrante) ---------- */
-    --primary: 32 95% 50%;            /* #f57f0c - âmbar pirotécnico refinado */
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 32 95% 60%;
-    --primary-soft: 32 95% 95%;       /* fundo suave para hover/active */
+    /* ---------- AÇÃO: Laranja M5 (NÃO decoração) ---------- */
+    --primary: 18 88% 52%;            /* #E04E0D — laranja-pimentão refinado */
+    --primary-foreground: 0 0% 100%;  /* branco em cima do laranja — 4.6:1 AA */
+    --primary-glow: 18 88% 60%;
+    --primary-soft: 24 100% 97%;      /* #FFF6F1 — fundo de hover/active/badge */
 
-    /* ---------- Neutros: Cinza ardósia profissional ---------- */
-    --secondary: 215 20% 95%;         /* #eef1f5 - cinza claro */
-    --secondary-foreground: 220 25% 18%;
+    /* ---------- Neutros: Warm gray (NÃO cinza frio) ---------- */
+    --secondary: 33 20% 96%;          /* #F4F1EC — cinza-areado claro */
+    --secondary-foreground: 22 12% 26%;
 
-    --muted: 215 20% 96%;
-    --muted-foreground: 215 12% 45%;
+    --muted: 30 15% 92%;              /* #E8E3DA */
+    --muted-foreground: 22 8% 50%;    /* #807870 — texto terciário */
 
-    --accent: 220 25% 18%;            /* #262b35 - charcoal para destaques */
+    --accent: 18 88% 52%;             /* mesmo do primary — ação consistente */
     --accent-foreground: 0 0% 98%;
 
-    /* ---------- Estados ---------- */
-    --destructive: 0 75% 50%;         /* vermelho mais sóbrio */
+    /* ---------- Estados (significado semântico, não cor) ---------- */
+    --destructive: 0 65% 48%;         /* #C73636 — vermelho terroso */
     --destructive-foreground: 0 0% 100%;
 
-    --success: 142 65% 40%;
+    --success: 152 55% 38%;           /* #2F9E5C — verde-floresta */
     --success-foreground: 0 0% 100%;
 
-    --warning: 38 92% 50%;
+    --warning: 36 90% 46%;            /* #DE8A0A — mostarda, NÃO amarelo neon */
     --warning-foreground: 0 0% 100%;
 
-    --border: 220 13% 88%;            /* #dde0e6 - borda discreta */
-    --input: 220 13% 92%;
-    --ring: 32 95% 50%;
+    --border: 30 12% 84%;             /* #D5CFC2 — warm gray borda */
+    --input: 30 12% 84%;
+    --ring: 18 88% 52%;               /* focus = laranja */
 
-    --radius: 0.625rem;               /* 10px - cantos suaves, não infantis */
+    --radius: 0.625rem;               /* 10px — cantos suaves, não infantis */
 
-    /* ---------- Identidade M5 Max ---------- */
-    --fire-red: 8 85% 50%;            /* vermelho explosão sóbrio */
+    /* ---------- Identidade M5 Max (mantida, fogo da marca) ---------- */
+    --fire-red: 8 85% 50%;
     --fire-orange: 22 90% 52%;
     --fire-gold: 38 92% 50%;
     --fire-yellow: 48 95% 55%;
 
-    --charcoal-50: 220 20% 98%;
-    --charcoal-100: 220 18% 95%;
-    --charcoal-200: 220 15% 88%;
-    --charcoal-300: 220 12% 75%;
-    --charcoal-400: 220 10% 55%;
-    --charcoal-500: 220 12% 40%;
-    --charcoal-600: 220 15% 28%;
-    --charcoal-700: 220 20% 20%;
-    --charcoal-800: 220 25% 14%;
-    --charcoal-900: 220 30% 10%;
+    --charcoal-50: 35 30% 98%;
+    --charcoal-100: 33 20% 96%;
+    --charcoal-200: 30 15% 92%;
+    --charcoal-300: 28 12% 84%;
+    --charcoal-400: 25 10% 68%;
+    --charcoal-500: 22 8% 50%;
+    --charcoal-600: 22 10% 38%;
+    --charcoal-700: 22 12% 26%;
+    --charcoal-800: 22 15% 16%;
+    --charcoal-900: 22 20% 9%;
 
-    --tech-blue: 215 75% 45%;
-    --tech-blue-light: 215 70% 65%;
+    --tech-blue: 212 75% 48%;
+    --tech-blue-light: 212 75% 65%;
 
-    --metal-silver: 220 10% 70%;
-    --metal-platinum: 220 12% 90%;
+    --metal-silver: 25 10% 70%;
+    --metal-platinum: 30 12% 90%;
 
-    /* ---------- Gradientes profissionais (sóbrios) ---------- */
+    /* ---------- NOVOS tokens semânticos v3 ---------- */
+    --bg-app: 35 30% 98%;             /* mesmo que --background, alias semântico */
+    --bg-sunken: 30 15% 92%;          /* inputs, áreas "abaixo" do normal */
+    --border-subtle: 33 20% 96%;      /* #F4F1EC — divisores internos suaves */
+    --border-strong: 18 88% 52%;      /* focus ring = laranja */
+    --text-primary: 22 20% 9%;        /* alias de foreground */
+    --text-secondary: 22 10% 38%;     /* #5C544A */
+    --text-tertiary: 22 8% 50%;       /* #807870 */
+    --text-disabled: 25 10% 68%;      /* #ADA59A */
+    --text-inverse: 0 0% 100%;
+
+    /* ---------- Brand (laranja M5 — escala 50-900) ---------- */
+    --brand-50:  24 100% 97%;
+    --brand-100: 24 100% 94%;
+    --brand-200: 24  98% 86%;
+    --brand-300: 24  95% 74%;
+    --brand-400: 20  90% 60%;
+    --brand-500: 18  88% 52%;         /* ★ AÇÃO PRINCIPAL */
+    --brand-600: 16  85% 45%;
+    --brand-700: 14  80% 38%;
+    --brand-800: 12  70% 30%;
+    --brand-900: 10  60% 22%;
+
+    /* ---------- Gradientes (sóbrios, com laranja como ação) ---------- */
     --gradient-fire: linear-gradient(135deg, hsl(8 85% 50%), hsl(22 90% 52%), hsl(38 92% 50%));
-    --gradient-charcoal: linear-gradient(135deg, hsl(220 30% 10%), hsl(220 25% 14%));
-    --gradient-hero: linear-gradient(135deg, hsl(220 25% 14%), hsl(220 20% 20%));
-    --gradient-accent: linear-gradient(135deg, hsl(32 95% 50%), hsl(22 90% 52%));
-    --gradient-soft: linear-gradient(180deg, hsl(210 20% 98%) 0%, hsl(215 20% 95%) 100%);
+    --gradient-charcoal: linear-gradient(135deg, hsl(22 20% 9%), hsl(22 15% 16%));
+    --gradient-hero: linear-gradient(135deg, hsl(22 20% 9%), hsl(22 12% 26%));
+    --gradient-accent: linear-gradient(135deg, hsl(18 88% 52%), hsl(22 90% 52%));
+    --gradient-soft: linear-gradient(180deg, hsl(35 30% 98%) 0%, hsl(33 20% 96%) 100%);
 
-    /* ---------- Sombras realistas (não exageradas) ---------- */
-    --shadow-sm: 0 1px 2px 0 hsl(220 25% 12% / 0.04);
-    --shadow-md: 0 2px 4px -1px hsl(220 25% 12% / 0.06), 0 1px 2px -1px hsl(220 25% 12% / 0.04);
-    --shadow-lg: 0 8px 16px -4px hsl(220 25% 12% / 0.08), 0 2px 4px -2px hsl(220 25% 12% / 0.04);
-    --shadow-xl: 0 20px 32px -8px hsl(220 25% 12% / 0.10), 0 4px 8px -4px hsl(220 25% 12% / 0.06);
-    --shadow-fire: 0 8px 20px -4px hsl(32 95% 50% / 0.25);
-    --shadow-focus: 0 0 0 3px hsl(32 95% 50% / 0.20);
+    /* ---------- Sombras realistas (warm-tinted) ---------- */
+    --shadow-sm: 0 1px 2px 0 hsl(22 20% 9% / 0.04);
+    --shadow-md: 0 2px 4px -1px hsl(22 20% 9% / 0.06), 0 1px 2px -1px hsl(22 20% 9% / 0.04);
+    --shadow-lg: 0 8px 16px -4px hsl(22 20% 9% / 0.08), 0 2px 4px -2px hsl(22 20% 9% / 0.04);
+    --shadow-xl: 0 20px 32px -8px hsl(22 20% 9% / 0.10), 0 4px 8px -4px hsl(22 20% 9% / 0.06);
+    --shadow-fire: 0 8px 20px -4px hsl(18 88% 52% / 0.25);
+    --shadow-focus: 0 0 0 3px hsl(18 88% 52% / 0.20);
 
-    /* ---------- Sidebar (Charcoal premium) ---------- */
-    --sidebar-background: 220 25% 14%;
-    --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 32 95% 50%;
+    /* ---------- Sidebar: branco limpo (NÃO mais charcoal) ---------- */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 22 20% 9%;
+    --sidebar-primary: 18 88% 52%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 220 20% 20%;
-    --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 220 20% 22%;
-    --sidebar-ring: 32 95% 50%;
+    --sidebar-accent: 24 100% 97%;    /* primary-soft */
+    --sidebar-accent-foreground: 16 85% 45%;
+    --sidebar-border: 30 12% 84%;
+    --sidebar-ring: 18 88% 52%;
 
     /* ---------- Spacing system ---------- */
     --spacing-section: 5rem;
@@ -227,8 +256,8 @@
 
   .gentle-glow { animation: gentle-glow 4s ease-in-out infinite; }
   @keyframes gentle-glow {
-    0%, 100% { box-shadow: 0 0 0 0 hsl(32 95% 50% / 0); }
-    50% { box-shadow: 0 0 0 4px hsl(32 95% 50% / 0.12); }
+    0%, 100% { box-shadow: 0 0 0 0 hsl(18 88% 52% / 0); }
+    50% { box-shadow: 0 0 0 4px hsl(18 88% 52% / 0.12); }
   }
 
   .animate-fade-in-up {

@@ -36,7 +36,7 @@ export const SolicitacaoCard = ({
   getStatusColor
 }: SolicitacaoCardProps) => {
   return (
-    <Card className="group overflow-hidden rounded-[26px] border border-white/10 bg-[#0A0A0D] shadow-2xl transition-all duration-300 hover:border-primary/20">
+    <Card className="group overflow-hidden rounded-[26px] border border-border bg-[#0A0A0D] shadow-2xl transition-all duration-300 hover:border-primary/20">
       <CardContent className="p-5">
         <div className="flex items-start justify-between mb-4">
           <div className="flex-1 min-w-0 pr-2">
@@ -109,7 +109,7 @@ export const SolicitacaoCard = ({
           </div>
         )}
 
-        <div className="flex items-center justify-end gap-1.5 border-t border-white/10 pt-4 sm:gap-2">
+        <div className="flex items-center justify-end gap-1.5 border-t border-border pt-4 sm:gap-2">
           {!solicitacao.enviado_email && (
             <Button
               variant="ghost"

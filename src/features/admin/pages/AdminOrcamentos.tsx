@@ -1373,15 +1373,15 @@ const AdminOrcamentos = () => {
 
           {/* Header Stats Side-by-side */}
           <div className="grid grid-cols-3 gap-2">
-              <div className="bg-white/[0.03] p-3 rounded-2xl border border-white/5 text-center">
+              <div className="bg-sunken p-3 rounded-2xl border border-border-subtle text-center">
                 <p className="text-[8px] font-black uppercase tracking-[0.1em] text-muted-foreground mb-0.5">Total</p>
                 <p className="text-xl font-black text-white">{stats.total}</p>
               </div>
-              <div className="bg-white/[0.03] p-3 rounded-2xl border border-white/5 text-center">
+              <div className="bg-sunken p-3 rounded-2xl border border-border-subtle text-center">
                 <p className="text-[8px] font-black uppercase tracking-[0.1em] text-primary mb-0.5">Pendente</p>
                 <p className="text-xl font-black text-primary">{stats.pendentes}</p>
               </div>
-              <div className="bg-white/[0.03] p-3 rounded-2xl border border-white/5 text-center">
+              <div className="bg-sunken p-3 rounded-2xl border border-border-subtle text-center">
                 <p className="text-[8px] font-black uppercase tracking-[0.1em] text-success mb-0.5">Confir.</p>
                 <p className="text-xl font-black text-success">{stats.confirmados}</p>
               </div>
@@ -1394,21 +1394,21 @@ const AdminOrcamentos = () => {
                 placeholder="Buscar por cliente, evento, localização..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="h-14 w-full rounded-[22px] border-white/[0.06] bg-white/[0.02] pl-12 text-base font-medium shadow-2xl transition-all placeholder:text-muted-foreground/10 focus:border-primary/40 focus:ring-0 sm:h-16 sm:rounded-[24px] sm:pl-16 sm:text-lg"
+                className="h-14 w-full rounded-[22px] border-border bg-sunken pl-12 text-base font-medium shadow-2xl transition-all placeholder:text-text-disabled focus:border-primary/40 focus:ring-0 sm:h-16 sm:rounded-[24px] sm:pl-16 sm:text-lg"
               />
             </div>
             
-            <div className="flex flex-wrap items-center gap-3 bg-white/[0.01] border border-white/5 p-3 sm:p-4 rounded-[22px] sm:rounded-[24px]">
+            <div className="flex flex-wrap items-center gap-3 bg-app border border-border-subtle p-3 sm:p-4 rounded-[22px] sm:rounded-[24px]">
               <span className="text-[10px] font-black uppercase text-muted-foreground/20 tracking-[0.3em] mr-2 ml-2">Filtros Operacionais</span>
               
               <Select value={filterStatus} onValueChange={setFilterStatus}>
-                <SelectTrigger className="h-11 bg-white/[0.03] border-white/10 rounded-full px-4 sm:px-6 focus:ring-primary/40 text-[10px] font-black uppercase tracking-widest min-w-[150px] sm:min-w-[160px]">
+                <SelectTrigger className="h-11 bg-sunken border-border rounded-full px-4 sm:px-6 focus:ring-primary/40 text-[10px] font-black uppercase tracking-widest min-w-[150px] sm:min-w-[160px]">
                   <div className="flex items-center gap-2">
                     <Filter className="h-3 w-3 text-primary" />
                     <SelectValue placeholder="Status" />
                   </div>
                 </SelectTrigger>
-                <SelectContent className="bg-card border-white/10 rounded-2xl">
+                <SelectContent className="bg-card border-border rounded-2xl">
                   <SelectItem value="all" className="rounded-xl font-medium">Todos Status</SelectItem>
                   <SelectItem value="pendente" className="rounded-xl font-medium">Pendentes</SelectItem>
                   <SelectItem value="confirmado" className="rounded-xl font-medium">Confirmados</SelectItem>
@@ -1418,13 +1418,13 @@ const AdminOrcamentos = () => {
               </Select>
 
               <Select value={filterTipo} onValueChange={setFilterTipo}>
-                <SelectTrigger className="h-11 bg-white/[0.03] border-white/10 rounded-full px-4 sm:px-6 focus:ring-primary/40 text-[10px] font-black uppercase tracking-widest min-w-[170px] sm:min-w-[180px]">
+                <SelectTrigger className="h-11 bg-sunken border-border rounded-full px-4 sm:px-6 focus:ring-primary/40 text-[10px] font-black uppercase tracking-widest min-w-[170px] sm:min-w-[180px]">
                   <div className="flex items-center gap-2">
                     <Zap className="h-3 w-3 text-primary" />
                     <SelectValue placeholder="Tipo de Operação" />
                   </div>
                 </SelectTrigger>
-                <SelectContent className="bg-card border-white/10 rounded-2xl">
+                <SelectContent className="bg-card border-border rounded-2xl">
                   <SelectItem value="all" className="rounded-xl font-medium">Todos Tipos</SelectItem>
                   <SelectItem value="show_pirotecnico" className="rounded-xl font-medium">Show Pirotécnico</SelectItem>
                   <SelectItem value="venda_artigos" className="rounded-xl font-medium">Venda de Artigos</SelectItem>
@@ -1435,7 +1435,7 @@ const AdminOrcamentos = () => {
 
           {/* Tabs de Navegação */}
           <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full">
-            <TabsList className="mb-8 flex h-14 w-full rounded-[20px] border border-white/5 bg-white/[0.02] p-1.5 md:mb-10 md:h-16 md:w-fit md:rounded-full">
+            <TabsList className="mb-8 flex h-14 w-full rounded-[20px] border border-border-subtle bg-sunken p-1.5 md:mb-10 md:h-16 md:w-fit md:rounded-full">
               <TabsTrigger 
                 value="solicitacoes" 
                 className="flex-1 md:w-60 rounded-full data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-lg font-black tracking-widest text-[10px] uppercase transition-all duration-500 h-full"
@@ -1451,13 +1451,13 @@ const AdminOrcamentos = () => {
             </TabsList>
 
             <TabsContent value="solicitacoes" className="mt-0 outline-none focus-visible:ring-0">
-              <Card className="overflow-hidden rounded-[28px] border-white/5 bg-white/[0.01] shadow-2xl sm:rounded-[40px]">
+              <Card className="overflow-hidden rounded-[28px] border-border-subtle bg-app shadow-2xl sm:rounded-[40px]">
                 <CardContent className="p-0">
               {/* Desktop Table */}
               <div className="hidden md:block">
                 <Table>
                   <TableHeader>
-                    <TableRow className="border-white/5 bg-white/[0.01] hover:bg-transparent">
+                    <TableRow className="border-border-subtle bg-app hover:bg-transparent">
                       <TableHead className="text-[10px] font-black uppercase tracking-[0.2em] text-primary h-16 pl-10">Qualificação do Lead</TableHead>
                       <TableHead className="text-[10px] font-black uppercase tracking-[0.2em] text-primary h-16">Tipo / Serviço</TableHead>
                       <TableHead className="text-[10px] font-black uppercase tracking-[0.2em] text-primary h-16">Planejamento</TableHead>
@@ -1467,11 +1467,11 @@ const AdminOrcamentos = () => {
                   </TableHeader>
                   <TableBody>
                     {filteredSolicitacoes.map((solicitacao) => (
-                      <TableRow key={solicitacao.id} className="border-white/5 hover:bg-white/[0.02] transition-colors group">
+                      <TableRow key={solicitacao.id} className="border-border-subtle hover:bg-sunken transition-colors group">
                         <TableCell className="pl-10 py-6">
                           <div className="flex flex-col">
                             <span className="font-bold text-lg text-foreground group-hover:text-primary transition-colors">{solicitacao.nome_completo}</span>
-                            <span className="text-xs text-muted-foreground/60 font-medium tracking-tight mt-1">{solicitacao.whatsapp}</span>
+                            <span className="text-xs text-text-secondary font-medium tracking-tight mt-1">{solicitacao.whatsapp}</span>
                           </div>
                         </TableCell>
                         <TableCell>
@@ -1566,13 +1566,13 @@ const AdminOrcamentos = () => {
             </Card>
           </TabsContent>
           <TabsContent value="orcamentos" className="mt-0 outline-none focus-visible:ring-0">
-          <Card className="glass-card overflow-hidden rounded-[28px] border-white/5 shadow-2xl sm:rounded-[2.5rem]">
+          <Card className="glass-card overflow-hidden rounded-[28px] border-border-subtle shadow-2xl sm:rounded-[2.5rem]">
             <CardContent className="p-0">
               {/* Desktop Table */}
               <div className="hidden md:block">
                 <Table>
                   <TableHeader>
-                    <TableRow className="border-white/5 bg-white/[0.01] hover:bg-transparent">
+                    <TableRow className="border-border-subtle bg-app hover:bg-transparent">
                       <TableHead className="text-[10px] font-black uppercase tracking-[0.2em] text-primary h-16 pl-10">Cliente / Contratante</TableHead>
                       <TableHead className="text-[10px] font-black uppercase tracking-[0.2em] text-primary h-16">Projeto / Agenda</TableHead>
                       <TableHead className="text-[10px] font-black uppercase tracking-[0.2em] text-primary h-16">Volume Financeiro</TableHead>
@@ -1587,11 +1587,11 @@ const AdminOrcamentos = () => {
                       const showConfirmationAvailable = canRunShowConfirmation(orcamento);
 
                       return (
-                      <TableRow key={orcamento.id} className="border-white/5 hover:bg-white/[0.02] transition-colors group">
+                      <TableRow key={orcamento.id} className="border-border-subtle hover:bg-sunken transition-colors group">
                         <TableCell className="pl-10 py-6">
                           <div className="flex flex-col">
                             <span className="font-bold text-lg text-foreground group-hover:text-primary transition-colors">{orcamento.nome_contratante}</span>
-                            <span className="text-[10px] text-muted-foreground/40 font-black uppercase tracking-widest mt-1">Ref: {orcamento.id.slice(0, 8)}</span>
+                            <span className="text-[10px] text-text-tertiary font-black uppercase tracking-widest mt-1">Ref: {orcamento.id.slice(0, 8)}</span>
                           </div>
                         </TableCell>
                         <TableCell>
@@ -1726,10 +1726,10 @@ const AdminOrcamentos = () => {
                     setOrcamentoForm({...orcamentoForm, tipo: value})
                   }
                 >
-                  <SelectTrigger className="h-14 bg-white/[0.03] border-white/5 rounded-2xl focus:ring-primary/40 text-sm font-bold">
+                  <SelectTrigger className="h-14 bg-sunken border-border-subtle rounded-2xl focus:ring-primary/40 text-sm font-bold">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-card border-white/10 rounded-2xl">
+                  <SelectContent className="bg-card border-border rounded-2xl">
                     <SelectItem value="venda_artigos" className="rounded-xl font-medium">Venda de Artigos</SelectItem>
                     <SelectItem value="show_pirotecnico" className="rounded-xl font-medium">Show Pirotécnico (Operação)</SelectItem>
                   </SelectContent>
@@ -1742,7 +1742,7 @@ const AdminOrcamentos = () => {
                   value={orcamentoForm.nome_contratante}
                   onChange={(e) => setOrcamentoForm({...orcamentoForm, nome_contratante: e.target.value})}
                   placeholder="Nome completo do cliente"
-                  className="h-14 bg-white/[0.03] border-white/5 rounded-2xl focus:ring-primary/40 text-sm font-bold"
+                  className="h-14 bg-sunken border-border-subtle rounded-2xl focus:ring-primary/40 text-sm font-bold"
                 />
               </div>
             </div>
@@ -1755,7 +1755,7 @@ const AdminOrcamentos = () => {
                   value={orcamentoForm.telefone}
                   onChange={(e) => setOrcamentoForm({...orcamentoForm, telefone: e.target.value})}
                   placeholder="(00) 00000-0000"
-                  className="h-14 bg-white/[0.03] border-white/5 rounded-2xl focus:ring-primary/40 text-sm font-bold"
+                  className="h-14 bg-sunken border-border-subtle rounded-2xl focus:ring-primary/40 text-sm font-bold"
                 />
               </div>
               <div className="space-y-3">
@@ -1765,12 +1765,12 @@ const AdminOrcamentos = () => {
                   value={orcamentoForm.cpf}
                   onChange={(e) => setOrcamentoForm({...orcamentoForm, cpf: e.target.value})}
                   placeholder="000.000.000-00"
-                  className="h-14 bg-white/[0.03] border-white/5 rounded-2xl focus:ring-primary/40 text-sm font-bold font-mono"
+                  className="h-14 bg-sunken border-border-subtle rounded-2xl focus:ring-primary/40 text-sm font-bold font-mono"
                 />
               </div>
             </div>
 
-            <div className="h-px bg-white/5 w-full"></div>
+            <div className="h-px bg-sunken w-full"></div>
 
             {/* Dados do Evento */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -1781,7 +1781,7 @@ const AdminOrcamentos = () => {
                   value={orcamentoForm.evento_nome}
                   onChange={(e) => setOrcamentoForm({...orcamentoForm, evento_nome: e.target.value})}
                   placeholder="Ex: Casamento Silva, Show de Virada..."
-                  className="h-14 bg-white/[0.03] border-white/5 rounded-2xl focus:ring-primary/40 text-sm font-bold"
+                  className="h-14 bg-sunken border-border-subtle rounded-2xl focus:ring-primary/40 text-sm font-bold"
                 />
               </div>
               <div className="space-y-3">
@@ -1791,7 +1791,7 @@ const AdminOrcamentos = () => {
                   type="date"
                   value={orcamentoForm.evento_data}
                   onChange={(e) => setOrcamentoForm({...orcamentoForm, evento_data: e.target.value})}
-                  className="h-14 bg-white/[0.03] border-white/5 rounded-2xl focus:ring-primary/40 text-sm font-bold"
+                  className="h-14 bg-sunken border-border-subtle rounded-2xl focus:ring-primary/40 text-sm font-bold"
                 />
               </div>
               <div className="space-y-3">
@@ -1801,7 +1801,7 @@ const AdminOrcamentos = () => {
                   type="time"
                   value={orcamentoForm.evento_hora || ''}
                   onChange={(e) => setOrcamentoForm({...orcamentoForm, evento_hora: e.target.value})}
-                  className="h-14 bg-white/[0.03] border-white/5 rounded-2xl focus:ring-primary/40 text-sm font-bold color-scheme-dark"
+                  className="h-14 bg-sunken border-border-subtle rounded-2xl focus:ring-primary/40 text-sm font-bold color-scheme-dark"
                 />
               </div>
             </div>
@@ -1813,11 +1813,11 @@ const AdminOrcamentos = () => {
                 value={orcamentoForm.evento_local}
                 onChange={(e) => setOrcamentoForm({...orcamentoForm, evento_local: e.target.value})}
                 placeholder="Endereço completo onde ocorrerá o show ou entrega"
-                className="h-14 bg-white/[0.03] border-white/5 rounded-2xl focus:ring-primary/40 text-sm font-bold"
+                className="h-14 bg-sunken border-border-subtle rounded-2xl focus:ring-primary/40 text-sm font-bold"
               />
             </div>
 
-            <div className="h-px bg-white/5 w-full"></div>
+            <div className="h-px bg-sunken w-full"></div>
 
             {/* Seleção de Produtos */}
             <div className="space-y-6">
@@ -1838,10 +1838,10 @@ const AdminOrcamentos = () => {
               </div>
 
               {selectedProducts.length > 0 ? (
-                <div className="border border-white/5 rounded-3xl overflow-hidden bg-white/[0.01]">
+                <div className="border border-border-subtle rounded-3xl overflow-hidden bg-app">
                   <Table>
                     <TableHeader>
-                      <TableRow className="bg-white/[0.03] border-white/5">
+                      <TableRow className="bg-sunken border-border-subtle">
                         <TableHead className="text-[10px] font-black uppercase tracking-widest text-primary h-12 pl-6">Produto</TableHead>
                         <TableHead className="text-[10px] font-black uppercase tracking-widest text-primary h-12">Valor Unit.</TableHead>
                         <TableHead className="text-[10px] font-black uppercase tracking-widest text-primary h-12">Qtd</TableHead>
@@ -1851,7 +1851,7 @@ const AdminOrcamentos = () => {
                     </TableHeader>
                     <TableBody>
                       {selectedProducts.map((product, index) => (
-                        <TableRow key={index} className="border-white/5 hover:bg-white/[0.02]">
+                        <TableRow key={index} className="border-border-subtle hover:bg-sunken">
                           <TableCell className="font-bold text-sm pl-6 py-4">{product.nome}</TableCell>
                           <TableCell>
                             <Input
@@ -1866,7 +1866,7 @@ const AdminOrcamentos = () => {
                                   valor_unitario: newValue
                                 });
                               }}
-                              className="h-10 bg-white/5 border-white/5 w-24 rounded-xl text-center font-bold"
+                              className="h-10 bg-sunken border-border-subtle w-24 rounded-xl text-center font-bold"
                             />
                           </TableCell>
                           <TableCell>
@@ -1881,7 +1881,7 @@ const AdminOrcamentos = () => {
                                   quantidade: newQty
                                 });
                               }}
-                              className="h-10 bg-white/5 border-white/5 w-20 rounded-xl text-center font-bold"
+                              className="h-10 bg-sunken border-border-subtle w-20 rounded-xl text-center font-bold"
                             />
                           </TableCell>
                           <TableCell className="text-right font-black text-foreground">
@@ -1903,15 +1903,15 @@ const AdminOrcamentos = () => {
                   </Table>
                 </div>
               ) : (
-                <div className="border-2 border-dashed border-white/5 rounded-[2.5rem] p-12 text-center bg-white/[0.01]">
+                <div className="border-2 border-dashed border-border-subtle rounded-[2.5rem] p-12 text-center bg-app">
                   <Package className="h-12 w-12 mx-auto text-muted-foreground/20 mb-4" />
                   <p className="text-muted-foreground font-medium">A composição do orçamento está vazia.</p>
-                  <p className="text-[10px] text-muted-foreground/40 uppercase font-black tracking-widest mt-2">Selecione itens no catálogo abaixo</p>
+                  <p className="text-[10px] text-text-tertiary uppercase font-black tracking-widest mt-2">Selecione itens no catálogo abaixo</p>
                 </div>
               )}
 
               {/* Seletor de produtos simplificado */}
-              <div className="bg-white/[0.03] border border-white/5 p-8 rounded-[2.5rem] space-y-6">
+              <div className="bg-sunken border border-border-subtle p-8 rounded-[2.5rem] space-y-6">
                 <div className="flex items-center justify-between">
                   <h4 className="text-sm font-black uppercase tracking-widest text-primary flex items-center gap-2">
                     <Search className="h-4 w-4" />
@@ -1921,7 +1921,7 @@ const AdminOrcamentos = () => {
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground group-focus-within:text-primary transition-colors" />
                     <Input
                       placeholder="Filtrar catálogo..."
-                      className="pl-9 h-10 bg-white/5 border-white/5 rounded-xl text-xs"
+                      className="pl-9 h-10 bg-sunken border-border-subtle rounded-xl text-xs"
                       value={productSearchTerm}
                       onChange={(e) => setProductSearchTerm(e.target.value)}
                     />
@@ -1933,7 +1933,7 @@ const AdminOrcamentos = () => {
                     {produtos.filter(p => 
                       p.ativo && (p.nome_produto.toLowerCase().includes(productSearchTerm.toLowerCase()) || p.codigo?.toLowerCase().includes(productSearchTerm.toLowerCase()))
                     ).slice(0, 12).map(produto => (
-                      <div key={produto.id} className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/5 hover:border-primary/20 transition-all group">
+                      <div key={produto.id} className="flex items-center justify-between p-4 bg-sunken rounded-2xl border border-border-subtle hover:border-primary/20 transition-all group">
                         <div className="flex flex-col min-w-0">
                           <span className="text-[10px] font-bold text-primary/40 uppercase tracking-tighter truncate">{produto.codigo}</span>
                           <span className="font-bold text-xs text-foreground truncate">{produto.nome_produto}</span>
@@ -1961,7 +1961,7 @@ const AdminOrcamentos = () => {
               </div>
             </div>
 
-            <div className="h-px bg-white/5 w-full"></div>
+            <div className="h-px bg-sunken w-full"></div>
 
             {/* Pagamento e Lucratividade */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -1973,10 +1973,10 @@ const AdminOrcamentos = () => {
                     setOrcamentoForm({...orcamentoForm, modo_pagamento: value})
                   }
                 >
-                  <SelectTrigger className="h-14 bg-white/[0.03] border-white/5 rounded-2xl focus:ring-primary/40 text-sm font-bold">
+                  <SelectTrigger className="h-14 bg-sunken border-border-subtle rounded-2xl focus:ring-primary/40 text-sm font-bold">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-card border-white/10 rounded-2xl">
+                  <SelectContent className="bg-card border-border rounded-2xl">
                     <SelectItem value="dinheiro" className="rounded-xl font-medium">Dinheiro à Vista</SelectItem>
                     <SelectItem value="pix" className="rounded-xl font-medium">PIX Instantâneo</SelectItem>
                     <SelectItem value="cartao" className="rounded-xl font-medium">Cartão de Crédito/Débito</SelectItem>
@@ -1994,7 +1994,7 @@ const AdminOrcamentos = () => {
                     max="100"
                     value={orcamentoForm.margem_lucro}
                     onChange={(e) => setOrcamentoForm({...orcamentoForm, margem_lucro: parseFloat(e.target.value) || 0})}
-                    className="h-14 bg-white/[0.03] border-white/5 rounded-2xl focus:ring-primary/40 text-sm font-black pr-12"
+                    className="h-14 bg-sunken border-border-subtle rounded-2xl focus:ring-primary/40 text-sm font-black pr-12"
                   />
                   <span className="absolute right-5 top-1/2 -translate-y-1/2 font-black text-primary">%</span>
                 </div>
@@ -2034,7 +2034,7 @@ const AdminOrcamentos = () => {
                 type="button" 
                 variant="outline" 
                 onClick={() => setIsOrcamentoDialogOpen(false)} 
-                className="h-16 px-10 bg-white/5 border-white/10 rounded-[1.5rem] font-bold text-muted-foreground hover:text-foreground"
+                className="h-16 px-10 bg-sunken border-border rounded-[1.5rem] font-bold text-muted-foreground hover:text-foreground"
               >
                 Descartar
               </Button>
@@ -2048,18 +2048,18 @@ const AdminOrcamentos = () => {
           <DialogContent className="p-0 border-none bg-card max-w-4xl w-[calc(100vw-0.75rem)] h-[calc(100dvh-0.75rem)] sm:w-full sm:h-[92vh] rounded-[28px] sm:rounded-[2.5rem] overflow-hidden flex flex-col shadow-2xl">
             
             {/* Header Premium (Fixo) */}
-            <div className="shrink-0 bg-black/20 backdrop-blur-xl border-b border-white/[0.05] px-4 pb-4 pt-[calc(1rem+env(safe-area-inset-top))] sm:px-6 sm:py-5 flex items-center justify-between z-50">
+            <div className="shrink-0 bg-sunken backdrop-blur-xl border-b border-border px-4 pb-4 pt-[calc(1rem+env(safe-area-inset-top))] sm:px-6 sm:py-5 flex items-center justify-between z-50">
               <div className="flex flex-col">
                 <DialogTitle className="text-lg md:text-2xl font-black text-white tracking-tight uppercase">
                   Ficha do Orçamento<span className="text-primary">.</span>
                 </DialogTitle>
-                <span className="text-[10px] md:text-xs font-bold text-muted-foreground/30 uppercase tracking-[0.2em]">Visão Estratégica</span>
+                <span className="text-[10px] md:text-xs font-bold text-text-disabled uppercase tracking-[0.2em]">Visão Estratégica</span>
               </div>
               <button 
                 onClick={() => setIsDetailsOpen(false)}
-                className="h-10 w-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition-all active:scale-90"
+                className="h-10 w-10 rounded-full bg-sunken flex items-center justify-center hover:bg-sunken transition-all active:scale-90"
               >
-                <X className="h-5 w-5 text-white/50" />
+                <X className="h-5 w-5 text-text-secondary" />
               </button>
             </div>
 
@@ -2072,42 +2072,42 @@ const AdminOrcamentos = () => {
                   <section className="space-y-6">
                     <div className="flex items-center gap-3 ml-1">
                       <div className="w-1 h-4 bg-primary rounded-full" />
-                      <h3 className="font-bold text-xs uppercase tracking-[0.3em] text-white/40">Dados Comerciais</h3>
+                      <h3 className="font-bold text-xs uppercase tracking-[0.3em] text-text-tertiary">Dados Comerciais</h3>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                      <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+                      <div className="p-4 rounded-2xl bg-sunken border border-border-subtle">
                         <Label className="text-[9px] uppercase font-black text-primary mb-1.5 block tracking-widest">Cliente</Label>
                         <p className="text-base font-bold text-white">{selectedOrcamento.nome_contratante}</p>
                       </div>
                       
-                      <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+                      <div className="p-4 rounded-2xl bg-sunken border border-border-subtle">
                         <Label className="text-[9px] uppercase font-black text-primary mb-1.5 block tracking-widest">WhatsApp</Label>
                         <p className="text-base font-bold text-muted-foreground">{selectedOrcamento.telefone || 'Não informado'}</p>
                       </div>
 
-                      <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+                      <div className="p-4 rounded-2xl bg-sunken border border-border-subtle">
                         <Label className="text-[9px] uppercase font-black text-primary mb-1.5 block tracking-widest">CPF / CNPJ</Label>
                         <p className="text-base font-bold text-muted-foreground">{selectedOrcamento.cpf || 'Não informado'}</p>
                       </div>
 
-                      <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+                      <div className="p-4 rounded-2xl bg-sunken border border-border-subtle">
                         <Label className="text-[9px] uppercase font-black text-primary mb-1.5 block tracking-widest">Status da Proposta</Label>
                         <div className="mt-1">
                           {getOrcamentoStatusBadge(selectedOrcamento.status || 'pendente')}
                         </div>
                       </div>
 
-                      <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+                      <div className="p-4 rounded-2xl bg-sunken border border-border-subtle">
                         <Label className="text-[9px] uppercase font-black text-primary mb-1.5 block tracking-widest">Tipo de Venda</Label>
-                        <p className="text-sm font-bold text-white/60">
+                        <p className="text-sm font-bold text-text-secondary">
                           {selectedOrcamento.tipo === 'show_pirotecnico' ? 'Show Pirotécnico' : 'Venda Direta'}
                         </p>
                       </div>
 
-                      <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+                      <div className="p-4 rounded-2xl bg-sunken border border-border-subtle">
                         <Label className="text-[9px] uppercase font-black text-primary mb-1.5 block tracking-widest">Pagamento</Label>
-                        <p className="text-sm font-bold text-white/60 capitalize">{selectedOrcamento.modo_pagamento || 'A definir'}</p>
+                        <p className="text-sm font-bold text-text-secondary capitalize">{selectedOrcamento.modo_pagamento || 'A definir'}</p>
                       </div>
                     </div>
                   </section>
@@ -2132,7 +2132,7 @@ const AdminOrcamentos = () => {
                              <p className="text-lg font-black text-white">{formatDateOnly(selectedOrcamento.evento_data)}</p>
                            </div>
                            {selectedOrcamento.evento_hora && (
-                             <div className="flex items-center gap-2 border-l border-white/10 pl-2 ml-1">
+                             <div className="flex items-center gap-2 border-l border-border pl-2 ml-1">
                                <Clock className="h-4 w-4 text-primary" />
                                <p className="text-lg font-black text-white">{selectedOrcamento.evento_hora.substring(0, 5)}</p>
                              </div>
@@ -2157,7 +2157,7 @@ const AdminOrcamentos = () => {
                         <h3 className="text-sm font-black uppercase tracking-[0.2em] text-muted-foreground">Itens Técnicos</h3>
                         <span className="text-[9px] font-bold text-muted-foreground/20 uppercase mt-1 tracking-widest">Detalhamento de Consumo</span>
                       </div>
-                      <Badge className="bg-white/5 text-white/40 border-none px-4 py-1 text-[10px] font-black uppercase tracking-widest">
+                      <Badge className="bg-sunken text-text-tertiary border-none px-4 py-1 text-[10px] font-black uppercase tracking-widest">
                         {selectedOrcamento.orcamentos_produtos?.length || 0} Itens
                       </Badge>
                     </div>
@@ -2165,7 +2165,7 @@ const AdminOrcamentos = () => {
                     {selectedOrcamento.orcamentos_produtos && selectedOrcamento.orcamentos_produtos.length > 0 ? (
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {selectedOrcamento.orcamentos_produtos.map((item, index) => (
-                          <div key={index} className="bg-white/[0.02] border border-white/5 p-6 rounded-3xl flex items-center gap-5 transition-all hover:bg-white/[0.04]">
+                          <div key={index} className="bg-sunken border border-border-subtle p-6 rounded-3xl flex items-center gap-5 transition-all hover:bg-sunken">
                             <div className="h-12 w-12 rounded-2xl bg-primary/10 flex flex-col items-center justify-center border border-primary/20 shrink-0">
                                <span className="text-[8px] font-black text-primary uppercase">Qtd</span>
                                <span className="text-xl font-black text-white leading-none">{item.quantidade}</span>
@@ -2174,11 +2174,11 @@ const AdminOrcamentos = () => {
                                <p className="text-sm font-black text-white leading-tight mb-1 truncate">{item.produtos?.nome_produto || 'Item não localizado'}</p>
                                <div className="flex items-center gap-3">
                                   <span className="text-[9px] font-bold text-muted-foreground/20 uppercase tracking-widest">{item.produtos?.codigo || 'S/N'}</span>
-                                  <div className="h-2 w-px bg-white/5" />
+                                  <div className="h-2 w-px bg-sunken" />
                                   <span className="text-[9px] font-black text-tech-blue uppercase tracking-widest">Dur: {item.produtos?.duracao_segundos ? `${item.produtos.duracao_segundos}s` : '—'}</span>
                                   {item.produtos?.efeito && (
                                     <>
-                                      <div className="h-2 w-px bg-white/5" />
+                                      <div className="h-2 w-px bg-sunken" />
                                       <span className="text-[9px] font-black text-success uppercase tracking-widest">{item.produtos.efeito}</span>
                                     </>
                                   )}
@@ -2192,7 +2192,7 @@ const AdminOrcamentos = () => {
                         ))}
                       </div>
                     ) : (
-                      <div className="py-12 border border-dashed border-white/10 rounded-[2rem] text-center bg-white/[0.01]">
+                      <div className="py-12 border border-dashed border-border rounded-[2rem] text-center bg-app">
                         <Package className="h-12 w-12 mx-auto text-white/5 mb-4" />
                         <p className="text-muted-foreground/20 text-sm font-bold uppercase tracking-widest">Nenhum item vinculado</p>
                       </div>
@@ -2201,11 +2201,11 @@ const AdminOrcamentos = () => {
                 </div>
 
                 {/* Footer de Impacto Financeiro (Fixo) */}
-                <div className="shrink-0 bg-[#080808]/95 backdrop-blur-3xl border-t border-white/5 p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] md:p-10 flex flex-col md:flex-row items-center justify-between gap-5 md:gap-8 z-50">
+                <div className="shrink-0 bg-[#080808]/95 backdrop-blur-3xl border-t border-border-subtle p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] md:p-10 flex flex-col md:flex-row items-center justify-between gap-5 md:gap-8 z-50">
                   <div className="text-center md:text-left">
                     <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary mb-2 block">Investimento Total</span>
                     <div className="flex items-baseline justify-center md:justify-start gap-1">
-                      <span className="text-sm font-bold text-muted-foreground/30">R$</span>
+                      <span className="text-sm font-bold text-text-disabled">R$</span>
                       <span className="text-5xl font-black text-white tracking-tighter">
                         {(selectedOrcamento.valor_total || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                       </span>
@@ -2244,7 +2244,7 @@ const AdminOrcamentos = () => {
                     <Button 
                       variant="outline" 
                       onClick={() => setIsDetailsOpen(false)}
-                      className="w-full sm:w-auto border-white/10 bg-white/5 hover:bg-white/10 text-white/60 font-bold rounded-2xl h-14 px-10"
+                      className="w-full sm:w-auto border-border bg-sunken hover:bg-sunken text-text-secondary font-bold rounded-2xl h-14 px-10"
                     >
                       Fechar
                     </Button>
@@ -2422,7 +2422,7 @@ const AdminOrcamentos = () => {
                               handleConfirmShowTotalChange(event.target.value)
                             }
                             disabled={isProcessingShowConfirmation}
-                            className="mt-2 h-11 rounded-xl border-white/10 bg-background/70 text-base md:text-sm"
+                            className="mt-2 h-11 rounded-xl border-border bg-background/70 text-base md:text-sm"
                           />
                         </div>
 
@@ -2457,7 +2457,7 @@ const AdminOrcamentos = () => {
                             </ul>
                           </div>
 
-                          <div className="rounded-2xl border border-white/10 bg-background/70 p-4 md:max-w-sm">
+                          <div className="rounded-2xl border border-border bg-background/70 p-4 md:max-w-sm">
                             <div className="flex items-start gap-3">
                               <Checkbox
                                 id="allow-finalize-without-stock"
@@ -2496,7 +2496,7 @@ const AdminOrcamentos = () => {
                         </div>
                         <Badge
                           variant="outline"
-                          className="border-white/10 bg-white/[0.03] px-3 py-1 text-xs text-muted-foreground"
+                          className="border-border bg-sunken px-3 py-1 text-xs text-muted-foreground"
                         >
                           {confirmShowAvailability.length} item(ns)
                         </Badge>
@@ -2510,7 +2510,7 @@ const AdminOrcamentos = () => {
                               "rounded-2xl border p-4 shadow-floating",
                               item.estoque_insuficiente
                                 ? "border-destructive/30 bg-destructive/5"
-                                : "border-white/10 bg-white/[0.03]",
+                                : "border-border bg-sunken",
                             )}
                           >
                             <div className="flex items-start justify-between gap-3">
@@ -2546,7 +2546,7 @@ const AdminOrcamentos = () => {
                             </div>
 
                             <div className="mt-4 grid grid-cols-2 gap-3">
-                              <div className="rounded-2xl border border-white/10 bg-background/60 p-3">
+                              <div className="rounded-2xl border border-border bg-background/60 p-3">
                                 <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground">
                                   Estoque atual
                                 </p>
@@ -2562,7 +2562,7 @@ const AdminOrcamentos = () => {
                                 </p>
                               </div>
 
-                              <div className="rounded-2xl border border-white/10 bg-background/60 p-3">
+                              <div className="rounded-2xl border border-border bg-background/60 p-3">
                                 <Label
                                   htmlFor={`show-usage-${item.produto_id}-${index}`}
                                   className="text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground"
@@ -2580,7 +2580,7 @@ const AdminOrcamentos = () => {
                                       event.target.value,
                                     )
                                   }
-                                  className="mt-2 h-11 rounded-xl border-white/10 bg-background/80 text-base"
+                                  className="mt-2 h-11 rounded-xl border-border bg-background/80 text-base"
                                 />
                               </div>
                             </div>
@@ -2650,7 +2650,7 @@ const AdminOrcamentos = () => {
                                         event.target.value,
                                       )
                                     }
-                                    className="h-11 w-28 rounded-xl border-white/10 bg-background/80"
+                                    className="h-11 w-28 rounded-xl border-border bg-background/80"
                                   />
                                 </TableCell>
                               </TableRow>
@@ -2663,7 +2663,7 @@ const AdminOrcamentos = () => {
 
                   <div className="admin-modal-footer">
                     <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-                      <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3">
+                      <div className="rounded-2xl border border-border bg-sunken px-4 py-3">
                         <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary/70">
                           Consumo informado
                         </p>
@@ -2684,7 +2684,7 @@ const AdminOrcamentos = () => {
                           variant="outline"
                           onClick={closeConfirmShowDialog}
                           disabled={isProcessingShowConfirmation}
-                          className="touch-target h-11 rounded-xl border-white/10 bg-white/[0.03]"
+                          className="touch-target h-11 rounded-xl border-border bg-sunken"
                         >
                           Fechar
                         </Button>
@@ -2939,15 +2939,15 @@ const AdminOrcamentos = () => {
 
         {/* Modal de Edição Completa do Orçamento - VERSÃO 3 FINAL (PRODUÇÃO) */}
         <Dialog open={isFullEditOpen} onOpenChange={setIsFullEditOpen}>
-          <DialogContent className="max-w-6xl w-[calc(100vw-0.75rem)] h-[calc(100dvh-0.75rem)] sm:w-full sm:h-[92vh] overflow-hidden bg-card border-none sm:border-white/5 rounded-[28px] sm:rounded-[2.5rem] p-0 flex flex-col shadow-2xl">
+          <DialogContent className="max-w-6xl w-[calc(100vw-0.75rem)] h-[calc(100dvh-0.75rem)] sm:w-full sm:h-[92vh] overflow-hidden bg-card border-none sm:border-border-subtle rounded-[28px] sm:rounded-[2.5rem] p-0 flex flex-col shadow-2xl">
             
             {/* Header Ghost Style */}
-            <div className="shrink-0 bg-black/20 backdrop-blur-xl border-b border-white/[0.05] px-4 pb-4 pt-[calc(1rem+env(safe-area-inset-top))] sm:px-6 sm:py-5 flex items-center justify-between z-50">
+            <div className="shrink-0 bg-sunken backdrop-blur-xl border-b border-border px-4 pb-4 pt-[calc(1rem+env(safe-area-inset-top))] sm:px-6 sm:py-5 flex items-center justify-between z-50">
               <div className="flex flex-col">
                 <DialogTitle className="text-lg md:text-2xl font-black text-white tracking-tight uppercase">
                   Editar Proposta<span className="text-primary">_</span>
                 </DialogTitle>
-                <span className="text-[10px] md:text-xs font-bold text-muted-foreground/30 uppercase tracking-[0.2em]">Configuração Estratégica</span>
+                <span className="text-[10px] md:text-xs font-bold text-text-disabled uppercase tracking-[0.2em]">Configuração Estratégica</span>
               </div>
               <div className="flex items-center gap-4">
                 <button 
@@ -2958,9 +2958,9 @@ const AdminOrcamentos = () => {
                 </button>
                 <button 
                   onClick={() => setIsFullEditOpen(false)}
-                  className="h-10 w-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition-all"
+                  className="h-10 w-10 rounded-full bg-sunken flex items-center justify-center hover:bg-sunken transition-all"
                 >
-                  <X className="h-5 w-5 text-white/50" />
+                  <X className="h-5 w-5 text-text-secondary" />
                 </button>
               </div>
             </div>
@@ -2976,7 +2976,7 @@ const AdminOrcamentos = () => {
               {/* Status Segmented Control */}
               <section className="space-y-4">
                 <Label className="text-[10px] uppercase font-black text-muted-foreground/20 ml-2 tracking-widest">Fase da Proposta</Label>
-                <div className="flex flex-wrap sm:flex-nowrap bg-white/5 p-1.5 rounded-[2rem] border border-white/5 gap-1">
+                <div className="flex flex-wrap sm:flex-nowrap bg-sunken p-1.5 rounded-[2rem] border border-border-subtle gap-1">
                   {ORCAMENTO_STATUS_OPTIONS.filter(o => o.value !== 'realizado').map((s) => (
                     <button 
                       key={s.value} 
@@ -2997,7 +2997,7 @@ const AdminOrcamentos = () => {
               {/* Form Fields: Dados do Cliente */}
               <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-6">
-                  <div className="bg-white/[0.03] px-6 py-4 rounded-[1.8rem] border border-white/5 group focus-within:border-primary/30 transition-all">
+                  <div className="bg-sunken px-6 py-4 rounded-[1.8rem] border border-border-subtle group focus-within:border-primary/30 transition-all">
                     <Label className="text-[9px] font-black text-primary uppercase tracking-[0.2em] mb-1 block">Contratante</Label>
                     <input
                       value={editForm.nome_contratante}
@@ -3007,7 +3007,7 @@ const AdminOrcamentos = () => {
                     />
                   </div>
 
-                  <div className="bg-white/[0.03] px-6 py-4 rounded-[1.8rem] border border-white/5 group focus-within:border-primary/30 transition-all">
+                  <div className="bg-sunken px-6 py-4 rounded-[1.8rem] border border-border-subtle group focus-within:border-primary/30 transition-all">
                     <Label className="text-[9px] font-black text-primary uppercase tracking-[0.2em] mb-1 block">WhatsApp</Label>
                     <div className="flex items-center">
                       <input
@@ -3016,11 +3016,11 @@ const AdminOrcamentos = () => {
                         className="bg-transparent border-none text-white text-lg font-bold w-full focus:outline-none p-0"
                         placeholder="Ex: 61984559495"
                       />
-                      <Phone className="h-5 w-5 text-muted-foreground/10" />
+                      <Phone className="h-5 w-5 text-text-disabled" />
                     </div>
                   </div>
 
-                  <div className="bg-white/[0.03] px-6 py-4 rounded-[1.8rem] border border-white/5 group focus-within:border-primary/30 transition-all">
+                  <div className="bg-sunken px-6 py-4 rounded-[1.8rem] border border-border-subtle group focus-within:border-primary/30 transition-all">
                     <Label className="text-[9px] font-black text-primary uppercase tracking-[0.2em] mb-1 block">CPF / CNPJ</Label>
                     <input
                       value={editForm.cpf}
@@ -3032,7 +3032,7 @@ const AdminOrcamentos = () => {
                 </div>
 
                 <div className="space-y-6">
-                  <div className="bg-white/[0.03] px-6 py-4 rounded-[1.8rem] border border-white/5 group focus-within:border-primary/30 transition-all">
+                  <div className="bg-sunken px-6 py-4 rounded-[1.8rem] border border-border-subtle group focus-within:border-primary/30 transition-all">
                     <Label className="text-[9px] font-black text-primary uppercase tracking-[0.2em] mb-1 block">Evento</Label>
                     <input
                       value={editForm.evento_nome}
@@ -3043,7 +3043,7 @@ const AdminOrcamentos = () => {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="bg-white/[0.03] px-6 py-4 rounded-[1.8rem] border border-white/5 group focus-within:border-primary/30 transition-all">
+                    <div className="bg-sunken px-6 py-4 rounded-[1.8rem] border border-border-subtle group focus-within:border-primary/30 transition-all">
                       <Label className="text-[9px] font-black text-primary uppercase tracking-[0.2em] mb-1 block">Data</Label>
                       <div className="flex items-center">
                         <input
@@ -3052,10 +3052,10 @@ const AdminOrcamentos = () => {
                           onChange={(e) => setEditForm({...editForm, evento_data: e.target.value})}
                           className="bg-transparent border-none text-white text-lg font-bold w-full focus:outline-none p-0 appearance-none color-scheme-dark"
                         />
-                        <Calendar className="h-5 w-5 text-muted-foreground/10" />
+                        <Calendar className="h-5 w-5 text-text-disabled" />
                       </div>
                     </div>
-                    <div className="bg-white/[0.03] px-6 py-4 rounded-[1.8rem] border border-white/5 group focus-within:border-primary/30 transition-all">
+                    <div className="bg-sunken px-6 py-4 rounded-[1.8rem] border border-border-subtle group focus-within:border-primary/30 transition-all">
                       <Label className="text-[9px] font-black text-primary uppercase tracking-[0.2em] mb-1 block">Horário</Label>
                       <div className="flex items-center">
                         <input
@@ -3064,12 +3064,12 @@ const AdminOrcamentos = () => {
                           onChange={(e) => setEditForm({...editForm, evento_hora: e.target.value})}
                           className="bg-transparent border-none text-white text-lg font-bold w-full focus:outline-none p-0 appearance-none color-scheme-dark"
                         />
-                        <Clock className="h-5 w-5 text-muted-foreground/10" />
+                        <Clock className="h-5 w-5 text-text-disabled" />
                       </div>
                     </div>
                   </div>
 
-                  <div className="bg-white/[0.03] px-6 py-4 rounded-[1.8rem] border border-white/5 group focus-within:border-primary/30 transition-all">
+                  <div className="bg-sunken px-6 py-4 rounded-[1.8rem] border border-border-subtle group focus-within:border-primary/30 transition-all">
                     <Label className="text-[9px] font-black text-primary uppercase tracking-[0.2em] mb-1 block">Localização</Label>
                     <div className="flex items-center">
                       <input
@@ -3078,7 +3078,7 @@ const AdminOrcamentos = () => {
                         className="bg-transparent border-none text-white text-lg font-bold w-full focus:outline-none p-0"
                         placeholder="Ex: Brasília"
                       />
-                      <MapPin className="h-5 w-5 text-muted-foreground/10" />
+                      <MapPin className="h-5 w-5 text-text-disabled" />
                     </div>
                   </div>
                 </div>
@@ -3094,14 +3094,14 @@ const AdminOrcamentos = () => {
                       <span className="text-[10px] font-bold text-muted-foreground/20 uppercase tracking-[0.3em]">Análise e Especificação de Itens</span>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3 bg-white/5 px-5 py-2 rounded-2xl border border-white/5">
-                    <span className="text-[10px] font-black text-white/40 uppercase tracking-widest">Total de Itens</span>
+                  <div className="flex items-center gap-3 bg-sunken px-5 py-2 rounded-2xl border border-border-subtle">
+                    <span className="text-[10px] font-black text-text-tertiary uppercase tracking-widest">Total de Itens</span>
                     <span className="text-sm font-black text-primary">{editForm.produtos.length.toString().padStart(2, '0')}</span>
                   </div>
                 </div>
 
                 {/* Desktop Header Guide */}
-                <div className="hidden lg:grid grid-cols-[1fr_140px_160px_160px_60px] gap-6 px-8 py-3 border-b border-white/5 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/20">
+                <div className="hidden lg:grid grid-cols-[1fr_140px_160px_160px_60px] gap-6 px-8 py-3 border-b border-border-subtle text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/20">
                   <div>Especificação do Produto</div>
                   <div className="text-center">Valor Unitário</div>
                   <div className="text-center">Quantidade</div>
@@ -3118,13 +3118,13 @@ const AdminOrcamentos = () => {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.98 }}
-                        className="group/item relative rounded-[2rem] border border-white/5 bg-gradient-to-br from-white/[0.03] to-transparent p-5 lg:p-0 transition-all duration-500 hover:border-primary/20 hover:bg-white/[0.05] shadow-2xl"
+                        className="group/item relative rounded-[2rem] border border-border-subtle bg-gradient-to-br from-white/[0.03] to-transparent p-5 lg:p-0 transition-all duration-500 hover:border-primary/20 hover:bg-sunken shadow-2xl"
                       >
                         <div className="flex flex-col lg:grid lg:grid-cols-[1fr_140px_160px_160px_60px] lg:gap-6 lg:items-center lg:h-24 lg:px-8">
                           
                           {/* Coluna 1: Produto */}
                           <div className="flex items-center gap-5 min-w-0">
-                            <div className="hidden lg:flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-muted/60 border border-white/5 group-hover/item:border-primary/30 transition-colors">
+                            <div className="hidden lg:flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-muted/60 border border-border-subtle group-hover/item:border-primary/30 transition-colors">
                               <Package className="h-5 w-5 text-muted-foreground/20 group-hover/item:text-primary transition-colors" />
                             </div>
                             <div className="flex-1 min-w-0">
@@ -3132,7 +3132,7 @@ const AdminOrcamentos = () => {
                                 {produto.nome}
                               </h4>
                               <div className="flex items-center gap-2 mt-1">
-                                <span className="text-[9px] font-mono font-bold text-muted-foreground/20 uppercase tracking-widest bg-white/5 px-2 py-0.5 rounded">
+                                <span className="text-[9px] font-mono font-bold text-muted-foreground/20 uppercase tracking-widest bg-sunken px-2 py-0.5 rounded">
                                   M5-{produto.produto_id.slice(0, 5).toUpperCase()}
                                 </span>
                                 {produtos.find(p => p.id === produto.produto_id)?.efeito && (
@@ -3148,7 +3148,7 @@ const AdminOrcamentos = () => {
                           <div className="mt-6 lg:mt-0 flex flex-row lg:flex-col justify-between items-center lg:text-center">
                             <span className="lg:hidden text-[9px] font-black text-muted-foreground/20 uppercase tracking-widest">Valor Unitário</span>
                             <div className="flex flex-col lg:items-center">
-                              <span className="text-sm font-bold text-white/60 tabular-nums">
+                              <span className="text-sm font-bold text-text-secondary tabular-nums">
                                 R$ {produto.valor_unitario.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                               </span>
                             </div>
@@ -3157,14 +3157,14 @@ const AdminOrcamentos = () => {
                           {/* Coluna 3: Stepper Quantidade */}
                           <div className="mt-4 lg:mt-0 flex flex-row lg:flex-col justify-between items-center">
                             <span className="lg:hidden text-[9px] font-black text-muted-foreground/20 uppercase tracking-widest">Quantidade</span>
-                            <div className="flex items-center gap-1 bg-muted/60 p-1 rounded-2xl border border-white/5 shadow-inner">
+                            <div className="flex items-center gap-1 bg-muted/60 p-1 rounded-2xl border border-border-subtle shadow-inner">
                               <button 
                                 onClick={() => {
                                   const updated = [...editForm.produtos];
                                   updated[index].quantidade = Math.max(1, updated[index].quantidade - 1);
                                   setEditForm({...editForm, produtos: updated});
                                 }}
-                                className="h-10 w-10 flex items-center justify-center rounded-xl hover:bg-white/5 text-primary transition-all active:scale-90"
+                                className="h-10 w-10 flex items-center justify-center rounded-xl hover:bg-sunken text-primary transition-all active:scale-90"
                               >
                                 <Minus size={14} strokeWidth={3} />
                               </button>
@@ -3204,7 +3204,7 @@ const AdminOrcamentos = () => {
                                 setEditForm({...editForm, produtos: updated});
                                 toast({ description: "Item removido com sucesso" });
                               }}
-                              className="h-12 w-12 lg:h-10 lg:w-10 flex items-center justify-center rounded-2xl bg-red-500/5 text-destructive/20 hover:bg-red-500 hover:text-white transition-all duration-300 group-hover/item:opacity-100 lg:opacity-0"
+                              className="h-12 w-12 lg:h-10 lg:w-10 flex items-center justify-center rounded-2xl bg-red-500/5 text-destructive/20 hover:bg-red-500 hover:text-text-primary transition-all duration-300 group-hover/item:opacity-100 lg:opacity-0"
                             >
                               <Trash2 size={18} />
                             </button>
@@ -3223,12 +3223,12 @@ const AdminOrcamentos = () => {
                     onClick={() => {
                        toast({ description: "Utilize o catálogo abaixo para adicionar novos itens", className: "bg-primary text-white border-none font-black uppercase tracking-widest text-[10px]" });
                     }}
-                    className="w-full py-12 rounded-[2.5rem] border-2 border-dashed border-white/5 flex flex-col items-center justify-center bg-white/[0.01] hover:bg-white/[0.02] hover:border-primary/20 transition-all duration-500 group"
+                    className="w-full py-12 rounded-[2.5rem] border-2 border-dashed border-border-subtle flex flex-col items-center justify-center bg-app hover:bg-sunken hover:border-primary/20 transition-all duration-500 group"
                   >
-                    <div className="h-14 w-14 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-primary transition-colors duration-500">
-                      <Plus size={28} className="text-primary group-hover:text-white transition-colors duration-500" />
+                    <div className="h-14 w-14 rounded-full bg-sunken flex items-center justify-center group-hover:bg-primary transition-colors duration-500">
+                      <Plus size={28} className="text-primary group-hover:text-text-primary transition-colors duration-500" />
                     </div>
-                    <span className="text-muted-foreground font-black mt-4 uppercase tracking-[0.4em] text-[10px] group-hover:text-white transition-colors">Expandir Composição</span>
+                    <span className="text-muted-foreground font-black mt-4 uppercase tracking-[0.4em] text-[10px] group-hover:text-text-primary transition-colors">Expandir Composição</span>
                   </motion.button>
                 </div>
               </section>
@@ -3237,10 +3237,10 @@ const AdminOrcamentos = () => {
               <section className="space-y-6">
                 <div className="flex items-center gap-3 ml-2">
                   <div className="w-1 h-4 bg-blue-500 rounded-full" />
-                  <h3 className="font-bold text-xs uppercase tracking-[0.3em] text-white/40">Acrescentar do Catálogo</h3>
+                  <h3 className="font-bold text-xs uppercase tracking-[0.3em] text-text-tertiary">Acrescentar do Catálogo</h3>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-3 bg-white/[0.02] p-3 rounded-2xl border border-white/5">
+                <div className="flex flex-col sm:flex-row gap-3 bg-sunken p-3 rounded-2xl border border-border-subtle">
                    <div className="relative flex-1">
                      <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/20" />
                      <Input 
@@ -3252,7 +3252,7 @@ const AdminOrcamentos = () => {
                    </div>
                    <button 
                      onClick={() => setProductSearchTerm("")} 
-                     className="h-12 px-6 rounded-xl bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-white/40 hover:text-white transition-all"
+                     className="h-12 px-6 rounded-xl bg-sunken border border-border text-[10px] font-black uppercase tracking-widest text-text-tertiary hover:text-text-primary transition-all"
                    >
                      Reset
                    </button>
@@ -3260,12 +3260,12 @@ const AdminOrcamentos = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[400px] overflow-y-auto pr-2 scrollbar-thin">
                    {sortedFilteredProducts.slice(0, 15).map((p) => (
-                     <div key={p.id} className="flex items-center justify-between p-4 rounded-[1.5rem] bg-white/[0.02] border border-white/5 hover:border-primary/30 transition-all group">
+                     <div key={p.id} className="flex items-center justify-between p-4 rounded-[1.5rem] bg-sunken border border-border-subtle hover:border-primary/30 transition-all group">
                        <div className="flex-1 min-w-0 mr-4">
                          <p className="font-black text-sm text-white truncate group-hover:text-primary transition-colors">{p.nome_produto}</p>
                          <div className="flex items-center gap-3 mt-1">
                            <span className="text-[10px] font-black text-primary uppercase">R$ {p.valor_venda.toFixed(2)}</span>
-                           <span className="text-[10px] font-bold text-muted-foreground/10 uppercase tracking-widest">SKU: {p.codigo}</span>
+                           <span className="text-[10px] font-bold text-text-disabled uppercase tracking-widest">SKU: {p.codigo}</span>
                          </div>
                        </div>
                        <Button 
@@ -3297,11 +3297,11 @@ const AdminOrcamentos = () => {
             </div>
 
             {/* Sticky Action Footer */}
-            <div className="shrink-0 bg-[#080808]/95 backdrop-blur-3xl border-t border-white/5 p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] md:p-10 flex flex-col md:flex-row items-center justify-between gap-5 md:gap-8 z-50">
+            <div className="shrink-0 bg-[#080808]/95 backdrop-blur-3xl border-t border-border-subtle p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] md:p-10 flex flex-col md:flex-row items-center justify-between gap-5 md:gap-8 z-50">
               <div className="text-center md:text-left">
                 <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary mb-2 block">Investimento Comercial</span>
                 <div className="flex items-baseline justify-center md:justify-start gap-1">
-                  <span className="text-sm font-bold text-muted-foreground/30">R$</span>
+                  <span className="text-sm font-bold text-text-disabled">R$</span>
                   <span className="text-5xl font-black text-white tracking-tighter">
                     {editForm.produtos.reduce((sum, p) => sum + (p.quantidade * p.valor_unitario), 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                   </span>
@@ -3311,7 +3311,7 @@ const AdminOrcamentos = () => {
               <div className="flex items-center gap-4 w-full md:w-auto">
                 <button 
                   onClick={() => setIsFullEditOpen(false)}
-                  className="flex-1 md:flex-none h-16 px-10 rounded-2xl font-bold text-white/40 hover:text-white transition-all uppercase tracking-widest text-[10px]"
+                  className="flex-1 md:flex-none h-16 px-10 rounded-2xl font-bold text-text-tertiary hover:text-text-primary transition-all uppercase tracking-widest text-[10px]"
                 >
                   Cancelar
                 </button>

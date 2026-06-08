@@ -495,11 +495,11 @@ const AdminEstoque = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="bg-white/[0.02] border border-white/5 p-4 sm:p-6 rounded-[24px] sm:rounded-3xl group transition-all hover:bg-white/[0.04]">
+            <div className="bg-sunken border border-border-subtle p-4 sm:p-6 rounded-[24px] sm:rounded-3xl group transition-all hover:bg-sunken">
               <p className="text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/20 mb-1">Total Itens</p>
               <p className="text-2xl sm:text-3xl font-black text-white tracking-tighter">{totalProdutos}</p>
             </div>
-            <div className="bg-white/[0.02] border border-white/5 p-4 sm:p-6 rounded-[24px] sm:rounded-3xl group transition-all hover:bg-white/[0.04]">
+            <div className="bg-sunken border border-border-subtle p-4 sm:p-6 rounded-[24px] sm:rounded-3xl group transition-all hover:bg-sunken">
               <p className="text-[9px] font-black uppercase tracking-[0.2em] text-success mb-1">Ativos</p>
               <p className="text-2xl sm:text-3xl font-black text-success tracking-tighter">{produtosAtivos}</p>
             </div>
@@ -516,15 +516,15 @@ const AdminEstoque = () => {
                 placeholder="Pesquisar por SKU, nome, fabricante ou efeito..."
                 value={searchTerm}
                 onChange={(event) => setSearchTerm(event.target.value)}
-                className="h-14 w-full rounded-[22px] border-white/[0.06] bg-white/[0.02] pl-12 text-base font-medium shadow-2xl transition-all placeholder:text-muted-foreground/10 focus:border-primary/40 focus:ring-0 sm:h-16 sm:rounded-[24px] sm:pl-16 sm:text-lg"
+                className="h-14 w-full rounded-[22px] border-border bg-sunken pl-12 text-base font-medium shadow-2xl transition-all placeholder:text-text-disabled focus:border-primary/40 focus:ring-0 sm:h-16 sm:rounded-[24px] sm:pl-16 sm:text-lg"
               />
             </div>
 
             <Select value={filterCategory} onValueChange={setFilterCategory}>
-              <SelectTrigger className="h-14 rounded-[22px] border-white/[0.06] bg-white/[0.02] text-sm font-semibold text-white shadow-2xl sm:h-16 sm:rounded-[24px]">
+              <SelectTrigger className="h-14 rounded-[22px] border-border bg-sunken text-sm font-semibold text-white shadow-2xl sm:h-16 sm:rounded-[24px]">
                 <SelectValue placeholder="Filtrar categoria" />
               </SelectTrigger>
-            <SelectContent sideOffset={6} className="max-h-64 rounded-xl border-white/10 bg-[#0b0b0b] text-white shadow-2xl">
+            <SelectContent sideOffset={6} className="max-h-64 rounded-xl border-border bg-[#0b0b0b] text-white shadow-2xl">
                 <SelectItem value="all">Todas as categorias</SelectItem>
                 {CATEGORY_OPTIONS.map((option) => (
                   <SelectItem key={option.value} value={option.value}>
@@ -537,9 +537,9 @@ const AdminEstoque = () => {
 
           <div className="relative">
             {finalFilteredProdutos.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-28 sm:py-40 border border-white/[0.04] bg-white/[0.01] rounded-[28px] sm:rounded-[40px]">
-                <Package className="h-16 w-16 text-muted-foreground/10 mb-6" />
-                <h3 className="text-xl font-bold text-white/60">Nenhum item encontrado</h3>
+              <div className="flex flex-col items-center justify-center py-28 sm:py-40 border border-border-subtle bg-app rounded-[28px] sm:rounded-[40px]">
+                <Package className="h-16 w-16 text-text-disabled mb-6" />
+                <h3 className="text-xl font-bold text-text-secondary">Nenhum item encontrado</h3>
                 <Button
                   onClick={() => {
                     setSearchTerm("");
@@ -566,13 +566,13 @@ const AdminEstoque = () => {
                         exit={{ opacity: 0, scale: 0.96 }}
                         transition={{ duration: 0.35, delay: index * 0.02 }}
                         key={produto.id}
-                        className="group relative flex flex-col justify-between rounded-[26px] border border-white/[0.06] bg-card p-5 shadow-2xl transition-all hover:border-primary/30 sm:rounded-[24px] sm:p-8"
+                        className="group relative flex flex-col justify-between rounded-[26px] border border-border bg-card p-5 shadow-2xl transition-all hover:border-primary/30 sm:rounded-[24px] sm:p-8"
                       >
                         <div className="flex justify-between items-start gap-4">
                           <div className="min-w-0 flex-1">
                             <Badge
                               variant="outline"
-                              className="mb-3 border-white/10 bg-white/[0.03] px-3 py-1 text-[9px] font-black uppercase tracking-[0.18em] text-white/45"
+                              className="mb-3 border-border bg-sunken px-3 py-1 text-[9px] font-black uppercase tracking-[0.18em] text-white/45"
                             >
                               {getCategoryDisplayName(produto.categoria)}
                             </Badge>
@@ -587,14 +587,14 @@ const AdminEstoque = () => {
                           <div className="flex gap-2">
                             <button
                               onClick={() => setSelectedProduct(produto)}
-                              className="flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-white/50 transition-all hover:bg-white/10 hover:text-white"
+                              className="flex h-9 w-9 items-center justify-center rounded-full bg-sunken text-text-secondary transition-all hover:bg-sunken hover:text-text-primary"
                               aria-label={`Detalhes de ${produto.nome_produto}`}
                             >
                               <Eye className="h-4 w-4" />
                             </button>
                             <button
                               onClick={() => openEditDialog(produto)}
-                              className="flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-white/50 transition-all hover:bg-white/10 hover:text-white"
+                              className="flex h-9 w-9 items-center justify-center rounded-full bg-sunken text-text-secondary transition-all hover:bg-sunken hover:text-text-primary"
                               aria-label={`Editar ${produto.nome_produto}`}
                             >
                               <Pencil className="h-4 w-4" />
@@ -665,7 +665,7 @@ const AdminEstoque = () => {
               <DialogTitle className="text-xl font-black uppercase tracking-tight text-white md:text-2xl">
                 {editingProduct ? "Ajustar Inventario" : "Novo Registro SKU"}
               </DialogTitle>
-              <DialogDescription className="text-[10px] font-medium uppercase tracking-[0.24em] text-white/35">
+              <DialogDescription className="text-[10px] font-medium uppercase tracking-[0.24em] text-text-tertiary">
                 Cadastro tecnico com consistencia mobile e historico de saldo auditavel.
               </DialogDescription>
             </DialogHeader>
@@ -677,14 +677,14 @@ const AdminEstoque = () => {
                     <p className="text-[10px] font-black uppercase tracking-[0.24em] text-primary">
                       Dados do Item
                     </p>
-                    <p className="mt-1 text-sm text-white/50">
+                    <p className="mt-1 text-sm text-text-secondary">
                       Preencha o cadastro base antes de salvar no estoque.
                     </p>
                   </div>
                   {editingProduct && (
                     <Badge
                       variant="outline"
-                      className="border-white/10 bg-white/[0.04] px-3 py-1 text-[9px] font-black uppercase tracking-[0.18em] text-white/45"
+                      className="border-border bg-sunken px-3 py-1 text-[9px] font-black uppercase tracking-[0.18em] text-white/45"
                     >
                       SKU existente
                     </Badge>
@@ -698,7 +698,7 @@ const AdminEstoque = () => {
                     </Label>
                     <Input
                       id="nome_produto"
-                      className="border-white/10 bg-white/[0.03] text-white"
+                      className="border-border bg-sunken text-white"
                       placeholder="Nome comercial do item"
                       {...form.register("nome_produto")}
                     />
@@ -709,7 +709,7 @@ const AdminEstoque = () => {
 
                   <div className="space-y-2">
                     <Label className="text-muted-foreground">Codigo SKU</Label>
-                    <div className="flex h-10 items-center rounded-xl border border-white/10 bg-white/[0.03] px-4 text-sm font-semibold text-white/75">
+                    <div className="flex h-10 items-center rounded-xl border border-border bg-sunken px-4 text-sm font-semibold text-white/75">
                       {editingProduct?.codigo ?? "Gerado automaticamente pelo banco ao cadastrar"}
                     </div>
                   </div>
@@ -721,10 +721,10 @@ const AdminEstoque = () => {
                       name="categoria"
                       render={({ field }) => (
                         <Select value={field.value} onValueChange={field.onChange}>
-                          <SelectTrigger className="border-white/10 bg-white/[0.03] text-white">
+                          <SelectTrigger className="border-border bg-sunken text-white">
                             <SelectValue placeholder="Selecione a categoria" />
                           </SelectTrigger>
-                          <SelectContent sideOffset={6} className="max-h-64 rounded-xl border-white/10 bg-[#0b0b0b] text-white shadow-2xl">
+                          <SelectContent sideOffset={6} className="max-h-64 rounded-xl border-border bg-[#0b0b0b] text-white shadow-2xl">
                             {CATEGORY_OPTIONS.map((option) => (
                               <SelectItem key={option.value} value={option.value}>
                                 {option.label}
@@ -745,7 +745,7 @@ const AdminEstoque = () => {
                     </Label>
                     <Input
                       id="fabricante"
-                      className="border-white/10 bg-white/[0.03] text-white"
+                      className="border-border bg-sunken text-white"
                       placeholder="Fornecedor ou fabricante"
                       {...form.register("fabricante")}
                     />
@@ -757,7 +757,7 @@ const AdminEstoque = () => {
                     </Label>
                     <Input
                       id="efeito"
-                      className="border-white/10 bg-white/[0.03] text-white"
+                      className="border-border bg-sunken text-white"
                       placeholder="Leque, reto, cometa, etc."
                       {...form.register("efeito")}
                     />
@@ -769,7 +769,7 @@ const AdminEstoque = () => {
                     </Label>
                     <Input
                       id="tubos"
-                      className="border-white/10 bg-white/[0.03] text-white"
+                      className="border-border bg-sunken text-white"
                       placeholder="Ex: 30 tubos"
                       {...form.register("tubos")}
                     />
@@ -783,7 +783,7 @@ const AdminEstoque = () => {
                       id="duracao_segundos"
                       type="number"
                       min="0"
-                      className="border-white/10 bg-white/[0.03] text-white"
+                      className="border-border bg-sunken text-white"
                       {...form.register("duracao_segundos", {
                         setValueAs: (value) => (value === "" ? undefined : Number(value)),
                       })}
@@ -802,7 +802,7 @@ const AdminEstoque = () => {
                         id="quantidade_disponivel"
                         type="number"
                         min="0"
-                        className="border-white/10 bg-white/[0.03] text-white"
+                        className="border-border bg-sunken text-white"
                         {...form.register("quantidade_disponivel", {
                           setValueAs: (value) => Number(value),
                         })}
@@ -816,7 +816,7 @@ const AdminEstoque = () => {
                   ) : (
                     <div className="space-y-2">
                       <Label className="text-muted-foreground">Saldo atual</Label>
-                      <div className="flex h-10 items-center rounded-xl border border-white/10 bg-white/[0.03] px-4 text-sm font-black text-white">
+                      <div className="flex h-10 items-center rounded-xl border border-border bg-sunken px-4 text-sm font-black text-white">
                         {editingProduct.quantidade_disponivel ?? 0} unidades
                       </div>
                     </div>
@@ -831,7 +831,7 @@ const AdminEstoque = () => {
                       type="number"
                       min="0"
                       step="0.01"
-                      className="border-white/10 bg-white/[0.03] text-white"
+                      className="border-border bg-sunken text-white"
                       {...form.register("valor_compra", {
                         setValueAs: (value) => Number(value),
                       })}
@@ -850,7 +850,7 @@ const AdminEstoque = () => {
                       type="number"
                       min="0"
                       step="0.01"
-                      className="border-white/10 bg-white/[0.03] text-white"
+                      className="border-border bg-sunken text-white"
                       {...form.register("valor_venda", {
                         setValueAs: (value) => Number(value),
                       })}
@@ -870,10 +870,10 @@ const AdminEstoque = () => {
                           value={field.value ? "ativo" : "inativo"}
                           onValueChange={(value) => field.onChange(value === "ativo")}
                         >
-                          <SelectTrigger className="border-white/10 bg-white/[0.03] text-white">
+                          <SelectTrigger className="border-border bg-sunken text-white">
                             <SelectValue />
                           </SelectTrigger>
-                          <SelectContent sideOffset={6} className="max-h-64 rounded-xl border-white/10 bg-[#0b0b0b] text-white shadow-2xl">
+                          <SelectContent sideOffset={6} className="max-h-64 rounded-xl border-border bg-[#0b0b0b] text-white shadow-2xl">
                             <SelectItem value="ativo">Ativo</SelectItem>
                             <SelectItem value="inativo">Inativo</SelectItem>
                           </SelectContent>
@@ -888,7 +888,7 @@ const AdminEstoque = () => {
                     </Label>
                     <Textarea
                       id="descricao_completa"
-                      className="min-h-[120px] border-white/10 bg-white/[0.03] text-white"
+                      className="min-h-[120px] border-border bg-sunken text-white"
                       placeholder="Detalhes de uso, composicao, aplicacao ou particularidades operacionais."
                       {...form.register("descricao_completa")}
                     />
@@ -903,11 +903,11 @@ const AdminEstoque = () => {
                       <p className="text-[10px] font-black uppercase tracking-[0.24em] text-primary">
                         Ajuste de Inventario
                       </p>
-                      <p className="mt-1 text-sm text-white/50">
+                      <p className="mt-1 text-sm text-text-secondary">
                         Entradas, saidas e ajuste manual com trilha de historico.
                       </p>
                     </div>
-                    <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-right">
+                    <div className="rounded-2xl border border-border bg-sunken px-4 py-3 text-right">
                       <span className="block text-[9px] font-black uppercase tracking-[0.24em] text-muted-foreground/20">
                         Saldo atual
                       </span>
@@ -926,10 +926,10 @@ const AdminEstoque = () => {
                           setStockAdjustment((previous) => ({ ...previous, type: value }))
                         }
                       >
-                        <SelectTrigger className="border-white/10 bg-white/[0.03] text-white">
+                        <SelectTrigger className="border-border bg-sunken text-white">
                           <SelectValue />
                         </SelectTrigger>
-                        <SelectContent sideOffset={6} className="max-h-64 rounded-xl border-white/10 bg-[#0b0b0b] text-white shadow-2xl">
+                        <SelectContent sideOffset={6} className="max-h-64 rounded-xl border-border bg-[#0b0b0b] text-white shadow-2xl">
                           <SelectItem value="entrada">Entrada</SelectItem>
                           <SelectItem value="saida">Saida</SelectItem>
                           <SelectItem value="ajuste">Ajuste manual</SelectItem>
@@ -945,7 +945,7 @@ const AdminEstoque = () => {
                         id="stock-adjustment-quantity"
                         type="number"
                         min="0"
-                        className="border-white/10 bg-white/[0.03] text-white"
+                        className="border-border bg-sunken text-white"
                         placeholder={stockAdjustment.type === "ajuste" ? "Ex: 24" : "Ex: 5"}
                         value={stockAdjustment.quantity}
                         onChange={(event) =>
@@ -964,7 +964,7 @@ const AdminEstoque = () => {
                     </Label>
                     <Textarea
                       id="stock-adjustment-reason"
-                      className="min-h-[110px] border-white/10 bg-white/[0.03] text-white"
+                      className="min-h-[110px] border-border bg-sunken text-white"
                       placeholder="Ex: reposicao de lote, baixa operacional, conferencia fisica, avaria."
                       value={stockAdjustment.reason}
                       onChange={(event) =>
@@ -977,7 +977,7 @@ const AdminEstoque = () => {
                   </div>
 
                   <div className="mt-4 grid gap-3 md:grid-cols-2">
-                    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                    <div className="rounded-2xl border border-border bg-sunken p-4">
                       <span className="block text-[9px] font-black uppercase tracking-[0.24em] text-muted-foreground/20">
                         Preview do saldo
                       </span>
@@ -991,7 +991,7 @@ const AdminEstoque = () => {
                       </span>
                     </div>
 
-                    <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-sm text-white/60">
+                    <div className="rounded-2xl border border-border bg-sunken p-4 text-sm text-text-secondary">
                       <div className="flex items-center gap-2 text-white/75">
                         <ShieldAlert className="h-4 w-4 text-primary" />
                         Historico obrigatorio quando houver movimentacao.
@@ -1021,7 +1021,7 @@ const AdminEstoque = () => {
                   type="button"
                   variant="ghost"
                   onClick={() => handleDialogChange(false)}
-                  className="h-12 rounded-2xl border border-white/10 bg-white/[0.03] px-5 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground hover:bg-white/[0.06] hover:text-white"
+                  className="h-12 rounded-2xl border border-border bg-sunken px-5 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground hover:bg-sunken hover:text-text-primary"
                 >
                   Cancelar
                 </Button>
@@ -1057,7 +1057,7 @@ const AdminEstoque = () => {
                 <DialogTitle className="text-xl font-black uppercase tracking-tight text-white">
                   {selectedProduct.nome_produto}
                 </DialogTitle>
-                <DialogDescription className="text-[10px] font-medium uppercase tracking-[0.24em] text-white/35">
+                <DialogDescription className="text-[10px] font-medium uppercase tracking-[0.24em] text-text-tertiary">
                   Detalhamento tecnico do item em estoque.
                 </DialogDescription>
               </DialogHeader>
@@ -1093,10 +1093,10 @@ const AdminEstoque = () => {
                       <Badge
                         variant="outline"
                         className={cn(
-                          "border-white/10 px-3 py-1 text-[9px] font-black uppercase tracking-[0.18em]",
+                          "border-border px-3 py-1 text-[9px] font-black uppercase tracking-[0.18em]",
                           selectedProduct.ativo
                             ? "bg-emerald-500/10 text-emerald-300"
-                            : "bg-white/[0.04] text-white/45"
+                            : "bg-sunken text-white/45"
                         )}
                       >
                         {selectedProduct.ativo ? "Ativo" : "Inativo"}
@@ -1157,7 +1157,7 @@ const AdminEstoque = () => {
                   type="button"
                   variant="ghost"
                   onClick={() => setSelectedProduct(null)}
-                  className="h-12 rounded-2xl border border-white/10 bg-white/[0.03] px-5 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground hover:bg-white/[0.06] hover:text-white"
+                  className="h-12 rounded-2xl border border-border bg-sunken px-5 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground hover:bg-sunken hover:text-text-primary"
                 >
                   Fechar
                 </Button>
