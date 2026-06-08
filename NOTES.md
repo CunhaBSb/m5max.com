@@ -82,6 +82,80 @@ Comando do Marcos: análise completa e profunda do painel admin + banco de dados
 
 ---
 
+## Rodada 5 — RPC atômica para confirmação de show (substitui client-side não-atômico)
+
+Foco: o **único bug crítico real** que sobrou do fluxo do admin. `handleConfirmShowCompletion` em `AdminOrcamentos.tsx` (linhas 838-1198, ~360 linhas) faz UPDATE `orcamentos.status='realizado'` **antes** da dedução de estoque, e tenta rollback manual em caso de falha — mas o trigger `prevent_status_unlock` (rodada 3) **bloqueia** esse rollback. Resultado: em caso de falha parcial em prod, o status ficava em `realizado` sem como reverter (sem intervenção SQL manual).
+
+**Substituído por RPC atômica** com `BEGIN/COMMIT`. Se qualquer passo falhar, `ROLLBACK` garante que status, estoque e histórico ficam consistentes.
+
+### ✅ O que foi feito
+
+1. **Migration aplicada via MCP** `2026-06-08_rpc_confirm_show_as_completed`:
+   - Função `public.confirm_show_as_completed(p_orcamento_id uuid, p_consumptions jsonb, p_final_value numeric, p_allow_insufficient_stock boolean) RETURNS jsonb`
+   - `LANGUAGE plpgsql`, `SECURITY DEFINER`, `SET search_path = public`
+   - **CHECA `is_admin_user()` internamente** (defesa em profundidade, RLS é bypassada por SECURITY DEFINER)
+   - **`SELECT ... FOR UPDATE`** no orcamento (lock pessimista, impede concorrência)
+   - **`SELECT ... FOR UPDATE`** em cada produto (lock durante dedução)
+   - **Idempotência via `showMarker`** (`[show:UUID]`): se historico já contém o marker, pula o consumo
+   - **Validações**: status='confirmado', data do evento não-futura, produto existe
+   - **`UPDATE produtos` + `INSERT historico_estoque`** em transação
+   - **Trigger `prevent_negative_stock`** (rodada 3) rejeita UPDATE para saldo negativo
+   - **Trigger `fill_historico_usuario`** (rodada 3) preenche `auth.uid()` em historico
+   - Retorna `jsonb` com `success`, `status_anterior`, `movimentos_aplicados`, `itens_insuficientes`, `total_usado`
+   - **GRANT EXECUTE TO authenticated + service_role**, REVOKE de PUBLIC
+
+2. **Client refatorado** (`AdminOrcamentos.tsx.handleConfirmShowCompletion`):
+   - 360 linhas → 180 linhas (-50%)
+   - **Caminho 1 (cancelamento)**: 1 UPDATE direto, sem RPC (risco zero de inconsistência)
+   - **Caminho 2 (realização)**: 1 chamada `supabase.rpc('confirm_show_as_completed', ...)`
+   - Mantém validações de UX (data, status) **antes** da chamada (fail-fast)
+   - Mantém feedback (toasts) no mesmo formato
+   - Mantém refetch (`fetchOrcamentos`, `fetchProdutos`)
+
+3. **Migration local** salva em `supabase/migrations/2026-06-08_rpc_confirm_show_as_completed.sql` para registro (não aplicada via CLI; aplicada via MCP).
+
+### ✅ Testes (5 cenários, todos passaram)
+
+| # | Cenário | Esperado | Resultado |
+|---|---|---|---|
+| 1 | Happy path (1 consumo, 3 unidades) | status=realizado, estoque 5→2, 1 linha historico | ✅ |
+| 2 | Idempotência (chamar 2x, 2a call pula) | movimentos_aplicados=[] | ✅ |
+| 3a | Estoque insuficiente + allow=false | RAISE check_violation + ROLLBACK total | ✅ status fica confirmado, produto inalterado, 0 historico |
+| 3b | Estoque insuficiente + allow=true | status=realizado, 1 linha historico tipo='ajuste' | ✅ |
+| 4 | Status inválido (pendente) | RAISE check_violation 'nao esta confirmado' | ✅ |
+| 5 | Data do evento futura | RAISE check_violation 'data do evento' | ✅ |
+
+### 🔴 Validação importante: trigger `prevent_status_unlock`
+
+Durante os testes, descobri que o trigger `prevent_status_unlock` (rodada 3) **bloqueia** a tentativa de rollback manual do fluxo client-side antigo. Isso é **comportamento desejado** (defesa contra mudança de status em orcamentos finalizados), mas confirmou que o client-side original **estava quebrado**: em caso de falha parcial em prod, o status ficava permanentemente em `realizado` sem como reverter. A RPC resolve isso porque toda a operação é uma única transação — se qualquer parte falha, **nada é commitado** (incluindo o UPDATE de status).
+
+### ⚠️ Dados de teste
+
+- Criados 5 orcamentos de teste com datas no passado para validar RPC. **Limpos após os testes** (DELETE + UPDATE para resetar estoque).
+- Fumaça de Solo 2" (id b7465ae4) foi de 5→0 durante os testes, **restaurado para 5**.
+
+### 🔍 Itens verificados (positivos)
+
+- **`grep -c "service_role" dist/assets/AdminOrcamentos-*.js`**: 0 matches
+- **`grep -c "confirm_show_as_completed" dist/assets/AdminOrcamentos-*.js`**: 1 match (nome da RPC, esperado)
+
+### 📊 Métricas rodada 5
+
+| Item | Antes | Depois |
+|---|---|---|
+| `handleConfirmShowCompletion` linhas | 361 | **~180 (-50%)** |
+| Operações client-side para finalizar show | 1 UPDATE + N UPDATEs + N INSERTs + N UPDATEs (rollback) + 1 INSERT (pendencias) | **1 RPC call** |
+| Atomicidade | ❌ Nenhuma | ✅ BEGIN/COMMIT |
+| Estado inconsistente possível | ✅ Sim (rollback bloqueado por trigger) | ✅ Não (ROLLBACK total) |
+| Lock pessimista | ❌ Não | ✅ FOR UPDATE em orcamento + produto |
+| Idempotência | Client-side (manual) | Server-side (via historico) |
+| Build | 5.46s | 5.51s |
+| Lint | 0 errors | 0 errors |
+| TS | 0 errors | 0 errors |
+| Testes | 82/83 | 82/83 (mesma falha pré-existente) |
+
+---
+
 ## Rodada 4 — Hardening cirúrgico do /admin (comportamento + UX + segurança)
 
 Foco: corrigir bugs reais do painel admin que afetam comportamento, UX e produção. Sem refatorações arriscadas (AdminOrcamentos.tsx ficou intocado, exceto para gatear console.error). Tudo em defesa de profundidade.

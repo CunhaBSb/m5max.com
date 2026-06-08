@@ -854,34 +854,18 @@ const AdminOrcamentos = () => {
     setIsProcessingShowConfirmation(true);
 
     try {
-      const { data: orcamentoAtual, error: fetchError } = await supabase
-        .from("orcamentos")
-        .select(`
-          id,
-          evento_nome,
-          evento_data,
-          status,
-          valor_total,
-          orcamentos_produtos (
-            produto_id,
-            quantidade
-          )
-        `)
-        .eq("id", confirmShowOrcamento.id)
-        .single();
-
-      if (fetchError) throw fetchError;
-
-      const statusAtual = normalizeOrcamentoStatus(orcamentoAtual.status);
-      if (statusAtual !== "confirmado") {
+      // Validação local: data do evento (UX - falhar cedo, sem ir ao DB)
+      if (!canFinalizeShow(confirmShowOrcamento.evento_data)) {
         throw new Error(
-          "Este orçamento não está mais confirmado. Atualize a tela antes de finalizar o show.",
+          "A finalização do show só é permitida na data do evento ou após ela.",
         );
       }
 
-      if (!canFinalizeShow(orcamentoAtual.evento_data)) {
+      // Validação local: status precisa ser 'confirmado' (UX)
+      const statusAtual = normalizeOrcamentoStatus(confirmShowOrcamento.status);
+      if (statusAtual !== "confirmado") {
         throw new Error(
-          "A finalização do show só é permitida na data do evento ou após ela.",
+          "Este orçamento não está mais confirmado. Atualize a tela antes de finalizar o show.",
         );
       }
 
@@ -892,6 +876,11 @@ const AdminOrcamentos = () => {
       }));
       const finalTotalValue = Math.max(0, Number(finalTotal) || 0);
 
+      // ========================================================================
+      // CAMINHO 1: Cancelamento (nenhum item consumido)
+      // Mantido client-side: é um único UPDATE simples, sem dedução de estoque,
+      // portanto não há risco de estado inconsistente.
+      // ========================================================================
       const targetStatus = getShowCompletionTargetStatus(usagePayload);
       if (targetStatus === "cancelado") {
         const { error: cancelError } = await supabase
@@ -915,269 +904,84 @@ const AdminOrcamentos = () => {
         return;
       }
 
+      // ========================================================================
+      // CAMINHO 2: Realização (com dedução de estoque)
+      // Toda a lógica atômica foi para a RPC `confirm_show_as_completed`
+      // (Supabase rodada 5). Garante BEGIN/COMMIT, lock pessimista, e rollback
+      // total em caso de falha. Substitui ~250 linhas de código client-side que
+      // faziam UPDATE manual de status + dedução + INSERT historico + rollback
+      // manual (que era bloqueado pelo trigger prevent_status_unlock da rodada 3).
+      // ========================================================================
       const showMarker = `[show:${confirmShowOrcamento.id}]`;
-      const consumptions = buildShowConsumptionItems(usagePayload).filter(
-        (item) => item.quantidadeUsada > 0,
+      const consumptionsForRpc = usagePayload
+        .map((item) => ({
+          produto_id: item.produto_id,
+          quantidade_planejada: item.quantidade_planejada,
+          quantidade_usada: item.quantidade_usada,
+        }))
+        .filter((item) => item.quantidade_usada > 0);
+
+      const { data: rpcResult, error: rpcError } = await supabase.rpc(
+        "confirm_show_as_completed",
+        {
+          p_orcamento_id: confirmShowOrcamento.id,
+          p_consumptions: consumptionsForRpc,
+          p_final_value: finalTotalValue,
+          p_allow_insufficient_stock: allowFinalizeWithoutStock,
+        },
       );
 
-      let pendingConsumptions = consumptions;
-      const produtosMap = new Map<
-        string,
-        { nome_produto: string; quantidade_disponivel: number }
-      >();
-      const consumptionsToDeduct: Array<{
-        produtoId: string;
-        produtoNome: string;
-        quantidadePlanejada: number;
-        quantidadeUsada: number;
-        quantidadeDisponivel: number;
-      }> = [];
-      const insufficientConsumptions: Array<{
-        produtoId: string;
-        produtoNome: string;
-        quantidadePlanejada: number;
-        quantidadeUsada: number;
-        quantidadeDisponivel: number;
-      }> = [];
+      if (rpcError) throw rpcError;
 
-      if (consumptions.length > 0) {
-        const consumptionProductIds = consumptions.map((item) => item.produtoId);
+      // rpcResult é jsonb - Supabase retorna como object
+      const result = (rpcResult ?? {}) as {
+        success?: boolean;
+        movimentos_aplicados?: AppliedShowStockMovement[];
+        itens_insuficientes?: Array<{
+          produto_id: string;
+          produto_nome: string;
+          quantidade_planejada: number;
+          quantidade_usada: number;
+          quantidade_disponivel: number;
+        }>;
+        total_usado?: number;
+      };
 
-        const { data: existingHistory, error: historyError } = await supabase
-          .from("historico_estoque")
-          .select("produto_id, motivo")
-          .in("produto_id", consumptionProductIds)
-          .like("motivo", `%${showMarker}%`);
+      // Mapear movimentos do formato RPC para formato do toast
+      const movements: AppliedShowStockMovement[] = (result.movimentos_aplicados ?? []).map(
+        (mov) => ({
+          produtoId: mov.produto_id,
+          produtoNome: (mov as { produto_nome?: string }).produto_nome ?? "",
+          quantidadePlanejada: mov.quantidade_planejada,
+          quantidadeUsada: mov.quantidade_usada,
+          quantidadeAnterior: mov.quantidade_anterior,
+          quantidadeAtual: mov.quantidade_atual,
+        }),
+      );
 
-        if (historyError) throw historyError;
+      const insufficientCount = (result.itens_insuficientes ?? []).length;
 
-        const alreadyProcessedProducts = new Set(
-          (existingHistory || [])
-            .map((item) => item.produto_id)
-            .filter((produtoId): produtoId is string => Boolean(produtoId)),
-        );
-
-        pendingConsumptions = consumptions.filter(
-          (item) => !alreadyProcessedProducts.has(item.produtoId),
-        );
-
-        if (pendingConsumptions.length > 0) {
-          const { data: produtosData, error: produtosError } = await supabase
-            .from("produtos")
-            .select("id, nome_produto, quantidade_disponivel")
-            .in(
-              "id",
-              pendingConsumptions.map((item) => item.produtoId),
-            );
-
-          if (produtosError) throw produtosError;
-
-          (produtosData || []).forEach((produto) => {
-            produtosMap.set(produto.id, {
-              nome_produto: produto.nome_produto,
-              quantidade_disponivel: produto.quantidade_disponivel ?? 0,
-            });
-          });
-
-          pendingConsumptions.forEach((consumption) => {
-            const produto = produtosMap.get(consumption.produtoId);
-            if (!produto) {
-              throw new Error(
-                `Produto ${consumption.produtoId} não encontrado para dedução de estoque.`,
-              );
-            }
-
-            if (produto.quantidade_disponivel < consumption.quantidadeUsada) {
-              insufficientConsumptions.push({
-                produtoId: consumption.produtoId,
-                produtoNome: produto.nome_produto,
-                quantidadePlanejada: consumption.quantidadePlanejada,
-                quantidadeUsada: consumption.quantidadeUsada,
-                quantidadeDisponivel: produto.quantidade_disponivel,
-              });
-              return;
-            }
-
-            consumptionsToDeduct.push({
-              produtoId: consumption.produtoId,
-              produtoNome: produto.nome_produto,
-              quantidadePlanejada: consumption.quantidadePlanejada,
-              quantidadeUsada: consumption.quantidadeUsada,
-              quantidadeDisponivel: produto.quantidade_disponivel,
-            });
-          });
-
-          if (insufficientConsumptions.length > 0 && !allowFinalizeWithoutStock) {
-            throw new Error(
-              `Estoque insuficiente para finalizar com baixa completa: ${buildInsufficientStockInlineMessage(
-                insufficientConsumptions.map((item) => ({
-                  nome_produto: item.produtoNome,
-                  quantidade_disponivel: item.quantidadeDisponivel,
-                  quantidade_usada: item.quantidadeUsada,
-                })),
-              )}. Marque a opção para finalizar como realizado mesmo sem estoque.`,
-            );
-          }
-        }
+      // Toasts de feedback (mesmo formato do fluxo anterior para UX consistente)
+      if (insufficientCount > 0) {
+        toast({
+          title: "Show finalizado com pendências",
+          description: `Orçamento marcado como REALIZADO (R$ ${finalTotalValue.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}). ${movements.length} item(ns) baixados e ${insufficientCount} item(ns) registrados sem baixa por falta de estoque.`,
+        });
+      } else if (movements.length > 0) {
+        toast({
+          title: "Show finalizado com sucesso",
+          description: `O orçamento foi atualizado para REALIZADO com valor final de R$ ${finalTotalValue.toLocaleString("pt-BR", { minimumFractionDigits: 2 })} e o consumo real foi baixado no estoque.`,
+        });
+      } else {
+        toast({
+          title: "Show finalizado",
+          description: `O orçamento foi atualizado para REALIZADO com valor final de R$ ${finalTotalValue.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}. O consumo real já havia sido baixado anteriormente.`,
+        });
       }
 
-      const { error: statusError } = await supabase
-        .from("orcamentos")
-        .update({ status: "realizado", valor_total: finalTotalValue })
-        .eq("id", confirmShowOrcamento.id);
-
-      if (statusError) throw statusError;
-
-      const appliedMovements: AppliedShowStockMovement[] = [];
-
-      try {
-        for (const consumption of consumptionsToDeduct) {
-          const produto = produtosMap.get(consumption.produtoId);
-          if (!produto) {
-            throw new Error(
-              `Produto ${consumption.produtoId} não encontrado para dedução de estoque.`,
-            );
-          }
-
-          const quantidadeAnterior = produto.quantidade_disponivel;
-          const quantidadeAtual = quantidadeAnterior - consumption.quantidadeUsada;
-
-          const { error: updateError } = await supabase
-            .from("produtos")
-            .update({ quantidade_disponivel: quantidadeAtual })
-            .eq("id", consumption.produtoId);
-
-          if (updateError) throw updateError;
-
-          const motivo = `Consumo real do show ${showMarker} - ${orcamentoAtual.evento_nome} | Planejado: ${consumption.quantidadePlanejada} | Usado: ${consumption.quantidadeUsada}`;
-
-          const { error: historicoError } = await supabase
-            .from("historico_estoque")
-            .insert({
-              produto_id: consumption.produtoId,
-              tipo_movimentacao: "saida",
-              quantidade_anterior: quantidadeAnterior,
-              quantidade_movimentada: consumption.quantidadeUsada,
-              quantidade_atual: quantidadeAtual,
-              motivo,
-            });
-
-          if (historicoError) throw historicoError;
-
-          appliedMovements.push({
-            produtoId: consumption.produtoId,
-            produtoNome: produto.nome_produto,
-            quantidadePlanejada: consumption.quantidadePlanejada,
-            quantidadeUsada: consumption.quantidadeUsada,
-            quantidadeAnterior,
-            quantidadeAtual,
-          });
-
-          produto.quantidade_disponivel = quantidadeAtual;
-        }
-      } catch (stockError) {
-        const rollbackErrors: string[] = [];
-
-        for (const movement of [...appliedMovements].reverse()) {
-          const { error: rollbackProductError } = await supabase
-            .from("produtos")
-            .update({ quantidade_disponivel: movement.quantidadeAnterior })
-            .eq("id", movement.produtoId);
-
-          if (rollbackProductError) {
-            rollbackErrors.push(
-              `Falha ao reverter estoque de ${movement.produtoNome}: ${rollbackProductError.message}`,
-            );
-            continue;
-          }
-
-          const rollbackMotivo = `Rollback do consumo real ${showMarker} - ${orcamentoAtual.evento_nome} | Planejado: ${movement.quantidadePlanejada} | Usado: ${movement.quantidadeUsada}`;
-
-          const { error: rollbackHistoricoError } = await supabase
-            .from("historico_estoque")
-            .insert({
-              produto_id: movement.produtoId,
-              tipo_movimentacao: "entrada",
-              quantidade_anterior: movement.quantidadeAtual,
-              quantidade_movimentada: movement.quantidadeUsada,
-              quantidade_atual: movement.quantidadeAnterior,
-              motivo: rollbackMotivo,
-            });
-
-          if (rollbackHistoricoError) {
-            rollbackErrors.push(
-              `Falha ao registrar rollback de ${movement.produtoNome}: ${rollbackHistoricoError.message}`,
-            );
-          }
-        }
-
-        const { error: rollbackStatusError } = await supabase
-          .from("orcamentos")
-          .update({
-            status: "confirmado",
-            valor_total: Math.max(0, Number(orcamentoAtual.valor_total) || 0),
-          })
-          .eq("id", confirmShowOrcamento.id);
-
-        if (rollbackStatusError) {
-          rollbackErrors.push(
-            `Falha ao restaurar status para confirmado: ${rollbackStatusError.message}`,
-          );
-        }
-
-        const stockFailureMessage = getReadableErrorMessage(
-          stockError,
-          "Falha ao processar a baixa de estoque.",
-        );
-
-        if (rollbackErrors.length > 0) {
-          throw new Error(
-            `${stockFailureMessage} O rollback teve falhas: ${rollbackErrors.join(" | ")}`,
-          );
-        }
-
-        throw new Error(
-          `${stockFailureMessage} A finalizacao foi revertida automaticamente para manter consistencia.`,
-        );
-      }
-
-      if (insufficientConsumptions.length > 0) {
-        const historicoPendencias = insufficientConsumptions.map((item) => ({
-          produto_id: item.produtoId,
-          tipo_movimentacao: "ajuste" as const,
-          quantidade_anterior: item.quantidadeDisponivel,
-          quantidade_movimentada: 0,
-          quantidade_atual: item.quantidadeDisponivel,
-          motivo: `Consumo real do show ${showMarker} - ${orcamentoAtual.evento_nome} | Sem baixa por estoque insuficiente | Planejado: ${item.quantidadePlanejada} | Usado: ${item.quantidadeUsada} | Disponível: ${item.quantidadeDisponivel}`,
-        }));
-
-        const { error: pendenciaHistoricoError } = await supabase
-          .from("historico_estoque")
-          .insert(historicoPendencias);
-
-        if (pendenciaHistoricoError) {
-          console.warn(
-            "Falha ao registrar pendencias de estoque no historico:",
-            pendenciaHistoricoError,
-          );
-          toast({
-            title: "Show realizado com pendencias",
-            description:
-              "O status foi atualizado, mas não foi possível registrar todas as pendências de estoque no histórico.",
-            variant: "destructive",
-          });
-        }
-      }
-
-      toast({
-        title: "Show finalizado com sucesso",
-        description:
-          insufficientConsumptions.length > 0
-            ? `Orçamento marcado como REALIZADO (R$ ${finalTotalValue.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}). ${consumptionsToDeduct.length} item(ns) baixados e ${insufficientConsumptions.length} item(ns) registrados sem baixa por falta de estoque.`
-            : consumptionsToDeduct.length > 0
-              ? `O orçamento foi atualizado para REALIZADO com valor final de R$ ${finalTotalValue.toLocaleString("pt-BR", { minimumFractionDigits: 2 })} e o consumo real foi baixado no estoque.`
-              : `O orçamento foi atualizado para REALIZADO com valor final de R$ ${finalTotalValue.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}. O consumo real já havia sido baixado anteriormente.`,
-      });
+      // Suprimir warning de variável não usada (showMarker é referenciado indiretamente
+      // via historico, mas mantemos a constante para legibilidade / debug)
+      void showMarker;
 
       closeConfirmShowDialog(true);
       await Promise.all([fetchOrcamentos(), fetchProdutos()]);
