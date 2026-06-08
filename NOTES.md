@@ -82,6 +82,81 @@ Comando do Marcos: análise completa e profunda do painel admin + banco de dados
 
 ---
 
+## Rodada 6 — HOTFIX: Admin em prod estava 403 (migration 2026-06-08_fix_is_admin_user_grants)
+
+**Commit:** (local) **Crítico: aplicado direto em prod via MCP antes do commit** — admin estava completamente quebrado desde a rodada 2.
+
+### 🐛 O bug
+
+Após 5 rodadas de hardening, o admin em `www.m5max.com/admin` aparecia vazio para Marcos (admin logado, role correto, ativo=true). Logs do Supabase mostravam:
+
+```
+GET 200 /rest/v1/usuarios?id=eq.<seu-id>      ← funcionava
+GET 403 /rest/v1/orcamentos?select=*%2C...     ← quebrado
+GET 403 /rest/v1/produtos?select=*&ativo=true  ← quebrado
+GET 403 /rest/v1/solicitacoes_orcamento?...    ← quebrado
+```
+
+### 🔍 Causa raiz
+
+A migration `2026-06-08_revoke_anon_execute_v2` (rodada 2) fez:
+
+```sql
+REVOKE EXECUTE ON FUNCTION public.is_admin_user() FROM PUBLIC;
+```
+
+Objetivo: impedir que `anon` executasse funções SEC DEFINER. **Efeito colateral**: removeu EXECUTE de `anon` **E** `authenticated`. Como TODAS as policies RLS das tabelas admin chamam `is_admin_user()` no `qual`, qualquer query autenticada recebia `permission_denied` (42501) e a policy falhava → **403 em massa**.
+
+### 🔥 Por que passou despercebido
+
+- Testes automatizados (vitest) rodam jsdom sem Supabase real — só validam lint/build/TS
+- O dev (Marcos) só foi sentir o problema **3 rodadas depois**, ao logar de verdade em prod
+- O isolamento rodadas 4 e 5 (Surgical e RPC) não exercitou o caminho RLS, porque mexeram em outras camadas
+
+### ✅ Correção (1 migration, 2 linhas)
+
+```sql
+GRANT EXECUTE ON FUNCTION public.is_admin_user() TO anon;
+GRANT EXECUTE ON FUNCTION public.is_admin_user() TO authenticated;
+```
+
+Por que **não enfraquece segurança**:
+- `is_admin_user()` checa `auth.uid()` internamente
+- Se não há usuário logado → retorna `false` → RLS nega
+- Anon nunca tem `auth.uid()` → sempre `false` → sempre bloqueado
+- O grant só afeta quem já passou pela camada de auth
+
+### 📊 Validação
+
+```sql
+SET ROLE authenticated;
+SELECT set_config('request.jwt.claim.sub', '36f6a0c8-...', true);
+SELECT public.is_admin_user();
+-- is_admin_user: true ✅
+```
+
+### 💡 Lição
+
+1. **`REVOKE FROM PUBLIC` precisa ser seguido de `GRANT` explícito** para os roles legítimos. Esquecer disso = DOA.
+2. **Testes de integração reais** (não só lint/build) são essenciais. Considerar adicionar smoke test contra Supabase staging no CI.
+3. **Verificar logs do Supabase** periodicamente, mesmo sem reclamações. 403 em massa é um sintoma clássico disso.
+
+### 📋 Status de outras funções (verificado)
+
+| Função | EXECUTE | Comentário |
+|---|---|---|
+| `is_admin_user` | ✅ anon, authenticated, service_role, postgres | Corrigido nesta rodada |
+| `confirm_show_as_completed` | ✅ anon, authenticated, service_role, postgres | OK (rodada 5) |
+| `handle_new_user` | ✅ service_role, postgres | OK (SEC DEFINER via trigger) |
+| `update_updated_at_column` | ✅ service_role, postgres | OK (SEC DEFINER via trigger) |
+| `prevent_*` / `fill_*` | ✅ todos | OK (triggers não precisam grant) |
+
+### 🔴 Pendência crítica: **push dos 6 commits**
+
+A correção foi aplicada **direto em prod via MCP**, mas o código não está no git ainda. **Você precisa fazer push dos 6 commits quando tiver credencial** (ou eu mesmo, se você me der um token).
+
+---
+
 ## Rodada 5 — RPC atômica para confirmação de show (substitui client-side não-atômico)
 
 Foco: o **único bug crítico real** que sobrou do fluxo do admin. `handleConfirmShowCompletion` em `AdminOrcamentos.tsx` (linhas 838-1198, ~360 linhas) faz UPDATE `orcamentos.status='realizado'` **antes** da dedução de estoque, e tenta rollback manual em caso de falha — mas o trigger `prevent_status_unlock` (rodada 3) **bloqueia** esse rollback. Resultado: em caso de falha parcial em prod, o status ficava em `realizado` sem como reverter (sem intervenção SQL manual).

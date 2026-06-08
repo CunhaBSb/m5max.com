@@ -1,0 +1,32 @@
+-- =====================================================================
+-- Migration: 2026-06-08_fix_is_admin_user_grants
+-- Rodada 6 (HOTFIX) — Restaura acesso ao /admin quebrado pela rodada 2
+--
+-- Contexto:
+-- A migration 2026-06-08_revoke_anon_execute_v2 (rodada 2) fez
+--   REVOKE EXECUTE ON FUNCTION public.is_admin_user() FROM PUBLIC
+-- com a intencao de impedir que anon executasse funcoes SEC DEFINER.
+-- Porem, PUBLIC inclui anon E authenticated. Como TODAS as policies RLS
+-- das tabelas admin chamam is_admin_user() no qual, isso quebrou
+-- silenciosamente todas as queries authenticated: o RLS tenta chamar a
+-- funcao, recebe permission_denied (42501), e devolve 403 na request.
+--
+-- Resultado: TODAS as paginas /admin apareciam vazias (orcamentos,
+-- produtos, solicitacoes, eventos, historico_estoque). Apenas /usuarios
+-- funcionava, porque a policy de usuarios checa (id = auth.uid())
+-- diretamente, sem chamar is_admin_user().
+--
+-- Por que passou despercebido nos testes:
+-- Os testes automatizados rodam vitest/jsdom sem Supabase real, entao
+-- validam so lint/build/TS, nao a integracao com o DB. So foi possivel
+-- diagnosticar via logs do Supabase api (GET 403 em massa).
+--
+-- Correcao:
+-- Re-grant EXECUTE para anon e authenticated. is_admin_user() ja checa
+-- auth.uid() internamente e retorna false se nao ha usuario logado,
+-- entao grant para anon NAO enfraquece a seguranca: anon nunca tera
+-- auth.uid(), sempre retornara false, e a policy RLS nega acesso.
+-- =====================================================================
+
+GRANT EXECUTE ON FUNCTION public.is_admin_user() TO anon;
+GRANT EXECUTE ON FUNCTION public.is_admin_user() TO authenticated;
