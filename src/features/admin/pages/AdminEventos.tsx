@@ -136,11 +136,12 @@ const AdminEventos = () => {
         });
 
       setEventos(eventosMapeados);
-    } catch (error: any) {
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Erro de rede ou banco.';
       console.error('❌ Erro Crítico:', error);
       toast({
         title: "Erro na Agenda",
-        description: `Não foi possível carregar os dados. Detalhes: ${error.message || 'Erro de rede ou banco.'}`,
+        description: `Não foi possível carregar os dados. Detalhes: ${message}`,
         variant: "destructive",
       });
     } finally {
