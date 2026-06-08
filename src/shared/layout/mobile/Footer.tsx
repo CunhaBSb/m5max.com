@@ -31,7 +31,7 @@ export const FooterMobile = () => {
             <span className="text-fire-gradient">inesquecível?</span>
           </h3>
           
-          <p className="text-sm text-white/85 mb-6 leading-relaxed max-w-xs mx-auto">
+          <p className="text-sm text-muted-foreground mb-6 leading-relaxed max-w-xs mx-auto">
             Solicite orçamento personalizado e garanta segurança total
           </p>
           
@@ -82,7 +82,7 @@ export const FooterMobile = () => {
                 <span>Lote Atual</span>
                 <span className="text-fire-orange">Poucas Datas</span>
               </div>
-              <p className="mt-1 text-[11px] text-white/90 text-center leading-relaxed">
+              <p className="mt-1 text-[11px] text-muted-foreground text-center leading-relaxed">
                 Campanhas especiais para <span className="text-fire-gold font-semibold">casamento</span> e <span className="text-fire-gold font-semibold">festa junina</span>.
               </p>
             </div>
@@ -106,7 +106,7 @@ export const FooterMobile = () => {
             />
             <div className="text-left">
               <div className="font-bold text-base text-fire-gradient">M5 Max</div>
-              <div className="text-xs text-white/80">Produções Pirotécnicas</div>
+              <div className="text-xs text-muted-foreground">Produções Pirotécnicas</div>
             </div>
           </div>
           
@@ -141,16 +141,16 @@ export const FooterMobile = () => {
           <div className="space-y-2 mb-6">
             <a 
               href="https://wa.me/5561982735575"
-              className="flex items-center justify-center gap-2 text-xs text-white/85 hover:text-green-400 transition-colors"
+              className="flex items-center justify-center gap-2 text-xs text-muted-foreground hover:text-green-400 transition-colors"
             >
               <Phone className="w-3 h-3" />
               <span>(61) 98273-5575</span>
             </a>
-            <div className="flex items-center justify-center gap-2 text-xs text-white/85">
+            <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
               <Mail className="w-3 h-3" />
               <span>contato@m5max.com</span>
             </div>
-            <div className="flex items-center justify-center gap-2 text-xs text-white/85">
+            <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
               <MapPin className="w-3 h-3" />
               <span>Brasília - DF • Atendemos todo Brasil</span>
             </div>
@@ -170,7 +170,7 @@ export const FooterMobile = () => {
               target="_blank"
               className="w-9 h-9 bg-gradient-to-br from-red-600/20 to-red-500/15 border border-red-400/30 rounded-lg flex items-center justify-center hover:scale-110 hover:border-red-400/50 transition-all duration-300"
             >
-              <YouTube className="w-4 h-4 text-red-400" />
+              <YouTube className="w-4 h-4 text-destructive" />
             </a>
           </div>
         </div>
@@ -191,7 +191,7 @@ export const FooterMobile = () => {
 
           {/* Copyright - Hierarchical */}
           <div className="space-y-1 mb-3">
-            <div className="text-xs text-white/70 font-medium">
+            <div className="text-xs text-muted-foreground font-medium">
               © 2024 M5 Max Produções
             </div>
             <div className="text-xs text-white/60 font-mono">

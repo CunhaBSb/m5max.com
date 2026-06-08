@@ -142,7 +142,7 @@ const Hero = () => {
                 <span className="text-fire-gradient">Ele se planeja.</span>
               </h1>
 
-              <p className="text-lg text-white/90 drop-shadow-md max-w-lg leading-relaxed">
+              <p className="text-lg text-muted-foreground drop-shadow-md max-w-lg leading-relaxed">
                 Na M5 Max, cada show de fogos é desenhado com segurança, tecnologia e emoção para transformar o seu evento em um momento inesquecível.
               </p>
             </div>
@@ -227,7 +227,7 @@ const Hero = () => {
               </div>
 
               <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-2.5 py-1.5 rounded-full border border-blue-400/40">
-                <span className="text-blue-400 font-bold text-xs">40</span>
+                <span className="text-tech-blue font-bold text-xs">40</span>
                 <span className="text-white font-medium text-xs">Anos</span>
               </div>
 

@@ -1358,7 +1358,7 @@ const AdminOrcamentos = () => {
               <h1 className="text-4xl sm:text-5xl font-black text-white tracking-tighter leading-[0.9]">
                 Gestão de<br/>Orçamentos
               </h1>
-              <p className="text-zinc-500 font-medium mt-3 tracking-wide">
+              <p className="text-muted-foreground font-medium mt-3 tracking-wide">
                 Inteligência comercial e conversão M5 Max.
               </p>
             </motion.div>
@@ -1374,32 +1374,32 @@ const AdminOrcamentos = () => {
           {/* Header Stats Side-by-side */}
           <div className="grid grid-cols-3 gap-2">
               <div className="bg-white/[0.03] p-3 rounded-2xl border border-white/5 text-center">
-                <p className="text-[8px] font-black uppercase tracking-[0.1em] text-zinc-500 mb-0.5">Total</p>
+                <p className="text-[8px] font-black uppercase tracking-[0.1em] text-muted-foreground mb-0.5">Total</p>
                 <p className="text-xl font-black text-white">{stats.total}</p>
               </div>
               <div className="bg-white/[0.03] p-3 rounded-2xl border border-white/5 text-center">
-                <p className="text-[8px] font-black uppercase tracking-[0.1em] text-orange-500 mb-0.5">Pendente</p>
-                <p className="text-xl font-black text-orange-500">{stats.pendentes}</p>
+                <p className="text-[8px] font-black uppercase tracking-[0.1em] text-primary mb-0.5">Pendente</p>
+                <p className="text-xl font-black text-primary">{stats.pendentes}</p>
               </div>
               <div className="bg-white/[0.03] p-3 rounded-2xl border border-white/5 text-center">
-                <p className="text-[8px] font-black uppercase tracking-[0.1em] text-emerald-500 mb-0.5">Confir.</p>
-                <p className="text-xl font-black text-emerald-500">{stats.confirmados}</p>
+                <p className="text-[8px] font-black uppercase tracking-[0.1em] text-success mb-0.5">Confir.</p>
+                <p className="text-xl font-black text-success">{stats.confirmados}</p>
               </div>
           </div>
           {/* Busca e Filtros Inteligentes */}
           <div className="space-y-6">
             <div className="relative group">
-              <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-white/20 transition-colors group-focus-within:text-primary sm:left-6 sm:h-6 sm:w-6" />
+              <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground/20 transition-colors group-focus-within:text-primary sm:left-6 sm:h-6 sm:w-6" />
               <Input
                 placeholder="Buscar por cliente, evento, localização..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="h-14 w-full rounded-[22px] border-white/[0.06] bg-white/[0.02] pl-12 text-base font-medium shadow-2xl transition-all placeholder:text-white/10 focus:border-primary/40 focus:ring-0 sm:h-16 sm:rounded-[24px] sm:pl-16 sm:text-lg"
+                className="h-14 w-full rounded-[22px] border-white/[0.06] bg-white/[0.02] pl-12 text-base font-medium shadow-2xl transition-all placeholder:text-muted-foreground/10 focus:border-primary/40 focus:ring-0 sm:h-16 sm:rounded-[24px] sm:pl-16 sm:text-lg"
               />
             </div>
             
             <div className="flex flex-wrap items-center gap-3 bg-white/[0.01] border border-white/5 p-3 sm:p-4 rounded-[22px] sm:rounded-[24px]">
-              <span className="text-[10px] font-black uppercase text-white/20 tracking-[0.3em] mr-2 ml-2">Filtros Operacionais</span>
+              <span className="text-[10px] font-black uppercase text-muted-foreground/20 tracking-[0.3em] mr-2 ml-2">Filtros Operacionais</span>
               
               <Select value={filterStatus} onValueChange={setFilterStatus}>
                 <SelectTrigger className="h-11 bg-white/[0.03] border-white/10 rounded-full px-4 sm:px-6 focus:ring-primary/40 text-[10px] font-black uppercase tracking-widest min-w-[150px] sm:min-w-[160px]">
@@ -1533,7 +1533,7 @@ const AdminOrcamentos = () => {
                             <Button 
                               variant="ghost" 
                               size="icon" 
-                              className="h-10 w-10 rounded-xl hover:bg-red-500/10 hover:text-red-400 transition-all border border-transparent hover:border-red-500/20"
+                              className="h-10 w-10 rounded-xl hover:bg-red-500/10 hover:text-destructive transition-all border border-transparent hover:border-red-500/20"
                               onClick={() => handleDeleteSolicitacao(solicitacao.id)}
                             >
                               <Trash2 className="h-5 w-5" />
@@ -1629,7 +1629,7 @@ const AdminOrcamentos = () => {
                             <Button 
                               variant="ghost" 
                               size="icon" 
-                              className="h-10 w-10 rounded-xl hover:bg-orange-500/10 hover:text-orange-500 transition-all border border-transparent hover:border-orange-500/20"
+                              className="h-10 w-10 rounded-xl hover:bg-orange-500/10 hover:text-primary transition-all border border-transparent hover:border-orange-500/20"
                               onClick={() => handleGeneratePDF(orcamento)}
                             >
                               <FileText className="h-5 w-5" />
@@ -1674,7 +1674,7 @@ const AdminOrcamentos = () => {
                               variant="ghost" 
                               size="icon" 
                               onClick={() => handleDeleteOrcamento(orcamento.id)}
-                              className="h-10 w-10 rounded-xl hover:bg-red-500/10 hover:text-red-400 transition-all border border-transparent hover:border-red-500/20"
+                              className="h-10 w-10 rounded-xl hover:bg-red-500/10 hover:text-destructive transition-all border border-transparent hover:border-red-500/20"
                             >
                               <Trash2 className="h-5 w-5" />
                             </Button>
@@ -1710,8 +1710,8 @@ const AdminOrcamentos = () => {
       {/* Os modais (Dialogs) permanecem os mesmos mas herdam o tema Midnight via CSS global */}
       {/* Modal de Orçamento */}
       <Dialog open={isOrcamentoDialogOpen} onOpenChange={setIsOrcamentoDialogOpen}>
-        <DialogContent className="max-w-4xl max-h-[calc(100dvh-0.75rem)] overflow-y-auto bg-card/95 backdrop-blur-xl border-white/5 rounded-[28px] md:rounded-[2.5rem] p-5 md:p-10">
-          <DialogHeader className="mb-6 md:mb-8">
+        <DialogContent className="inset-0 top-0 left-0 w-full max-w-none translate-x-0 translate-y-0 rounded-none border-0 bg-card p-0 h-[100dvh] md:inset-auto md:left-[50%] md:top-[50%] md:translate-x-[-50%] md:translate-y-[-50%] md:h-auto md:max-h-[calc(100dvh-3rem)] md:max-w-4xl md:rounded-lg md:border">
+          <DialogHeader className="sticky top-0 z-10 border-b border-border bg-card/95 backdrop-blur-md px-4 py-4 md:px-10 space-y-2 text-left">
             <DialogTitle className="text-2xl md:text-3xl font-black tracking-tight text-foreground">Criar Proposta Comercial</DialogTitle>
             <DialogDescription className="text-muted-foreground font-medium">Configure os produtos, margens e dados do cliente para gerar um novo orçamento.</DialogDescription>
           </DialogHeader>
@@ -1830,7 +1830,7 @@ const AdminOrcamentos = () => {
                   variant="ghost" 
                   size="sm" 
                   onClick={() => setSelectedProducts([])}
-                  className="text-red-400 hover:bg-red-500/10 h-10 px-4 rounded-xl font-bold text-xs uppercase tracking-widest"
+                  className="text-destructive hover:bg-red-500/10 h-10 px-4 rounded-xl font-bold text-xs uppercase tracking-widest"
                   disabled={selectedProducts.length === 0}
                 >
                   Esvaziar Lista
@@ -1892,7 +1892,7 @@ const AdminOrcamentos = () => {
                               variant="ghost"
                               size="icon"
                               onClick={() => removeProductFromOrcamento(index)}
-                              className="h-8 w-8 text-red-400 hover:bg-red-500/10 rounded-lg"
+                              className="h-8 w-8 text-destructive hover:bg-red-500/10 rounded-lg"
                             >
                               <Trash2 className="h-4 w-4" />
                             </Button>
@@ -2045,7 +2045,7 @@ const AdminOrcamentos = () => {
 
         {/* Modal de Detalhes do Orçamento - VERSÃO PREMIUM (MOBILE FIRST) */}
         <Dialog open={isDetailsOpen} onOpenChange={setIsDetailsOpen}>
-          <DialogContent className="p-0 border-none bg-[#050505] max-w-4xl w-[calc(100vw-0.75rem)] h-[calc(100dvh-0.75rem)] sm:w-full sm:h-[92vh] rounded-[28px] sm:rounded-[2.5rem] overflow-hidden flex flex-col shadow-2xl">
+          <DialogContent className="p-0 border-none bg-card max-w-4xl w-[calc(100vw-0.75rem)] h-[calc(100dvh-0.75rem)] sm:w-full sm:h-[92vh] rounded-[28px] sm:rounded-[2.5rem] overflow-hidden flex flex-col shadow-2xl">
             
             {/* Header Premium (Fixo) */}
             <div className="shrink-0 bg-black/20 backdrop-blur-xl border-b border-white/[0.05] px-4 pb-4 pt-[calc(1rem+env(safe-area-inset-top))] sm:px-6 sm:py-5 flex items-center justify-between z-50">
@@ -2053,7 +2053,7 @@ const AdminOrcamentos = () => {
                 <DialogTitle className="text-lg md:text-2xl font-black text-white tracking-tight uppercase">
                   Ficha do Orçamento<span className="text-primary">.</span>
                 </DialogTitle>
-                <span className="text-[10px] md:text-xs font-bold text-white/30 uppercase tracking-[0.2em]">Visão Estratégica</span>
+                <span className="text-[10px] md:text-xs font-bold text-muted-foreground/30 uppercase tracking-[0.2em]">Visão Estratégica</span>
               </div>
               <button 
                 onClick={() => setIsDetailsOpen(false)}
@@ -2083,12 +2083,12 @@ const AdminOrcamentos = () => {
                       
                       <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
                         <Label className="text-[9px] uppercase font-black text-primary mb-1.5 block tracking-widest">WhatsApp</Label>
-                        <p className="text-base font-bold text-white/80">{selectedOrcamento.telefone || 'Não informado'}</p>
+                        <p className="text-base font-bold text-muted-foreground">{selectedOrcamento.telefone || 'Não informado'}</p>
                       </div>
 
                       <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
                         <Label className="text-[9px] uppercase font-black text-primary mb-1.5 block tracking-widest">CPF / CNPJ</Label>
-                        <p className="text-base font-bold text-white/80">{selectedOrcamento.cpf || 'Não informado'}</p>
+                        <p className="text-base font-bold text-muted-foreground">{selectedOrcamento.cpf || 'Não informado'}</p>
                       </div>
 
                       <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
@@ -2144,7 +2144,7 @@ const AdminOrcamentos = () => {
                         <Label className="text-[9px] uppercase font-black text-primary tracking-widest block">Local da Operação</Label>
                         <div className="flex items-start gap-2">
                           <MapPin className="h-4 w-4 text-primary mt-1 shrink-0" />
-                          <p className="text-base font-medium text-white/70">{selectedOrcamento.evento_local || 'Local não especificado'}</p>
+                          <p className="text-base font-medium text-muted-foreground">{selectedOrcamento.evento_local || 'Local não especificado'}</p>
                         </div>
                       </div>
                     </div>
@@ -2154,8 +2154,8 @@ const AdminOrcamentos = () => {
                   <section className="space-y-6">
                     <div className="flex items-center justify-between px-1">
                       <div className="flex flex-col">
-                        <h3 className="text-sm font-black uppercase tracking-[0.2em] text-white/70">Itens Técnicos</h3>
-                        <span className="text-[9px] font-bold text-white/20 uppercase mt-1 tracking-widest">Detalhamento de Consumo</span>
+                        <h3 className="text-sm font-black uppercase tracking-[0.2em] text-muted-foreground">Itens Técnicos</h3>
+                        <span className="text-[9px] font-bold text-muted-foreground/20 uppercase mt-1 tracking-widest">Detalhamento de Consumo</span>
                       </div>
                       <Badge className="bg-white/5 text-white/40 border-none px-4 py-1 text-[10px] font-black uppercase tracking-widest">
                         {selectedOrcamento.orcamentos_produtos?.length || 0} Itens
@@ -2173,20 +2173,20 @@ const AdminOrcamentos = () => {
                             <div className="flex-1 min-w-0">
                                <p className="text-sm font-black text-white leading-tight mb-1 truncate">{item.produtos?.nome_produto || 'Item não localizado'}</p>
                                <div className="flex items-center gap-3">
-                                  <span className="text-[9px] font-bold text-white/20 uppercase tracking-widest">{item.produtos?.codigo || 'S/N'}</span>
+                                  <span className="text-[9px] font-bold text-muted-foreground/20 uppercase tracking-widest">{item.produtos?.codigo || 'S/N'}</span>
                                   <div className="h-2 w-px bg-white/5" />
-                                  <span className="text-[9px] font-black text-blue-400 uppercase tracking-widest">Dur: {item.produtos?.duracao_segundos ? `${item.produtos.duracao_segundos}s` : '—'}</span>
+                                  <span className="text-[9px] font-black text-tech-blue uppercase tracking-widest">Dur: {item.produtos?.duracao_segundos ? `${item.produtos.duracao_segundos}s` : '—'}</span>
                                   {item.produtos?.efeito && (
                                     <>
                                       <div className="h-2 w-px bg-white/5" />
-                                      <span className="text-[9px] font-black text-emerald-400 uppercase tracking-widest">{item.produtos.efeito}</span>
+                                      <span className="text-[9px] font-black text-success uppercase tracking-widest">{item.produtos.efeito}</span>
                                     </>
                                   )}
                                </div>
                             </div>
                             <div className="text-right">
                                <p className="text-sm font-black text-white">R$ {(item.quantidade * item.valor_unitario).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
-                               <p className="text-[9px] font-bold text-white/20 uppercase tracking-tighter">R$ {item.valor_unitario.toFixed(2)} un.</p>
+                               <p className="text-[9px] font-bold text-muted-foreground/20 uppercase tracking-tighter">R$ {item.valor_unitario.toFixed(2)} un.</p>
                             </div>
                           </div>
                         ))}
@@ -2194,7 +2194,7 @@ const AdminOrcamentos = () => {
                     ) : (
                       <div className="py-12 border border-dashed border-white/10 rounded-[2rem] text-center bg-white/[0.01]">
                         <Package className="h-12 w-12 mx-auto text-white/5 mb-4" />
-                        <p className="text-white/20 text-sm font-bold uppercase tracking-widest">Nenhum item vinculado</p>
+                        <p className="text-muted-foreground/20 text-sm font-bold uppercase tracking-widest">Nenhum item vinculado</p>
                       </div>
                     )}
                   </section>
@@ -2205,7 +2205,7 @@ const AdminOrcamentos = () => {
                   <div className="text-center md:text-left">
                     <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary mb-2 block">Investimento Total</span>
                     <div className="flex items-baseline justify-center md:justify-start gap-1">
-                      <span className="text-sm font-bold text-white/30">R$</span>
+                      <span className="text-sm font-bold text-muted-foreground/30">R$</span>
                       <span className="text-5xl font-black text-white tracking-tighter">
                         {(selectedOrcamento.valor_total || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                       </span>
@@ -2254,7 +2254,7 @@ const AdminOrcamentos = () => {
                 {normalizeOrcamentoStatus(selectedOrcamento.status) === "confirmado" &&
                   !canRunShowConfirmation(selectedOrcamento) && (
                     <div className="absolute bottom-2 left-0 right-0 text-center">
-                       <p className="text-[9px] text-white/20 uppercase font-black tracking-widest">
+                       <p className="text-[9px] text-muted-foreground/20 uppercase font-black tracking-widest">
                          O fechamento do show será habilitado na data do evento ou depois.
                        </p>
                     </div>
@@ -2430,7 +2430,7 @@ const AdminOrcamentos = () => {
                           <Label className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
                             Desconto Aplicado
                           </Label>
-                          <p className="mt-2 text-xl font-semibold text-emerald-400">
+                          <p className="mt-2 text-xl font-semibold text-success">
                             R${" "}
                             {confirmShowDiscountValue.toLocaleString("pt-BR", {
                               minimumFractionDigits: 2,
@@ -2523,7 +2523,7 @@ const AdminOrcamentos = () => {
                                     Plano: {item.quantidade_planejada}
                                   </p>
                                   {item.efeito && (
-                                    <p className="text-[10px] font-black text-emerald-500/60 uppercase tracking-widest">
+                                    <p className="text-[10px] font-black text-success/60 uppercase tracking-widest">
                                       • {item.efeito}
                                     </p>
                                   )}
@@ -2536,7 +2536,7 @@ const AdminOrcamentos = () => {
                                   "shrink-0 rounded-full px-2.5 py-1 text-[11px]",
                                   item.estoque_insuficiente
                                     ? "border-destructive/30 bg-destructive/12 text-destructive"
-                                    : "border-emerald-500/20 bg-emerald-500/10 text-emerald-400",
+                                    : "border-emerald-500/20 bg-emerald-500/10 text-success",
                                 )}
                               >
                                 {item.estoque_insuficiente
@@ -2619,7 +2619,7 @@ const AdminOrcamentos = () => {
                                   <div className="flex flex-col">
                                     <span className="text-white">{item.nome_produto}</span>
                                     {item.efeito && (
-                                      <span className="text-[10px] font-black text-emerald-500 uppercase tracking-widest mt-0.5">{item.efeito}</span>
+                                      <span className="text-[10px] font-black text-success uppercase tracking-widest mt-0.5">{item.efeito}</span>
                                     )}
                                   </div>
                                 </TableCell>
@@ -2825,7 +2825,7 @@ const AdminOrcamentos = () => {
 
         {/* Modal de Edição da Solicitação */}
         <Dialog open={isSolicitacaoEditOpen} onOpenChange={setIsSolicitacaoEditOpen}>
-          <DialogContent className="max-w-2xl max-h-[calc(100dvh-0.75rem)] overflow-y-auto bg-background border-border rounded-[28px] p-5 md:p-8">
+          <DialogContent className="inset-0 top-0 left-0 w-full max-w-none translate-x-0 translate-y-0 rounded-none border-0 bg-background p-0 h-[100dvh] md:inset-auto md:left-[50%] md:top-[50%] md:translate-x-[-50%] md:translate-y-[-50%] md:h-auto md:max-h-[calc(100dvh-3rem)] md:max-w-2xl md:rounded-lg md:border">
             <DialogHeader className="mb-4 md:mb-6">
               <DialogTitle className="text-xl md:text-2xl font-bold text-foreground">Editar Solicitação</DialogTitle>
               <DialogDescription className="text-muted-foreground">
@@ -2939,7 +2939,7 @@ const AdminOrcamentos = () => {
 
         {/* Modal de Edição Completa do Orçamento - VERSÃO 3 FINAL (PRODUÇÃO) */}
         <Dialog open={isFullEditOpen} onOpenChange={setIsFullEditOpen}>
-          <DialogContent className="max-w-6xl w-[calc(100vw-0.75rem)] h-[calc(100dvh-0.75rem)] sm:w-full sm:h-[92vh] overflow-hidden bg-[#050505] border-none sm:border-white/5 rounded-[28px] sm:rounded-[2.5rem] p-0 flex flex-col shadow-2xl">
+          <DialogContent className="max-w-6xl w-[calc(100vw-0.75rem)] h-[calc(100dvh-0.75rem)] sm:w-full sm:h-[92vh] overflow-hidden bg-card border-none sm:border-white/5 rounded-[28px] sm:rounded-[2.5rem] p-0 flex flex-col shadow-2xl">
             
             {/* Header Ghost Style */}
             <div className="shrink-0 bg-black/20 backdrop-blur-xl border-b border-white/[0.05] px-4 pb-4 pt-[calc(1rem+env(safe-area-inset-top))] sm:px-6 sm:py-5 flex items-center justify-between z-50">
@@ -2947,7 +2947,7 @@ const AdminOrcamentos = () => {
                 <DialogTitle className="text-lg md:text-2xl font-black text-white tracking-tight uppercase">
                   Editar Proposta<span className="text-primary">_</span>
                 </DialogTitle>
-                <span className="text-[10px] md:text-xs font-bold text-white/30 uppercase tracking-[0.2em]">Configuração Estratégica</span>
+                <span className="text-[10px] md:text-xs font-bold text-muted-foreground/30 uppercase tracking-[0.2em]">Configuração Estratégica</span>
               </div>
               <div className="flex items-center gap-4">
                 <button 
@@ -2970,12 +2970,12 @@ const AdminOrcamentos = () => {
               
               <div className="space-y-2 mb-8 ml-1">
                 <h2 className="text-3xl md:text-4xl font-black text-white tracking-tighter">Detalhes do Projeto</h2>
-                <p className="text-zinc-500 text-sm font-medium">Gestão comercial de alta performance M5 Max.</p>
+                <p className="text-muted-foreground text-sm font-medium">Gestão comercial de alta performance M5 Max.</p>
               </div>
 
               {/* Status Segmented Control */}
               <section className="space-y-4">
-                <Label className="text-[10px] uppercase font-black text-white/20 ml-2 tracking-widest">Fase da Proposta</Label>
+                <Label className="text-[10px] uppercase font-black text-muted-foreground/20 ml-2 tracking-widest">Fase da Proposta</Label>
                 <div className="flex flex-wrap sm:flex-nowrap bg-white/5 p-1.5 rounded-[2rem] border border-white/5 gap-1">
                   {ORCAMENTO_STATUS_OPTIONS.filter(o => o.value !== 'realizado').map((s) => (
                     <button 
@@ -2985,7 +2985,7 @@ const AdminOrcamentos = () => {
                         "flex-1 py-3.5 rounded-[1.5rem] items-center justify-center transition-all duration-300",
                         editForm.status === s.value 
                           ? "bg-primary text-white shadow-xl shadow-primary/20 scale-[1.02]" 
-                          : "text-zinc-500 hover:text-zinc-300"
+                          : "text-muted-foreground hover:text-muted-foreground"
                       )}
                     >
                       <span className="text-[10px] font-black uppercase tracking-widest">{s.label}</span>
@@ -3016,7 +3016,7 @@ const AdminOrcamentos = () => {
                         className="bg-transparent border-none text-white text-lg font-bold w-full focus:outline-none p-0"
                         placeholder="Ex: 61984559495"
                       />
-                      <Phone className="h-5 w-5 text-white/10" />
+                      <Phone className="h-5 w-5 text-muted-foreground/10" />
                     </div>
                   </div>
 
@@ -3052,7 +3052,7 @@ const AdminOrcamentos = () => {
                           onChange={(e) => setEditForm({...editForm, evento_data: e.target.value})}
                           className="bg-transparent border-none text-white text-lg font-bold w-full focus:outline-none p-0 appearance-none color-scheme-dark"
                         />
-                        <Calendar className="h-5 w-5 text-white/10" />
+                        <Calendar className="h-5 w-5 text-muted-foreground/10" />
                       </div>
                     </div>
                     <div className="bg-white/[0.03] px-6 py-4 rounded-[1.8rem] border border-white/5 group focus-within:border-primary/30 transition-all">
@@ -3064,7 +3064,7 @@ const AdminOrcamentos = () => {
                           onChange={(e) => setEditForm({...editForm, evento_hora: e.target.value})}
                           className="bg-transparent border-none text-white text-lg font-bold w-full focus:outline-none p-0 appearance-none color-scheme-dark"
                         />
-                        <Clock className="h-5 w-5 text-white/10" />
+                        <Clock className="h-5 w-5 text-muted-foreground/10" />
                       </div>
                     </div>
                   </div>
@@ -3078,7 +3078,7 @@ const AdminOrcamentos = () => {
                         className="bg-transparent border-none text-white text-lg font-bold w-full focus:outline-none p-0"
                         placeholder="Ex: Brasília"
                       />
-                      <MapPin className="h-5 w-5 text-white/10" />
+                      <MapPin className="h-5 w-5 text-muted-foreground/10" />
                     </div>
                   </div>
                 </div>
@@ -3091,7 +3091,7 @@ const AdminOrcamentos = () => {
                     <div className="h-10 w-1.5 bg-primary rounded-full shadow-[0_0_15px_rgba(255,107,0,0.5)]" />
                     <div className="flex flex-col">
                       <h3 className="text-xl font-black uppercase tracking-[0.2em] text-white">Composição Técnica</h3>
-                      <span className="text-[10px] font-bold text-white/20 uppercase tracking-[0.3em]">Análise e Especificação de Itens</span>
+                      <span className="text-[10px] font-bold text-muted-foreground/20 uppercase tracking-[0.3em]">Análise e Especificação de Itens</span>
                     </div>
                   </div>
                   <div className="flex items-center gap-3 bg-white/5 px-5 py-2 rounded-2xl border border-white/5">
@@ -3101,7 +3101,7 @@ const AdminOrcamentos = () => {
                 </div>
 
                 {/* Desktop Header Guide */}
-                <div className="hidden lg:grid grid-cols-[1fr_140px_160px_160px_60px] gap-6 px-8 py-3 border-b border-white/5 text-[10px] font-black uppercase tracking-[0.2em] text-white/20">
+                <div className="hidden lg:grid grid-cols-[1fr_140px_160px_160px_60px] gap-6 px-8 py-3 border-b border-white/5 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/20">
                   <div>Especificação do Produto</div>
                   <div className="text-center">Valor Unitário</div>
                   <div className="text-center">Quantidade</div>
@@ -3124,19 +3124,19 @@ const AdminOrcamentos = () => {
                           
                           {/* Coluna 1: Produto */}
                           <div className="flex items-center gap-5 min-w-0">
-                            <div className="hidden lg:flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-black/40 border border-white/5 group-hover/item:border-primary/30 transition-colors">
-                              <Package className="h-5 w-5 text-white/20 group-hover/item:text-primary transition-colors" />
+                            <div className="hidden lg:flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-muted/60 border border-white/5 group-hover/item:border-primary/30 transition-colors">
+                              <Package className="h-5 w-5 text-muted-foreground/20 group-hover/item:text-primary transition-colors" />
                             </div>
                             <div className="flex-1 min-w-0">
                               <h4 className="text-base lg:text-lg font-black text-white truncate group-hover/item:text-primary transition-colors duration-300">
                                 {produto.nome}
                               </h4>
                               <div className="flex items-center gap-2 mt-1">
-                                <span className="text-[9px] font-mono font-bold text-white/20 uppercase tracking-widest bg-white/5 px-2 py-0.5 rounded">
+                                <span className="text-[9px] font-mono font-bold text-muted-foreground/20 uppercase tracking-widest bg-white/5 px-2 py-0.5 rounded">
                                   M5-{produto.produto_id.slice(0, 5).toUpperCase()}
                                 </span>
                                 {produtos.find(p => p.id === produto.produto_id)?.efeito && (
-                                  <span className="text-[9px] font-black text-emerald-500/50 uppercase tracking-widest flex items-center gap-1">
+                                  <span className="text-[9px] font-black text-success/50 uppercase tracking-widest flex items-center gap-1">
                                     <Zap size={8} /> {produtos.find(p => p.id === produto.produto_id)?.efeito}
                                   </span>
                                 )}
@@ -3146,7 +3146,7 @@ const AdminOrcamentos = () => {
 
                           {/* Coluna 2: Unitário (Mobile label inclusa) */}
                           <div className="mt-6 lg:mt-0 flex flex-row lg:flex-col justify-between items-center lg:text-center">
-                            <span className="lg:hidden text-[9px] font-black text-white/20 uppercase tracking-widest">Valor Unitário</span>
+                            <span className="lg:hidden text-[9px] font-black text-muted-foreground/20 uppercase tracking-widest">Valor Unitário</span>
                             <div className="flex flex-col lg:items-center">
                               <span className="text-sm font-bold text-white/60 tabular-nums">
                                 R$ {produto.valor_unitario.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
@@ -3156,8 +3156,8 @@ const AdminOrcamentos = () => {
 
                           {/* Coluna 3: Stepper Quantidade */}
                           <div className="mt-4 lg:mt-0 flex flex-row lg:flex-col justify-between items-center">
-                            <span className="lg:hidden text-[9px] font-black text-white/20 uppercase tracking-widest">Quantidade</span>
-                            <div className="flex items-center gap-1 bg-black/40 p-1 rounded-2xl border border-white/5 shadow-inner">
+                            <span className="lg:hidden text-[9px] font-black text-muted-foreground/20 uppercase tracking-widest">Quantidade</span>
+                            <div className="flex items-center gap-1 bg-muted/60 p-1 rounded-2xl border border-white/5 shadow-inner">
                               <button 
                                 onClick={() => {
                                   const updated = [...editForm.produtos];
@@ -3188,7 +3188,7 @@ const AdminOrcamentos = () => {
 
                           {/* Coluna 4: Subtotal */}
                           <div className="mt-6 lg:mt-0 flex flex-row lg:flex-col justify-between items-center lg:text-right">
-                            <span className="lg:hidden text-[9px] font-black text-white/20 uppercase tracking-widest font-mono">Subtotal do Item</span>
+                            <span className="lg:hidden text-[9px] font-black text-muted-foreground/20 uppercase tracking-widest font-mono">Subtotal do Item</span>
                             <div className="flex flex-col lg:items-end">
                               <span className="text-xl font-black text-white tracking-tighter tabular-nums bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
                                 R$ {(produto.quantidade * produto.valor_unitario).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
@@ -3204,7 +3204,7 @@ const AdminOrcamentos = () => {
                                 setEditForm({...editForm, produtos: updated});
                                 toast({ description: "Item removido com sucesso" });
                               }}
-                              className="h-12 w-12 lg:h-10 lg:w-10 flex items-center justify-center rounded-2xl bg-red-500/5 text-red-500/20 hover:bg-red-500 hover:text-white transition-all duration-300 group-hover/item:opacity-100 lg:opacity-0"
+                              className="h-12 w-12 lg:h-10 lg:w-10 flex items-center justify-center rounded-2xl bg-red-500/5 text-destructive/20 hover:bg-red-500 hover:text-white transition-all duration-300 group-hover/item:opacity-100 lg:opacity-0"
                             >
                               <Trash2 size={18} />
                             </button>
@@ -3228,7 +3228,7 @@ const AdminOrcamentos = () => {
                     <div className="h-14 w-14 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-primary transition-colors duration-500">
                       <Plus size={28} className="text-primary group-hover:text-white transition-colors duration-500" />
                     </div>
-                    <span className="text-zinc-500 font-black mt-4 uppercase tracking-[0.4em] text-[10px] group-hover:text-white transition-colors">Expandir Composição</span>
+                    <span className="text-muted-foreground font-black mt-4 uppercase tracking-[0.4em] text-[10px] group-hover:text-white transition-colors">Expandir Composição</span>
                   </motion.button>
                 </div>
               </section>
@@ -3242,7 +3242,7 @@ const AdminOrcamentos = () => {
 
                 <div className="flex flex-col sm:flex-row gap-3 bg-white/[0.02] p-3 rounded-2xl border border-white/5">
                    <div className="relative flex-1">
-                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-white/20" />
+                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/20" />
                      <Input 
                        placeholder="Pesquisar itens..." 
                        value={productSearchTerm}
@@ -3265,7 +3265,7 @@ const AdminOrcamentos = () => {
                          <p className="font-black text-sm text-white truncate group-hover:text-primary transition-colors">{p.nome_produto}</p>
                          <div className="flex items-center gap-3 mt-1">
                            <span className="text-[10px] font-black text-primary uppercase">R$ {p.valor_venda.toFixed(2)}</span>
-                           <span className="text-[10px] font-bold text-white/10 uppercase tracking-widest">SKU: {p.codigo}</span>
+                           <span className="text-[10px] font-bold text-muted-foreground/10 uppercase tracking-widest">SKU: {p.codigo}</span>
                          </div>
                        </div>
                        <Button 
@@ -3301,7 +3301,7 @@ const AdminOrcamentos = () => {
               <div className="text-center md:text-left">
                 <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary mb-2 block">Investimento Comercial</span>
                 <div className="flex items-baseline justify-center md:justify-start gap-1">
-                  <span className="text-sm font-bold text-white/30">R$</span>
+                  <span className="text-sm font-bold text-muted-foreground/30">R$</span>
                   <span className="text-5xl font-black text-white tracking-tighter">
                     {editForm.produtos.reduce((sum, p) => sum + (p.quantidade * p.valor_unitario), 0).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                   </span>

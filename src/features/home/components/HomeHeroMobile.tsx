@@ -150,7 +150,7 @@ const Hero = () => {
                   <span>Oferta Da Semana</span>
                   <span className="text-fire-orange">Agenda Limitada</span>
                 </div>
-                <p className="mt-1 text-[11px] text-white/90 leading-relaxed text-center">
+                <p className="mt-1 text-[11px] text-muted-foreground leading-relaxed text-center">
                   Condicoes exclusivas para <span className="text-fire-gold font-semibold">casamento</span> e <span className="text-fire-gold font-semibold">festa junina</span>.
                 </p>
               </div>
@@ -167,7 +167,7 @@ const Hero = () => {
                 <span className="text-fire-gradient block text-2xl mt-1">Ele se planeja.</span>
               </h1>
               
-              <p className="text-base text-white/90 drop-shadow-md leading-relaxed px-2">
+              <p className="text-base text-muted-foreground drop-shadow-md leading-relaxed px-2">
               Na M5 Max, cada show de fogos é desenhado com segurança, tecnologia e emoção para transformar o seu evento em um momento inesquecível.
               </p>
             </div>

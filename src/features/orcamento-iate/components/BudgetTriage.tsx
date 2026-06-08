@@ -140,7 +140,7 @@ export const BudgetTriage: React.FC<Props> = ({ variant = 'desktop', source = 'o
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <Badge variant="outline" className="border-fire-orange/50 text-fire-orange">Triagem técnica</Badge>
-            <span className="text-sm text-white/80">Coletamos só o essencial para o show do Iate 2026.</span>
+            <span className="text-sm text-muted-foreground">Coletamos só o essencial para o show do Iate 2026.</span>
           </div>
           <Badge variant="secondary" className="text-xs">Resposta em até 1 dia útil</Badge>
         </div>

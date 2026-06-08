@@ -134,7 +134,7 @@ const FogosM5Complete = () => {
           </h2>
           
           {/* Standardized Description */}
-          <p className="text-base text-white/85 mb-6 max-w-xl mx-auto">
+          <p className="text-base text-muted-foreground mb-6 max-w-xl mx-auto">
             40 anos transformando eventos em espetáculos memoráveis
           </p>
           
@@ -172,7 +172,7 @@ const FogosM5Complete = () => {
                           <Award className="w-6 h-6 text-fire-orange" />
                         </div>
                         <h3 className="text-lg font-bold text-white">Conheça a M5 Max</h3>
-                        <p className="text-sm text-white/80">
+                        <p className="text-sm text-muted-foreground">
                           40 anos transformando eventos em espetáculos memoráveis
                         </p>
                       </div>
@@ -201,7 +201,7 @@ const FogosM5Complete = () => {
                         <div className="text-sm font-bold text-white group-hover:text-fire-gold transition-colors duration-300 leading-none">
                           {stat.value}
                         </div>
-                        <div className="text-xs font-medium text-white/90 group-hover:text-white leading-tight transition-colors duration-300 text-center">
+                        <div className="text-xs font-medium text-muted-foreground group-hover:text-white leading-tight transition-colors duration-300 text-center">
                           {stat.label}
                         </div>
                       </div>

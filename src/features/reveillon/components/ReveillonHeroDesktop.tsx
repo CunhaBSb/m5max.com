@@ -129,7 +129,7 @@ const ReveillonHero = () => {
                 <span className="bg-gradient-to-r from-fire-gold to-fire-orange bg-clip-text text-transparent">Começa no céu.</span>
               </h1>
               
-              <p className="text-lg text-white/90 drop-shadow-md max-w-lg">
+              <p className="text-lg text-muted-foreground drop-shadow-md max-w-lg">
                 Produzimos um espetáculo de luz sincronizado e autorizado para a virada em Brasília, com projeto técnico, licenças e seguro incluídos.
               </p>
             </div>

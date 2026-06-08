@@ -133,29 +133,29 @@ const BudgetRequestFlow: React.FC<BudgetRequestFlowProps> = ({
   return (
     <>
       <Dialog open={isOpen} onOpenChange={handleFormClose}>
-        <DialogContent className="w-[96vw] max-w-4xl lg:max-w-5xl mx-auto p-0 border border-white/12 bg-slate-950/92 backdrop-blur-2xl rounded-3xl shadow-[0_24px_80px_-28px_rgba(0,0,0,0.85)] max-h-[calc(100vh-32px)] overflow-y-auto top-6 md:top-1/2 translate-y-0 md:-translate-y-1/2">
+        <DialogContent className="sm:max-w-4xl lg:max-w-5xl p-0">
           <div className="p-5 sm:p-6 space-y-4">
             <DialogHeader className="space-y-2 text-center">
-              <DialogTitle className="text-lg sm:text-2xl font-semibold bg-gradient-to-r from-fire-orange to-fire-gold bg-clip-text text-transparent drop-shadow">
+              <DialogTitle className="text-lg sm:text-2xl font-semibold bg-gradient-to-r from-primary to-amber-500 bg-clip-text text-transparent drop-shadow">
                 Reserve a sua data
               </DialogTitle>
-              <DialogDescription className="text-sm sm:text-base text-white/85">
+              <DialogDescription className="text-sm sm:text-base text-muted-foreground">
                 Finalize para receber proposta e simulacao 3D. Condicoes especiais para casamento e festa junina.
               </DialogDescription>
-              <div className="rounded-xl border border-fire-orange/35 bg-gradient-to-r from-fire-orange/10 via-fire-gold/5 to-fire-orange/10 px-3 py-2">
-                <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.15em] text-fire-gold/85 font-semibold">
+              <div className="rounded-xl border border-primary/35 bg-gradient-to-r from-primary/10 via-amber-500/5 to-primary/10 px-3 py-2">
+                <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.15em] text-primary/85 font-semibold">
                   <span>Oferta Premium</span>
-                  <span className="text-fire-orange">Agenda Limitada</span>
+                  <span className="text-primary">Agenda Limitada</span>
                 </div>
-                <p className="mt-1 text-[11px] text-white/88">
-                  Bonus de temporada para projetos de <span className="text-fire-gold font-semibold">casamento</span> e <span className="text-fire-gold font-semibold">festa junina</span>.
+                <p className="mt-1 text-[11px] text-muted-foreground">
+                  Bonus de temporada para projetos de <span className="text-primary font-semibold">casamento</span> e <span className="text-primary font-semibold">festa junina</span>.
                 </p>
               </div>
             </DialogHeader>
 
             {/* Progress Indicator */}
             <div className="space-y-2">
-              <div className="flex items-center justify-end text-[10px] sm:text-[11px] text-white/70">
+              <div className="flex items-center justify-end text-[10px] sm:text-[11px] text-muted-foreground">
                 <Badge variant="secondary" className="text-[10px] sm:text-[11px]">
                   Passo {currentStep} de 5
                 </Badge>
@@ -164,7 +164,7 @@ const BudgetRequestFlow: React.FC<BudgetRequestFlowProps> = ({
             </div>
 
             {/* Dynamic Content */}
-            <div className="rounded-2xl border border-white/10 bg-slate-950/88 p-3 sm:p-5 shadow-inner space-y-3">
+            <div className="rounded-2xl border border-white/10 bg-muted/40 p-3 sm:p-5 shadow-inner space-y-3">
               {renderContent()}
             </div>
           </div>
@@ -172,16 +172,16 @@ const BudgetRequestFlow: React.FC<BudgetRequestFlowProps> = ({
       </Dialog>
 
       {showSuccessBanner && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center px-4">
-          <div className="max-w-lg w-full bg-emerald-950/90 border border-emerald-500/40 shadow-2xl shadow-emerald-900/40 rounded-2xl p-6 flex flex-col gap-4 text-center animate-in fade-in zoom-in-95">
+        <div className="fixed inset-0 z-50 bg-charcoal-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="max-w-lg w-full bg-card border border-success/40 shadow-soft-xl rounded-xl p-6 flex flex-col gap-4 text-center animate-in fade-in zoom-in-95">
             <div className="flex justify-center">
-              <div className="h-12 w-12 rounded-full bg-emerald-500/20 border border-emerald-400/60 flex items-center justify-center">
-                <CheckCircle2 className="w-7 h-7 text-emerald-200" />
+              <div className="h-12 w-12 rounded-full bg-success/10 border border-success/60 flex items-center justify-center">
+                <CheckCircle2 className="w-7 h-7 text-success" />
               </div>
             </div>
             <div className="space-y-1">
-              <p className="text-lg font-semibold text-emerald-50">Recebido!</p>
-              <p className="text-sm text-emerald-100/90">Um especialista responderá em breve com sua proposta.</p>
+              <p className="text-lg font-semibold text-foreground">Recebido!</p>
+              <p className="text-sm text-muted-foreground">Um especialista responderá em breve com sua proposta.</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 sm:justify-center">
               <Button

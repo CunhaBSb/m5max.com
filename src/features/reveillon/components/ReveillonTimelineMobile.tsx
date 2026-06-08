@@ -94,7 +94,7 @@ const TimelineSection = () => {
           </h2>
           
           {/* Standardized Description */}
-          <p className="text-base text-white/85 mb-6 max-w-xl mx-auto">
+          <p className="text-base text-muted-foreground mb-6 max-w-xl mx-auto">
             Do primeiro contato até o espetáculo final, cuidamos de cada detalhe
           </p>
         </div>
@@ -137,7 +137,7 @@ const TimelineSection = () => {
                     </div>
 
                     {/* Description */}
-                    <p className="text-white/70 text-sm leading-relaxed mb-4">
+                    <p className="text-muted-foreground text-sm leading-relaxed mb-4">
                       {step.description}
                     </p>
 
@@ -146,7 +146,7 @@ const TimelineSection = () => {
                       {step.features.map((feature, featureIndex) => (
                         <div key={featureIndex} className="flex items-center gap-2 text-xs text-white/60">
                           <div className="w-1.5 h-1.5 rounded-full bg-fire-orange group-hover:bg-fire-gold transition-colors"></div>
-                          <span className="group-hover:text-white/80 transition-colors">{feature}</span>
+                          <span className="group-hover:text-muted-foreground transition-colors">{feature}</span>
                         </div>
                       ))}
                     </div>

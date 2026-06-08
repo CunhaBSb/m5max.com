@@ -137,7 +137,7 @@ const ProductHero = () => {
                     <span className="text-fire-gradient">Profissionais</span>
                   </h1>
                   
-                  <p className="text-lg lg:text-xl text-white/90 leading-relaxed max-w-lg">
+                  <p className="text-lg lg:text-xl text-muted-foreground leading-relaxed max-w-lg">
                     Shows prontos para o seu evento especial. Segurança certificada e 40+ anos de experiência.
                   </p>
                 </div>
@@ -146,15 +146,15 @@ const ProductHero = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div className="bg-white/10 backdrop-blur-sm rounded-lg p-2.5 border border-white/20 text-center">
                     <div className="text-lg font-bold text-fire-gold mb-0.5">40+</div>
-                    <div className="text-white/80 text-xs">Anos de Experiência</div>
+                    <div className="text-muted-foreground text-xs">Anos de Experiência</div>
                   </div>
                   <div className="bg-white/10 backdrop-blur-sm rounded-lg p-2.5 border border-white/20 text-center">
                     <div className="text-lg font-bold text-fire-gold mb-0.5">2K+</div>
-                    <div className="text-white/80 text-xs">Eventos Realizados</div>
+                    <div className="text-muted-foreground text-xs">Eventos Realizados</div>
                   </div>
                   <div className="bg-white/10 backdrop-blur-sm rounded-lg p-2.5 border border-white/20 text-center">
                     <div className="text-lg font-bold text-fire-gold mb-0.5">100%</div>
-                    <div className="text-white/80 text-xs">Segurança Certificada</div>
+                    <div className="text-muted-foreground text-xs">Segurança Certificada</div>
                   </div>
                 </div>
 
@@ -192,7 +192,7 @@ const ProductHero = () => {
                       </div>
                       <h3 className="text-base font-bold text-white">Segurança Garantida</h3>
                     </div>
-                    <p className="text-white/80 text-sm">
+                    <p className="text-muted-foreground text-sm">
                       Todos os produtos seguem rigorosos padrões de segurança e incluem instruções detalhadas para uso responsável.
                     </p>
                   </div>
@@ -204,7 +204,7 @@ const ProductHero = () => {
                       </div>
                       <h3 className="text-base font-bold text-white">Entrega Rápida</h3>
                     </div>
-                    <p className="text-white/80 text-sm">
+                    <p className="text-muted-foreground text-sm">
                       Logística otimizada para garantir que seu evento aconteça no prazo. Entregamos em todo o Brasil.
                     </p>
                   </div>
@@ -216,7 +216,7 @@ const ProductHero = () => {
                       </div>
                       <h3 className="text-base font-bold text-white">Suporte Completo</h3>
                     </div>
-                    <p className="text-white/80 text-sm">
+                    <p className="text-muted-foreground text-sm">
                       Atendimento via WhatsApp para esclarecimento de dúvidas e suporte técnico durante seu evento.
                     </p>
                   </div>

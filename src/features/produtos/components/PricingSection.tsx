@@ -88,7 +88,7 @@ const PricingSection = () => {
           <h2 className="text-2xl font-bold mb-3 bg-gradient-to-r from-fire-gold to-fire-orange bg-clip-text text-transparent">
             Preços e Orçamentos Premium
           </h2>
-          <p className="text-sm text-white/80 leading-relaxed">
+          <p className="text-sm text-muted-foreground leading-relaxed">
             Transparência total em nossos preços e orçamentos personalizados para cada necessidade
           </p>
         </div>
@@ -128,7 +128,7 @@ const PricingSection = () => {
             <div className="text-3xl font-bold mb-4 bg-gradient-to-r from-fire-gold to-fire-orange bg-clip-text text-transparent">
               {minPrice === null || maxPrice === null ? 'Sob consulta' : formatPrecoRange([minPrice, maxPrice])}
             </div>
-            <p className="text-white/70 mb-4 text-xs leading-relaxed">
+            <p className="text-muted-foreground mb-4 text-xs leading-relaxed">
               {selectedCategory === 'kit_festa' 
                 ? 'Para casamentos de sonho, aniversários memoráveis e celebrações que merecem o melhor'
                 : 'Para revelação do sexo do bebê com fogos coloridos exclusivos e momentos únicos'
@@ -144,7 +144,7 @@ const PricingSection = () => {
         <div className="space-y-6 mb-12">
           <div className="bg-white/5 rounded-xl p-6 border border-fire-orange/30 text-center">
             <h4 className="text-white font-bold mb-2">Receba um orçamento personalizado</h4>
-            <p className="text-white/70 text-sm mb-4">Resposta rápida pela nossa equipe</p>
+            <p className="text-muted-foreground text-sm mb-4">Resposta rápida pela nossa equipe</p>
             <Button
               onClick={handleQuoteRequest}
               className="w-full py-3 font-bold transition-all duration-300 bg-gradient-to-r from-fire-gold to-fire-orange hover:from-fire-orange hover:to-fire-gold text-black"
@@ -160,7 +160,7 @@ const PricingSection = () => {
             <h3 className="text-2xl font-bold text-white mb-4">
               Como Calculamos Seu Orçamento?
             </h3>
-            <p className="text-white/70 text-sm leading-relaxed">
+            <p className="text-muted-foreground text-sm leading-relaxed">
               Diversos fatores são considerados para criar o orçamento perfeito para seu evento
             </p>
           </div>
@@ -172,7 +172,7 @@ const PricingSection = () => {
                   <factor.icon className="w-6 h-6 text-fire-gold" />
                 </div>
                 <h4 className="text-white font-bold mb-2 text-sm">{factor.title}</h4>
-                <p className="text-white/70 text-xs leading-relaxed">{factor.description}</p>
+                <p className="text-muted-foreground text-xs leading-relaxed">{factor.description}</p>
               </div>
             ))}
           </div>
@@ -183,7 +183,7 @@ const PricingSection = () => {
           <h3 className="text-xl font-bold text-white mb-4">
             Pronto para Seu Orçamento?
           </h3>
-          <p className="text-white/70 mb-8 text-sm leading-relaxed">
+          <p className="text-muted-foreground mb-8 text-sm leading-relaxed">
             Entre em contato para receber um orçamento detalhado e personalizado para seu evento dos sonhos. 
             Nossa equipe garantirá o espetáculo perfeito.
           </p>

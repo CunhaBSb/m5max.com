@@ -169,7 +169,7 @@ export const SupabaseConnectionStatus = ({
 
   if (usingFallback) {
     return (
-      <div className="flex items-center gap-2 text-xs text-orange-500">
+      <div className="flex items-center gap-2 text-xs text-primary">
         <div className="w-2 h-2 rounded-full bg-orange-500"></div>
         Modo offline
       </div>

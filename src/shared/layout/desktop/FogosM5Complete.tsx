@@ -125,7 +125,7 @@ const FogosM5Complete = () => {
           </h2>
           
           {/* Standardized Description */}
-          <p className="text-lg text-white/85 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
             40 anos transformando eventos em espetáculos memoráveis
           </p>
         </div>
@@ -154,11 +154,11 @@ const FogosM5Complete = () => {
                           {stat.value}
                         </div>
                         
-                        <div className="text-sm font-medium text-white/90 leading-tight">
+                        <div className="text-sm font-medium text-muted-foreground leading-tight">
                           {stat.label}
                         </div>
                         
-                        <div className="text-xs text-white/70 leading-tight text-center">
+                        <div className="text-xs text-muted-foreground leading-tight text-center">
                           {stat.description}
                         </div>
                       </div>
@@ -196,7 +196,7 @@ const FogosM5Complete = () => {
                           <Award className="w-8 h-8 text-fire-orange" />
                         </div>
                         <h3 className="text-xl font-bold text-white">Conheça a M5 Max</h3>
-                        <p className="text-base text-white/80">
+                        <p className="text-base text-muted-foreground">
                           40 anos transformando eventos em espetáculos memoráveis
                         </p>
                       </div>
@@ -229,11 +229,11 @@ const FogosM5Complete = () => {
                           {stat.value}
                         </div>
                         
-                        <div className="text-sm font-medium text-white/90 leading-tight">
+                        <div className="text-sm font-medium text-muted-foreground leading-tight">
                           {stat.label}
                         </div>
                         
-                        <div className="text-xs text-white/70 leading-tight text-center">
+                        <div className="text-xs text-muted-foreground leading-tight text-center">
                           {stat.description}
                         </div>
                       </div>

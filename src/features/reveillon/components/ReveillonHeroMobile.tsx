@@ -168,10 +168,10 @@ const Hero = () => {
               <h1 className="text-2xl font-bold leading-tight drop-shadow-lg">
                 <span className="text-white block">A virada que</span>
                 <span className="text-fire-gradient block">entra para a história</span>
-                <span className="text-white/90 text-lg block mt-1">Começa no céu</span>
+                <span className="text-muted-foreground text-lg block mt-1">Começa no céu</span>
               </h1>
               
-              <p className="text-base text-white/90 drop-shadow-md leading-relaxed px-2">
+              <p className="text-base text-muted-foreground drop-shadow-md leading-relaxed px-2">
                 Entregamos um show visual sincronizado e autorizado para a virada em Brasília, com projeto técnico, licenças e seguro incluídos.
               </p>
 
@@ -246,7 +246,7 @@ const Hero = () => {
                     <span>Oferta Da Semana</span>
                     <span className="text-fire-orange">Vagas Finais</span>
                   </div>
-                  <p className="mt-1 text-[11px] text-white/90 leading-relaxed text-center">
+                  <p className="mt-1 text-[11px] text-muted-foreground leading-relaxed text-center">
                     Condicoes especiais para <span className="text-fire-gold font-semibold">casamento</span> e <span className="text-fire-gold font-semibold">festa junina</span>.
                   </p>
                 </div>

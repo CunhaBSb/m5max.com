@@ -80,7 +80,7 @@ export const OrcamentoCard = ({
 
             {orcamento.evento_hora && (
               <div className="flex flex-col justify-center border-l border-white/10 pl-5 h-12">
-                 <span className="text-[9px] font-black text-white/20 uppercase tracking-[0.3em] mb-1">Horário</span>
+                 <span className="text-[9px] font-black text-muted-foreground/20 uppercase tracking-[0.3em] mb-1">Horário</span>
                  <div className="flex items-center gap-2 text-white group-hover:text-primary transition-colors">
                    <Clock className="h-4 w-4 opacity-40" />
                    <span className="text-xl font-black tracking-tighter">
@@ -93,7 +93,7 @@ export const OrcamentoCard = ({
 
           {/* Value Section */}
           <div className="flex flex-col md:items-end md:text-right">
-             <span className="text-[10px] font-black text-white/20 uppercase tracking-[0.3em] mb-1">Investimento Previsto</span>
+             <span className="text-[10px] font-black text-muted-foreground/20 uppercase tracking-[0.3em] mb-1">Investimento Previsto</span>
              <span className="text-3xl font-black text-white tracking-tighter group-hover:text-primary transition-colors">
                R$ {(orcamento.valor_total || 0).toLocaleString('pt-BR', { minimumFractionDigits: 0 })}
              </span>
@@ -110,7 +110,7 @@ export const OrcamentoCard = ({
               {statusMeta.label}
             </Badge>
             <div className="h-1 w-1 rounded-full bg-white/10" />
-            <span className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em]">
+            <span className="text-[10px] font-bold text-muted-foreground/30 uppercase tracking-[0.2em]">
               {orcamento.tipo === 'show_pirotecnico' ? 'PROPOSTA TÁTICA' : 'VENDA DIRETA'}
             </span>
           </div>
@@ -124,7 +124,7 @@ export const OrcamentoCard = ({
               <div className="p-2 rounded-xl bg-white/5 text-primary transition-all group-hover/info:bg-primary group-hover/info:text-white">
                 <Package className="h-4 w-4" />
               </div>
-              <span className="text-sm font-bold text-white/80 truncate">{orcamento.evento_nome || 'Orçamento S/N'}</span>
+              <span className="text-sm font-bold text-muted-foreground truncate">{orcamento.evento_nome || 'Orçamento S/N'}</span>
             </div>
             <div className="flex items-center gap-3 text-white/40 group/info">
               <div className="p-2 rounded-xl bg-white/5 text-primary transition-all group-hover/info:bg-primary group-hover/info:text-white">
@@ -142,7 +142,7 @@ export const OrcamentoCard = ({
               {(orcamento.usuarios?.nome || 'A').charAt(0)}
             </div>
             <div className="flex flex-col">
-              <span className="text-[9px] font-black uppercase tracking-[0.3em] text-white/20">Responsável</span>
+              <span className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/20">Responsável</span>
               <span className="text-xs font-bold text-white/60">{orcamento.usuarios?.nome || 'Sistema M5'}</span>
             </div>
           </div>
@@ -168,23 +168,23 @@ export const OrcamentoCard = ({
                   <MoreVertical className="h-5 w-5" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56 bg-[#0a0a0a] border-white/10 rounded-2xl p-2 shadow-2xl backdrop-blur-xl">
+              <DropdownMenuContent align="end" className="w-56 bg-card border-white/10 rounded-2xl p-2 shadow-2xl backdrop-blur-xl">
                 <DropdownMenuItem onClick={() => onGeneratePdf(orcamento)} className="rounded-xl focus:bg-primary/10 focus:text-primary cursor-pointer py-3 font-bold text-xs uppercase tracking-widest">
                   <FileText className="h-4 w-4 mr-3 opacity-50" />
                   Gerar PDF Oficial
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => onFullEdit(orcamento)} className="rounded-xl focus:bg-blue-500/10 focus:text-blue-400 cursor-pointer py-3 font-bold text-xs uppercase tracking-widest">
+                <DropdownMenuItem onClick={() => onFullEdit(orcamento)} className="rounded-xl focus:bg-blue-500/10 focus:text-tech-blue cursor-pointer py-3 font-bold text-xs uppercase tracking-widest">
                   <Edit className="h-4 w-4 mr-3 opacity-50" />
                   Editar Completo
                 </DropdownMenuItem>
                 {!isStatusLocked && (
-                  <DropdownMenuItem onClick={() => onEdit(orcamento)} className="rounded-xl focus:bg-emerald-500/10 focus:text-emerald-400 cursor-pointer py-3 font-bold text-xs uppercase tracking-widest">
+                  <DropdownMenuItem onClick={() => onEdit(orcamento)} className="rounded-xl focus:bg-emerald-500/10 focus:text-success cursor-pointer py-3 font-bold text-xs uppercase tracking-widest">
                     <CheckCircle className="h-4 w-4 mr-3 opacity-50" />
                     Mudar Status
                   </DropdownMenuItem>
                 )}
                 <div className="h-px bg-white/5 my-2" />
-                <DropdownMenuItem onClick={() => onDelete(orcamento.id)} className="rounded-xl focus:bg-red-500/10 focus:text-red-400 text-red-500/70 cursor-pointer py-3 font-bold text-xs uppercase tracking-widest">
+                <DropdownMenuItem onClick={() => onDelete(orcamento.id)} className="rounded-xl focus:bg-red-500/10 focus:text-destructive text-destructive/70 cursor-pointer py-3 font-bold text-xs uppercase tracking-widest">
                   <Trash2 className="h-4 w-4 mr-3" />
                   Excluir Proposta
                 </DropdownMenuItem>

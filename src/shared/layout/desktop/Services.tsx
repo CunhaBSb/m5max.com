@@ -68,7 +68,7 @@ const Services = () => {
             </h2>
             
             {/* Standardized Description */}
-            <p className="text-lg text-white/85">
+            <p className="text-lg text-muted-foreground">
               Conheça alguns dos nossos espetáculos realizados e se inspire para o seu próximo evento.
             </p>
           </div>
@@ -80,7 +80,7 @@ const Services = () => {
               <h3 className="text-base font-semibold text-white mb-2">
                 Siga a <span className="text-fire-gradient">M5 Max</span>
               </h3>
-              <p className="text-white/70 text-sm leading-relaxed mb-3">
+              <p className="text-muted-foreground text-sm leading-relaxed mb-3">
                 Acompanhe nossos espetáculos nas redes sociais
               </p>
             </div>

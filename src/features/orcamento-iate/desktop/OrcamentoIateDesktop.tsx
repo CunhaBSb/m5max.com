@@ -125,7 +125,7 @@ const OrcamentoIateDesktop = () => {
                       <br />
                       <span className="text-fire-gradient">Réveillon 2026</span>
                     </h1>
-                    <p className="text-lg text-white/90 drop-shadow-md max-w-xl leading-relaxed">
+                    <p className="text-lg text-muted-foreground drop-shadow-md max-w-xl leading-relaxed">
                       Show coreografado para mídia e impulsionamento: mega efeitos desenhados para imagens incríveis, ápices com fumaça reduzida e impacto direto no público local. Nossa missão é eternizar a virada com estilo e garantir que seu evento seja o registro mais memorável de 2026.
                     </p>
                     <div className="flex flex-wrap gap-2">
@@ -184,7 +184,7 @@ const OrcamentoIateDesktop = () => {
                       <span className="text-white font-medium text-xs">Certificado</span>
                     </div>
                     <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-2.5 py-1.5 rounded-full border border-blue-400/40">
-                      <span className="text-blue-400 font-bold text-xs">40</span>
+                      <span className="text-tech-blue font-bold text-xs">40</span>
                       <span className="text-white font-medium text-xs">Anos</span>
                     </div>
                     <div className="flex items-center gap-1.5 bg-white/10 backdrop-blur-sm px-2.5 py-1.5 rounded-full border border-purple-400/40">
@@ -244,8 +244,8 @@ const OrcamentoIateDesktop = () => {
                             <Icon className="w-5 h-5 text-fire-orange" />
                           </div>
                           <div className="text-xl font-bold text-white">{stat.value}</div>
-                          <div className="text-sm font-medium text-white/90 leading-tight">{stat.label}</div>
-                          <div className="text-xs text-white/70 leading-tight">{stat.desc}</div>
+                          <div className="text-sm font-medium text-muted-foreground leading-tight">{stat.label}</div>
+                          <div className="text-xs text-muted-foreground leading-tight">{stat.desc}</div>
                         </CardContent>
                       </Card>
                     );
@@ -284,8 +284,8 @@ const OrcamentoIateDesktop = () => {
                             <Icon className="w-5 h-5 text-fire-gold" />
                           </div>
                           <div className="text-xl font-bold text-white">{stat.value}</div>
-                          <div className="text-sm font-medium text-white/90 leading-tight">{stat.label}</div>
-                          <div className="text-xs text-white/70 leading-tight">{stat.desc}</div>
+                          <div className="text-sm font-medium text-muted-foreground leading-tight">{stat.label}</div>
+                          <div className="text-xs text-muted-foreground leading-tight">{stat.desc}</div>
                         </CardContent>
                       </Card>
                     );
@@ -295,14 +295,14 @@ const OrcamentoIateDesktop = () => {
 
               <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
                 <Card className="bg-gradient-to-br from-amber-500/12 via-amber-500/8 to-white/4 border border-amber-400/30 shadow-elegant h-full">
-                  <CardContent className="p-5 space-y-4 text-sm text-white/85 leading-relaxed">
+                  <CardContent className="p-5 space-y-4 text-sm text-muted-foreground leading-relaxed">
                     <h4 className="text-white font-semibold text-base">Confiabilidade em campo</h4>
                     <p className="text-amber-100 text-xs leading-relaxed">
                       Simulação: por ser pólvora, tempos podem variar. Mantemos a ordem dos efeitos e comunicamos qualquer ajuste antes da execução. Ao vivo, as cores ficam mais intensas e vibrantes.
                     </p>
-                    <div className="grid grid-cols-1 gap-2 text-white/80">
+                    <div className="grid grid-cols-1 gap-2 text-muted-foreground">
                       <div className="flex items-start gap-2">
-                        <Shield className="w-4 h-4 text-emerald-400 mt-0.5" />
+                        <Shield className="w-4 h-4 text-success mt-0.5" />
                         <span>Isolamento, vento e contingência revisados no dia</span>
                       </div>
                       <div className="flex items-start gap-2">
@@ -323,7 +323,7 @@ const OrcamentoIateDesktop = () => {
                       <DownloadCloud className="w-4 h-4 text-fire-orange" />
                       <h4 className="text-white font-semibold text-base">Ajustes e entrega</h4>
                     </div>
-                    <p className="text-white/80 text-sm leading-relaxed">
+                    <p className="text-muted-foreground text-sm leading-relaxed">
                       Atualizações finais e entrega do PDF com custos, cronograma e memorial. Canal direto aberto para ajustes rápidos.
                     </p>
                     <div className="flex flex-wrap gap-3">
@@ -448,7 +448,7 @@ const OrcamentoIateDesktop = () => {
                 'Equipe completa para montagem, checagem e operação em campo'
               ].map((item) => (
                 <Card key={item} className="bg-gradient-to-br from-white/8 via-white/5 to-white/3 border border-white/10 shadow-elegant">
-                  <CardContent className="py-4 px-5 text-white/85 text-sm leading-relaxed flex gap-3 items-start">
+                  <CardContent className="py-4 px-5 text-muted-foreground text-sm leading-relaxed flex gap-3 items-start">
                     <div className="w-6 h-6 rounded-full bg-fire-orange/20 flex items-center justify-center mt-0.5 ring-1 ring-fire-orange/40">
                       <CheckCircle2 className="w-3.5 h-3.5 text-fire-gold" />
                     </div>
@@ -472,7 +472,7 @@ const OrcamentoIateDesktop = () => {
                 <h3 className="text-lg font-semibold text-white">Orçamento detalhado</h3>
                 <span className="text-xs px-2 py-1 rounded-full bg-emerald-500/15 border border-emerald-400/40 text-emerald-100">Disponível</span>
               </div>
-              <p className="text-white/80 text-sm leading-relaxed">
+              <p className="text-muted-foreground text-sm leading-relaxed">
                 PDF com custos, cronograma, memorial e exigências locais. Disponível para consulta e download seguro.
               </p>
               <div className="flex gap-3 flex-wrap">
@@ -504,7 +504,7 @@ const OrcamentoIateDesktop = () => {
               />
             </div>
             <div className="flex items-center justify-between px-6 py-4 border-t border-white/10">
-              <p className="text-sm text-white/70">Visualização em tela quase cheia. Você pode salvar o PDF.</p>
+              <p className="text-sm text-muted-foreground">Visualização em tela quase cheia. Você pode salvar o PDF.</p>
               <Button asChild variant="outline-fire">
                 <a href={ORCAMENTO_IATE_PDF_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                   <DownloadCloud className="w-4 h-4" /> Baixar PDF

@@ -96,7 +96,7 @@ const OrcamentoIateMobile = () => {
                 <span className="block text-fire-gradient text-2xl">Réveillon 2026</span>
               </h1>
 
-              <p className="text-white/85 text-base leading-relaxed">
+              <p className="text-muted-foreground text-base leading-relaxed">
                 Coreografado para mídia: efeitos para imagens impecáveis, picos com baixa fumaça e impacto direto no público. Missão: eternizar a virada com estilo.
               </p>
 
@@ -154,7 +154,7 @@ const OrcamentoIateMobile = () => {
                   title="Simulação 3D — Show Iate Clube de Brasília 2026"
                   className="rounded-lg"
                 />
-                <div className="text-xs text-white/70 leading-relaxed">
+                <div className="text-xs text-muted-foreground leading-relaxed">
                   Por ser pólvora, tempos podem variar. Mantemos a ordem dos efeitos e comunicamos qualquer ajuste antes do show. Cores ficam mais intensas ao vivo.
                 </div>
               </CardContent>
@@ -220,7 +220,7 @@ const OrcamentoIateMobile = () => {
                 'Equipe completa para montagem, checagem e operação'
               ].map((item) => (
                 <Card key={item} className="bg-white/8 border-white/10 shadow-elegant">
-                  <CardContent className="p-3 text-white/85 text-sm leading-relaxed flex gap-2">
+                  <CardContent className="p-3 text-muted-foreground text-sm leading-relaxed flex gap-2">
                     <CheckCircle2 className="w-4 h-4 text-fire-gold mt-0.5" />
                     <span>{item}</span>
                   </CardContent>
@@ -247,7 +247,7 @@ const OrcamentoIateMobile = () => {
                   <h3 className="text-white font-semibold text-base">Orçamento detalhado</h3>
                   <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-400/40 text-emerald-100">Disponível</span>
                 </div>
-                <p className="text-white/80 text-sm leading-relaxed">
+                <p className="text-muted-foreground text-sm leading-relaxed">
                   PDF com custos, cronograma e memorial. Download seguro abaixo.
                 </p>
               <div className="flex flex-wrap gap-3">
@@ -280,7 +280,7 @@ const OrcamentoIateMobile = () => {
                 className="w-full h-full border-0"
               />
             </div>
-            <div className="flex items-center justify-between px-4 py-3 border-t border-white/10 text-sm text-white/80 bg-background/80 backdrop-blur">
+            <div className="flex items-center justify-between px-4 py-3 border-t border-white/10 text-sm text-muted-foreground bg-background/80 backdrop-blur">
               <Button asChild variant="outline-fire" className="h-10">
                 <a href={ORCAMENTO_IATE_PDF_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
                   <DownloadCloud className="w-4 h-4" /> Baixar PDF

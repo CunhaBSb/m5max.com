@@ -125,10 +125,10 @@ export default function AdminProdutos() {
   });
 
   const getStockColor = (qtd: number | null) => {
-    if (qtd === null) return "text-white/20";
-    if (qtd <= 5) return "text-red-500 font-bold";
-    if (qtd <= 15) return "text-orange-500/80";
-    return "text-emerald-500/80";
+    if (qtd === null) return "text-muted-foreground/20";
+    if (qtd <= 5) return "text-destructive font-bold";
+    if (qtd <= 15) return "text-primary/80";
+    return "text-success/80";
   };
 
   return (
@@ -138,12 +138,12 @@ export default function AdminProdutos() {
           <div className="space-y-6">
             {/* Barra de Pesquisa */}
             <div className="relative group">
-              <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-white/20 transition-colors group-focus-within:text-primary sm:left-6 sm:h-6 sm:w-6" />
+              <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground/20 transition-colors group-focus-within:text-primary sm:left-6 sm:h-6 sm:w-6" />
               <Input
                 placeholder="Pesquisar por SKU, Nome ou Categoria..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="h-14 w-full rounded-[22px] border-white/[0.06] bg-white/[0.02] pl-12 text-base font-medium shadow-2xl transition-all placeholder:text-white/10 focus:border-primary/40 focus:ring-0 sm:h-16 sm:rounded-[24px] sm:pl-16 sm:text-lg"
+                className="h-14 w-full rounded-[22px] border-white/[0.06] bg-white/[0.02] pl-12 text-base font-medium shadow-2xl transition-all placeholder:text-muted-foreground/10 focus:border-primary/40 focus:ring-0 sm:h-16 sm:rounded-[24px] sm:pl-16 sm:text-lg"
               />
             </div>
 
@@ -154,7 +154,7 @@ export default function AdminProdutos() {
                   
                   {/* Lado Esquerdo: Efeitos */}
                   <div className="flex-1 bg-white/[0.02] rounded-[24px] sm:rounded-[32px] p-4 sm:p-6 flex flex-col items-center justify-center border border-white/5">
-                    <span className="text-[10px] font-black uppercase text-white/20 tracking-[0.4em] mb-4">Categorias de Fogos</span>
+                    <span className="text-[10px] font-black uppercase text-muted-foreground/20 tracking-[0.4em] mb-4">Categorias de Fogos</span>
                     <div className="flex flex-wrap items-center justify-center gap-2">
                       {EFEITOS_RAPIDOS.map((effect) => (
                         <button
@@ -175,16 +175,16 @@ export default function AdminProdutos() {
 
                   {/* Lado Direito: Ordenação */}
                   <div className="flex-1 bg-white/[0.02] rounded-[24px] sm:rounded-[32px] p-4 sm:p-6 flex flex-col items-center justify-center border border-white/5">
-                    <span className="text-[10px] font-black uppercase text-white/20 tracking-[0.4em] mb-4">Ordenação Estratégica</span>
+                    <span className="text-[10px] font-black uppercase text-muted-foreground/20 tracking-[0.4em] mb-4">Ordenação Estratégica</span>
                     <div className="flex flex-col items-center gap-4 w-full">
-                      <div className="flex gap-2 p-1.5 bg-black/40 rounded-2xl border border-white/5 w-fit">
+                      <div className="flex gap-2 p-1.5 bg-muted/60 rounded-2xl border border-white/5 w-fit">
                         <button
                           onClick={() => setPriceSort(prev => prev === "none" ? "asc" : prev === "asc" ? "desc" : "none")}
                           className={cn(
                             "px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-[0.18em] transition-all duration-300 flex items-center gap-2 border sm:px-5",
                             priceSort !== "none"
                               ? "bg-primary/10 border-primary/30 text-primary"
-                              : "border-transparent text-white/30 hover:bg-white/5"
+                              : "border-transparent text-muted-foreground/30 hover:bg-white/5"
                           )}
                         >
                           Preço {priceSort === "asc" ? "↓" : priceSort === "desc" ? "↑" : ""}
@@ -195,8 +195,8 @@ export default function AdminProdutos() {
                           className={cn(
                             "px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-[0.18em] transition-all duration-300 flex items-center gap-2 border sm:px-5",
                             durationSort !== "none"
-                              ? "bg-blue-500/10 border-blue-500/30 text-blue-400"
-                              : "border-transparent text-white/30 hover:bg-white/5"
+                              ? "bg-blue-500/10 border-blue-500/30 text-tech-blue"
+                              : "border-transparent text-muted-foreground/30 hover:bg-white/5"
                           )}
                         >
                           Duração {durationSort === "asc" ? "↓" : durationSort === "desc" ? "↑" : ""}
@@ -206,7 +206,7 @@ export default function AdminProdutos() {
                       {priceSort === "asc" && durationSort === "desc" && (
                         <div className="flex items-center gap-2 bg-emerald-500/10 px-4 py-1.5 rounded-full border border-emerald-500/20 animate-pulse">
                           <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                          <span className="text-[8px] font-black text-emerald-500 uppercase tracking-widest">Custo-Benefício Ativo</span>
+                          <span className="text-[8px] font-black text-success uppercase tracking-widest">Custo-Benefício Ativo</span>
                         </div>
                       )}
                     </div>
@@ -227,7 +227,7 @@ export default function AdminProdutos() {
               </div>
             ) : produtos?.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-28 sm:py-40 border border-white/[0.04] bg-white/[0.01] rounded-[28px] sm:rounded-[40px]">
-                <PackageSearch className="h-16 w-16 text-white/10 mb-6" />
+                <PackageSearch className="h-16 w-16 text-muted-foreground/10 mb-6" />
                 <h3 className="text-xl font-bold text-white/60 uppercase tracking-widest">Nenhum produto indexado</h3>
                 <button
                   onClick={() => {
@@ -265,7 +265,7 @@ export default function AdminProdutos() {
                           <span className="rounded-md border border-white/10 bg-white/5 px-1.5 py-0.5 text-[8px] font-black uppercase tracking-widest text-white/40">
                             {getCategoryDisplayName(produto.categoria)}
                           </span>
-                          <span className="rounded-md border border-white/10 bg-black/40 px-1.5 py-0.5 text-[8px] font-mono font-bold uppercase tracking-widest text-white/35">
+                          <span className="rounded-md border border-white/10 bg-muted/60 px-1.5 py-0.5 text-[8px] font-mono font-bold uppercase tracking-widest text-white/35">
                             ID {produto.codigo}
                           </span>
                         </div>
@@ -282,8 +282,8 @@ export default function AdminProdutos() {
                       </div>
 
                       <div className="relative z-10 shrink-0 rounded-xl border border-blue-500/25 bg-blue-500/10 px-2.5 py-1.5 text-right">
-                        <p className="text-[8px] font-black uppercase tracking-[0.2em] text-blue-400/65">Duração</p>
-                        <p className="text-sm font-black leading-none tracking-tight text-blue-300 sm:text-base">
+                        <p className="text-[8px] font-black uppercase tracking-[0.2em] text-tech-blue/65">Duração</p>
+                        <p className="text-sm font-black leading-none tracking-tight text-tech-blue-light sm:text-base">
                           {produto.duracao_segundos !== null ? `${produto.duracao_segundos}s` : "—"}
                         </p>
                       </div>
@@ -328,9 +328,9 @@ export default function AdminProdutos() {
       </div>
 
       <Dialog open={!!selectedProduct} onOpenChange={(open) => !open && setSelectedProduct(null)}>
-        <DialogContent className="w-[90vw] max-w-md sm:w-full border border-white/[0.08] bg-[#161616] p-0 shadow-2xl rounded-[24px] sm:rounded-[32px] overflow-hidden">
+        <DialogContent className="sm:max-w-md p-0">
           <div className="flex flex-col">
-            <DialogHeader className="border-b border-white/[0.05] bg-black/20 p-5 sm:p-6 text-left">
+            <DialogHeader className="border-b border-border bg-muted/40 p-5 sm:p-6 text-left">
               <DialogTitle className="flex items-center gap-2 text-lg sm:text-xl font-bold uppercase tracking-tight text-white">
                 <PackageSearch className="h-5 w-5 text-primary" />
                 Ficha do Produto
@@ -339,7 +339,7 @@ export default function AdminProdutos() {
             
             {selectedProduct && (
               <div className="p-5 sm:p-6 space-y-6">
-                <div className="flex items-center justify-between rounded-2xl border border-white/[0.05] bg-black/40 p-4 sm:p-5">
+                <div className="flex items-center justify-between rounded-2xl border border-white/[0.05] bg-muted/60 p-4 sm:p-5">
                   <div className="flex flex-col">
                     <span className="mb-1 text-[9px] uppercase tracking-widest text-white/40 font-bold">Preço de Venda</span>
                     <span className="text-xl sm:text-2xl font-black tracking-tighter text-primary">
@@ -370,19 +370,19 @@ export default function AdminProdutos() {
                   <div className="grid grid-cols-1 gap-4 border-t border-white/[0.05] pt-5 text-sm sm:grid-cols-2">
                     <div className="space-y-1 bg-black/20 p-3 rounded-xl border border-white/[0.02]">
                       <span className="block text-[8px] font-black uppercase tracking-widest text-white/40">Fabricante</span>
-                      <span className="font-bold text-white/90">{selectedProduct.fabricante || "Não informado"}</span>
+                      <span className="font-bold text-muted-foreground">{selectedProduct.fabricante || "Não informado"}</span>
                     </div>
                     <div className="space-y-1 bg-black/20 p-3 rounded-xl border border-white/[0.02]">
                       <span className="block text-[8px] font-black uppercase tracking-widest text-white/40">Tipo de Efeito</span>
-                      <span className="font-bold text-white/90">{selectedProduct.efeito || "Não informado"}</span>
+                      <span className="font-bold text-muted-foreground">{selectedProduct.efeito || "Não informado"}</span>
                     </div>
                     <div className="space-y-1 bg-black/20 p-3 rounded-xl border border-white/[0.02]">
                       <span className="block text-[8px] font-black uppercase tracking-widest text-white/40">Tubos / Tiros</span>
-                      <span className="font-bold text-white/90">{selectedProduct.tubos || "N/A"}</span>
+                      <span className="font-bold text-muted-foreground">{selectedProduct.tubos || "N/A"}</span>
                     </div>
                     <div className="space-y-1 bg-black/20 p-3 rounded-xl border border-white/[0.02]">
                       <span className="block text-[8px] font-black uppercase tracking-widest text-white/40">Duração Show</span>
-                      <span className="font-bold text-white/90">{selectedProduct.duracao_segundos ? `${selectedProduct.duracao_segundos}s` : "N/A"}</span>
+                      <span className="font-bold text-muted-foreground">{selectedProduct.duracao_segundos ? `${selectedProduct.duracao_segundos}s` : "N/A"}</span>
                     </div>
                   </div>
                 </div>

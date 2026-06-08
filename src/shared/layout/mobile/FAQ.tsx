@@ -64,7 +64,7 @@ const FAQ = () => {
                   <span className="leading-tight">{faq.question}</span>
                 </div>
               </AccordionTrigger>
-              <AccordionContent className="text-white/80 leading-relaxed pt-2 text-sm pl-4">
+              <AccordionContent className="text-muted-foreground leading-relaxed pt-2 text-sm pl-4">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>

@@ -158,7 +158,7 @@ const ProductHero = () => {
                 <span className="text-fire-gradient block text-2xl mt-1">Cada história, seu espetáculo.</span>
               </h1>
               
-              <p className="text-base text-white/90 drop-shadow-md leading-relaxed px-2">
+              <p className="text-base text-muted-foreground drop-shadow-md leading-relaxed px-2">
                 Descubra nossos kits pirotécnicos premium: do intimismo do Chá Revelação à grandiosidade do Kit Festa. Cada produto é uma experiência única criada com 40 anos de experiência.
               </p>
             </div>
@@ -222,7 +222,7 @@ const ProductHero = () => {
                     <span>Oferta Sazonal</span>
                     <span className="text-fire-orange">Disponibilidade Curta</span>
                   </div>
-                  <p className="mt-1 text-[11px] text-white/90 leading-relaxed text-center">
+                  <p className="mt-1 text-[11px] text-muted-foreground leading-relaxed text-center">
                     Beneficios especiais para <span className="text-fire-gold font-semibold">casamento</span> e <span className="text-fire-gold font-semibold">festa junina</span>.
                   </p>
                 </div>

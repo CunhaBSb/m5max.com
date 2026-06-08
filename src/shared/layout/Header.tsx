@@ -125,8 +125,7 @@ const Header = () => {
 
           <Button
             size="sm"
-            variant="outline"
-            className="hidden sm:inline-flex items-center gap-2 border-blue-400/60 text-blue-50 bg-blue-500/10"
+            className="hidden sm:inline-flex items-center gap-2 h-10 px-4"
             data-testid="cta-orcamento"
             onClick={handleHeaderBudget}
           >

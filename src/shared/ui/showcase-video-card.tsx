@@ -70,7 +70,7 @@ export const ShowcaseVideoCard = ({
               <h3 className="text-sm font-bold text-white mb-2 group-hover:text-fire-gradient transition-all duration-300 leading-tight">
                 {title}
               </h3>
-              <p className="text-xs text-white/85 leading-relaxed group-hover:text-white/95 transition-colors duration-300">
+              <p className="text-xs text-muted-foreground leading-relaxed group-hover:text-muted-foreground transition-colors duration-300">
                 {description}
               </p>
             </div>
@@ -96,7 +96,7 @@ export const ShowcaseVideoCard = ({
 
   // Desktop variant
   return (
-    <Card className="h-full flex flex-col bg-black/30 hover:bg-black/40 backdrop-blur-sm border border-white/10 hover:border-fire-orange/30 overflow-hidden shadow-lg group hover:shadow-fire-orange/10 transition-all duration-300">
+    <Card className="h-full flex flex-col bg-charcoal-900/30 hover:bg-muted/60 backdrop-blur-sm border border-white/10 hover:border-primary/30 overflow-hidden shadow-lg group hover:shadow-primary/10 transition-all duration-300">
       {/* Video Thumbnail with YouTube Watermark */}
       <div className="aspect-video relative overflow-hidden rounded-t-lg">
         <YouTubeEmbed
@@ -105,9 +105,9 @@ export const ShowcaseVideoCard = ({
           className="w-full h-full"
         />
         {/* Discrete YouTube Watermark */}
-        <div className="absolute bottom-2 right-2 bg-black/60 backdrop-blur-sm rounded px-2 py-1 flex items-center gap-1.5">
-          <YouTube className="w-3 h-3 text-red-500" />
-          <span className="text-xs text-white/80 font-medium">YouTube</span>
+        <div className="absolute bottom-2 right-2 bg-charcoal-900/40 backdrop-blur-sm rounded px-2 py-1 flex items-center gap-1.5">
+          <YouTube className="w-3 h-3 text-destructive" />
+          <span className="text-xs text-muted-foreground font-medium">YouTube</span>
         </div>
       </div>
 
@@ -130,7 +130,7 @@ export const ShowcaseVideoCard = ({
           <h3 className="text-lg font-bold text-white leading-tight group-hover:text-fire-orange transition-colors duration-200">
             {title}
           </h3>
-          <p className="text-sm text-white/70 leading-relaxed line-clamp-3">
+          <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
             {description}
           </p>
         </div>

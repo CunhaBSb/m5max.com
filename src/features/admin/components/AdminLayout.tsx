@@ -10,6 +10,7 @@ import {
   X,
   LogOut,
   ChevronRight,
+  Bell,
 } from "lucide-react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/features/admin/contexts/AuthContextSimple";
@@ -27,22 +28,38 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const menuItems = [
-    { icon: Home, label: "INÍCIO", path: "/admin/dashboard" },
-    { icon: Search, label: "CONSULTA", path: "/admin/produtos" },
-    { icon: Package, label: "ESTOQUE", path: "/admin/estoque" },
-    { icon: FileText, label: "PROPOSTAS", path: "/admin/orcamentos" },
-    { icon: Calendar, label: "AGENDA", path: "/admin/eventos" },
+    { icon: Home, label: "Início", path: "/admin/dashboard", description: "Visão geral" },
+    { icon: Search, label: "Consulta", path: "/admin/produtos", description: "Catálogo" },
+    { icon: Package, label: "Estoque", path: "/admin/estoque", description: "Inventário" },
+    { icon: FileText, label: "Propostas", path: "/admin/orcamentos", description: "Orçamentos" },
+    { icon: Calendar, label: "Agenda", path: "/admin/eventos", description: "Eventos" },
   ];
 
   useEffect(() => {
     setMenuOpen(false);
   }, [location.pathname]);
 
+  // Fecha drawer com ESC
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setMenuOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [menuOpen]);
+
+  // Trava scroll do body quando drawer está aberto
+  useEffect(() => {
+    if (menuOpen) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => { document.body.style.overflow = prev; };
+    }
+  }, [menuOpen]);
+
   const handleSignOut = async () => {
     try {
       await signOut();
     } catch (error) {
-      // Se signOut falhar (rede, etc), ainda assim limpa estado local
       if (import.meta.env.DEV) {
         console.error('[AdminLayout] signOut falhou:', error);
       }
@@ -52,65 +69,143 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
   };
 
   const bottomNavItems = [
+    { icon: Home, label: "Início", path: "/admin/dashboard" },
     { icon: Search, label: "Consulta", path: "/admin/produtos" },
     { icon: FileText, label: "Propostas", path: "/admin/orcamentos" },
-    { icon: Calendar, label: "Agenda", path: "/admin/eventos" },
+    { icon: Package, label: "Estoque", path: "/admin/estoque" },
   ];
 
-  return (
-    <div className="relative flex h-[100dvh] w-full flex-col overflow-hidden bg-black text-[#fafafa] selection:bg-primary/20">
-      {/* Ultra Subtle Vercel-like Background Glow (pure black mostly) */}
-      <div className="pointer-events-none absolute top-[-20%] left-[50%] z-0 h-[500px] w-[800px] -translate-x-1/2 rounded-[100%] bg-primary/[0.03] blur-[100px]" />
+  // Detecta rota ativa (mesma lógica do drawer)
+  const isActive = (path: string) => {
+    if (path === "/admin/dashboard") return location.pathname === path;
+    return location.pathname.startsWith(path);
+  };
 
-      {/* ÁREA DE CONTEÚDO */}
-      <main className="relative z-10 flex-1 overflow-hidden">
-        <div className="admin-layout-scroll absolute inset-0 overflow-y-auto scrollbar-thin px-4 pt-4 md:px-10 md:pt-8">
+  const currentTitle = menuItems.find((m) => isActive(m.path))?.label || "Admin";
+
+  return (
+    <div className="relative flex min-h-[100dvh] w-full flex-col bg-background text-foreground">
+      {/* TOP HEADER — charcoal sólido (sempre visível, área de marca) */}
+      <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-border bg-sidebar px-4 text-sidebar-foreground shadow-soft-sm md:h-16 md:px-6">
+        <div className="flex items-center gap-3">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold text-sm shadow-fire">
+            M5
+          </div>
+          <div className="hidden sm:block">
+            <p className="text-xs font-semibold tracking-wide text-sidebar-foreground/90">M5 Max Produções</p>
+            <p className="text-[10px] uppercase tracking-wider text-sidebar-foreground/50">Painel Administrativo</p>
+          </div>
+        </div>
+
+        {/* Título da seção atual (mobile) */}
+        <div className="sm:hidden">
+          <h1 className="text-sm font-semibold text-sidebar-foreground">{currentTitle}</h1>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            aria-label="Notificações"
+            className="touch-target flex h-10 w-10 items-center justify-center rounded-lg text-sidebar-foreground/70 transition-colors hover:bg-sidebar-accent hover:text-sidebar-foreground"
+          >
+            <Bell className="h-5 w-5" />
+          </button>
+          <div className="hidden md:flex items-center gap-3 pl-3 ml-1 border-l border-sidebar-border">
+            <div className="h-9 w-9 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-semibold text-sm">
+              {(userData?.nome || "A").charAt(0).toUpperCase()}
+            </div>
+            <div className="text-left">
+              <p className="text-xs font-medium text-sidebar-foreground leading-tight">{userData?.nome || "Admin"}</p>
+              <p className="text-[10px] uppercase tracking-wider text-sidebar-foreground/50 leading-tight">{userData?.role || "Operador"}</p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* ÁREA DE CONTEÚDO — com padding-bottom pra bottom nav */}
+      <main className="relative z-10 flex-1 pb-24 md:pb-6">
+        <div className="admin-layout-scroll h-[calc(100dvh-3.5rem)] overflow-y-auto scrollbar-thin px-4 py-4 md:h-[calc(100dvh-4rem)] md:px-8 md:py-6">
           <div className="mx-auto max-w-[1400px]">
             {children}
           </div>
         </div>
       </main>
 
-      {/* BOTTOM NAVIGATION (PREMIUM WHATSAPP BUSINESS / LINEAR STYLE) */}
+      {/* BOTTOM NAVIGATION (Mobile) — fixed, com safe area */}
       <nav
-        className="fixed inset-x-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-50 mx-auto flex h-[4.25rem] max-w-[400px] items-center justify-around rounded-[24px] border border-white/[0.06] bg-[#0a0a0a]/90 px-2 pb-safe-bottom shadow-2xl backdrop-blur-xl md:inset-x-0 md:bottom-0 md:h-16 md:max-w-none md:justify-center md:gap-8 md:rounded-none md:border-x-0 md:border-b-0 md:border-t md:bg-black/80"
+        aria-label="Navegação principal"
+        className="fixed inset-x-0 bottom-0 z-40 flex h-16 items-center justify-around border-t border-border bg-card/95 px-2 shadow-soft-lg backdrop-blur-md md:hidden pb-[env(safe-area-inset-bottom)]"
       >
         {bottomNavItems.map((item) => {
-          const isActive = location.pathname.startsWith(item.path);
+          const active = isActive(item.path);
           return (
             <Link
               key={item.path}
               to={item.path}
+              aria-current={active ? "page" : undefined}
+              aria-label={item.label}
               className={cn(
-                "relative flex h-full min-w-[64px] flex-col items-center justify-center gap-1.5 transition-colors duration-300 px-3 md:flex-row md:gap-2",
-                isActive ? "text-primary" : "text-white/40 hover:text-white/80"
+                "touch-target relative flex h-full min-w-[56px] flex-col items-center justify-center gap-0.5 rounded-lg px-2 transition-colors",
+                active ? "text-primary" : "text-muted-foreground hover:text-foreground"
               )}
             >
-              <item.icon className={cn("h-5 w-5 transition-transform", isActive && "scale-105")} strokeWidth={isActive ? 2.5 : 2} />
-              <span className="text-[10px] font-medium tracking-wide md:text-xs">
-                {item.label}
-              </span>
-              {isActive && (
-                <motion.div 
+              <item.icon className={cn("h-5 w-5", active && "scale-110")} strokeWidth={active ? 2.5 : 2} />
+              <span className="text-[10px] font-medium tracking-wide">{item.label}</span>
+              {active && (
+                <motion.span
                   layoutId="bottom-indicator"
-                  className="absolute top-1 md:-top-[1px] h-[3px] w-8 rounded-full bg-primary/80 shadow-[0_0_10px_rgba(249,115,22,0.4)] md:w-full" 
+                  className="absolute top-0 h-0.5 w-8 rounded-full bg-primary"
                 />
               )}
             </Link>
           );
         })}
-        
-        {/* Menu Hamburger na Bottom Bar */}
+
         <button
+          type="button"
           onClick={() => setMenuOpen(true)}
-          className="relative flex h-full min-w-[64px] flex-col items-center justify-center gap-1.5 px-3 text-white/40 transition-colors duration-300 hover:text-white/80 md:flex-row md:gap-2"
+          aria-label="Abrir menu completo"
+          className="touch-target flex h-full min-w-[56px] flex-col items-center justify-center gap-0.5 rounded-lg px-2 text-muted-foreground transition-colors hover:text-foreground"
         >
           <Menu className="h-5 w-5" strokeWidth={2} />
-          <span className="text-[10px] font-medium tracking-wide md:text-xs">Menu</span>
+          <span className="text-[10px] font-medium tracking-wide">Menu</span>
         </button>
       </nav>
 
-      {/* MENU DRAWER (MINIMALIST & CLEAN) */}
+      {/* BOTTOM NAVIGATION (Desktop) — horizontal top abaixo do header */}
+      <nav
+        aria-label="Navegação desktop"
+        className="hidden md:block sticky top-14 z-20 border-b border-border bg-card/80 backdrop-blur"
+        style={{ top: "3.5rem" }}
+      >
+        <div className="mx-auto flex max-w-[1400px] items-center gap-1 px-4 lg:px-8">
+          {menuItems.map((item) => {
+            const active = isActive(item.path);
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                aria-current={active ? "page" : undefined}
+                className={cn(
+                  "touch-target relative flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors",
+                  active ? "text-primary" : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                <item.icon className="h-4 w-4" />
+                <span>{item.label}</span>
+                {active && (
+                  <motion.span
+                    layoutId="desktop-nav-indicator"
+                    className="absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-primary"
+                  />
+                )}
+              </Link>
+            );
+          })}
+        </div>
+      </nav>
+
+      {/* MENU DRAWER (fullscreen mobile, side desktop) */}
       <AnimatePresence>
         {menuOpen && (
           <>
@@ -118,66 +213,85 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
               onClick={() => setMenuOpen(false)}
-              className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-md"
+              className="fixed inset-0 z-[100] bg-charcoal-900/40 backdrop-blur-sm"
+              aria-hidden="true"
             />
             <motion.aside
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="fixed inset-y-0 right-0 z-[110] w-full max-w-sm border-l border-white/[0.05] bg-[#050505] shadow-2xl p-6 flex flex-col md:w-[400px]"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Menu de navegação"
+              className="fixed inset-y-0 right-0 z-[110] flex w-full max-w-sm flex-col border-l border-sidebar-border bg-card shadow-soft-xl"
             >
-              <div className="flex items-center justify-between mb-8">
-                <span className="text-xs font-semibold tracking-widest text-white/40 uppercase">Navegação</span>
-                <button 
+              <div className="flex items-center justify-between border-b border-border p-4">
+                <div>
+                  <p className="text-[10px] font-semibold tracking-widest text-muted-foreground uppercase">Navegação</p>
+                  <p className="text-sm font-semibold text-foreground">Menu completo</p>
+                </div>
+                <button
+                  type="button"
                   onClick={() => setMenuOpen(false)}
-                  className="p-2 rounded-full bg-white/[0.03] hover:bg-white/[0.08] transition-colors"
+                  aria-label="Fechar menu"
+                  className="touch-target flex h-10 w-10 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                 >
-                  <X className="h-4 w-4" />
+                  <X className="h-5 w-5" />
                 </button>
               </div>
 
-              <div className="flex-1 space-y-1.5 overflow-y-auto pr-2 scrollbar-thin">
-                {menuItems.map((item) => (
-                  <Link
-                    key={item.path}
-                    to={item.path}
-                    className={cn(
-                      "flex items-center justify-between p-3.5 rounded-xl transition-all group",
-                      location.pathname.startsWith(item.path)
-                        ? "bg-white/[0.06] text-white"
-                        : "text-white/50 hover:bg-white/[0.03] hover:text-white/90"
-                    )}
-                  >
-                    <div className="flex items-center gap-4">
-                      <item.icon className={cn("h-4.5 w-4.5", location.pathname.startsWith(item.path) && "text-primary")} />
-                      <span className="text-sm font-medium">{item.label}</span>
-                    </div>
-                    {location.pathname.startsWith(item.path) && (
-                      <ChevronRight className="h-4 w-4 text-primary opacity-50" />
-                    )}
-                  </Link>
-                ))}
+              <div className="flex-1 space-y-1 overflow-y-auto p-4 scrollbar-thin">
+                {menuItems.map((item) => {
+                  const active = isActive(item.path);
+                  return (
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      className={cn(
+                        "flex items-center justify-between rounded-lg px-3 py-3 transition-colors",
+                        active
+                          ? "bg-primary-soft text-primary"
+                          : "text-foreground hover:bg-muted"
+                      )}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className={cn(
+                          "flex h-9 w-9 items-center justify-center rounded-lg",
+                          active ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"
+                        )}>
+                          <item.icon className="h-4 w-4" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold leading-tight">{item.label}</p>
+                          <p className="text-xs text-muted-foreground leading-tight">{item.description}</p>
+                        </div>
+                      </div>
+                      {active && <ChevronRight className="h-4 w-4 text-primary" />}
+                    </Link>
+                  );
+                })}
               </div>
 
-              <div className="mt-auto pt-6 border-t border-white/[0.05] space-y-5">
-                <div className="flex items-center gap-3 px-2">
-                  <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-white/10 to-white/5 border border-white/10 flex items-center justify-center text-white/80 font-medium">
-                    {(userData?.nome || "A").charAt(0)}
+              <div className="mt-auto space-y-3 border-t border-border p-4">
+                <div className="flex items-center gap-3 rounded-lg bg-muted/50 p-3">
+                  <div className="h-10 w-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-semibold">
+                    {(userData?.nome || "A").charAt(0).toUpperCase()}
                   </div>
-                  <div>
-                    <p className="font-medium text-sm text-white/90">{userData?.nome || "Administrador"}</p>
-                    <p className="text-xs text-white/40">{userData?.role || "Operador"}</p>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-foreground truncate">{userData?.nome || "Administrador"}</p>
+                    <p className="text-xs text-muted-foreground truncate">{userData?.role || "Operador"}</p>
                   </div>
                 </div>
 
                 <Button
                   variant="ghost"
                   onClick={handleSignOut}
-                  className="w-full h-11 rounded-xl text-red-400 hover:text-red-300 hover:bg-red-500/10 justify-start px-4 font-medium"
+                  className="touch-target w-full justify-start text-destructive hover:bg-destructive/10 hover:text-destructive"
                 >
-                  <LogOut className="mr-3 h-4 w-4" />
+                  <LogOut className="mr-2 h-4 w-4" />
                   Sair da Conta
                 </Button>
               </div>

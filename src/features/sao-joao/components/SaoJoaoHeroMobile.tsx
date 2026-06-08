@@ -136,12 +136,12 @@ const SaoJoaoHero = () => {
           <div className="space-y-6 text-center max-w-sm w-full">
             <div className="space-y-4">
               <div className="w-full rounded-xl border border-orange-500/30 bg-gradient-to-r from-orange-500/10 via-red-500/5 to-orange-500/10 px-3 py-2">
-                <div className="flex items-center justify-between gap-2 text-[10px] uppercase tracking-[0.14em] text-orange-400 font-semibold">
+                <div className="flex items-center justify-between gap-2 text-[10px] uppercase tracking-[0.14em] text-primary font-semibold">
                   <span>Especial São João</span>
                   <span className="text-fire-orange">Agenda Limitada</span>
                 </div>
-                <p className="mt-1 text-[11px] text-white/90 leading-relaxed text-center">
-                  Shows Pirotécnicos incríveis para o seu <span className="text-orange-400 font-semibold">Arraiá</span>.
+                <p className="mt-1 text-[11px] text-muted-foreground leading-relaxed text-center">
+                  Shows Pirotécnicos incríveis para o seu <span className="text-primary font-semibold">Arraiá</span>.
                 </p>
               </div>
               
@@ -150,7 +150,7 @@ const SaoJoaoHero = () => {
                 <span className="text-fire-gradient block text-2xl mt-1">O seu Arraiá inesquecível.</span>
               </h1>
               
-              <p className="text-base text-white/90 drop-shadow-md leading-relaxed px-2">
+              <p className="text-base text-muted-foreground drop-shadow-md leading-relaxed px-2">
               Transforme sua Festa Junina em um espetáculo grandioso. Oferecemos shows pirotécnicos de alta qualidade e seguros.
               </p>
             </div>

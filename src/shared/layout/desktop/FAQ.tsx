@@ -54,7 +54,7 @@ const FAQ = () => {
           </h2>
           
           {/* Standardized Description */}
-          <p className="text-lg text-white/85 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
             Encontre respostas para as perguntas mais comuns sobre nossos serviços
           </p>
         </div>
@@ -73,7 +73,7 @@ const FAQ = () => {
                     <span className="leading-tight text-white">{faq.question}</span>
                   </div>
                 </AccordionTrigger>
-                <AccordionContent className="text-white/80 leading-relaxed pt-2 text-base pl-5">
+                <AccordionContent className="text-muted-foreground leading-relaxed pt-2 text-base pl-5">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>

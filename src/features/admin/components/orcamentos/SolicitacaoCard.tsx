@@ -134,7 +134,7 @@ export const SolicitacaoCard = ({
             variant="ghost"
             size="sm"
             onClick={() => onEdit(solicitacao)}
-            className="h-9 w-9 p-0 rounded-xl border border-blue-500/10 bg-blue-500/5 text-blue-400 transition-colors hover:bg-blue-500/20 hover:text-blue-300"
+            className="h-9 w-9 p-0 rounded-xl border border-blue-500/10 bg-blue-500/5 text-tech-blue transition-colors hover:bg-blue-500/20 hover:text-tech-blue-light"
             title="Editar / Converter"
           >
             <Edit className="h-4 w-4" />
@@ -143,7 +143,7 @@ export const SolicitacaoCard = ({
             variant="ghost"
             size="sm"
             onClick={() => onDelete(solicitacao.id)}
-            className="h-9 w-9 p-0 rounded-xl border border-red-500/10 bg-red-500/5 text-red-400 transition-colors hover:bg-red-500/20 hover:text-red-300"
+            className="h-9 w-9 p-0 rounded-xl border border-red-500/10 bg-red-500/5 text-destructive transition-colors hover:bg-red-500/20 hover:text-red-300"
             title="Excluir"
           >
             <Trash2 className="h-4 w-4" />

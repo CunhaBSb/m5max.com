@@ -1,7 +1,7 @@
 import { useNavigate, Location } from "react-router-dom";
 import { Button } from "@/shared/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/shared/ui/sheet";
-import { Menu, ArrowRight } from "lucide-react";
+import { Menu, ArrowRight, FileText } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { useAppStore } from "@/shared/store/appStore";
 
@@ -21,24 +21,31 @@ interface MobileHeaderProps {
 
 export const MobileHeader = ({ navigation, handleNavigation, isOpen, setIsOpen, location, isActive }: MobileHeaderProps) => {
   const navigate = useNavigate();
+  const { openFormModal } = useAppStore();
+
+  const openBudget = () => {
+    openFormModal({ audience: 'general', source: 'header_mobile_cta', page: location.pathname });
+    setIsOpen(false);
+  };
 
   return (
-    <div className="lg:hidden flex items-center justify-between h-16 md:h-18 px-4">
+    <div className="lg:hidden flex items-center justify-between h-16 md:h-18 px-3 md:px-4">
       <Button
         variant="ghost"
         size="icon"
         onClick={() => window.open('https://wa.me/5561982735575', '_blank')}
-        className="hover:text-fire-orange transition-smooth rounded-full"
+        className="hover:opacity-80 transition-smooth rounded-full w-11 h-11 p-0"
+        aria-label="Abrir WhatsApp"
       >
         <div className="bg-green-500 p-2 rounded-full">
           <FaWhatsapp className="w-6 h-6 text-white" />
         </div>
-        <span className="sr-only">WhatsApp</span>
       </Button>
 
-      <button 
-        onClick={() => navigate("/")} 
+      <button
+        onClick={() => navigate("/")}
         className="absolute left-1/2 transform -translate-x-1/2 flex items-center hover:opacity-80 transition-smooth"
+        aria-label="Página inicial M5 Max"
       >
         <img
           src="/fogosm5.svg"
@@ -46,13 +53,29 @@ export const MobileHeader = ({ navigation, handleNavigation, isOpen, setIsOpen, 
           className="w-12 h-12 md:w-14 md:h-14"
         />
       </button>
-      
-      <div className="flex items-center">
+
+      <div className="flex items-center gap-1">
+        {/* CTA Orçamento — equivalente mobile do botão desktop hidden sm:inline-flex */}
+        <Button
+          onClick={openBudget}
+          size="sm"
+          className="h-10 px-3 gap-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-soft-sm active:scale-95 transition-all touch-target"
+          data-testid="cta-orcamento-mobile"
+          aria-label="Solicitar orçamento"
+        >
+          <FileText className="w-4 h-4" />
+          <span className="text-xs font-semibold">Orçamento</span>
+        </Button>
+
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="w-10 h-10 p-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="w-11 h-11 p-2 rounded-full hover:bg-muted touch-target"
+              aria-label="Abrir menu"
+            >
               <Menu className="h-6 w-6" />
-              <span className="sr-only">Menu</span>
             </Button>
           </SheetTrigger>
           <SheetContent side="right" className="w-72 sm:w-80">
@@ -119,7 +142,7 @@ export const MobileHeader = ({ navigation, handleNavigation, isOpen, setIsOpen, 
                         useAppStore.getState().openFormModal({ audience: 'general', source: 'header_mobile_cta', page: location.pathname });
                         setIsOpen(false);
                       }}
-                      data-testid="cta-orcamento"
+                      data-testid="cta-orcamento-drawer"
                       aria-label="Abrir orçamento"
                     >
                       <span className="text-sm font-semibold text-fire-orange tracking-wide">Orçamento</span>
@@ -153,7 +176,7 @@ export const MobileHeader = ({ navigation, handleNavigation, isOpen, setIsOpen, 
                     <div className="w-5 h-5 rounded bg-red-600 flex items-center justify-center">
                       <span className="text-white text-xs font-bold">▶</span>
                     </div>
-                    <span className="text-xs font-medium text-red-400">YouTube</span>
+                    <span className="text-xs font-medium text-destructive">YouTube</span>
                   </a>
                 </div>
               </div>

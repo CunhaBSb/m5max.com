@@ -198,7 +198,7 @@ export const ConfirmShowModal = ({
 
   return (
     <Dialog open={open} onOpenChange={handleDialogOpenChange}>
-      <DialogContent className="admin-modal-panel max-w-5xl md:max-h-[90vh]">
+      <DialogContent className="admin-modal-panel inset-0 top-0 left-0 w-full max-w-none translate-x-0 translate-y-0 rounded-none border-0 p-0 h-[100dvh] md:inset-auto md:left-[50%] md:top-[50%] md:translate-x-[-50%] md:translate-y-[-50%] md:h-auto md:max-h-[90vh] md:max-w-5xl md:rounded-lg md:border md:p-0">
         <div className="flex h-full min-h-0 flex-col">
           <DialogHeader className="admin-modal-header space-y-2 text-left">
             <DialogTitle className="text-xl font-semibold text-foreground">
@@ -289,7 +289,7 @@ export const ConfirmShowModal = ({
                       <Label className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">
                         Desconto Aplicado
                       </Label>
-                      <p className="mt-2 text-xl font-semibold text-emerald-400">
+                      <p className="mt-2 text-xl font-semibold text-success">
                         R${" "}
                         {discountValue.toLocaleString("pt-BR", {
                           minimumFractionDigits: 2,
@@ -388,7 +388,7 @@ export const ConfirmShowModal = ({
                               "shrink-0 rounded-full px-2.5 py-1 text-[11px]",
                               item.estoque_insuficiente
                                 ? "border-destructive/30 bg-destructive/12 text-destructive"
-                                : "border-emerald-500/20 bg-emerald-500/10 text-emerald-400",
+                                : "border-emerald-500/20 bg-emerald-500/10 text-success",
                             )}
                           >
                             {item.estoque_insuficiente

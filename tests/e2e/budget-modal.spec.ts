@@ -71,12 +71,16 @@ test('fluxo de orçamento envia lead para Supabase com return=minimal', async ({
     console.error('CTA não encontrado. Dump HTML início:\n', html.slice(0, 5000));
     throw new Error('CTA orçamento não disponível após hydration');
   }
-  await page.getByRole('dialog', { name: 'Solicitar Orçamento' }).waitFor({ state: 'visible', timeout: 10000 });
-  await expect(page.getByText('Solicitar Orçamento')).toBeVisible();
+  await page.getByRole('dialog').waitFor({ state: 'visible', timeout: 10000 });
+  await expect(page.getByRole('heading', { name: 'Reserve a sua data' })).toBeVisible();
   await expect(page.getByText('Qual melhor descreve seu evento?')).toBeVisible();
 
   // Etapa 1 do wizard: escolher audiência
-  await page.getByText('Corporativo', { exact: true }).first().click({ force: true });
+  // O modal tem overflow-y-auto. Em viewport pequeno o card Corporativo pode estar
+  // fora da viewport, então forçamos click no h4 dentro do dialog.
+  const dialog = page.getByRole('dialog');
+  await dialog.locator('h4', { hasText: 'Corporativo' }).scrollIntoViewIfNeeded();
+  await dialog.locator('h4', { hasText: 'Corporativo' }).click({ force: true });
   await expect(page.getByText('Público estimado', { exact: false })).toBeVisible();
 
   // Etapa 2 do wizard: público e orçamento

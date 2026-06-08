@@ -259,9 +259,9 @@ export const VideoPlayerMobile: React.FC<VideoPlayerMobileProps> = ({
         <div className="relative aspect-video bg-black flex items-center justify-center">
           <div className="text-center space-y-2">
             <div className="w-14 h-14 mx-auto bg-red-600/20 rounded-full flex items-center justify-center">
-              <Play className="w-7 h-7 text-red-500" />
+              <Play className="w-7 h-7 text-destructive" />
             </div>
-            <p className="text-white/80 text-sm">{title}</p>
+            <p className="text-muted-foreground text-sm">{title}</p>
             <p className="text-white/60 text-xs">Vídeo indisponível</p>
           </div>
         </div>
@@ -302,9 +302,9 @@ export const VideoPlayerMobile: React.FC<VideoPlayerMobileProps> = ({
           <div className="absolute inset-0 flex items-center justify-center bg-black/70">
             <div className="text-center space-y-3 p-4">
               <div className="w-14 h-14 mx-auto bg-red-600/20 rounded-full flex items-center justify-center">
-                <AlertCircle className="w-7 h-7 text-red-500" />
+                <AlertCircle className="w-7 h-7 text-destructive" />
               </div>
-              <p className="text-white/90 font-medium">Erro ao carregar vídeo</p>
+              <p className="text-muted-foreground font-medium">Erro ao carregar vídeo</p>
               <p className="text-white/60 text-xs">Verifique sua conexão e tente novamente</p>
               <button
                 onClick={(e) => { e.stopPropagation(); retry(); }}

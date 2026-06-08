@@ -1,1 +1,8 @@
-/* Removed default styles that could interfere with responsiveness */
+/* App.css — minimal styles, design system lives in index.css */
+
+/* Ensure root element fills viewport correctly on mobile (handles iOS Safari 100vh bug) */
+#root {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}

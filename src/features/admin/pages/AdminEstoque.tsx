@@ -496,27 +496,27 @@ const AdminEstoque = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="bg-white/[0.02] border border-white/5 p-4 sm:p-6 rounded-[24px] sm:rounded-3xl group transition-all hover:bg-white/[0.04]">
-              <p className="text-[9px] font-black uppercase tracking-[0.2em] text-white/20 mb-1">Total Itens</p>
+              <p className="text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/20 mb-1">Total Itens</p>
               <p className="text-2xl sm:text-3xl font-black text-white tracking-tighter">{totalProdutos}</p>
             </div>
             <div className="bg-white/[0.02] border border-white/5 p-4 sm:p-6 rounded-[24px] sm:rounded-3xl group transition-all hover:bg-white/[0.04]">
-              <p className="text-[9px] font-black uppercase tracking-[0.2em] text-emerald-500 mb-1">Ativos</p>
-              <p className="text-2xl sm:text-3xl font-black text-emerald-500 tracking-tighter">{produtosAtivos}</p>
+              <p className="text-[9px] font-black uppercase tracking-[0.2em] text-success mb-1">Ativos</p>
+              <p className="text-2xl sm:text-3xl font-black text-success tracking-tighter">{produtosAtivos}</p>
             </div>
             <div className="bg-red-500/5 border border-red-500/20 p-4 sm:p-6 rounded-[24px] sm:rounded-3xl group transition-all hover:bg-red-500/[0.08]">
-              <p className="text-[9px] font-black uppercase tracking-[0.2em] text-red-500 mb-1">Critico</p>
-              <p className="text-2xl sm:text-3xl font-black text-red-500 tracking-tighter">{produtosBaixoEstoque}</p>
+              <p className="text-[9px] font-black uppercase tracking-[0.2em] text-destructive mb-1">Critico</p>
+              <p className="text-2xl sm:text-3xl font-black text-destructive tracking-tighter">{produtosBaixoEstoque}</p>
             </div>
           </div>
 
           <div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_240px]">
             <div className="relative group">
-              <Package className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-white/20 transition-colors group-focus-within:text-primary sm:left-6 sm:h-6 sm:w-6" />
+              <Package className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground/20 transition-colors group-focus-within:text-primary sm:left-6 sm:h-6 sm:w-6" />
               <Input
                 placeholder="Pesquisar por SKU, nome, fabricante ou efeito..."
                 value={searchTerm}
                 onChange={(event) => setSearchTerm(event.target.value)}
-                className="h-14 w-full rounded-[22px] border-white/[0.06] bg-white/[0.02] pl-12 text-base font-medium shadow-2xl transition-all placeholder:text-white/10 focus:border-primary/40 focus:ring-0 sm:h-16 sm:rounded-[24px] sm:pl-16 sm:text-lg"
+                className="h-14 w-full rounded-[22px] border-white/[0.06] bg-white/[0.02] pl-12 text-base font-medium shadow-2xl transition-all placeholder:text-muted-foreground/10 focus:border-primary/40 focus:ring-0 sm:h-16 sm:rounded-[24px] sm:pl-16 sm:text-lg"
               />
             </div>
 
@@ -538,7 +538,7 @@ const AdminEstoque = () => {
           <div className="relative">
             {finalFilteredProdutos.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-28 sm:py-40 border border-white/[0.04] bg-white/[0.01] rounded-[28px] sm:rounded-[40px]">
-                <Package className="h-16 w-16 text-white/10 mb-6" />
+                <Package className="h-16 w-16 text-muted-foreground/10 mb-6" />
                 <h3 className="text-xl font-bold text-white/60">Nenhum item encontrado</h3>
                 <Button
                   onClick={() => {
@@ -566,7 +566,7 @@ const AdminEstoque = () => {
                         exit={{ opacity: 0, scale: 0.96 }}
                         transition={{ duration: 0.35, delay: index * 0.02 }}
                         key={produto.id}
-                        className="group relative flex flex-col justify-between rounded-[26px] border border-white/[0.06] bg-[#050505] p-5 shadow-2xl transition-all hover:border-primary/30 sm:rounded-[24px] sm:p-8"
+                        className="group relative flex flex-col justify-between rounded-[26px] border border-white/[0.06] bg-card p-5 shadow-2xl transition-all hover:border-primary/30 sm:rounded-[24px] sm:p-8"
                       >
                         <div className="flex justify-between items-start gap-4">
                           <div className="min-w-0 flex-1">
@@ -579,7 +579,7 @@ const AdminEstoque = () => {
                             <h4 className="truncate text-xl font-black text-white transition-colors group-hover:text-primary">
                               {produto.nome_produto}
                             </h4>
-                            <span className="mt-1 block text-[10px] font-black uppercase tracking-[0.2em] text-white/20">
+                            <span className="mt-1 block text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/20">
                               SKU: {produto.codigo}
                             </span>
                           </div>
@@ -604,7 +604,7 @@ const AdminEstoque = () => {
 
                         <div className="mt-8 grid grid-cols-2 gap-4">
                           <div>
-                            <span className="block text-[9px] font-black uppercase tracking-[0.3em] text-white/20">
+                            <span className="block text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/20">
                               Custo
                             </span>
                             <p className="mt-1 text-lg font-black text-white">
@@ -612,7 +612,7 @@ const AdminEstoque = () => {
                             </p>
                           </div>
                           <div className="text-right">
-                            <span className="block text-[9px] font-black uppercase tracking-[0.3em] text-white/20">
+                            <span className="block text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/20">
                               Venda
                             </span>
                             <p className="mt-1 text-lg font-black text-primary">
@@ -623,27 +623,27 @@ const AdminEstoque = () => {
 
                         <div className="mt-7 flex items-end justify-between">
                           <div className="min-w-0">
-                            <span className="block text-[9px] font-black uppercase tracking-[0.3em] text-white/20">
+                            <span className="block text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/20">
                               Fabricante
                             </span>
-                            <p className="mt-1 truncate text-sm font-semibold text-white/70">
+                            <p className="mt-1 truncate text-sm font-semibold text-muted-foreground">
                               {produto.fabricante || "Nao informado"}
                             </p>
                           </div>
 
                           <div className="text-right">
                             <div className="mb-1 flex items-center justify-end gap-2">
-                              {estoqueCritico && <AlertTriangle className="h-4 w-4 animate-pulse text-red-500" />}
+                              {estoqueCritico && <AlertTriangle className="h-4 w-4 animate-pulse text-destructive" />}
                               <span
                                 className={cn(
                                   "text-2xl font-black tracking-tighter",
-                                  estoqueCritico ? "text-red-500" : "text-emerald-500"
+                                  estoqueCritico ? "text-destructive" : "text-success"
                                 )}
                               >
                                 {quantidadeDisponivel}
                               </span>
                             </div>
-                            <span className="text-[9px] font-black uppercase tracking-widest text-white/20">
+                            <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/20">
                               Qtd Disp.
                             </span>
                           </div>
@@ -659,7 +659,7 @@ const AdminEstoque = () => {
       </div>
 
       <Dialog open={isDialogOpen} onOpenChange={handleDialogChange}>
-        <DialogContent className="admin-modal-panel max-w-4xl border-none bg-[#050505] p-0">
+        <DialogContent className="admin-modal-panel inset-0 top-0 left-0 w-full max-w-none translate-x-0 translate-y-0 rounded-none border-0 bg-card p-0 h-[100dvh] md:inset-auto md:left-[50%] md:top-[50%] md:translate-x-[-50%] md:translate-y-[-50%] md:h-auto md:max-h-[90vh] md:max-w-4xl md:rounded-lg md:border">
           <form className="flex h-full min-h-0 flex-col" onSubmit={handleSubmit}>
             <DialogHeader className="admin-modal-header space-y-2 text-left">
               <DialogTitle className="text-xl font-black uppercase tracking-tight text-white md:text-2xl">
@@ -693,7 +693,7 @@ const AdminEstoque = () => {
 
                 <div className="grid gap-4 md:grid-cols-2">
                   <div className="space-y-2">
-                    <Label htmlFor="nome_produto" className="text-white/70">
+                    <Label htmlFor="nome_produto" className="text-muted-foreground">
                       Nome do produto
                     </Label>
                     <Input
@@ -703,19 +703,19 @@ const AdminEstoque = () => {
                       {...form.register("nome_produto")}
                     />
                     {form.formState.errors.nome_produto && (
-                      <p className="text-xs text-red-400">{form.formState.errors.nome_produto.message}</p>
+                      <p className="text-xs text-destructive">{form.formState.errors.nome_produto.message}</p>
                     )}
                   </div>
 
                   <div className="space-y-2">
-                    <Label className="text-white/70">Codigo SKU</Label>
+                    <Label className="text-muted-foreground">Codigo SKU</Label>
                     <div className="flex h-10 items-center rounded-xl border border-white/10 bg-white/[0.03] px-4 text-sm font-semibold text-white/75">
                       {editingProduct?.codigo ?? "Gerado automaticamente pelo banco ao cadastrar"}
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <Label className="text-white/70">Categoria</Label>
+                    <Label className="text-muted-foreground">Categoria</Label>
                     <Controller
                       control={form.control}
                       name="categoria"
@@ -735,12 +735,12 @@ const AdminEstoque = () => {
                       )}
                     />
                     {form.formState.errors.categoria && (
-                      <p className="text-xs text-red-400">{form.formState.errors.categoria.message}</p>
+                      <p className="text-xs text-destructive">{form.formState.errors.categoria.message}</p>
                     )}
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="fabricante" className="text-white/70">
+                    <Label htmlFor="fabricante" className="text-muted-foreground">
                       Fabricante
                     </Label>
                     <Input
@@ -752,7 +752,7 @@ const AdminEstoque = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="efeito" className="text-white/70">
+                    <Label htmlFor="efeito" className="text-muted-foreground">
                       Efeito
                     </Label>
                     <Input
@@ -764,7 +764,7 @@ const AdminEstoque = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="tubos" className="text-white/70">
+                    <Label htmlFor="tubos" className="text-muted-foreground">
                       Tubos / composicao
                     </Label>
                     <Input
@@ -776,7 +776,7 @@ const AdminEstoque = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="duracao_segundos" className="text-white/70">
+                    <Label htmlFor="duracao_segundos" className="text-muted-foreground">
                       Duracao (segundos)
                     </Label>
                     <Input
@@ -789,13 +789,13 @@ const AdminEstoque = () => {
                       })}
                     />
                     {form.formState.errors.duracao_segundos && (
-                      <p className="text-xs text-red-400">{form.formState.errors.duracao_segundos.message}</p>
+                      <p className="text-xs text-destructive">{form.formState.errors.duracao_segundos.message}</p>
                     )}
                   </div>
 
                   {!editingProduct ? (
                     <div className="space-y-2">
-                      <Label htmlFor="quantidade_disponivel" className="text-white/70">
+                      <Label htmlFor="quantidade_disponivel" className="text-muted-foreground">
                         Estoque
                       </Label>
                       <Input
@@ -808,14 +808,14 @@ const AdminEstoque = () => {
                         })}
                       />
                       {form.formState.errors.quantidade_disponivel && (
-                        <p className="text-xs text-red-400">
+                        <p className="text-xs text-destructive">
                           {form.formState.errors.quantidade_disponivel.message}
                         </p>
                       )}
                     </div>
                   ) : (
                     <div className="space-y-2">
-                      <Label className="text-white/70">Saldo atual</Label>
+                      <Label className="text-muted-foreground">Saldo atual</Label>
                       <div className="flex h-10 items-center rounded-xl border border-white/10 bg-white/[0.03] px-4 text-sm font-black text-white">
                         {editingProduct.quantidade_disponivel ?? 0} unidades
                       </div>
@@ -823,7 +823,7 @@ const AdminEstoque = () => {
                   )}
 
                   <div className="space-y-2">
-                    <Label htmlFor="valor_compra" className="text-white/70">
+                    <Label htmlFor="valor_compra" className="text-muted-foreground">
                       Valor de compra
                     </Label>
                     <Input
@@ -837,12 +837,12 @@ const AdminEstoque = () => {
                       })}
                     />
                     {form.formState.errors.valor_compra && (
-                      <p className="text-xs text-red-400">{form.formState.errors.valor_compra.message}</p>
+                      <p className="text-xs text-destructive">{form.formState.errors.valor_compra.message}</p>
                     )}
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="valor_venda" className="text-white/70">
+                    <Label htmlFor="valor_venda" className="text-muted-foreground">
                       Valor de venda
                     </Label>
                     <Input
@@ -856,12 +856,12 @@ const AdminEstoque = () => {
                       })}
                     />
                     {form.formState.errors.valor_venda && (
-                      <p className="text-xs text-red-400">{form.formState.errors.valor_venda.message}</p>
+                      <p className="text-xs text-destructive">{form.formState.errors.valor_venda.message}</p>
                     )}
                   </div>
 
                   <div className="space-y-2 md:col-span-2">
-                    <Label className="text-white/70">Status</Label>
+                    <Label className="text-muted-foreground">Status</Label>
                     <Controller
                       control={form.control}
                       name="ativo"
@@ -883,7 +883,7 @@ const AdminEstoque = () => {
                   </div>
 
                   <div className="space-y-2 md:col-span-2">
-                    <Label htmlFor="descricao_completa" className="text-white/70">
+                    <Label htmlFor="descricao_completa" className="text-muted-foreground">
                       Observacoes tecnicas
                     </Label>
                     <Textarea
@@ -908,7 +908,7 @@ const AdminEstoque = () => {
                       </p>
                     </div>
                     <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-right">
-                      <span className="block text-[9px] font-black uppercase tracking-[0.24em] text-white/20">
+                      <span className="block text-[9px] font-black uppercase tracking-[0.24em] text-muted-foreground/20">
                         Saldo atual
                       </span>
                       <span className="mt-1 block text-2xl font-black text-white">
@@ -919,7 +919,7 @@ const AdminEstoque = () => {
 
                   <div className="grid gap-4 md:grid-cols-2">
                     <div className="space-y-2">
-                      <Label className="text-white/70">Tipo de movimentacao</Label>
+                      <Label className="text-muted-foreground">Tipo de movimentacao</Label>
                       <Select
                         value={stockAdjustment.type}
                         onValueChange={(value: InventoryAdjustmentType) =>
@@ -938,7 +938,7 @@ const AdminEstoque = () => {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="stock-adjustment-quantity" className="text-white/70">
+                      <Label htmlFor="stock-adjustment-quantity" className="text-muted-foreground">
                         {stockAdjustment.type === "ajuste" ? "Saldo final" : "Quantidade movimentada"}
                       </Label>
                       <Input
@@ -959,7 +959,7 @@ const AdminEstoque = () => {
                   </div>
 
                   <div className="mt-4 space-y-2">
-                    <Label htmlFor="stock-adjustment-reason" className="text-white/70">
+                    <Label htmlFor="stock-adjustment-reason" className="text-muted-foreground">
                       Motivo do ajuste
                     </Label>
                     <Textarea
@@ -978,13 +978,13 @@ const AdminEstoque = () => {
 
                   <div className="mt-4 grid gap-3 md:grid-cols-2">
                     <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-                      <span className="block text-[9px] font-black uppercase tracking-[0.24em] text-white/20">
+                      <span className="block text-[9px] font-black uppercase tracking-[0.24em] text-muted-foreground/20">
                         Preview do saldo
                       </span>
                       <span
                         className={cn(
                           "mt-2 block text-2xl font-black",
-                          adjustmentPreview !== null && adjustmentPreview < 0 ? "text-red-400" : "text-primary"
+                          adjustmentPreview !== null && adjustmentPreview < 0 ? "text-destructive" : "text-primary"
                         )}
                       >
                         {adjustmentPreview ?? editingProduct.quantidade_disponivel ?? 0}
@@ -1012,7 +1012,7 @@ const AdminEstoque = () => {
                     type="button"
                     variant="ghost"
                     onClick={() => void handleDeactivateProduct(editingProduct)}
-                    className="h-12 rounded-2xl border border-red-500/20 bg-red-500/5 px-5 text-[10px] font-black uppercase tracking-[0.2em] text-red-400 hover:bg-red-500/10 hover:text-red-300"
+                    className="h-12 rounded-2xl border border-red-500/20 bg-red-500/5 px-5 text-[10px] font-black uppercase tracking-[0.2em] text-destructive hover:bg-red-500/10 hover:text-red-300"
                   >
                     Desativar Item
                   </Button>
@@ -1021,7 +1021,7 @@ const AdminEstoque = () => {
                   type="button"
                   variant="ghost"
                   onClick={() => handleDialogChange(false)}
-                  className="h-12 rounded-2xl border border-white/10 bg-white/[0.03] px-5 text-[10px] font-black uppercase tracking-[0.2em] text-white/70 hover:bg-white/[0.06] hover:text-white"
+                  className="h-12 rounded-2xl border border-white/10 bg-white/[0.03] px-5 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground hover:bg-white/[0.06] hover:text-white"
                 >
                   Cancelar
                 </Button>
@@ -1050,7 +1050,7 @@ const AdminEstoque = () => {
       </Dialog>
 
       <Dialog open={!!selectedProduct} onOpenChange={(open) => !open && setSelectedProduct(null)}>
-        <DialogContent className="admin-modal-panel max-w-2xl border-none bg-[#050505] p-0">
+        <DialogContent className="admin-modal-panel max-w-2xl border-none bg-card p-0">
           {selectedProduct && (
             <div className="flex h-full min-h-0 flex-col">
               <DialogHeader className="admin-modal-header space-y-2 text-left">
@@ -1065,30 +1065,30 @@ const AdminEstoque = () => {
               <div className="admin-modal-body space-y-4">
                 <div className="grid gap-4 md:grid-cols-2">
                   <div className="admin-mobile-panel p-5">
-                    <span className="text-[9px] font-black uppercase tracking-[0.24em] text-white/20">SKU</span>
+                    <span className="text-[9px] font-black uppercase tracking-[0.24em] text-muted-foreground/20">SKU</span>
                     <p className="mt-2 text-xl font-black text-white">{selectedProduct.codigo}</p>
                   </div>
                   <div className="admin-mobile-panel p-5">
-                    <span className="text-[9px] font-black uppercase tracking-[0.24em] text-white/20">Categoria</span>
+                    <span className="text-[9px] font-black uppercase tracking-[0.24em] text-muted-foreground/20">Categoria</span>
                     <p className="mt-2 text-xl font-black text-white">
                       {getCategoryDisplayName(selectedProduct.categoria)}
                     </p>
                   </div>
                   <div className="admin-mobile-panel p-5">
-                    <span className="text-[9px] font-black uppercase tracking-[0.24em] text-white/20">
+                    <span className="text-[9px] font-black uppercase tracking-[0.24em] text-muted-foreground/20">
                       Estoque disponivel
                     </span>
                     <p
                       className={cn(
                         "mt-2 text-3xl font-black",
-                        (selectedProduct.quantidade_disponivel ?? 0) <= 5 ? "text-red-400" : "text-emerald-400"
+                        (selectedProduct.quantidade_disponivel ?? 0) <= 5 ? "text-destructive" : "text-success"
                       )}
                     >
                       {selectedProduct.quantidade_disponivel ?? 0}
                     </p>
                   </div>
                   <div className="admin-mobile-panel p-5">
-                    <span className="text-[9px] font-black uppercase tracking-[0.24em] text-white/20">Status</span>
+                    <span className="text-[9px] font-black uppercase tracking-[0.24em] text-muted-foreground/20">Status</span>
                     <div className="mt-2">
                       <Badge
                         variant="outline"
@@ -1104,11 +1104,11 @@ const AdminEstoque = () => {
                     </div>
                   </div>
                   <div className="admin-mobile-panel p-5">
-                    <span className="text-[9px] font-black uppercase tracking-[0.24em] text-white/20">Compra</span>
+                    <span className="text-[9px] font-black uppercase tracking-[0.24em] text-muted-foreground/20">Compra</span>
                     <p className="mt-2 text-xl font-black text-white">R$ {selectedProduct.valor_compra.toFixed(2)}</p>
                   </div>
                   <div className="admin-mobile-panel p-5">
-                    <span className="text-[9px] font-black uppercase tracking-[0.24em] text-white/20">Venda</span>
+                    <span className="text-[9px] font-black uppercase tracking-[0.24em] text-muted-foreground/20">Venda</span>
                     <p className="mt-2 text-xl font-black text-primary">R$ {selectedProduct.valor_venda.toFixed(2)}</p>
                   </div>
                 </div>
@@ -1116,25 +1116,25 @@ const AdminEstoque = () => {
                 <div className="admin-mobile-panel p-5 space-y-4">
                   <div className="grid gap-4 md:grid-cols-2">
                     <div>
-                      <span className="text-[9px] font-black uppercase tracking-[0.24em] text-white/20">Fabricante</span>
+                      <span className="text-[9px] font-black uppercase tracking-[0.24em] text-muted-foreground/20">Fabricante</span>
                       <p className="mt-2 text-sm font-semibold text-white/75">
                         {selectedProduct.fabricante || "Nao informado"}
                       </p>
                     </div>
                     <div>
-                      <span className="text-[9px] font-black uppercase tracking-[0.24em] text-white/20">Efeito</span>
+                      <span className="text-[9px] font-black uppercase tracking-[0.24em] text-muted-foreground/20">Efeito</span>
                       <p className="mt-2 text-sm font-semibold text-white/75">
                         {selectedProduct.efeito || "Nao informado"}
                       </p>
                     </div>
                     <div>
-                      <span className="text-[9px] font-black uppercase tracking-[0.24em] text-white/20">Tubos</span>
+                      <span className="text-[9px] font-black uppercase tracking-[0.24em] text-muted-foreground/20">Tubos</span>
                       <p className="mt-2 text-sm font-semibold text-white/75">
                         {selectedProduct.tubos || "Nao informado"}
                       </p>
                     </div>
                     <div>
-                      <span className="text-[9px] font-black uppercase tracking-[0.24em] text-white/20">Duracao</span>
+                      <span className="text-[9px] font-black uppercase tracking-[0.24em] text-muted-foreground/20">Duracao</span>
                       <p className="mt-2 text-sm font-semibold text-white/75">
                         {selectedProduct.duracao_segundos ? `${selectedProduct.duracao_segundos}s` : "Nao informada"}
                       </p>
@@ -1142,7 +1142,7 @@ const AdminEstoque = () => {
                   </div>
 
                   <div>
-                    <span className="text-[9px] font-black uppercase tracking-[0.24em] text-white/20">
+                    <span className="text-[9px] font-black uppercase tracking-[0.24em] text-muted-foreground/20">
                       Observacoes tecnicas
                     </span>
                     <p className="mt-2 text-sm leading-relaxed text-white/65">
@@ -1157,7 +1157,7 @@ const AdminEstoque = () => {
                   type="button"
                   variant="ghost"
                   onClick={() => setSelectedProduct(null)}
-                  className="h-12 rounded-2xl border border-white/10 bg-white/[0.03] px-5 text-[10px] font-black uppercase tracking-[0.2em] text-white/70 hover:bg-white/[0.06] hover:text-white"
+                  className="h-12 rounded-2xl border border-white/10 bg-white/[0.03] px-5 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground hover:bg-white/[0.06] hover:text-white"
                 >
                   Fechar
                 </Button>

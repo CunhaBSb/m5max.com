@@ -123,7 +123,7 @@ ${formData.email ? `E-mail: ${formData.email}` : ''}`;
     <>
       {/* Trust Text */}
       <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-4">
-        <span className="text-xs sm:text-sm font-medium text-white/90 tracking-wide">
+        <span className="text-xs sm:text-sm font-medium text-muted-foreground tracking-wide">
           ⭐ 40 anos • +2.000 eventos • Já iluminamos os maiores clubes de Brasília
         </span>
       </div>
@@ -136,8 +136,8 @@ ${formData.email ? `E-mail: ${formData.email}` : ''}`;
         </span>
       </h2>
 
-      <p className="text-base sm:text-lg text-white/80 max-w-xl mx-auto mb-6 leading-relaxed font-light">
-        Shows pirotécnicos premium sincronizados • <span className="font-semibold text-white/95">Imagens que viralizam!</span>
+      <p className="text-base sm:text-lg text-muted-foreground max-w-xl mx-auto mb-6 leading-relaxed font-light">
+        Shows pirotécnicos premium sincronizados • <span className="font-semibold text-muted-foreground">Imagens que viralizam!</span>
       </p>
 
       {/* Selection Cards */}
@@ -163,7 +163,7 @@ ${formData.email ? `E-mail: ${formData.email}` : ''}`;
                     <CheckCircle2 className="w-3 h-3" /> MAIS PROCURADO
                   </span>
                 </div>
-                <span className="text-white/70 text-sm block sm:hidden mb-0.5 text-fire-orange font-bold tracking-wider text-[10px] uppercase"><CheckCircle2 className="w-3 h-3 inline-block mr-1" /> MAIS PROCURADO</span>
+                <span className="text-muted-foreground text-sm block sm:hidden mb-0.5 text-fire-orange font-bold tracking-wider text-[10px] uppercase"><CheckCircle2 className="w-3 h-3 inline-block mr-1" /> MAIS PROCURADO</span>
                 <p className="text-white/60 text-xs sm:text-sm">Estrutura completa e show de grande impacto visual.</p>
               </div>
             </div>
@@ -181,14 +181,14 @@ ${formData.email ? `E-mail: ${formData.email}` : ''}`;
           <div className="relative flex items-center justify-between">
             <div className="flex items-center gap-3.5">
               <div className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center shrink-0">
-                <Church className="w-4 h-4 text-white/80" />
+                <Church className="w-4 h-4 text-muted-foreground" />
               </div>
               <div>
                 <span className="text-white font-semibold text-sm sm:text-base block">Festa Junina em Associação ou Igreja</span>
                 <p className="text-white/50 text-xs sm:text-sm mt-0.5">Formatos adequados para eventos paroquiais e comunitários.</p>
               </div>
             </div>
-            <ChevronRight className={`w-4 h-4 text-white/40 transition-transform duration-300 ${hoveredCard === 2 ? 'translate-x-1 text-white/80' : ''}`} />
+            <ChevronRight className={`w-4 h-4 text-white/40 transition-transform duration-300 ${hoveredCard === 2 ? 'translate-x-1 text-muted-foreground' : ''}`} />
           </div>
         </button>
 
@@ -205,11 +205,11 @@ ${formData.email ? `E-mail: ${formData.email}` : ''}`;
                 <CalendarHeart className="w-4 h-4 text-white/60" />
               </div>
               <div>
-                <span className="text-white/90 font-medium text-sm sm:text-base block">Outro tipo de evento</span>
+                <span className="text-muted-foreground font-medium text-sm sm:text-base block">Outro tipo de evento</span>
                 <p className="text-white/50 text-xs sm:text-sm mt-0.5">Réveillon, aniversário, casamento, etc.</p>
               </div>
             </div>
-            <ChevronRight className={`w-4 h-4 text-white/30 transition-transform duration-300 ${hoveredCard === 3 ? 'translate-x-1 text-white/60' : ''}`} />
+            <ChevronRight className={`w-4 h-4 text-muted-foreground/30 transition-transform duration-300 ${hoveredCard === 3 ? 'translate-x-1 text-white/60' : ''}`} />
           </div>
         </button>
       </div>
@@ -235,26 +235,26 @@ ${formData.email ? `E-mail: ${formData.email}` : ''}`;
           </span>
         </h2>
 
-        <p className="text-white/70 text-base lg:text-lg mb-5 leading-relaxed font-light">
+        <p className="text-muted-foreground text-base lg:text-lg mb-5 leading-relaxed font-light">
           Preencha os dados e receba em até 24h sua proposta completa + simulação 3D do show no espaço do seu clube.
         </p>
 
         <div className="hidden md:block mt-auto pb-2 space-y-4">
-          <h3 className="text-sm font-bold text-white/90 uppercase tracking-widest border-b border-white/10 pb-3 mb-4">
+          <h3 className="text-sm font-bold text-muted-foreground uppercase tracking-widest border-b border-white/10 pb-3 mb-4">
             Garantia M5 Max
           </h3>
           <div className="flex flex-col gap-5">
             <div className="flex items-start gap-4">
               <CheckCircle2 className="w-6 h-6 text-green-400 shrink-0 mt-0.5" />
-              <span className="text-sm text-white/80 leading-relaxed font-medium">Espetáculo 100% legalizado. Cuidamos de todos os alvarás e licenças.</span>
+              <span className="text-sm text-muted-foreground leading-relaxed font-medium">Espetáculo 100% legalizado. Cuidamos de todos os alvarás e licenças.</span>
             </div>
             <div className="flex items-start gap-4">
               <CheckCircle2 className="w-6 h-6 text-green-400 shrink-0 mt-0.5" />
-              <span className="text-sm text-white/80 leading-relaxed font-medium">Aprovação e vistoria técnica rigorosa junto ao Corpo de Bombeiros.</span>
+              <span className="text-sm text-muted-foreground leading-relaxed font-medium">Aprovação e vistoria técnica rigorosa junto ao Corpo de Bombeiros.</span>
             </div>
             <div className="flex items-start gap-4">
               <CheckCircle2 className="w-6 h-6 text-green-400 shrink-0 mt-0.5" />
-              <span className="text-sm text-white/80 leading-relaxed font-medium">Bônus exclusivo Festa Junina: fotos + vídeo profissional.</span>
+              <span className="text-sm text-muted-foreground leading-relaxed font-medium">Bônus exclusivo Festa Junina: fotos + vídeo profissional.</span>
             </div>
           </div>
         </div>
@@ -268,13 +268,13 @@ ${formData.email ? `E-mail: ${formData.email}` : ''}`;
 
           <form className="space-y-4 relative z-10">
             <div className="space-y-1">
-              <label className="text-sm font-semibold text-white/90 ml-1">Nome completo <span className="text-fire-orange">*</span></label>
+              <label className="text-sm font-semibold text-muted-foreground ml-1">Nome completo <span className="text-fire-orange">*</span></label>
               <Input
                 required
                 placeholder="Ex: João Silva"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="bg-black/50 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-fire-gold h-10 rounded-xl px-4"
+                className="bg-black/50 border-white/10 text-white placeholder:text-muted-foreground/30 focus-visible:ring-fire-gold h-10 rounded-xl px-4"
               />
             </div>
             <div className="space-y-1">
@@ -284,43 +284,43 @@ ${formData.email ? `E-mail: ${formData.email}` : ''}`;
                 placeholder="Ex: joao@email.com"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="bg-black/50 border-white/10 text-white placeholder:text-white/20 focus-visible:ring-fire-gold h-10 rounded-xl px-4"
+                className="bg-black/50 border-white/10 text-white placeholder:text-muted-foreground/20 focus-visible:ring-fire-gold h-10 rounded-xl px-4"
               />
             </div>
             <div className="space-y-1">
-              <label className="text-sm font-semibold text-white/90 ml-1">Local do Evento <span className="text-fire-orange">*</span></label>
+              <label className="text-sm font-semibold text-muted-foreground ml-1">Local do Evento <span className="text-fire-orange">*</span></label>
               <Input
                 required
                 placeholder="Ex: Iate Clube de Brasília - DF"
                 value={formData.clube}
                 onChange={(e) => setFormData({ ...formData, clube: e.target.value })}
-                className="bg-black/50 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-fire-gold h-10 rounded-xl px-4"
+                className="bg-black/50 border-white/10 text-white placeholder:text-muted-foreground/30 focus-visible:ring-fire-gold h-10 rounded-xl px-4"
               />
             </div>
             <div className="space-y-1">
-              <label className="text-sm font-semibold text-white/90 ml-1">Data da Festa Junina <span className="text-fire-orange">*</span></label>
+              <label className="text-sm font-semibold text-muted-foreground ml-1">Data da Festa Junina <span className="text-fire-orange">*</span></label>
               <Input
                 required
                 type="date"
                 placeholder="dd/mm/aaaa"
                 value={formData.date}
                 onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                className="bg-black/50 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-fire-gold h-10 rounded-xl px-4 [color-scheme:dark]"
+                className="bg-black/50 border-white/10 text-white placeholder:text-muted-foreground/30 focus-visible:ring-fire-gold h-10 rounded-xl px-4 [color-scheme:dark]"
               />
             </div>
             <div className="space-y-1">
-              <label className="text-sm font-semibold text-white/90 ml-1">WhatsApp <span className="text-fire-orange">*</span></label>
+              <label className="text-sm font-semibold text-muted-foreground ml-1">WhatsApp <span className="text-fire-orange">*</span></label>
               <Input
                 required
                 placeholder="(61) 9 9999-9999"
                 value={formData.whatsapp}
                 onChange={handleWhatsAppChange}
-                className="bg-black/50 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-fire-gold h-10 rounded-xl px-4"
+                className="bg-black/50 border-white/10 text-white placeholder:text-muted-foreground/30 focus-visible:ring-fire-gold h-10 rounded-xl px-4"
               />
             </div>
 
             <div className="space-y-1">
-              <label className="text-sm font-semibold text-white/90 ml-1">Duração do show <span className="text-fire-orange">*</span></label>
+              <label className="text-sm font-semibold text-muted-foreground ml-1">Duração do show <span className="text-fire-orange">*</span></label>
               <Select
                 value={formData.duration}
                 onValueChange={(value) => setFormData({ ...formData, duration: value })}
@@ -362,7 +362,7 @@ ${formData.email ? `E-mail: ${formData.email}` : ''}`;
                 variant="outline"
                 disabled={!formData.name || !formData.clube || !formData.date || !formData.duration || formData.whatsapp.length < 14 || isSubmitting}
                 onClick={handleEmailSubmit}
-                className="w-full h-10 border-white/10 bg-transparent text-white/70 hover:bg-white/5 hover:text-white font-medium rounded-xl transition-all"
+                className="w-full h-10 border-white/10 bg-transparent text-muted-foreground hover:bg-white/5 hover:text-white font-medium rounded-xl transition-all"
               >
                 <Mail className="w-4 h-4 mr-2 opacity-70" />
                 Receber proposta por e-mail
@@ -378,15 +378,15 @@ ${formData.email ? `E-mail: ${formData.email}` : ''}`;
             <div className="flex flex-col gap-4">
               <div className="flex items-start gap-3">
                 <CheckCircle2 className="w-5 h-5 text-green-400 shrink-0 mt-0.5" />
-                <span className="text-xs text-white/70 leading-relaxed">Espetáculo 100% legalizado.</span>
+                <span className="text-xs text-muted-foreground leading-relaxed">Espetáculo 100% legalizado.</span>
               </div>
               <div className="flex items-start gap-3">
                 <CheckCircle2 className="w-5 h-5 text-green-400 shrink-0 mt-0.5" />
-                <span className="text-xs text-white/70 leading-relaxed">Vistoria junto aos Bombeiros.</span>
+                <span className="text-xs text-muted-foreground leading-relaxed">Vistoria junto aos Bombeiros.</span>
               </div>
               <div className="flex items-start gap-3">
                 <CheckCircle2 className="w-5 h-5 text-green-400 shrink-0 mt-0.5" />
-                <span className="text-xs text-white/70 leading-relaxed">Bônus: fotos + vídeo para o Instagram.</span>
+                <span className="text-xs text-muted-foreground leading-relaxed">Bônus: fotos + vídeo para o Instagram.</span>
               </div>
             </div>
           </div>
@@ -406,13 +406,13 @@ ${formData.email ? `E-mail: ${formData.email}` : ''}`;
       </h2>
 
       <div className="bg-white/5 border border-white/10 rounded-xl p-6 mb-8 text-left max-w-lg w-full animate-fade-in-up" style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
-        <p className="text-white/90 font-medium mb-3">Em até 24 horas você receberá:</p>
-        <ul className="text-base text-white/70 space-y-2 ml-4 list-disc marker:text-fire-gold mb-6">
+        <p className="text-muted-foreground font-medium mb-3">Em até 24 horas você receberá:</p>
+        <ul className="text-base text-muted-foreground space-y-2 ml-4 list-disc marker:text-fire-gold mb-6">
           <li>Proposta personalizada</li>
           <li>Simulação 3D</li>
           <li>Vídeo de referência de show em clube</li>
         </ul>
-        <p className="text-white/90 text-sm font-medium">Enquanto isso, assista este show que fizemos para um clube de Brasília:</p>
+        <p className="text-muted-foreground text-sm font-medium">Enquanto isso, assista este show que fizemos para um clube de Brasília:</p>
       </div>
 
       {/* Video Block */}
@@ -426,7 +426,7 @@ ${formData.email ? `E-mail: ${formData.email}` : ''}`;
           playsInline
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
-          <span className="text-white/90 text-sm font-medium drop-shadow-md">Show Pirotécnico Premium</span>
+          <span className="text-muted-foreground text-sm font-medium drop-shadow-md">Show Pirotécnico Premium</span>
         </div>
       </div>
 
@@ -458,7 +458,7 @@ ${formData.email ? `E-mail: ${formData.email}` : ''}`;
         }, 300);
       }
     }}>
-      <DialogContent className="block w-[95vw] md:max-w-[850px] lg:max-w-[1000px] p-0 border-0 overflow-hidden bg-black rounded-3xl shadow-[0_0_50px_-12px_rgba(251,146,60,0.4)] max-h-[90vh]">
+      <DialogContent className="sm:max-w-[850px] lg:max-w-[1000px] p-0 border-0 overflow-hidden max-h-screen sm:max-h-[90vh]">
         <VisuallyHidden>
           <DialogTitle>Reserve sua data para a Festa Junina 2026</DialogTitle>
         </VisuallyHidden>
@@ -480,7 +480,7 @@ ${formData.email ? `E-mail: ${formData.email}` : ''}`;
         {/* Explicit Close Button - Fixed to top right */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-[60] w-10 h-10 flex items-center justify-center rounded-full bg-black/40 hover:bg-white/10 border border-white/10 text-white/80 hover:text-white backdrop-blur-md transition-all duration-300 shadow-lg"
+          className="absolute top-4 right-4 z-[60] w-10 h-10 flex items-center justify-center rounded-full bg-muted/60 hover:bg-white/10 border border-white/10 text-muted-foreground hover:text-white backdrop-blur-md transition-all duration-300 shadow-lg"
           aria-label="Fechar"
         >
           <X className="w-5 h-5" />

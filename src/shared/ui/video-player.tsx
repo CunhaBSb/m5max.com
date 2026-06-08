@@ -284,7 +284,7 @@ export const VideoPlayer: React.FC<VideoPlayerProps> = ({
               <div className="w-16 h-16 mx-auto bg-fire-orange/20 rounded-full flex items-center justify-center">
                 <Play className="w-8 h-8 text-fire-orange" />
               </div>
-              <p className="text-white/80">
+              <p className="text-muted-foreground">
                 {!src ? "Vídeo não disponível" : "Erro ao carregar vídeo"}
               </p>
               {hasError && (

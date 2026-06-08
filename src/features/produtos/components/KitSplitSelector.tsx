@@ -34,7 +34,7 @@ const KitSplitSelector: React.FC<KitSplitSelectorProps> = ({
     icon: Icon, 
     children 
   }) => (
-    <div className="flex items-center text-white/90">
+    <div className="flex items-center text-muted-foreground">
       <Icon className="w-4 h-4 mr-3 text-fire-gold" />
       <span className="text-sm">{children}</span>
     </div>
@@ -68,7 +68,7 @@ const KitSplitSelector: React.FC<KitSplitSelectorProps> = ({
               </div>
               
               <h3 className="text-xl font-bold mb-3 text-white">Kit Festa</h3>
-              <p className="text-white/80 mb-4 leading-relaxed text-sm">
+              <p className="text-muted-foreground mb-4 leading-relaxed text-sm">
                 Perfeito para celebrações, aniversários, formaturas e eventos especiais
               </p>
               
@@ -97,7 +97,7 @@ const KitSplitSelector: React.FC<KitSplitSelectorProps> = ({
               </div>
               
               <h3 className="text-xl font-bold mb-3 text-white">Kit Chá Revelação</h3>
-              <p className="text-white/80 mb-4 leading-relaxed text-sm">
+              <p className="text-muted-foreground mb-4 leading-relaxed text-sm">
                 Momento mágico para revelar o gênero do bebê com cores especiais
               </p>
               

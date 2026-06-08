@@ -2,146 +2,116 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* =====================================================================
+   M5 Max Produções — Design System v2
+   Light theme only · Charcoal + Âmbar · B2B profissional
+   Todas as cores em HSL para permitir manipulação via opacity.
+   ===================================================================== */
 
 @layer base {
   :root {
-    /* Force dark theme only - M5Max uses only dark mode */
-    --background: 220 15% 8%;
-    --foreground: 0 0% 95%;
+    /* ---------- Superfícies (Charcoal suave, não preto) ---------- */
+    --background: 210 20% 98%;        /* #f7f8fa - off-white azulado */
+    --foreground: 220 25% 12%;        /* #181c24 - charcoal escuro */
 
-    --card: 220 15% 10%;
-    --card-foreground: 0 0% 95%;
+    --card: 0 0% 100%;                /* branco puro */
+    --card-foreground: 220 25% 12%;
 
-    --popover: 220 15% 10%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 25% 12%;
 
-    --primary: 15 85% 55%;
+    /* ---------- Marca: Âmbar profissional (não laranja berrante) ---------- */
+    --primary: 32 95% 50%;            /* #f57f0c - âmbar pirotécnico refinado */
     --primary-foreground: 0 0% 100%;
-    --primary-glow: 25 95% 65%;
+    --primary-glow: 32 95% 60%;
+    --primary-soft: 32 95% 95%;       /* fundo suave para hover/active */
 
-    --secondary: 220 15% 15%;
-    --secondary-foreground: 0 0% 90%;
+    /* ---------- Neutros: Cinza ardósia profissional ---------- */
+    --secondary: 215 20% 95%;         /* #eef1f5 - cinza claro */
+    --secondary-foreground: 220 25% 18%;
 
-    --muted: 220 15% 15%;
-    --muted-foreground: 220 10% 60%;
+    --muted: 215 20% 96%;
+    --muted-foreground: 215 12% 45%;
 
-    --accent: 45 100% 70%;
-    --accent-foreground: 220 15% 8%;
+    --accent: 220 25% 18%;            /* #262b35 - charcoal para destaques */
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 84% 60%;
+    /* ---------- Estados ---------- */
+    --destructive: 0 75% 50%;         /* vermelho mais sóbrio */
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 20%;
-    --input: 220 15% 15%;
-    --ring: 15 85% 55%;
+    --success: 142 65% 40%;
+    --success-foreground: 0 0% 100%;
 
-    --radius: 0.75rem;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
 
-    /* M5 Max Design System - Dark mode colors */
-    --fire-red: 0 85% 60%;
-    --fire-orange: 15 85% 58%;
-    --fire-gold: 45 100% 70%;
-    --fire-yellow: 50 100% 75%;
-    
-    --tech-blue: 210 45% 50%;
-    --tech-blue-light: 210 35% 75%;
-    
-    --metal-silver: 220 10% 25%;
-    --metal-platinum: 220 10% 15%;
-    
-    /* Dark mode gradients */
-    --gradient-fire: linear-gradient(135deg, hsl(var(--fire-red)), hsl(var(--fire-orange)), hsl(var(--fire-gold)));
-    --gradient-tech: linear-gradient(135deg, hsl(var(--tech-blue)), hsl(var(--tech-blue-light)));
-    --gradient-hero: linear-gradient(135deg, hsl(var(--background)), hsl(var(--metal-platinum)));
-    --gradient-sparkle: radial-gradient(circle, hsl(var(--fire-gold) / 0.2), transparent);
-    
-    /* Shadows */
-    --shadow-fire: 0 10px 30px -5px hsl(var(--fire-orange) / 0.3);
-    --shadow-tech: 0 8px 25px -8px hsl(var(--tech-blue) / 0.2);
-    --shadow-elegant: 0 4px 20px -4px hsl(220 15% 20% / 0.1);
-    
-    /* Professional Spacing System */
-    --spacing-section: 5rem; /* 80px - between major sections */
-    --spacing-component: 2.5rem; /* 40px - between components */
-    --spacing-element: 1.5rem; /* 24px - between elements */
-    --spacing-separator-minimal: 0.75rem; /* 12px - minimal separation */
-    --spacing-separator-subtle: 1rem; /* 16px - subtle separation */
-    --spacing-separator-standard: 1.5rem; /* 24px - standard separation */
-    --spacing-separator-emphasis: 2rem; /* 32px - emphasis separation */
+    --border: 220 13% 88%;            /* #dde0e6 - borda discreta */
+    --input: 220 13% 92%;
+    --ring: 32 95% 50%;
 
-    /* Refined Animations */
+    --radius: 0.625rem;               /* 10px - cantos suaves, não infantis */
+
+    /* ---------- Identidade M5 Max ---------- */
+    --fire-red: 8 85% 50%;            /* vermelho explosão sóbrio */
+    --fire-orange: 22 90% 52%;
+    --fire-gold: 38 92% 50%;
+    --fire-yellow: 48 95% 55%;
+
+    --charcoal-50: 220 20% 98%;
+    --charcoal-100: 220 18% 95%;
+    --charcoal-200: 220 15% 88%;
+    --charcoal-300: 220 12% 75%;
+    --charcoal-400: 220 10% 55%;
+    --charcoal-500: 220 12% 40%;
+    --charcoal-600: 220 15% 28%;
+    --charcoal-700: 220 20% 20%;
+    --charcoal-800: 220 25% 14%;
+    --charcoal-900: 220 30% 10%;
+
+    --tech-blue: 215 75% 45%;
+    --tech-blue-light: 215 70% 65%;
+
+    --metal-silver: 220 10% 70%;
+    --metal-platinum: 220 12% 90%;
+
+    /* ---------- Gradientes profissionais (sóbrios) ---------- */
+    --gradient-fire: linear-gradient(135deg, hsl(8 85% 50%), hsl(22 90% 52%), hsl(38 92% 50%));
+    --gradient-charcoal: linear-gradient(135deg, hsl(220 30% 10%), hsl(220 25% 14%));
+    --gradient-hero: linear-gradient(135deg, hsl(220 25% 14%), hsl(220 20% 20%));
+    --gradient-accent: linear-gradient(135deg, hsl(32 95% 50%), hsl(22 90% 52%));
+    --gradient-soft: linear-gradient(180deg, hsl(210 20% 98%) 0%, hsl(215 20% 95%) 100%);
+
+    /* ---------- Sombras realistas (não exageradas) ---------- */
+    --shadow-sm: 0 1px 2px 0 hsl(220 25% 12% / 0.04);
+    --shadow-md: 0 2px 4px -1px hsl(220 25% 12% / 0.06), 0 1px 2px -1px hsl(220 25% 12% / 0.04);
+    --shadow-lg: 0 8px 16px -4px hsl(220 25% 12% / 0.08), 0 2px 4px -2px hsl(220 25% 12% / 0.04);
+    --shadow-xl: 0 20px 32px -8px hsl(220 25% 12% / 0.10), 0 4px 8px -4px hsl(220 25% 12% / 0.06);
+    --shadow-fire: 0 8px 20px -4px hsl(32 95% 50% / 0.25);
+    --shadow-focus: 0 0 0 3px hsl(32 95% 50% / 0.20);
+
+    /* ---------- Sidebar (Charcoal premium) ---------- */
+    --sidebar-background: 220 25% 14%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 32 95% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 20% 20%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 220 20% 22%;
+    --sidebar-ring: 32 95% 50%;
+
+    /* ---------- Spacing system ---------- */
+    --spacing-section: 5rem;
+    --spacing-component: 2.5rem;
+    --spacing-element: 1.5rem;
+    --spacing-separator-minimal: 0.75rem;
+    --spacing-separator-subtle: 1rem;
+    --spacing-separator-standard: 1.5rem;
+    --spacing-separator-emphasis: 2rem;
+
+    /* ---------- Transições ---------- */
     --transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 220 15% 8%;
-    --foreground: 0 0% 95%;
-
-    --card: 220 15% 10%;
-    --card-foreground: 0 0% 95%;
-
-    --popover: 220 15% 10%;
-    --popover-foreground: 0 0% 95%;
-
-    --primary: 15 85% 55%;
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 25 95% 65%;
-
-    --secondary: 220 15% 15%;
-    --secondary-foreground: 0 0% 90%;
-
-    --muted: 220 15% 15%;
-    --muted-foreground: 220 10% 60%;
-
-    --accent: 45 100% 70%;
-    --accent-foreground: 220 15% 8%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 220 15% 20%;
-    --input: 220 15% 15%;
-    --ring: 15 85% 55%;
-
-    /* M5 Max Design System - Dark Mode */
-    --fire-red: 0 85% 60%;
-    --fire-orange: 15 85% 58%;
-    --fire-gold: 45 100% 70%;
-    --fire-yellow: 50 100% 75%;
-    
-    --tech-blue: 210 45% 50%;
-    --tech-blue-light: 210 35% 75%;
-    
-    --metal-silver: 220 10% 25%;
-    --metal-platinum: 220 10% 15%;
-    
-    /* Dark mode gradients */
-    --gradient-fire: linear-gradient(135deg, hsl(var(--fire-red)), hsl(var(--fire-orange)), hsl(var(--fire-gold)));
-    --gradient-tech: linear-gradient(135deg, hsl(var(--tech-blue)), hsl(var(--tech-blue-light)));
-    --gradient-hero: linear-gradient(135deg, hsl(var(--background)), hsl(var(--metal-platinum)));
-    --gradient-sparkle: radial-gradient(circle, hsl(var(--fire-gold) / 0.2), transparent);
-    
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 
@@ -150,15 +120,18 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html, body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
   body {
-    @apply bg-background text-foreground overflow-x-hidden;
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
   }
-  
-  html {
-    @apply dark;
-  }
-  
-  /* Mobile-first responsive container */
+
+  /* Mobile-first container */
   .container {
     width: 100%;
     margin-left: auto;
@@ -166,165 +139,122 @@ All colors MUST be HSL.
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  
+
   @media (min-width: 640px) {
-    .container {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-    }
+    .container { padding-left: 1.5rem; padding-right: 1.5rem; }
   }
-  
+
   @media (min-width: 1024px) {
-    .container {
-      padding-left: 2rem;
-      padding-right: 2rem;
-    }
+    .container { padding-left: 2rem; padding-right: 2rem; }
   }
-  
+
   @media (min-width: 1280px) {
-    .container {
-      max-width: 1280px;
-    }
+    .container { max-width: 1280px; }
+  }
+
+  /* Safe area para iOS notch + bottom bar */
+  .pb-safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+  .pt-safe-top { padding-top: env(safe-area-inset-top); }
+}
+
+@layer components {
+  /* Admin modal fullscreen-friendly — base structure for stacked modals */
+  .admin-modal-panel {
+    @apply bg-card text-card-foreground;
+  }
+  .admin-modal-header {
+    @apply sticky top-0 z-10 border-b border-border bg-card/95 backdrop-blur-md px-4 py-4 md:px-6;
+  }
+  .admin-modal-footer {
+    @apply sticky bottom-0 z-10 border-t border-border bg-card/95 backdrop-blur-md px-4 py-4 md:px-6;
+  }
+  .admin-stat-card {
+    @apply rounded-lg border border-border bg-card p-4 shadow-soft-sm;
   }
 }
 
 @layer utilities {
-  .gradient-fire {
-    background: var(--gradient-fire);
-  }
-  
-  .gradient-tech {
-    background: var(--gradient-tech);
-  }
-  
-  .gradient-hero {
-    background: var(--gradient-hero);
-  }
-  
-  .gradient-sparkle {
-    background: var(--gradient-sparkle);
-  }
-  
-  .shadow-fire {
-    box-shadow: var(--shadow-fire);
-  }
-  
-  .shadow-tech {
-    box-shadow: var(--shadow-tech);
-  }
-  
-  .shadow-elegant {
-    box-shadow: var(--shadow-elegant);
-  }
-  
-  .transition-smooth {
-    transition: var(--transition-smooth);
-  }
-  
-  .transition-bounce {
-    transition: var(--transition-bounce);
-  }
-  
+  .gradient-fire { background: var(--gradient-fire); }
+  .gradient-charcoal { background: var(--gradient-charcoal); }
+  .gradient-hero { background: var(--gradient-hero); }
+  .gradient-accent { background: var(--gradient-accent); }
+  .gradient-soft { background: var(--gradient-soft); }
+
+  .shadow-sm-soft { box-shadow: var(--shadow-sm); }
+  .shadow-md-soft { box-shadow: var(--shadow-md); }
+  .shadow-lg-soft { box-shadow: var(--shadow-lg); }
+  .shadow-xl-soft { box-shadow: var(--shadow-xl); }
+  .shadow-fire { box-shadow: var(--shadow-fire); }
+  .shadow-focus { box-shadow: var(--shadow-focus); }
+
+  .transition-smooth { transition: var(--transition-smooth); }
+  .transition-bounce { transition: var(--transition-bounce); }
+
   .text-fire-gradient {
     background: var(--gradient-fire);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    color: transparent;
   }
-  
-  /* Professional Spacing Utilities */
-  .section-spacing {
-    padding-top: var(--spacing-section);
-    padding-bottom: var(--spacing-section);
+
+  /* Spacing helpers */
+  .section-spacing { padding-top: var(--spacing-section); padding-bottom: var(--spacing-section); }
+  .component-spacing { padding-top: var(--spacing-component); padding-bottom: var(--spacing-component); }
+  .element-spacing { padding-top: var(--spacing-element); padding-bottom: var(--spacing-element); }
+
+  /* Scrollbar fina para conteúdo scrollável (admin) */
+  .scrollbar-thin::-webkit-scrollbar { width: 6px; height: 6px; }
+  .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: hsl(var(--charcoal-300));
+    border-radius: 3px;
   }
-  
-  .component-spacing {
-    padding-top: var(--spacing-component);
-    padding-bottom: var(--spacing-component);
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover { background: hsl(var(--charcoal-400)); }
+
+  /* Touch targets mínimo 44x44 (Apple HIG / Material) */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
   }
-  
-  .element-spacing {
-    padding-top: var(--spacing-element);
-    padding-bottom: var(--spacing-element);
-  }
-  
-  /* Refined Animations - Reduced intensity */
-  .subtle-pulse {
-    animation: subtle-pulse 3s ease-in-out infinite;
-  }
-  
+
+  /* Animations */
+  .subtle-pulse { animation: subtle-pulse 3s ease-in-out infinite; }
   @keyframes subtle-pulse {
-    0%, 100% { opacity: 0.8; }
+    0%, 100% { opacity: 0.85; }
     50% { opacity: 1; }
   }
-  
-  .gentle-glow {
-    animation: gentle-glow 4s ease-in-out infinite;
-  }
-  
+
+  .gentle-glow { animation: gentle-glow 4s ease-in-out infinite; }
   @keyframes gentle-glow {
-    0%, 100% { box-shadow: 0 0 5px hsl(var(--fire-orange) / 0.2); }
-    50% { box-shadow: 0 0 10px hsl(var(--fire-orange) / 0.4); }
+    0%, 100% { box-shadow: 0 0 0 0 hsl(32 95% 50% / 0); }
+    50% { box-shadow: 0 0 0 4px hsl(32 95% 50% / 0.12); }
   }
-  
-  /* Optimized Background Gradients */
-  .bg-gradient-radial {
-    background: radial-gradient(circle, var(--gradient-from), var(--gradient-to, transparent));
-  }
-  
-  /* Performance optimized animations */
+
   .animate-fade-in-up {
     opacity: 0;
-    transform: translateY(20px);
-    animation: fade-in-up 0.6s ease-out forwards;
+    transform: translateY(12px);
+    animation: fade-in-up 0.4s ease-out forwards;
   }
-  
   @keyframes fade-in-up {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  /* GPU-accelerated blur for better performance */
-  .optimized-blur {
-    will-change: filter;
-    backface-visibility: hidden;
-    transform: translateZ(0);
-  }
-  
-  /* Ambient lighting effects */
-  .ambient-light {
-    background: radial-gradient(ellipse at center, transparent 0%, hsl(var(--fire-orange) / 0.03) 50%, transparent 100%);
-  }
-  
-  .ambient-particles {
-    background-image:
-      radial-gradient(circle at 20% 80%, hsl(var(--fire-orange) / 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, hsl(var(--fire-gold) / 0.1) 0%, transparent 50%);
+    to { opacity: 1; transform: translateY(0); }
   }
 
-  /* Smooth transition utilities for loading states */
-  .transition-opacity-smooth {
-    transition-property: opacity;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 400ms;
+  .animate-fade-in {
+    opacity: 0;
+    animation: fade-in 0.3s ease-out forwards;
+  }
+  @keyframes fade-in {
+    to { opacity: 1; }
   }
 
-  /* Performance hints for GPU acceleration */
-  .will-change-opacity {
-    will-change: opacity;
-  }
-
-  /* Accessibility: Respect reduced motion preference */
+  /* Acessibilidade: reduced motion */
   @media (prefers-reduced-motion: reduce) {
-    .transition-opacity,
-    .transition-opacity-smooth,
-    .animate-fade-in-up,
-    .subtle-pulse,
-    .gentle-glow {
-      transition: none !important;
-      animation: none !important;
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
     }
   }
 }

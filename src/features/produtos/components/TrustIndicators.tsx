@@ -57,7 +57,7 @@ const TrustIndicators = () => {
           <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-fire-gold to-fire-orange bg-clip-text text-transparent">
             Por Que Confiar na M5 Max?
           </h2>
-          <p className="text-base text-white/80 leading-relaxed">
+          <p className="text-base text-muted-foreground leading-relaxed">
             Mais de 40 anos criando momentos únicos com segurança, qualidade e profissionalismo reconhecidos
           </p>
         </div>
@@ -79,7 +79,7 @@ const TrustIndicators = () => {
               <p className="text-sm font-medium text-fire-gold mb-2">
                 {indicator.subtitle}
               </p>
-              <p className="text-white/70 text-xs leading-relaxed">
+              <p className="text-muted-foreground text-xs leading-relaxed">
                 {indicator.description}
               </p>
             </div>
@@ -93,7 +93,7 @@ const TrustIndicators = () => {
               <h3 className="text-xl font-bold text-white mb-3">
                 Certificações e Licenças Premium
               </h3>
-              <p className="text-white/70 text-sm">Operação segura e legal</p>
+              <p className="text-muted-foreground text-sm">Operação segura e legal</p>
             </div>
             
             <div className="space-y-3">
@@ -114,7 +114,7 @@ const TrustIndicators = () => {
         <div className="text-center">
           <div className="bg-gradient-to-r from-fire-orange/10 to-fire-gold/10 border border-fire-orange/30 rounded-xl p-6 backdrop-blur-md">
             <h3 className="text-xl font-bold text-white mb-3">Solicite Seu Orçamento</h3>
-            <p className="text-white/70 text-sm mb-4">Atendimento rápido e especializado</p>
+            <p className="text-muted-foreground text-sm mb-4">Atendimento rápido e especializado</p>
             <Button onClick={handleQuickQuote} className="w-full">Solicitar Orçamento</Button>
           </div>
         </div>

@@ -70,7 +70,7 @@ export function ProdutosTable() {
 
   if (error) {
     return (
-      <div className="flex justify-center p-8 text-red-500">
+      <div className="flex justify-center p-8 text-destructive">
         Erro ao carregar produtos: {error.message}
       </div>
     )
@@ -116,7 +116,7 @@ export function ProdutosTable() {
                   <TableCell className="font-medium">{produto.nome_produto}</TableCell>
                   <TableCell>
                     {produto.quantidade_disponivel < 5 ? (
-                      <span className="text-red-500">{produto.quantidade_disponivel}</span>
+                      <span className="text-destructive">{produto.quantidade_disponivel}</span>
                     ) : (
                       produto.quantidade_disponivel
                     )}
@@ -152,7 +152,7 @@ export function ProdutosTable() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="h-8 w-8 p-0 text-red-500"
+                      className="h-8 w-8 p-0 text-destructive"
                       onClick={() => handleDelete(produto.id)}
                     >
                       <span className="sr-only">Excluir</span>

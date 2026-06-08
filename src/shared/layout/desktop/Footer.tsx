@@ -156,15 +156,15 @@ export const FooterDesktop = () => {
                 Suporte
               </h3>
               <ul className="space-y-1.5 text-xs opacity-70">
-                <li><a href="#" className="hover:opacity-100 hover:text-blue-400 transition-smooth flex items-center gap-1.5">
+                <li><a href="#" className="hover:opacity-100 hover:text-tech-blue transition-smooth flex items-center gap-1.5">
                   <div className="w-1 h-1 bg-blue-400/50 rounded-full" />
                   FAQ
                 </a></li>
-                <li><a href="#" className="hover:opacity-100 hover:text-blue-400 transition-smooth flex items-center gap-1.5">
+                <li><a href="#" className="hover:opacity-100 hover:text-tech-blue transition-smooth flex items-center gap-1.5">
                   <div className="w-1 h-1 bg-blue-400/50 rounded-full" />
                   Certificações
                 </a></li>
-                <li><a href="#" className="hover:opacity-100 hover:text-blue-400 transition-smooth flex items-center gap-1.5">
+                <li><a href="#" className="hover:opacity-100 hover:text-tech-blue transition-smooth flex items-center gap-1.5">
                   <div className="w-1 h-1 bg-blue-400/50 rounded-full" />
                   Política de Privacidade
                 </a></li>

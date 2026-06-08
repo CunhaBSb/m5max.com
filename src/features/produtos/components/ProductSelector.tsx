@@ -58,7 +58,7 @@ const ProductSelector = () => {
           <h2 className="text-2xl font-bold mb-3 bg-gradient-to-r from-fire-gold to-fire-orange bg-clip-text text-transparent">
             Nossos Produtos Premium
           </h2>
-          <p className="text-sm text-white/80 leading-relaxed">
+          <p className="text-sm text-muted-foreground leading-relaxed">
             Cada kit é uma obra de arte pirotécnica, desenvolvida com 40 anos de experiência para criar momentos únicos
           </p>
         </div>
@@ -85,7 +85,7 @@ const ProductSelector = () => {
         {categoryInfo && (
           <div className="text-center mb-10">
             <div className="bg-white/5 rounded-lg p-4 backdrop-blur-sm border border-fire-orange/20">
-              <p className="text-white/70 leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed">
                 {categoryInfo.descricao}
               </p>
             </div>
@@ -103,7 +103,7 @@ const ProductSelector = () => {
         {/* Error State */}
         {error && (
           <div className="text-center py-8">
-            <p className="text-red-400 mb-2">Erro ao carregar produtos</p>
+            <p className="text-destructive mb-2">Erro ao carregar produtos</p>
             <p className="text-white/60 text-xs mb-3">Verifique sua conexão e tente novamente</p>
             <Button
               size="sm"
@@ -148,7 +148,7 @@ const ProductSelector = () => {
                 </div>
                 
                 <h3 className="text-lg font-bold text-white mb-1.5">{produto.nome}</h3>
-                <p className="text-white/70 text-xs leading-relaxed">{produto.descricao}</p>
+                <p className="text-muted-foreground text-xs leading-relaxed">{produto.descricao}</p>
               </div>
 
               {/* Product Details - Mobile Enhanced */}
@@ -156,7 +156,7 @@ const ProductSelector = () => {
                 <div className="flex items-center justify-between bg-white/5 rounded-lg p-2.5">
                   <div className="flex items-center space-x-2">
                     <Clock className="w-4 h-4 text-fire-gold" />
-                    <span className="text-white/80 text-xs font-medium">Duração:</span>
+                    <span className="text-muted-foreground text-xs font-medium">Duração:</span>
                   </div>
                   <span className="text-white font-bold text-xs">{produto.duracao || '≈ 60 segundos'}</span>
                 </div>
@@ -164,7 +164,7 @@ const ProductSelector = () => {
                 <div className="flex items-center justify-between bg-white/5 rounded-lg p-2.5">
                   <div className="flex items-center space-x-2">
                     <DollarSign className="w-4 h-4 text-fire-gold" />
-                    <span className="text-white/80 text-xs font-medium">Preço:</span>
+                    <span className="text-muted-foreground text-xs font-medium">Preço:</span>
                   </div>
                   <span className="text-fire-gold font-bold text-base">
                     {formatPreco(produto.preco, produto.preco_promocional)}
@@ -178,7 +178,7 @@ const ProductSelector = () => {
                   <h4 className="text-white font-bold mb-3">Incluso:</h4>
                   <ul className="space-y-2">
                     {produto.incluso.slice(0, 3).map((item, index) => (
-                      <li key={index} className="flex items-start space-x-2 text-sm text-white/80">
+                      <li key={index} className="flex items-start space-x-2 text-sm text-muted-foreground">
                         <div className="w-1.5 h-1.5 bg-fire-gold rounded-full flex-shrink-0 mt-2" />
                         <span className="leading-relaxed">{item}</span>
                       </li>
@@ -226,7 +226,7 @@ const ProductSelector = () => {
             <h3 className="text-xl font-bold text-white mb-4">
               Não encontrou o que procura?
             </h3>
-            <p className="text-white/70 mb-6 leading-relaxed">
+            <p className="text-muted-foreground mb-6 leading-relaxed">
               Criamos espetáculos pirotécnicos personalizados para qualquer tipo de evento. Com 40 anos de experiência, transformamos sua visão em realidade.
             </p>
             <Button

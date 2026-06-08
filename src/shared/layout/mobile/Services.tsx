@@ -44,7 +44,7 @@ const Services = () => {
           </h2>
           
           {/* Compact Description */}
-          <p className="text-sm text-white/85 max-w-xl mx-auto">
+          <p className="text-sm text-muted-foreground max-w-xl mx-auto">
             Conheça nossos espetáculos realizados e se inspire para o seu próximo evento.
           </p>
         </div>
@@ -93,7 +93,7 @@ const Services = () => {
             <h3 className="text-lg font-bold text-white mb-2">
               Siga a <span className="text-fire-gradient">M5 Max</span>
             </h3>
-            <p className="text-white/70 text-sm leading-relaxed">
+            <p className="text-muted-foreground text-sm leading-relaxed">
               Acompanhe nossos espetáculos nas redes sociais
             </p>
           </div>
@@ -124,7 +124,7 @@ const Services = () => {
                 </div>
                 <div className="flex-1">
                   <h4 className="text-white font-bold text-sm group-hover:text-pink-400 transition-colors duration-300">@fogosm5</h4>
-                  <p className="text-white/70 text-xs group-hover:text-white/85 transition-colors duration-300">Vídeos e fotos dos shows</p>
+                  <p className="text-muted-foreground text-xs group-hover:text-muted-foreground transition-colors duration-300">Vídeos e fotos dos shows</p>
                 </div>
                 <div className="flex items-center gap-1.5 bg-gradient-to-r from-pink-500/20 to-purple-500/20 px-2 py-1 rounded-full border border-pink-400/25 backdrop-blur-sm">
                   <div className="w-1.5 h-1.5 bg-pink-400 rounded-full animate-pulse" />
@@ -156,8 +156,8 @@ const Services = () => {
                   <YouTube className="w-5 h-5 text-white" />
                 </div>
                 <div className="flex-1">
-                  <h4 className="text-white font-bold text-sm group-hover:text-red-400 transition-colors duration-300">M5 Max Produções</h4>
-                  <p className="text-white/70 text-xs group-hover:text-white/85 transition-colors duration-300">Canal oficial no YouTube</p>
+                  <h4 className="text-white font-bold text-sm group-hover:text-destructive transition-colors duration-300">M5 Max Produções</h4>
+                  <p className="text-muted-foreground text-xs group-hover:text-muted-foreground transition-colors duration-300">Canal oficial no YouTube</p>
                 </div>
                 <div className="flex items-center gap-1.5 bg-gradient-to-r from-red-600/20 to-red-500/20 px-2 py-1 rounded-full border border-red-500/25 backdrop-blur-sm">
                   <div className="w-1.5 h-1.5 bg-red-400 rounded-full animate-pulse" />

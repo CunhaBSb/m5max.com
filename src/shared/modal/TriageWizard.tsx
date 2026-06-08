@@ -54,7 +54,7 @@ const TriageWizard: React.FC<TriageWizardProps> = ({ step: initialStep, onComple
     return (
       <div className="space-y-3.5 animate-in fade-in duration-300 max-w-4xl mx-auto">
         <div className="text-center space-y-1">
-          <h3 className="text-xs sm:text-sm font-semibold text-white animate-in slide-in-from-top duration-500">
+          <h3 className="text-xs sm:text-sm font-semibold text-foreground animate-in slide-in-from-top duration-500">
             Qual melhor descreve seu evento?
           </h3>
         </div>
@@ -74,8 +74,8 @@ const TriageWizard: React.FC<TriageWizardProps> = ({ step: initialStep, onComple
               <div className="w-16 h-16 rounded-full bg-gradient-to-br from-fire-orange to-fire-gold flex items-center justify-center shadow-lg group-hover:shadow-fire-orange/50 transition-all">
                 <Heart className="w-8 h-8 text-white fill-white/20" />
               </div>
-              <h4 className="text-base font-bold text-white">Pessoal</h4>
-              <p className="text-xs text-white/80 leading-relaxed">
+              <h4 className="text-base font-bold text-foreground">Pessoal</h4>
+              <p className="text-xs text-muted-foreground leading-relaxed">
                 Casamento, Chá Revelação, Aniversário
               </p>
             </CardContent>
@@ -95,8 +95,8 @@ const TriageWizard: React.FC<TriageWizardProps> = ({ step: initialStep, onComple
               <div className="w-16 h-16 rounded-full bg-gradient-to-br from-tech-blue to-tech-blue-light flex items-center justify-center shadow-lg group-hover:shadow-tech-blue/50 transition-all">
                 <Building className="w-8 h-8 text-white" />
               </div>
-              <h4 className="text-base font-bold text-white">Corporativo</h4>
-              <p className="text-xs text-white/80 leading-relaxed">
+              <h4 className="text-base font-bold text-foreground">Corporativo</h4>
+              <p className="text-xs text-muted-foreground leading-relaxed">
                 Empresa, Festival, Réveillon
               </p>
             </CardContent>
@@ -116,8 +116,8 @@ const TriageWizard: React.FC<TriageWizardProps> = ({ step: initialStep, onComple
               <div className="w-16 h-16 rounded-full bg-gradient-to-br from-fire-gold to-yellow-400 flex items-center justify-center shadow-lg group-hover:shadow-fire-gold/50 transition-all">
                 <Star className="w-8 h-8 text-gray-900 fill-gray-900/20" />
               </div>
-              <h4 className="text-base font-bold text-white">VIP</h4>
-              <p className="text-xs text-white/80 leading-relaxed">
+              <h4 className="text-base font-bold text-foreground">VIP</h4>
+              <p className="text-xs text-muted-foreground leading-relaxed">
                 Eventos de grande porte
               </p>
             </CardContent>
@@ -131,7 +131,7 @@ const TriageWizard: React.FC<TriageWizardProps> = ({ step: initialStep, onComple
   return (
     <div className="space-y-3.5 animate-in fade-in duration-300 pb-14 max-w-4xl mx-auto">
       <div className="text-center space-y-1">
-        <h3 className="text-xs sm:text-sm font-semibold text-white animate-in slide-in-from-top duration-500">
+        <h3 className="text-xs sm:text-sm font-semibold text-foreground animate-in slide-in-from-top duration-500">
           Quase lá!
         </h3>
       </div>
@@ -141,7 +141,7 @@ const TriageWizard: React.FC<TriageWizardProps> = ({ step: initialStep, onComple
         <div className="space-y-2.5">
           <div className="flex items-center gap-2">
             <Users className="w-4 h-4 text-fire-orange" />
-            <label className="text-xs sm:text-sm font-medium text-white">Público estimado</label>
+            <label className="text-xs sm:text-sm font-medium text-foreground">Público estimado</label>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {[
@@ -158,7 +158,7 @@ const TriageWizard: React.FC<TriageWizardProps> = ({ step: initialStep, onComple
                   'cursor-pointer h-9 py-2 px-2.5 justify-center text-[11px] sm:text-xs transition-all duration-200 hover:scale-105',
                   selectedAttendees === option.value
                     ? 'bg-fire-orange border-fire-orange text-white shadow-lg'
-                    : 'border-white/20 text-white/80 hover:border-fire-orange/50 hover:bg-fire-orange/10'
+                    : 'border-white/20 text-muted-foreground hover:border-fire-orange/50 hover:bg-fire-orange/10'
                 )}
               >
                 {option.label}
@@ -171,7 +171,7 @@ const TriageWizard: React.FC<TriageWizardProps> = ({ step: initialStep, onComple
         <div className="space-y-2.5">
           <div className="flex items-center gap-2">
             <DollarSign className="w-4 h-4 text-fire-gold" />
-            <label className="text-xs sm:text-sm font-medium text-white">Orçamento estimado</label>
+            <label className="text-xs sm:text-sm font-medium text-foreground">Orçamento estimado</label>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             {[
@@ -189,7 +189,7 @@ const TriageWizard: React.FC<TriageWizardProps> = ({ step: initialStep, onComple
                   'cursor-pointer h-9 py-2 px-2.5 justify-center text-[11px] sm:text-xs transition-all duration-200 hover:scale-105',
                   selectedBudget === option.value
                     ? 'bg-fire-gold border-fire-gold text-gray-900 shadow-lg font-medium'
-                    : 'border-white/20 text-white/80 hover:border-fire-gold/50 hover:bg-fire-gold/10'
+                    : 'border-white/20 text-muted-foreground hover:border-fire-gold/50 hover:bg-fire-gold/10'
                 )}
               >
                 R$ {option.label}

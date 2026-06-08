@@ -210,8 +210,8 @@ export function OrcamentosTable() {
             Nenhum orçamento encontrado.
           </div>
         ) : (
-          <div className="border rounded-md">
-            <Table>
+          <div className="border rounded-md overflow-x-auto scrollbar-thin">
+            <Table className="min-w-[640px]">
               <TableHeader>
                 <TableRow>
                   <TableHead>Cliente</TableHead>
