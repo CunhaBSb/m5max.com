@@ -4,6 +4,84 @@
 
 ---
 
+## Rodada 3 — Auditoria profunda (admin + DB)
+
+Comando do Marcos: análise completa e profunda do painel admin + banco de dados. Saí do "edge de segurança" e fui pra **business logic + integridade de dados**.
+
+### ✅ Correções aplicadas (Rodada 3)
+
+**`2026-06-08_admin_audit_hardening`**
+
+1. **Trigger `BEFORE UPDATE` em `produtos`** (`trg_produtos_prevent_negative_stock`): rejeita qualquer `UPDATE` que tente setar `quantidade_disponivel < 0`. O front deduz via `current - qty` (Client side, sem checagem de saldo real do banco no momento do UPDATE). Agora o DB é a linha de defesa. Erro: `check_violation (23514)`.
+2. **Trigger `BEFORE UPDATE` em `orcamentos`** (`trg_orcamentos_status_lock`): bloqueia mudança de `status` quando o status anterior é `realizado`. O `ConfirmShow` já faz rollback manual se estoque falhar, mas reverte só o estoque — o status `realizado` ficava órfão. Agora o DB trava a transição.
+3. **Trigger `BEFORE INSERT` em `historico_estoque`** (`trg_historico_estoque_fill_usuario`): se `usuario_id` vier `NULL`, preenche com `auth.uid()`. Antes, 98% das 113 linhas tinham `usuario_id` NULL porque o `AuthContextSimple` nem sempre tinha `userData` populado no momento do insert.
+4. **`ANALYZE` em todas as 7 tabelas**: tabelas com 60–900% de dead tuples (`usuarios` 900%, `eventos` 700%, `produtos` 90%). Último autovacuum de `produtos`: 2026-04-19. Planner vai usar stats novas.
+
+**`2026-06-08_dedupe_updated_at_triggers`**
+
+5. Removidos triggers duplicados `trg_*_updated_at` (criados por esta migration). O Supabase dashboard já tinha criado `update_*_updated_at` no mesmo evento. Mantido o original, drop dos meus.
+
+**Código**
+
+6. `AuthContextSimple.tsx`: removido `console.log` que vazava `role` e `ativo` no DevTools (todo usuário logado via console do browser).
+
+### 🔍 Achados da auditoria profunda (não corrigidos, documentados)
+
+#### 🔴 CRÍTICO (risco real, em produção)
+
+**1. `ConfirmShow` no `AdminOrcamentos.tsx` (3.5k linhas): transação não é atômica**
+- **Linha ~885**: o código faz `UPDATE orcamentos SET status='realizado'` ANTES de deduzir estoque.
+- **Linha ~960-1030**: depois deduz estoque de cada produto + insere no `historico_estoque` em loop sequencial.
+- **Linha ~1050+**: se o estoque falhar, faz **rollback manual** (reverte o produto + insere entrada no histórico). **Mas não reverte o status `realizado`** — o orcamento fica como `realizado` mas sem o estoque deduzido.
+- **Mitigação parcial aplicada (Rodada 3)**: o trigger `prevent_status_unlock` agora BLOQUEIA qualquer UPDATE de status quando o anterior é `realizado` — então o `realizado` órfão vira um *fail-fast*: se algo tentar mudar de novo, erro. Mas o estado "realizado sem estoque" continua possível.
+- **Correção real (não aplicada, refactor grande)**: envolver em RPC `confirm_show_as_completed(orcamento_id, consumptions jsonb, final_value numeric)` que faz tudo dentro de `BEGIN; ... COMMIT;` server-side. Risco-benefício: alto refactor, baixa probabilidade de falha (rollback manual já cobre 95% dos casos). **Recomendação**: abrir PR dedicado.
+- **Race condition**: `currentQuantity` lido pelo JS, depois `UPDATE produtos SET q = currentQuantity - qty` — entre leitura e update, outro admin pode alterar. **Não é corrigido** sem refactor pra `UPDATE ... WHERE quantidade_disponivel >= qty RETURNING`.
+
+**2. `handle_new_user` aceita role via `raw_user_meta_data->>'role'`**
+- O trigger que cria `usuarios` ao cadastrar via Auth lê `raw_user_meta_data->>'role'` (default `moderador`).
+- Se um signup público existir, alguém pode tentar se registrar com `role: 'admin'` no payload.
+- **Hoje**: nenhum signup público exposto no código. Risco zero em produção.
+- **Recomendação**: ignorar o metadata e forçar `'moderador'` no trigger.
+
+**3. `solicitacoes_orcamento` INSERT anônimo sem rate limit**
+- Formulário público. Pode ser abusado.
+- **Recomendação**: Edge Function com throttling por IP, ou trigger que rejeita mais de N inserts/hora/IP. **Decisão pendente do Marcos**.
+
+#### 🟡 IMPORTANTE (risco médio, não-bloqueante)
+
+**4. `database.ts` (types) está desatualizado**
+- `PostgrestVersion: 12.2.12` no header do tipo, mas o projeto roda versão mais nova.
+- Falta: tipo da função `is_admin_user` e dos triggers recém-criados.
+- **Recomendação**: `supabase gen types typescript --project-id xxx` (CLI) e commitar.
+
+**5. `eventos` table: 0 rows, 700% dead tuples, sem uso**
+- Tabela vazia, sem RLS policy granular, sem uso conhecido.
+- **Decisão consciente**: deixada como está. Se for abandonada, dropar em migration futura.
+
+**6. `AdminOrcamentos.tsx` state management: 43 `useState` em 3.5k linhas**
+- Puro legado. Refactor pra `useReducer` + state machine (`idle → editing → confirming → rollback`) seria correto.
+- **Decisão consciente**: não refatorar (alto risco, zero ganho funcional imediato). Documentado.
+
+**7. `AdminEventos.tsx` (página) com `useState<... | null>` sem `noUncheckedIndexedAccess` ativo em alguns pontos**
+- Lint limpo agora (removido `catch(error: any)` na Rodada 1).
+- Tipos de TypeScript: o `database.ts` é a principal fonte de inconsistência. Quando regenerar, esse item se resolve.
+
+**8. `AdminEstoque.tsx` deduz estoque sem checar `historico_estoque` para itens reservados**
+- Quando um `ConfirmShow` acontece, o estoque é deduzido + `historico_estoque` recebe uma `saida`. Mas se o `AdminEstoque` (entrada manual) rodar em paralelo, a checagem `saldo insuficiente` no JS é baseada em `currentQuantity` lido antes — mesma race condition do item 1.
+- **Mitigação**: o trigger `prevent_negative_stock` (Rodada 3) faz o DB recusar UPDATE inválido, mesmo que o JS tenha checado errado. Defesa em profundidade.
+
+#### 🟢 BAIXO (cosmético ou planejado)
+
+**9. `bun.lockb` ainda commitado**: órfão. Decisão pendente.
+
+**10. `auth_leaked_password_protection` desligada**: config manual no painel Supabase. Pendente.
+
+**11. Postgres 17.4.1 com patches pendentes**: agendável pelo painel.
+
+**12. `.env` commitado em `1799a2d`**: se havia `service_role` key, rotacionar. Se só `VITE_*` (público por design), ok.
+
+---
+
 ## Rodada 2 — Lockdown /admin (mensagem: "Nada deve ser público de /admin")
 
 Comando do Marcos: fechar qualquer vazamento que exponha dados de admin para o público. Aplicado:
@@ -109,6 +187,12 @@ O `.env` foi deletado depois, mas a chave do Supabase anon key + qualquer outra 
 | `usuarios` SELECT público | ❌ vazava 2 admins | ✅ fechado (próprio user) |
 | Bucket `orcamentos_pdfs` | ❌ público + listing | ✅ privado + 3 policies removidas |
 | Funções SECURITY DEFINER expostas | ❌ anon EXECUTE | ✅ só service_role/postgres |
+| `produtos` UPDATE com saldo negativo | ❌ permitia | ❌→✅ **DB rejeita** (Rodada 3) |
+| `orcamentos` status sair de `realizado` | ❌ permitia | ❌→✅ **DB rejeita** (Rodada 3) |
+| `historico_estoque.usuario_id` NULL | ❌ 98% das 113 rows | ✅ **trigger preenche com `auth.uid()`** (Rodada 3) |
+| `console.log` vazando role/ativo no browser | ❌ presente | ✅ **removido** (Rodada 3) |
+| `updated_at` triggers duplicados | ❌ 4 pares duplicados | ✅ **dedupado** (Rodada 3) |
+| `ANALYZE` em todas tabelas | ❌ stats velhas (abril) | ✅ **estatísticas atualizadas** (Rodada 3) |
 
 ---
 
@@ -116,8 +200,10 @@ O `.env` foi deletado depois, mas a chave do Supabase anon key + qualquer outra 
 
 1. **Ligar** leaked password protection no painel Supabase (item g).
 2. Agendar upgrade Vite 5 → 8 (item 2.).
-3. Decidir se quer aplicar `a`, `c`, `e` agora ou depois.
+3. **Decidir se quer** `a`, `c`, `e` agora ou depois. (Rodada 3 confirmou: `c` continua sendo o mais urgente — rate limit no form.)
 4. Adicionar rate limit no formulário de orçamento (item c) — Edge Function ou trigger de IP/hora.
-5. Remover `bun.lockb` em PR dedicado (item f).
-6. Rotacionar secrets se houve `service_role` no histórico (item i).
-7. Agendar upgrade do Postgres 17.4.1 → próxima patch (item h).
+5. **Refatorar `ConfirmShow` para RPC atômica** (item 1 — Rodada 3): eliminar o estado "realizado sem estoque".
+6. Remover `bun.lockb` em PR dedicado (item f).
+7. Rotacionar secrets se houve `service_role` no histórico (item i).
+8. Agendar upgrade do Postgres 17.4.1 → próxima patch (item h).
+9. Regenerar `database.ts` (item 4 — Rodada 3).

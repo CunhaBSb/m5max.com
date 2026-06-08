@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (session?.user) {
         setUser(session.user);
-        
+
         // Fetch user data
         supabase
           .from('usuarios')
@@ -66,13 +66,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
           .eq('id', session.user.id)
           .single()
           .then(({ data, error }) => {
-            console.log('🔍 AuthProvider: Perfil do usuário (public.usuarios):', { 
-              found: !!data, 
-              role: data?.role, 
-              active: data?.ativo, 
-              error: error?.message 
-            });
-            
             if (!error && data) {
               setUserData(data);
             } else {
