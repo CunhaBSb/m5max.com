@@ -409,3 +409,82 @@ O `.env` foi deletado depois, mas a chave do Supabase anon key + qualquer outra 
 7. Rotacionar secrets se houve `service_role` no histórico (item i).
 8. Agendar upgrade do Postgres 17.4.1 → próxima patch (item h).
 9. Regenerar `database.ts` (item 4 — Rodada 3).
+
+---
+
+## Rodada 7 — Redesign mobile-first + paleta Charcoal + Âmbar (light only)
+
+**Comando do Marcos (16:30)**: "Quero responsividade total para mobile, paleta de cor nova… está muito difícil esse Dark… seja profissional."
+
+### Decisões
+- **Paleta B**: Charcoal (`#1a1d23` = charcoal-900) + Âmbar (`#f59e0b` = primary 32 95% 50%) — vibe B2B
+- **Sem dark mode**: `darkMode: false` no tailwind, sem `next-themes`, sem `dark:` classes
+- **Escopo**: admin + público, admin primeiro (já validado)
+- **Mobile-first total**: modais fullscreen, sem scroll desnecessário, touch targets 44px+
+
+### ✅ Aplicado
+
+**Tailwind + Design System**
+- `darkMode: false`, novo xs breakpoint (360px), cores `success`/`warning`/`primary.soft`/`primary.glow`/`charcoal.50-900`/`sidebar`
+- Shadow aliases: `soft-sm`/`soft-md`/`soft-xl`
+- CSS vars (light only): `--background: 0 0% 100%`, `--foreground: 222 47% 11%`, `--primary: 32 95% 50%`, `--success: 142 71% 45%`, `--warning: 38 92% 50%`, `--sidebar: 222 47% 11%`, `--tech-blue: 217 91% 60%`
+- `@layer components`: `.admin-modal-panel`/`.admin-modal-header`/`.admin-modal-footer`/`.admin-stat-card`/`.touch-target`/`.scrollbar-thin`/`.pb-safe-bottom`/`.pt-safe-top`
+
+**Removido**
+- `next-themes` (npm uninstall) + `ThemeProvider.tsx` deletado
+- `class="dark"` no `<html>`
+- `dark:` classes em `alert.tsx`, `ProductModal.tsx`, `showcase-video-card.tsx`
+
+**Admin**
+- `AdminLayout.tsx` rewrite: charcoal header sticky, bottom nav mobile (4 items + Menu), drawer com ESC + body scroll lock + safe-area-inset-bottom
+- `AdminDashboard.tsx` rewrite (14605 bytes) com `StatCardView`/`ActivityItem`/`EventoCard` extraídos
+- Modais admin fullscreen mobile: `ConfirmShowModal`, `AdminEstoque`, `AdminOrcamentos` (2 modais), `AdminEventos`, `AdminProdutos`
+
+**Público**
+- `Dialog` base refatorado (`src/shared/ui/dialog.tsx`): mobile fullscreen `fixed inset-0`, desktop `sm:inset-auto sm:left-[50%] sm:top-[50%] sm:rounded-lg sm:border sm:p-6`
+- `MobileHeader.tsx`: novo CTA "Orçamento" âmbar (`data-testid="cta-orcamento-mobile"`, 110x44px touch target, entre WhatsApp e Menu)
+- Modais public simplificados: `ConversionModal`, `BudgetRequestFlow`, `SaoJoaoModal`
+- `SaoJoaoModal` `sm:max-w-[850px] lg:max-w-[1000px] p-0 border-0 overflow-hidden max-h-screen sm:max-h-[90vh]`
+- `showcase-video-card`: `bg-black/30` → `bg-charcoal-900/30`
+- `BudgetRequestFlow` success banner: `bg-emerald-950/90 border-emerald-500/40` → `bg-card border-success/40 shadow-soft-xl`
+
+**Bulk sed refactor**
+- `bg-[#161616]` → `bg-card`
+- `bg-white/[0.X]` → `bg-muted/60`
+- `text-white/[0.X]` → `text-muted-foreground`
+- `border-white/[X]` → `border-border`
+- `text-emerald-500` → `text-success`
+- `text-blue-400` → `text-tech-blue`
+- `text-red-500` → `text-destructive`
+- `text-orange-500` → `text-primary`
+- `text-zinc-N` → `text-muted-foreground`
+- `border-zinc-N` → `border-border`
+
+**Bug fix: text-white em cards com bg gradient claro**
+- `TriageWizard.tsx`: h3/h4/labels com `text-white` ficavam invisíveis em bg `from-tech-blue/20` (claro). Trocado pra `text-foreground`
+
+### Validação
+- **TS**: `npx tsc --noEmit` → 0 errors
+- **Build**: 6.15s com env vars → 0 errors
+- **Lint**: 0 errors, 3 warnings pré-existentes
+- **Tests unitários**: 82/83 (1 falha pré-existente em `useAnalytics.test.ts:117`, não relacionada)
+- **E2E Playwright**: 4/4 passando
+  - `chromium` 1280x720 budget flow (12.9s)
+  - `mobile-chrome` Pixel 7 412x915 budget flow (38.9s)
+  - `mobile-chrome` visual-mobile header (16.5s)
+  - `chromium` visual-mobile header (skipped via test.describe)
+- **Visual validation**: mobile header mostra WhatsApp + Logo + Orçamento âmbar + Menu hamburger. Modal fullscreen 412x915 com heading "Reserve a sua data" em âmbar gradient, cards de audiência visíveis
+
+### Pendências pra Rodada 8
+- Gestos: swipe, pull-to-refresh, bottom sheets
+- PWA (instalável, offline-first, push)
+- `useAnalytics.test.ts:117` (pre-existing)
+- `bun.lockb` cleanup
+- `handle_new_user` role injection
+- Rate limit no `solicitacoes_orcamento`
+- Regenerar `Database` type
+
+### Git
+- **Commit**: `951954a` (rodada 7)
+- **Push**: 7 commits → origin/main (951954a, 6ecb4fe, 9573ff2, 6ee5748, 288896e, 2bc48de, 2151aa1)
+- **Credencial**: SSH `id_ed25519` (marcosdocunha@gmail.com) adicionada ao ssh-agent; remote trocado pra `git@github.com:CunhaBSb/m5max.com.git`
