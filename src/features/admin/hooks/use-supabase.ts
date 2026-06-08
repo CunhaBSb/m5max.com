@@ -2,7 +2,10 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/features/admin/lib/supabase';
 import { useToast } from './use-toast';
 
-// Hook genérico para operações CRUD com Supabase
+// Hook genérico para operações CRUD com Supabase.
+// @deprecated desde 2026-06-08 (rodada 4). useProdutos ainda usado em
+// ProdutosTable.tsx (que tambem é codigo morto - nao eh importado em lugar nenhum).
+// Manteremos enquanto o ProdutosTable existir; remover em PR de limpeza.
 export function useSupabase<T, I, U>(
   tableName: string,
   options?: {
@@ -24,6 +27,11 @@ export function useSupabase<T, I, U>(
     orderBy,
     realtimeEnabled = false,
   } = options || {};
+
+  // Estabilizar refs: defaultFilter e orderBy sao objetos recriados a cada render,
+  // o que faria o useEffect disparar fetchData em loop infinito.
+  const defaultFilterKey = JSON.stringify(defaultFilter);
+  const orderByKey = orderBy ? JSON.stringify(orderBy) : '';
 
   // Função para buscar dados
   const fetchData = useCallback(async (filter: Record<string, unknown> = {}) => {
@@ -58,7 +66,7 @@ export function useSupabase<T, I, U>(
 
       setData(result as T[]);
     } catch (err) {
-      console.error(`Erro ao buscar dados da tabela ${tableName}:`, err);
+      if (import.meta.env.DEV) { console.error(`Erro ao buscar dados da tabela ${tableName}:`, err); }
       setError(err instanceof Error ? err : new Error(String(err)));
       toast({
         title: 'Erro ao carregar dados',
@@ -68,7 +76,8 @@ export function useSupabase<T, I, U>(
     } finally {
       setLoading(false);
     }
-  }, [tableName, select, defaultFilter, orderBy, toast]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tableName, select, defaultFilterKey, orderByKey, toast]);
 
   // Função para buscar um item por ID
   const getById = useCallback(
@@ -86,7 +95,7 @@ export function useSupabase<T, I, U>(
         if (queryError) throw queryError;
         return result as T;
       } catch (err) {
-        console.error(`Erro ao buscar item por ID na tabela ${tableName}:`, err);
+        if (import.meta.env.DEV) { console.error(`Erro ao buscar item por ID na tabela ${tableName}:`, err); }
         setError(err instanceof Error ? err : new Error(String(err)));
         toast({
           title: 'Erro ao carregar item',
@@ -126,7 +135,7 @@ export function useSupabase<T, I, U>(
 
         return result as T;
       } catch (err) {
-        console.error(`Erro ao criar item na tabela ${tableName}:`, err);
+        if (import.meta.env.DEV) { console.error(`Erro ao criar item na tabela ${tableName}:`, err); }
         setError(err instanceof Error ? err : new Error(String(err)));
         toast({
           title: 'Erro ao criar item',
@@ -169,7 +178,7 @@ export function useSupabase<T, I, U>(
 
         return result as T;
       } catch (err) {
-        console.error(`Erro ao atualizar item na tabela ${tableName}:`, err);
+        if (import.meta.env.DEV) { console.error(`Erro ao atualizar item na tabela ${tableName}:`, err); }
         setError(err instanceof Error ? err : new Error(String(err)));
         toast({
           title: 'Erro ao atualizar item',
@@ -208,7 +217,7 @@ export function useSupabase<T, I, U>(
 
         return true;
       } catch (err) {
-        console.error(`Erro ao remover item da tabela ${tableName}:`, err);
+        if (import.meta.env.DEV) { console.error(`Erro ao remover item da tabela ${tableName}:`, err); }
         setError(err instanceof Error ? err : new Error(String(err)));
         toast({
           title: 'Erro ao remover item',

@@ -29,8 +29,15 @@ const AdminLogin = () => {
       return;
     }
     
-    setIsLoading(false);
-    navigate("/admin/produtos");
+    // Se ja ha sessao valida e usuario eh admin, vai direto pro painel
+    if (userData?.role === "admin" && userData?.ativo) {
+      navigate("/admin/produtos");
+    } else {
+      // Sessao existe mas nao eh admin -> desloga para evitar loop
+      supabase.auth.signOut().then(() => {
+        setIsLoading(false);
+      });
+    }
   }, [user, userData, loading, navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -44,7 +51,9 @@ const AdminLogin = () => {
       });
 
       if (error) {
-        console.error('❌ AdminLogin: Erro no login:', error.code, error.message);
+        if (import.meta.env.DEV) {
+          console.error('❌ AdminLogin: Erro no login:', error.code, error.message);
+        }
         let description = "Credenciais inválidas ou erro de conexão.";
         
         if (error.message === "Invalid login credentials") {
@@ -66,11 +75,18 @@ const AdminLogin = () => {
         return;
       }
 
-      if (!data.user) {
+      // Login OK: o onAuthStateChange do AuthContextSimple vai popular userData
+      // e disparar o useEffect acima para navegar. Mas, defensivamente, liberamos
+      // o botao apos 3s caso o listener demore (race condition conhecida).
+      if (data.user) {
+        setTimeout(() => setIsLoading(false), 3000);
+      } else {
         setIsLoading(false);
       }
     } catch (error) {
-      console.error('❌ AdminLogin: Erro inesperado:', error);
+      if (import.meta.env.DEV) {
+        console.error('❌ AdminLogin: Erro inesperado:', error);
+      }
       toast({
         title: "Erro inesperado",
         description: "Tente novamente em alguns instantes.",

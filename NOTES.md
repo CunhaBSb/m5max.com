@@ -82,6 +82,59 @@ Comando do Marcos: análise completa e profunda do painel admin + banco de dados
 
 ---
 
+## Rodada 4 — Hardening cirúrgico do /admin (comportamento + UX + segurança)
+
+Foco: corrigir bugs reais do painel admin que afetam comportamento, UX e produção. Sem refatorações arriscadas (AdminOrcamentos.tsx ficou intocado, exceto para gatear console.error). Tudo em defesa de profundidade.
+
+### ✅ Bugs corrigidos
+
+1. **`use-toast.ts` (memory leak)**: `useEffect` re-empilhava `setState` em `listeners` a cada render por causa de `[state]` como dependência. Trocado para `[]` (registra uma vez, remove no unmount).
+2. **`use-supabase.ts` (loop infinito potencial)**: `defaultFilter` e `orderBy` são objetos recriados a cada render, o que disparava `fetchData()` em loop. Adicionada estabilização via `JSON.stringify(...Key)` nas deps do `useCallback`, com `eslint-disable` em `exhaustive-deps` (a versão serializada substitui com segurança).
+3. **`AdminLogin` (sessão + race condition)**: 
+   - `setIsLoading(false)` não era chamado no caminho de sucesso — dependia 100% do `onAuthStateChange`. Adicionado fallback `setTimeout(3000)` defensivo.
+   - Se houvesse sessão válida de usuário não-admin ao chegar no login, navegava direto pro admin (loop). Agora detecta role/ativo e faz `signOut()` se não for admin válido.
+4. **`AdminEventos` (performance)**: query sem `.order()` e sem `.limit()` — escalaria mal. Adicionado `.order('evento_data', { ascending: false }).limit(500)`.
+5. **`AdminLayout` (UX de logout)**: `signOut()` sem try/catch — se rede caísse, navegava pra login sem deslogar. Agora `try/catch/finally` garante navegação mesmo em falha.
+6. **`ErrorBoundary` (vazamento de info técnica)**: mostrava `this.state.error.toString()` para o usuário final (stack trace visível). Substituído por mensagem genérica apontando pros logs.
+7. **15 `console.error` no admin** em produção: gateados por `import.meta.env.DEV` em `AdminLogin`, `AdminEventos`, `AdminOrcamentos`, `use-eventos`, `use-orcamentos`, `use-solicitacao-orcamento`, `use-supabase`, `use-orcamento-pdf`, `AdminLayout`. Em prod build, esses logs são stripados.
+8. **`use-supabase.ts` documentado como @deprecated**: hooks `useOrcamentos`, `useEventos`, `useSolicitacoesOrcamento` que estavam lá nunca eram usados. Marcados com JSDoc `@deprecated` (não removidos pra não arriscar regressão; marcado pra limpeza futura).
+9. **`AdminOrcamentos.tsx` console.error/warn**: 12+ ocorrências gateadas por `import.meta.env.DEV`. As 3 que sobraram (`console.warn('[Orçamentos] lead_submissions indisponível')` etc) são **soft-failures esperados** quando uma tabela opcional não existe (42P01), portanto mantidas.
+
+### 🔴 Achados documentados, NÃO corrigidos (decisão consciente)
+
+- **`ProdutosTable.tsx` é código morto** (exporta mas não é importado em lugar nenhum). Será removido em PR de limpeza junto com `use-supabase.ts`.
+- **`AdminOrcamentos.tsx` (3.5k linhas, 43 useState)** — refatoração adiada (rodada 3 já documentou).
+- **Duplicata conceitual `useEventos`** (existe em `use-eventos.ts` e em `use-supabase.ts`). O `use-eventos.ts` é o que está em uso real (EventosCalendar, EventosTable). O do `use-supabase.ts` é morto.
+- **`TOAST_REMOVE_DELAY = 1.000.000` (16 min)** — magic number do shadcn/ui, mantido.
+- **`AdminLogin` sem rate limit client-side** — Supabase Auth tem rate limit no servidor (silencioso). Adicionar cooldown client-side é nice-to-have, não crítico.
+- **Stack trace de `error` em `ErrorBoundary`**: ainda logado em `console.error` (mantido, mas só em DEV graças ao gate do `useEffect` ainda não estar aplicado — `componentDidCatch` é de classe, escapa do Vite tree-shake se a classe for usada).
+
+### 🔍 Itens verificados (positivos)
+
+- **`grep -r "service_role" src/`** → 0 matches. **Não há service_role key no bundle.** Os JWTs em `dist/assets/FogosM5Complete-*.js` são tokens de signed URL do Storage (URL `M5Max/V2.mp4`, exp 2053) — públicos por design.
+- **`.env` não está no repo** (foi removido entre a rodada 1 e a 4). `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY` são as únicas chaves em uso, ambas com prefixo `VITE_` (público por design do Vite).
+- **Bundle de prod**: build 5.46s, 0 errors, 0 service_role leaks.
+
+### 📊 Métricas rodada 4
+
+| Item | Antes | Depois |
+|---|---|---|
+| `use-toast` memory leak | ❌ listener re-empilhado por render | ✅ `[]` deps |
+| `use-supabase` loop infinito potencial | ❌ `defaultFilter`/`orderBy` recriados | ✅ estabilizado via `JSON.stringify` |
+| `AdminLogin` race condition | ❌ loading state preso | ✅ fallback 3s |
+| `AdminLogin` sessão não-admin | ❌ loop entre login/admin | ✅ signOut() |
+| `AdminEventos` query sem limite | ❌ 1000+ rows potenciais | ✅ `.limit(500)` |
+| `AdminLayout` signOut sem try/catch | ❌ falha silenciosa | ✅ try/catch/finally |
+| `ErrorBoundary` info técnica | ❌ stack trace visível | ✅ mensagem genérica |
+| `console.error` em prod (admin) | ❌ 15+ vazando | ✅ gateados por `import.meta.env.DEV` |
+| Build | 5.71s | 5.46s |
+| Lint | 0 errors | 0 errors |
+| TS | 0 errors | 0 errors |
+| Testes | 82/83 | 82/83 (mesma falha pré-existente) |
+| `service_role` no bundle | 0 | 0 |
+
+---
+
 ## Rodada 2 — Lockdown /admin (mensagem: "Nada deve ser público de /admin")
 
 Comando do Marcos: fechar qualquer vazamento que exponha dados de admin para o público. Aplicado:

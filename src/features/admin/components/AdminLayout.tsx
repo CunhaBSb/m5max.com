@@ -39,8 +39,16 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
   }, [location.pathname]);
 
   const handleSignOut = async () => {
-    await signOut();
-    navigate("/admin/login");
+    try {
+      await signOut();
+    } catch (error) {
+      // Se signOut falhar (rede, etc), ainda assim limpa estado local
+      if (import.meta.env.DEV) {
+        console.error('[AdminLayout] signOut falhou:', error);
+      }
+    } finally {
+      navigate("/admin/login");
+    }
   };
 
   const bottomNavItems = [

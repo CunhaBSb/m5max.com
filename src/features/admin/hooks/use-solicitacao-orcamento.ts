@@ -39,7 +39,9 @@ export function useSolicitacaoOrcamento() {
 
       return { data, error: null }
     } catch (error: unknown) {
-      console.error('[useSolicitacaoOrcamento]', 'Erro ao enviar solicitação:', error)
+      if (import.meta.env.DEV) {
+        console.error('[useSolicitacaoOrcamento]', 'Erro ao enviar solicitação:', error)
+      }
 
       toast({
         title: 'Erro ao enviar solicitação',
@@ -131,7 +133,9 @@ export function useSolicitacaoOrcamento() {
 
       return { data, count, error: null }
     } catch (error: unknown) {
-      console.error('[useSolicitacaoOrcamento]', 'Erro ao buscar solicitações:', error)
+      if (import.meta.env.DEV) {
+        console.error('[useSolicitacaoOrcamento]', 'Erro ao buscar solicitações:', error)
+      }
 
       toast({
         title: 'Erro ao buscar solicitações',
@@ -169,7 +173,9 @@ export function useSolicitacaoOrcamento() {
 
       return { data, error: null }
     } catch (error: unknown) {
-      console.error('[useSolicitacaoOrcamento]', 'Erro ao atualizar solicitação:', error)
+      if (import.meta.env.DEV) {
+        console.error('[useSolicitacaoOrcamento]', 'Erro ao atualizar solicitação:', error)
+      }
 
       toast({
         title: 'Erro ao atualizar solicitação',

@@ -135,7 +135,9 @@ export function useEventos() {
 
       return { data: mapped, count }
     } catch (error: unknown) {
-      console.error('[useEventos] buscarEventos error:', error)
+      if (import.meta.env.DEV) {
+        console.error('[useEventos] buscarEventos error:', error);
+      }
       toast({
         title: 'Erro ao buscar eventos',
         description: error instanceof Error ? error.message : 'Ocorreu um erro ao buscar os eventos.',
@@ -167,7 +169,9 @@ export function useEventos() {
       toast({ title: 'Status atualizado', description: 'Evento atualizado com sucesso.' })
       return { data }
     } catch (error: unknown) {
-      console.error('[useEventos] atualizarStatusEvento error:', error)
+      if (import.meta.env.DEV) {
+        console.error('[useEventos] atualizarStatusEvento error:', error);
+      }
       toast({
         title: 'Erro ao atualizar status',
         description: error instanceof Error ? error.message : 'Ocorreu um erro ao atualizar o status.',
@@ -194,7 +198,9 @@ export function useEventos() {
       toast({ title: 'Observações salvas', description: 'As observações foram salvas.' })
       return { data }
     } catch (error: unknown) {
-      console.error('[useEventos] adicionarObservacoes error:', error)
+      if (import.meta.env.DEV) {
+        console.error('[useEventos] adicionarObservacoes error:', error);
+      }
       toast({
         title: 'Erro ao salvar observações',
         description: error instanceof Error ? error.message : 'Ocorreu um erro ao salvar as observações.',

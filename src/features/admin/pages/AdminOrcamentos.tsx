@@ -301,7 +301,7 @@ const AdminOrcamentos = () => {
             console.warn('[Orçamentos] solicitacoes_orcamento indisponível:', error.message);
             setSolicitacoes([]);
           } else {
-            console.error('Erro ao buscar solicitações:', error);
+            if (import.meta.env.DEV) { console.error('Erro ao buscar solicitações:', error); }
             throw error;
           }
         } else {
@@ -309,7 +309,7 @@ const AdminOrcamentos = () => {
         }
       }
     } catch (error) {
-      console.error('❌ Erro ao carregar solicitações:', error);
+      if (import.meta.env.DEV) { console.error('❌ Erro ao carregar solicitações:', error); }
       toast({
         title: "Erro ao carregar solicitações",
         description: "Não foi possível carregar as solicitações de orçamento.",
@@ -350,7 +350,7 @@ const AdminOrcamentos = () => {
         .order('created_at', { ascending: false });
 
       if (orcamentosError) {
-        console.error('Erro ao buscar orçamentos:', orcamentosError);
+        if (import.meta.env.DEV) { console.error('Erro ao buscar orçamentos:', orcamentosError); }
         throw orcamentosError;
       }
 
@@ -371,7 +371,7 @@ const AdminOrcamentos = () => {
         if ((solicitacoesError as { code?: string }).code === '42P01') {
           console.warn('[Orçamentos] solicitacoes_orcamento indisponível:', solicitacoesError.message);
         } else {
-          console.error('Erro ao buscar solicitações de equipe:', solicitacoesError);
+          if (import.meta.env.DEV) { console.error('Erro ao buscar solicitações de equipe:', solicitacoesError); }
           throw solicitacoesError;
         }
       }
@@ -402,7 +402,7 @@ const AdminOrcamentos = () => {
       
       setOrcamentos(todosOrcamentos);
     } catch (error) {
-      console.error('❌ Erro ao carregar orçamentos:', error);
+      if (import.meta.env.DEV) { console.error('❌ Erro ao carregar orçamentos:', error); }
       toast({
         title: "Erro ao carregar orçamentos",
         description: "Não foi possível carregar os orçamentos.",
@@ -422,7 +422,7 @@ const AdminOrcamentos = () => {
       if (error) throw error;
       setProdutos(data || []);
     } catch (error) {
-      console.error('❌ Erro ao carregar produtos:', error);
+      if (import.meta.env.DEV) { console.error('❌ Erro ao carregar produtos:', error); }
     } finally {
       setLoading(false);
     }
@@ -621,7 +621,7 @@ const AdminOrcamentos = () => {
       resetOrcamentoForm();
       fetchOrcamentos();
     } catch (error) {
-      console.error('❌ Erro ao criar orçamento:', error);
+      if (import.meta.env.DEV) { console.error('❌ Erro ao criar orçamento:', error); }
       toast({
         title: "Erro ao criar orçamento",
         description: getReadableErrorMessage(error, "Não foi possível criar o orçamento."),
@@ -714,7 +714,7 @@ const AdminOrcamentos = () => {
           .eq('id', solicitacaoId);
 
         if (solicitacaoError && !isMissingTableError(solicitacaoError)) {
-          console.error('Erro ao excluir solicitação:', solicitacaoError);
+          if (import.meta.env.DEV) { console.error('Erro ao excluir solicitação:', solicitacaoError); }
           throw solicitacaoError;
         }
 
@@ -731,7 +731,7 @@ const AdminOrcamentos = () => {
           .eq('orcamento_id', orcamentoToDelete);
 
         if (produtosError) {
-          console.error('Erro ao excluir produtos do orçamento:', produtosError);
+          if (import.meta.env.DEV) { console.error('Erro ao excluir produtos do orçamento:', produtosError); }
           throw produtosError;
         }
 
@@ -742,7 +742,7 @@ const AdminOrcamentos = () => {
           .eq('id', orcamentoToDelete);
 
         if (orcamentoError) {
-          console.error('Erro ao excluir orçamento:', orcamentoError);
+          if (import.meta.env.DEV) { console.error('Erro ao excluir orçamento:', orcamentoError); }
           throw orcamentoError;
         }
 
@@ -756,7 +756,7 @@ const AdminOrcamentos = () => {
       setIsDeleteConfirmOpen(false);
       setOrcamentoToDelete(null);
     } catch (error) {
-      console.error('Erro completo ao excluir:', error);
+      if (import.meta.env.DEV) { console.error('Erro completo ao excluir:', error); }
       toast({
         title: "Erro ao excluir",
         description: error?.message || "Não foi possível excluir o item.",
@@ -1182,7 +1182,7 @@ const AdminOrcamentos = () => {
       closeConfirmShowDialog(true);
       await Promise.all([fetchOrcamentos(), fetchProdutos()]);
     } catch (error) {
-      console.error("Erro ao confirmar show:", error);
+      if (import.meta.env.DEV) { console.error("Erro ao confirmar show:", error); }
       toast({
         title: "Erro ao finalizar show",
         description: getReadableErrorMessage(
@@ -1309,7 +1309,7 @@ const AdminOrcamentos = () => {
       // Recarregar dados
       await fetchOrcamentos();
     } catch (error) {
-      console.error('Erro ao salvar orçamento:', error);
+      if (import.meta.env.DEV) { console.error('Erro ao salvar orçamento:', error); }
       toast({
         title: "Erro ao salvar",
         description: getReadableErrorMessage(error, "Não foi possível atualizar o orçamento"),
@@ -1384,7 +1384,7 @@ const AdminOrcamentos = () => {
       fetchOrcamentos();
       fetchProdutos(); // Atualizar lista de produtos para refletir mudanças no estoque
     } catch (error) {
-      console.error('Erro ao atualizar status:', error);
+      if (import.meta.env.DEV) { console.error('Erro ao atualizar status:', error); }
       toast({
         title: "Erro",
         description: error instanceof Error ? error.message : "Não foi possível atualizar o status",

@@ -78,7 +78,9 @@ export function useOrcamentos() {
 
       return { data, count, error: null }
     } catch (error: unknown) {
-      console.error('[useOrcamentos]', 'Erro ao buscar orçamentos:', error)
+      if (import.meta.env.DEV) {
+        console.error('[useOrcamentos]', 'Erro ao buscar orçamentos:', error);
+      }
 
       toast({
         title: 'Erro ao buscar orçamentos',
@@ -109,7 +111,9 @@ export function useOrcamentos() {
 
       return { data, error: null }
     } catch (error: unknown) {
-      console.error('[useOrcamentos]', 'Erro ao buscar orçamento:', error)
+      if (import.meta.env.DEV) {
+        console.error('[useOrcamentos]', 'Erro ao buscar orçamento:', error);
+      }
 
       toast({
         title: 'Erro ao buscar orçamento',
@@ -152,7 +156,9 @@ export function useOrcamentos() {
 
       return { data, error: null }
     } catch (error: unknown) {
-      console.error('[useOrcamentos]', 'Erro ao criar orçamento:', error)
+      if (import.meta.env.DEV) {
+        console.error('[useOrcamentos]', 'Erro ao criar orçamento:', error);
+      }
 
       toast({
         title: 'Erro ao criar orçamento',
@@ -195,7 +201,9 @@ export function useOrcamentos() {
 
       return { data, error: null }
     } catch (error: unknown) {
-      console.error('[useOrcamentos]', 'Erro ao atualizar orçamento:', error)
+      if (import.meta.env.DEV) {
+        console.error('[useOrcamentos]', 'Erro ao atualizar orçamento:', error);
+      }
 
       toast({
         title: 'Erro ao atualizar orçamento',
@@ -254,7 +262,9 @@ export function useOrcamentos() {
 
       return { data, error: null }
     } catch (error: unknown) {
-      console.error('[useOrcamentos]', 'Erro ao atualizar status do orçamento:', error)
+      if (import.meta.env.DEV) {
+        console.error('[useOrcamentos]', 'Erro ao atualizar status do orçamento:', error);
+      }
 
       toast({
         title: 'Erro ao atualizar status',
@@ -294,7 +304,9 @@ export function useOrcamentos() {
 
       return { data, error: null }
     } catch (error: unknown) {
-      console.error('[useOrcamentos]', 'Erro ao atualizar PDF do orçamento:', error)
+      if (import.meta.env.DEV) {
+        console.error('[useOrcamentos]', 'Erro ao atualizar PDF do orçamento:', error);
+      }
 
       toast({
         title: 'Erro ao atualizar PDF',

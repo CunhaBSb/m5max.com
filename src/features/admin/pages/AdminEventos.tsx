@@ -66,6 +66,7 @@ const AdminEventos = () => {
     setLoading(true);
     try {
       // Buscamos orçamentos em todos os status operacionais (Pendente, Confirmado, Realizado)
+      // Limit + order sao obrigatorios para nao retornar todas as rows (custo + UX)
       const { data, error } = await supabase
         .from('orcamentos')
         .select(`
@@ -85,7 +86,9 @@ const AdminEventos = () => {
             )
           )
         `)
-        .in('status', ['pendente', 'confirmado', 'realizado']);
+        .in('status', ['pendente', 'confirmado', 'realizado'])
+        .order('evento_data', { ascending: false })
+        .limit(500);
 
       if (error) throw error;
       
@@ -138,7 +141,9 @@ const AdminEventos = () => {
       setEventos(eventosMapeados);
     } catch (error) {
       const message = error instanceof Error ? error.message : 'Erro de rede ou banco.';
-      console.error('❌ Erro Crítico:', error);
+      if (import.meta.env.DEV) {
+        console.error('❌ Erro Crítico:', error);
+      }
       toast({
         title: "Erro na Agenda",
         description: `Não foi possível carregar os dados. Detalhes: ${message}`,

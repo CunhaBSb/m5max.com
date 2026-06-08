@@ -49,8 +49,8 @@ export class ErrorBoundary extends Component<Props, State> {
             
             {this.state.error && (
               <div className="bg-background/50 border border-border rounded-lg p-4 mb-6 text-left overflow-auto max-h-32">
-                <code className="text-xs text-destructive/80 font-mono">
-                  {this.state.error.toString()}
+                <code className="text-xs text-muted-foreground font-mono">
+                  {this.state.error.name}: mensagem técnica oculta em produção. Verifique os logs do navegador (F12) ou contate o suporte.
                 </code>
               </div>
             )}

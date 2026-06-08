@@ -24,7 +24,9 @@ export const useOrcamentoPdf = () => {
 
         return fileName;
       } catch (error) {
-        console.error("Erro ao gerar PDF:", error);
+        if (import.meta.env.DEV) {
+          console.error("Erro ao gerar PDF:", error);
+        }
         toast({
           title: "Erro ao gerar PDF",
           description: "Nao foi possivel gerar o arquivo PDF.",
