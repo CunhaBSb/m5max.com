@@ -138,6 +138,36 @@
     --admin-brand-800: 12  72% 28%;
     --admin-brand-900: 10  60% 22%;
   }
+
+  /* =====================================================================
+     SITE PÚBLICO — tema ESCURO (charcoal) escopado via RootLayout
+     Os componentes públicos foram desenhados para fundo escuro
+     (text-white, cards bg-white/N translúcidos, gradient-hero).
+     Escopado em .theme-public para NÃO afetar o admin (que segue claro,
+     usando os tokens de :root acima).
+     ===================================================================== */
+  .theme-public {
+    --background: 220 26% 9%;          /* #11141a charcoal escuro */
+    --foreground: 210 20% 96%;         /* off-white */
+
+    --card: 220 22% 13%;               /* card escuro, um degrau acima do fundo */
+    --card-foreground: 210 20% 96%;
+    --popover: 220 22% 13%;
+    --popover-foreground: 210 20% 96%;
+
+    --secondary: 220 16% 20%;
+    --secondary-foreground: 210 20% 92%;
+    --muted: 220 16% 17%;
+    --muted-foreground: 215 16% 68%;   /* cinza claro legível em fundo escuro */
+    --accent: 220 16% 22%;
+    --accent-foreground: 0 0% 98%;
+
+    --border: 220 14% 24%;
+    --input: 220 14% 22%;
+    /* primary/ring/destructive/success/warning e fire-* permanecem (ação/estados) */
+
+    --gradient-soft: linear-gradient(180deg, hsl(220 26% 9%) 0%, hsl(220 22% 12%) 100%);
+  }
 }
 
 @layer base {

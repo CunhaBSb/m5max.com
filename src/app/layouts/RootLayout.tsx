@@ -25,7 +25,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
   useAudienceDetection();
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="theme-public min-h-screen flex flex-col bg-background text-foreground">
       {/* GTM noscript imediatamente após abertura do body */}
       {config.gtmId && (
         <div
