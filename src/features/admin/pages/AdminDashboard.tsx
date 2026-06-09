@@ -1,14 +1,17 @@
 import { Card, CardContent } from "@shared/ui/card";
 import { Button } from "@shared/ui/button";
-import { Package, DollarSign, FileText, Calendar, TrendingUp, Activity, MapPin, ChevronRight } from "lucide-react";
+import { Package, DollarSign, FileText, Calendar, TrendingUp, Activity, MapPin, ChevronRight, AlertTriangle } from "lucide-react";
 import { AdminLayout } from "@/features/admin/components/AdminLayout";
 import { supabase } from "@/features/admin/lib/supabase";
 import { supabaseLeads, hasLeadsSource, mapLeadToSolicitacao } from "@/features/admin/lib/supabase-leads";
 import {
   getOrcamentoStatusMeta,
+  buildScheduleDateConflicts,
+  formatScheduleConflictSummary,
   mapOrcamentoToEventoResumo,
   normalizeOrcamentoStatus,
   type EventoResumo,
+  type ScheduleDateConflict,
 } from "@/features/admin/modules/orcamentos";
 import { useNavigate } from "react-router-dom";
 import { format, parseISO, isToday } from "date-fns";
@@ -225,6 +228,7 @@ const fetchDashboardData = async () => {
       solicitacoesPendentes: solicitacoes?.length || 0
     },
     eventosProximos: eventos.slice(0, 5),
+    eventConflicts: buildScheduleDateConflicts(eventosData || []),
     recentActivities: atividades
   };
 };
@@ -266,6 +270,7 @@ const AdminDashboard = () => {
     valorOrcamentosDoMes: 0, eventosDoMes: 0, eventosHoje: 0, solicitacoesPendentes: 0
   };
   const eventosProximos = data?.eventosProximos || [];
+  const eventConflicts: ScheduleDateConflict[] = data?.eventConflicts || [];
   const recentActivities = data?.recentActivities || [];
 
   const statCards: StatCard[] = [
@@ -328,6 +333,41 @@ const AdminDashboard = () => {
             <StatCardView key={stat.label} stat={stat} index={i} />
           ))}
         </div>
+
+        {eventConflicts.length > 0 && (
+          <section className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-4 shadow-soft-sm">
+            <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+              <div className="flex gap-3">
+                <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-amber-500/15 text-amber-400">
+                  <AlertTriangle className="h-5 w-5" />
+                </div>
+                <div>
+                  <h2 className="text-sm font-bold text-text-primary">
+                    Conflito de agenda detectado
+                  </h2>
+                  <p className="mt-1 text-xs leading-relaxed text-text-secondary">
+                    {eventConflicts.length} data(s) com mais de um evento ativo. Primeiro conflito:{" "}
+                    <span className="font-semibold text-amber-300">
+                      {eventConflicts[0].date.split("-").reverse().join("/")}
+                    </span>{" "}
+                    com {eventConflicts[0].events.length} evento(s).
+                  </p>
+                  <p className="mt-1 text-xs text-text-tertiary">
+                    {formatScheduleConflictSummary(eventConflicts[0])}
+                  </p>
+                </div>
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate('/admin/eventos')}
+                className="shrink-0 border-amber-500/30 bg-amber-500/10 text-amber-200 hover:bg-amber-500/20"
+              >
+                Ver agenda
+              </Button>
+            </div>
+          </section>
+        )}
 
         {/* Content grid */}
         <div className="grid grid-cols-1 gap-5 md:gap-6 lg:grid-cols-7">

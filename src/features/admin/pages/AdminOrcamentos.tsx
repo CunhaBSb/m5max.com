@@ -13,14 +13,17 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@shared/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@shared/ui/tabs";
 import { Separator } from "@shared/ui/separator";
-import { FileText, Search, Plus, Eye, Edit, Trash2, Calendar, User, MapPin, DollarSign, CheckCircle, Clock, AlertCircle, Package, Calculator, TrendingUp, RefreshCw, Filter, Zap, X, Phone, Minus, Loader2 } from "lucide-react";
+import { FileText, Search, Plus, Eye, Edit, Trash2, Calendar, User, MapPin, DollarSign, CheckCircle, Clock, AlertCircle, AlertTriangle, Package, Calculator, TrendingUp, RefreshCw, Filter, Zap, X, Phone, Minus, Loader2 } from "lucide-react";
 import { supabase } from "@/features/admin/lib/supabase";
 import { supabaseLeads, hasLeadsSource, mapLeadToSolicitacao } from "@/features/admin/lib/supabase-leads";
 import {
   ORCAMENTO_STATUS_OPTIONS,
   buildShowConsumptionItems,
+  buildScheduleDateConflicts,
   canFinalizeShow,
   dedupeOrcamentoProdutos,
+  findScheduleConflictForDate,
+  formatScheduleConflictSummary,
   getOrcamentoStatusMeta,
   getShowCompletionTargetStatus,
   normalizeEditableStatus,
@@ -30,6 +33,7 @@ import {
   type ShowUsageItem,
   type OrcamentoStatus,
   type Produto,
+  type ScheduleDateConflict,
   type SolicitacaoOrcamento,
 } from "@/features/admin/modules/orcamentos";
 import { useOrcamentoPdf } from "@/features/admin/modules/orcamentos/pdf/use-orcamento-pdf";
@@ -556,6 +560,56 @@ const AdminOrcamentos = () => {
 
   const formatDateOnly = formatDate;
 
+  const scheduleItems = useMemo(
+    () =>
+      orcamentos.map((orcamento) => ({
+        id: orcamento.id,
+        evento_data: orcamento.evento_data,
+        evento_hora: orcamento.evento_hora,
+        evento_nome: orcamento.evento_nome,
+        evento_local: orcamento.evento_local,
+        nome_contratante: orcamento.nome_contratante,
+        status: orcamento.status,
+      })),
+    [orcamentos],
+  );
+
+  const eventConflicts = useMemo(
+    () => buildScheduleDateConflicts(scheduleItems),
+    [scheduleItems],
+  );
+
+  const createDateConflict = useMemo(
+    () => findScheduleConflictForDate(scheduleItems, orcamentoForm.evento_data),
+    [scheduleItems, orcamentoForm.evento_data],
+  );
+
+  const editDateConflict = useMemo(
+    () =>
+      findScheduleConflictForDate(
+        scheduleItems,
+        editForm.evento_data,
+        selectedOrcamento?.id,
+      ),
+    [scheduleItems, editForm.evento_data, selectedOrcamento?.id],
+  );
+
+  const confirmScheduleConflict = (
+    conflict: ScheduleDateConflict | null,
+    actionLabel: string,
+  ): boolean => {
+    if (!conflict) return true;
+
+    return window.confirm(
+      [
+        `Atenção: já existe ${conflict.events.length} evento(s) ativo(s) em ${formatDateOnly(conflict.date)}.`,
+        formatScheduleConflictSummary(conflict),
+        "",
+        `Deseja ${actionLabel} mesmo assim?`,
+      ].join("\n"),
+    );
+  };
+
   const calculateOrcamentoTotal = () => {
     const subtotal = selectedProducts.reduce((sum, item) => 
       sum + (item.quantidade * item.valor_unitario), 0
@@ -581,6 +635,10 @@ const AdminOrcamentos = () => {
       const eventoDataCorrigida = orcamentoForm.evento_data 
         ? new Date(orcamentoForm.evento_data + 'T12:00:00').toISOString().split('T')[0]
         : orcamentoForm.evento_data;
+
+      if (!confirmScheduleConflict(createDateConflict, "salvar este orçamento")) {
+        return;
+      }
       
       const { data: orcamento, error: orcamentoError } = await supabase
         .from('orcamentos')
@@ -1059,6 +1117,10 @@ const AdminOrcamentos = () => {
         });
         return;
       }
+
+      if (!confirmScheduleConflict(editDateConflict, "salvar esta alteração")) {
+        return;
+      }
       
       // Atualizar dados básicos do orçamento
       const { error: orcamentoError } = await supabase
@@ -1386,6 +1448,37 @@ const AdminOrcamentos = () => {
                 <p className="text-xl font-black text-success">{stats.confirmados}</p>
               </div>
           </div>
+
+          {eventConflicts.length > 0 && (
+            <div className="rounded-[22px] border border-amber-500/30 bg-amber-500/10 p-4 shadow-2xl">
+              <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                <div className="flex gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-amber-500/15 text-amber-300">
+                    <AlertTriangle className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h2 className="text-xs font-black uppercase tracking-[0.25em] text-amber-200">
+                      Conflito de agenda
+                    </h2>
+                    <p className="mt-1 text-sm text-text-secondary">
+                      {eventConflicts.length} data(s) com mais de um orçamento ativo. Primeiro conflito em{" "}
+                      <span className="font-bold text-amber-200">
+                        {formatDateOnly(eventConflicts[0].date)}
+                      </span>
+                      .
+                    </p>
+                    <p className="mt-1 text-xs text-text-tertiary">
+                      {formatScheduleConflictSummary(eventConflicts[0])}
+                    </p>
+                  </div>
+                </div>
+                <Badge className="w-fit border border-amber-500/30 bg-amber-500/10 px-4 py-2 text-[10px] font-black uppercase tracking-widest text-amber-200">
+                  Revisar antes de confirmar
+                </Badge>
+              </div>
+            </div>
+          )}
+
           {/* Busca e Filtros Inteligentes */}
           <div className="space-y-6">
             <div className="relative group">
@@ -1585,6 +1678,11 @@ const AdminOrcamentos = () => {
                       const normalizedStatus = normalizeOrcamentoStatus(orcamento.status);
                       const statusLocked = normalizedStatus === "realizado";
                       const showConfirmationAvailable = canRunShowConfirmation(orcamento);
+                      const dateConflict = findScheduleConflictForDate(
+                        scheduleItems,
+                        orcamento.evento_data,
+                        orcamento.id,
+                      );
 
                       return (
                       <TableRow key={orcamento.id} className="border-border-subtle hover:bg-sunken transition-colors group">
@@ -1601,6 +1699,11 @@ const AdminOrcamentos = () => {
                               <Calendar className="h-3.5 w-3.5" />
                               {orcamento.evento_data ? formatDateOnly(orcamento.evento_data) : 'N/A'}
                             </div>
+                            {dateConflict && (
+                              <Badge className="w-fit border border-amber-500/30 bg-amber-500/10 text-[9px] font-black uppercase tracking-widest text-amber-300">
+                                {dateConflict.events.length + 1} eventos no dia
+                              </Badge>
+                            )}
                           </div>
                         </TableCell>
                         <TableCell>
@@ -1805,6 +1908,25 @@ const AdminOrcamentos = () => {
                 />
               </div>
             </div>
+
+            {createDateConflict && (
+              <div className="rounded-[1.5rem] border border-amber-500/30 bg-amber-500/10 p-4">
+                <div className="flex gap-3">
+                  <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-amber-300" />
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-[0.2em] text-amber-200">
+                      Data com evento ativo
+                    </p>
+                    <p className="mt-1 text-sm text-text-secondary">
+                      Já existe {createDateConflict.events.length} evento(s) ativo(s) em {formatDateOnly(createDateConflict.date)}.
+                    </p>
+                    <p className="mt-1 text-xs text-text-tertiary">
+                      {formatScheduleConflictSummary(createDateConflict)}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
 
             <div className="space-y-3">
               <Label htmlFor="evento_local" className="text-[10px] font-black uppercase tracking-widest text-text-tertiary ml-1">Localização da Operação</Label>
@@ -3068,6 +3190,25 @@ const AdminOrcamentos = () => {
                       </div>
                     </div>
                   </div>
+
+                  {editDateConflict && (
+                    <div className="rounded-[1.5rem] border border-amber-500/30 bg-amber-500/10 p-4">
+                      <div className="flex gap-3">
+                        <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-amber-300" />
+                        <div>
+                          <p className="text-xs font-black uppercase tracking-[0.2em] text-amber-200">
+                            Data com evento ativo
+                          </p>
+                          <p className="mt-1 text-sm text-text-secondary">
+                            Já existe {editDateConflict.events.length} evento(s) ativo(s) em {formatDateOnly(editDateConflict.date)}.
+                          </p>
+                          <p className="mt-1 text-xs text-text-tertiary">
+                            {formatScheduleConflictSummary(editDateConflict)}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
                   <div className="bg-sunken px-6 py-4 rounded-[1.8rem] border border-border-subtle group focus-within:border-primary/30 transition-all">
                     <Label className="text-[9px] font-black text-text-tertiary uppercase tracking-[0.2em] mb-1 block">Localização</Label>

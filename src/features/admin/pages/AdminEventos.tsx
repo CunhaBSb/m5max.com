@@ -8,13 +8,18 @@ import { Label } from "@shared/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@shared/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@shared/ui/table";
 import { useToast } from "@/features/admin/hooks/use-toast";
-import { Calendar, Plus, Activity, Users, Clock, CheckCircle, Loader2, Search, Eye, MapPin, Package, FileText, X } from "lucide-react";
+import { Calendar, Plus, Activity, Users, Clock, CheckCircle, Loader2, Search, Eye, MapPin, Package, FileText, X, AlertTriangle } from "lucide-react";
 import { supabase } from "@/features/admin/lib/supabase";
 import { useNavigate } from "react-router-dom";
 import { format, parseISO, isToday } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@shared/lib/utils";
+import {
+  buildScheduleDateConflicts,
+  findScheduleConflictForDate,
+  formatScheduleConflictSummary,
+} from "@/features/admin/modules/orcamentos";
 
 type EventoCompleto = {
   id: string;
@@ -186,6 +191,25 @@ const AdminEventos = () => {
     };
   }, [eventos]);
 
+  const scheduleItems = useMemo(
+    () =>
+      eventos.map((evento) => ({
+        id: evento.id,
+        evento_data: evento.orcamentos?.evento_data,
+        evento_hora: evento.orcamentos?.evento_hora,
+        evento_nome: evento.orcamentos?.evento_nome,
+        evento_local: evento.orcamentos?.evento_local,
+        nome_contratante: evento.orcamentos?.nome_contratante,
+        status: evento.status,
+      })),
+    [eventos],
+  );
+
+  const eventConflicts = useMemo(
+    () => buildScheduleDateConflicts(scheduleItems),
+    [scheduleItems],
+  );
+
   if (loading) {
     return (
       <AdminLayout>
@@ -235,6 +259,36 @@ const AdminEventos = () => {
               </div>
             </div>
           </div>
+
+          {eventConflicts.length > 0 && (
+            <div className="mx-auto w-full max-w-5xl rounded-[24px] border border-amber-500/30 bg-amber-500/10 p-5 shadow-2xl">
+              <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                <div className="flex gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-amber-500/15 text-amber-300">
+                    <AlertTriangle className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h2 className="text-sm font-black uppercase tracking-widest text-amber-200">
+                      Atenção: conflitos de data
+                    </h2>
+                    <p className="mt-1 text-sm text-text-secondary">
+                      {eventConflicts.length} data(s) têm mais de um evento ativo. Primeiro conflito em{" "}
+                      <span className="font-bold text-amber-200">
+                        {eventConflicts[0].date.split("-").reverse().join("/")}
+                      </span>
+                      .
+                    </p>
+                    <p className="mt-2 text-xs text-text-tertiary">
+                      {formatScheduleConflictSummary(eventConflicts[0])}
+                    </p>
+                  </div>
+                </div>
+                <Badge className="w-fit shrink-0 border border-amber-500/30 bg-amber-500/10 px-4 py-2 text-[10px] font-black uppercase tracking-widest text-amber-200">
+                  Revisar escala
+                </Badge>
+              </div>
+            </div>
+          )}
 
           {/* Painel de Controle de Filtros (Centralizado e Paralelo) */}
           <div className="flex justify-center w-full">
@@ -304,6 +358,11 @@ const AdminEventos = () => {
                     const dataEvento = evento.orcamentos?.evento_data ? parseISO(evento.orcamentos.evento_data) : null;
                     const isRealizado = evento.status === 'realizado';
                     const isPendente = evento.status === 'pendente';
+                    const dateConflict = findScheduleConflictForDate(
+                      scheduleItems,
+                      evento.orcamentos?.evento_data,
+                      evento.id,
+                    );
                     
                     return (
                       <motion.div
@@ -343,6 +402,11 @@ const AdminEventos = () => {
                               )}>
                                 {evento.status || 'PENDENTE'}
                               </Badge>
+                              {dateConflict && (
+                                <Badge className="border border-amber-500/30 bg-amber-500/10 text-[9px] font-black uppercase tracking-widest text-amber-300">
+                                  Conflito: {dateConflict.events.length + 1} eventos no dia
+                                </Badge>
+                              )}
                               <span className="text-[10px] font-bold text-text-tertiary uppercase tracking-[0.2em]">
                                 {evento.orcamentos?.tipo === 'show_pirotecnico' ? 'Operação Tática' : 'Venda Direta'}
                               </span>
