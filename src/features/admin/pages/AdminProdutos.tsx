@@ -125,7 +125,7 @@ export default function AdminProdutos() {
   });
 
   const getStockColor = (qtd: number | null) => {
-    if (qtd === null) return "text-muted-foreground/20";
+    if (qtd === null) return "text-text-tertiary";
     if (qtd <= 5) return "text-destructive font-bold";
     if (qtd <= 15) return "text-primary/80";
     return "text-success/80";
@@ -138,7 +138,7 @@ export default function AdminProdutos() {
           <div className="space-y-6">
             {/* Barra de Pesquisa */}
             <div className="relative group">
-              <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground/20 transition-colors group-focus-within:text-primary sm:left-6 sm:h-6 sm:w-6" />
+              <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary transition-colors group-focus-within:text-primary sm:left-6 sm:h-6 sm:w-6" />
               <Input
                 placeholder="Pesquisar por SKU, Nome ou Categoria..."
                 value={searchTerm}
@@ -154,7 +154,7 @@ export default function AdminProdutos() {
                   
                   {/* Lado Esquerdo: Efeitos */}
                   <div className="flex-1 bg-sunken rounded-[24px] sm:rounded-[32px] p-4 sm:p-6 flex flex-col items-center justify-center border border-border-subtle">
-                    <span className="text-[10px] font-black uppercase text-muted-foreground/20 tracking-[0.4em] mb-4">Categorias de Fogos</span>
+                    <span className="text-[10px] font-black uppercase text-text-tertiary tracking-[0.4em] mb-4">Categorias de Fogos</span>
                     <div className="flex flex-wrap items-center justify-center gap-2">
                       {EFEITOS_RAPIDOS.map((effect) => (
                         <button
@@ -175,7 +175,7 @@ export default function AdminProdutos() {
 
                   {/* Lado Direito: Ordenação */}
                   <div className="flex-1 bg-sunken rounded-[24px] sm:rounded-[32px] p-4 sm:p-6 flex flex-col items-center justify-center border border-border-subtle">
-                    <span className="text-[10px] font-black uppercase text-muted-foreground/20 tracking-[0.4em] mb-4">Ordenação Estratégica</span>
+                    <span className="text-[10px] font-black uppercase text-text-tertiary tracking-[0.4em] mb-4">Ordenação Estratégica</span>
                     <div className="flex flex-col items-center gap-4 w-full">
                       <div className="flex gap-2 p-1.5 bg-muted/60 rounded-2xl border border-border-subtle w-fit">
                         <button
@@ -270,12 +270,12 @@ export default function AdminProdutos() {
                           </span>
                         </div>
 
-                        <h4 className="truncate text-sm font-black leading-tight tracking-tight text-text-text-tertiary uppercase transition-colors group-hover:text-text-tertiary sm:text-base">
+                        <h4 className="text-sm font-black leading-tight tracking-tight text-text-primary uppercase break-words transition-colors group-hover:text-primary sm:text-base">
                           {produto.nome_produto}
                         </h4>
 
                         {produto.efeito && (
-                          <p className="mt-1 truncate text-[10px] font-semibold uppercase tracking-[0.16em] text-text-tertiary">
+                          <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-text-tertiary break-words">
                             Efeito: {produto.efeito}
                           </p>
                         )}
@@ -331,7 +331,7 @@ export default function AdminProdutos() {
         <DialogContent className="sm:max-w-md p-0">
           <div className="flex flex-col">
             <DialogHeader className="border-b border-border bg-muted/40 p-5 sm:p-6 text-left">
-              <DialogTitle className="flex items-center gap-2 text-lg sm:text-xl font-bold uppercase tracking-tight text-text-text-tertiary">
+              <DialogTitle className="flex items-center gap-2 text-lg sm:text-xl font-bold uppercase tracking-tight text-text-primary">
                 <PackageSearch className="h-5 w-5 text-primary" />
                 Ficha do Produto
               </DialogTitle>
@@ -391,7 +391,7 @@ export default function AdminProdutos() {
                   <Button 
                     onClick={() => setSelectedProduct(null)} 
                     variant="ghost"
-                    className="h-10 px-6 rounded-xl text-xs font-bold uppercase tracking-widest bg-sunken hover:bg-sunken transition-colors text-text-text-tertiary"
+                    className="h-10 px-6 rounded-xl text-xs font-bold uppercase tracking-widest bg-sunken hover:bg-sunken transition-colors text-text-primary"
                   >
                     Fechar Ficha
                   </Button>

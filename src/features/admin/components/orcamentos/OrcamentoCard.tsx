@@ -80,7 +80,7 @@ export const OrcamentoCard = ({
 
             {orcamento.evento_hora && (
               <div className="flex flex-col justify-center border-l border-border pl-5 h-12">
-                 <span className="text-[9px] font-black text-muted-foreground/20 uppercase tracking-[0.3em] mb-1">Horário</span>
+                 <span className="text-[9px] font-black text-text-tertiary uppercase tracking-[0.3em] mb-1">Horário</span>
                  <div className="flex items-center gap-2 text-text-primary group-hover:text-primary transition-colors">
                    <Clock className="h-4 w-4 opacity-40" />
                    <span className="text-xl font-black tracking-tighter">
@@ -93,7 +93,7 @@ export const OrcamentoCard = ({
 
           {/* Value Section */}
           <div className="flex flex-col md:items-end md:text-right">
-             <span className="text-[10px] font-black text-muted-foreground/20 uppercase tracking-[0.3em] mb-1">Investimento Previsto</span>
+             <span className="text-[10px] font-black text-text-tertiary uppercase tracking-[0.3em] mb-1">Investimento Previsto</span>
              <span className="text-3xl font-black text-text-primary tracking-tighter group-hover:text-primary transition-colors">
                R$ {(orcamento.valor_total || 0).toLocaleString('pt-BR', { minimumFractionDigits: 0 })}
              </span>
@@ -142,7 +142,7 @@ export const OrcamentoCard = ({
               {(orcamento.usuarios?.nome || 'A').charAt(0)}
             </div>
             <div className="flex flex-col">
-              <span className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/20">Responsável</span>
+              <span className="text-[9px] font-black uppercase tracking-[0.3em] text-text-tertiary">Responsável</span>
               <span className="text-xs font-bold text-text-secondary">{orcamento.usuarios?.nome || 'Sistema M5'}</span>
             </div>
           </div>

@@ -221,11 +221,11 @@ const AdminEventos = () => {
               
               <div className="flex flex-wrap items-center justify-center gap-4 w-full">
                 <div className="flex-1 min-w-[104px] bg-sunken border border-border-subtle p-4 sm:p-5 rounded-[24px] sm:rounded-3xl flex flex-col items-center justify-center group hover:bg-sunken transition-all">
-                  <span className="text-[9px] font-black uppercase text-muted-foreground/20 tracking-[0.3em] mb-2">Pendentes</span>
+                  <span className="text-[9px] font-black uppercase text-text-tertiary tracking-[0.3em] mb-2">Pendentes</span>
                   <span className="text-2xl sm:text-3xl font-black text-primary leading-none">{estatisticas.pendentes}</span>
                 </div>
                 <div className="flex-1 min-w-[104px] bg-sunken border border-border-subtle p-4 sm:p-5 rounded-[24px] sm:rounded-3xl flex flex-col items-center justify-center group hover:bg-sunken transition-all">
-                  <span className="text-[9px] font-black uppercase text-muted-foreground/20 tracking-[0.3em] mb-2">Próximos</span>
+                  <span className="text-[9px] font-black uppercase text-text-tertiary tracking-[0.3em] mb-2">Próximos</span>
                   <span className="text-2xl sm:text-3xl font-black text-text-primary leading-none">{estatisticas.confirmados}</span>
                 </div>
                 <div className="flex-1 min-w-[104px] bg-sunken border border-border-subtle p-4 sm:p-5 rounded-[24px] sm:rounded-3xl flex flex-col items-center justify-center group hover:bg-sunken transition-all border-green-500/10 bg-green-500/5">
@@ -243,7 +243,7 @@ const AdminEventos = () => {
                 
                 {/* Lado Esquerdo: Busca */}
                 <div className="flex-[1.5] bg-sunken rounded-[24px] sm:rounded-[32px] p-4 sm:p-6 flex flex-col items-center justify-center border border-border-subtle">
-                  <span className="text-[10px] font-black uppercase text-muted-foreground/20 tracking-[0.4em] mb-4">Localizar Evento</span>
+                  <span className="text-[10px] font-black uppercase text-text-tertiary tracking-[0.4em] mb-4">Localizar Evento</span>
                   <div className="relative w-full group">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-text-disabled group-focus-within:text-primary transition-colors" />
                     <Input
@@ -257,7 +257,7 @@ const AdminEventos = () => {
 
                 {/* Lado Direito: Status */}
                 <div className="flex-1 bg-sunken rounded-[24px] sm:rounded-[32px] p-4 sm:p-6 flex flex-col items-center justify-center border border-border-subtle">
-                  <span className="text-[10px] font-black uppercase text-muted-foreground/20 tracking-[0.4em] mb-4">Fase da Operação</span>
+                  <span className="text-[10px] font-black uppercase text-text-tertiary tracking-[0.4em] mb-4">Fase da Operação</span>
                   <div className="flex flex-wrap items-center justify-center gap-2">
                     {['all', 'pendente', 'confirmado', 'realizado'].map((s) => (
                       <button
@@ -343,12 +343,12 @@ const AdminEventos = () => {
                               )}>
                                 {evento.status || 'PENDENTE'}
                               </Badge>
-                              <span className="text-[10px] font-bold text-muted-foreground/20 uppercase tracking-[0.2em]">
+                              <span className="text-[10px] font-bold text-text-tertiary uppercase tracking-[0.2em]">
                                 {evento.orcamentos?.tipo === 'show_pirotecnico' ? 'Operação Tática' : 'Venda Direta'}
                               </span>
                             </div>
 
-                            <h3 className="text-xl sm:text-2xl font-black text-text-text-tertiary group-hover:text-text-tertiary transition-colors leading-tight mb-4 truncate uppercase tracking-tighter">
+                            <h3 className="text-xl sm:text-2xl font-black text-text-primary group-hover:text-text-tertiary transition-colors leading-tight mb-4 truncate uppercase tracking-tighter">
                               {evento.orcamentos?.evento_nome}
                             </h3>
 
@@ -377,7 +377,7 @@ const AdminEventos = () => {
 
                             <div className="mt-8 pt-6 border-t border-border-subtle flex items-center justify-between">
                                <div className="flex flex-col">
-                                  <span className="text-[9px] font-black uppercase text-muted-foreground/20 tracking-[0.3em] mb-1">Investimento Show</span>
+                                  <span className="text-[9px] font-black uppercase text-text-tertiary tracking-[0.3em] mb-1">Investimento Show</span>
                                   <p className="text-xl font-black text-text-primary tracking-tighter">
                                     R$ {Number(evento.orcamentos?.valor_total || 0).toLocaleString('pt-BR')}
                                   </p>

@@ -1389,7 +1389,7 @@ const AdminOrcamentos = () => {
           {/* Busca e Filtros Inteligentes */}
           <div className="space-y-6">
             <div className="relative group">
-              <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground/20 transition-colors group-focus-within:text-primary sm:left-6 sm:h-6 sm:w-6" />
+              <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-text-tertiary transition-colors group-focus-within:text-primary sm:left-6 sm:h-6 sm:w-6" />
               <Input
                 placeholder="Buscar por cliente, evento, localização..."
                 value={searchTerm}
@@ -1399,7 +1399,7 @@ const AdminOrcamentos = () => {
             </div>
             
             <div className="flex flex-wrap items-center gap-3 bg-app border border-border-subtle p-3 sm:p-4 rounded-[22px] sm:rounded-[24px]">
-              <span className="text-[10px] font-black uppercase text-muted-foreground/20 tracking-[0.3em] mr-2 ml-2">Filtros Operacionais</span>
+              <span className="text-[10px] font-black uppercase text-text-tertiary tracking-[0.3em] mr-2 ml-2">Filtros Operacionais</span>
               
               <Select value={filterStatus} onValueChange={setFilterStatus}>
                 <SelectTrigger className="h-11 bg-sunken border-border rounded-full px-4 sm:px-6 focus:ring-primary/40 text-[10px] font-black uppercase tracking-widest min-w-[150px] sm:min-w-[160px]">
@@ -1904,7 +1904,7 @@ const AdminOrcamentos = () => {
                 </div>
               ) : (
                 <div className="border-2 border-dashed border-border-subtle rounded-[2.5rem] p-12 text-center bg-app">
-                  <Package className="h-12 w-12 mx-auto text-muted-foreground/20 mb-4" />
+                  <Package className="h-12 w-12 mx-auto text-text-tertiary mb-4" />
                   <p className="text-muted-foreground font-medium">A composição do orçamento está vazia.</p>
                   <p className="text-[10px] text-text-tertiary uppercase font-black tracking-widest mt-2">Selecione itens no catálogo abaixo</p>
                 </div>
@@ -1935,7 +1935,7 @@ const AdminOrcamentos = () => {
                     ).slice(0, 12).map(produto => (
                       <div key={produto.id} className="flex items-center justify-between p-4 bg-sunken rounded-2xl border border-border-subtle hover:border-primary/20 transition-all group">
                         <div className="flex flex-col min-w-0">
-                          <span className="text-[10px] font-bold text-text-tertiary/40 uppercase tracking-tighter truncate">{produto.codigo}</span>
+                          <span className="text-[10px] font-bold text-text-text-tertiary uppercase tracking-tighter truncate">{produto.codigo}</span>
                           <span className="font-bold text-xs text-foreground truncate">{produto.nome_produto}</span>
                           <span className="text-[10px] font-black text-foreground/80 mt-1">R$ {produto.valor_venda.toFixed(2)}</span>
                         </div>
@@ -2050,7 +2050,7 @@ const AdminOrcamentos = () => {
             {/* Header Premium (Fixo) */}
             <div className="shrink-0 bg-sunken backdrop-blur-xl border-b border-border px-4 pb-4 pt-[calc(1rem+env(safe-area-inset-top))] sm:px-6 sm:py-5 flex items-center justify-between z-50">
               <div className="flex flex-col">
-                <DialogTitle className="text-lg md:text-2xl font-black text-text-text-tertiary tracking-tight uppercase">
+                <DialogTitle className="text-lg md:text-2xl font-black text-text-primary tracking-tight uppercase">
                   Ficha do Orçamento<span className="text-primary">.</span>
                 </DialogTitle>
                 <span className="text-[10px] md:text-xs font-bold text-text-disabled uppercase tracking-[0.2em]">Visão Estratégica</span>
@@ -2155,7 +2155,7 @@ const AdminOrcamentos = () => {
                     <div className="flex items-center justify-between px-1">
                       <div className="flex flex-col">
                         <h3 className="text-sm font-black uppercase tracking-[0.2em] text-muted-foreground">Itens Técnicos</h3>
-                        <span className="text-[9px] font-bold text-muted-foreground/20 uppercase mt-1 tracking-widest">Detalhamento de Consumo</span>
+                        <span className="text-[9px] font-bold text-text-tertiary uppercase mt-1 tracking-widest">Detalhamento de Consumo</span>
                       </div>
                       <Badge className="bg-sunken text-text-tertiary border-none px-4 py-1 text-[10px] font-black uppercase tracking-widest">
                         {selectedOrcamento.orcamentos_produtos?.length || 0} Itens
@@ -2173,7 +2173,7 @@ const AdminOrcamentos = () => {
                             <div className="flex-1 min-w-0">
                                <p className="text-sm font-black text-text-primary leading-tight mb-1 truncate">{item.produtos?.nome_produto || 'Item não localizado'}</p>
                                <div className="flex items-center gap-3">
-                                  <span className="text-[9px] font-bold text-muted-foreground/20 uppercase tracking-widest">{item.produtos?.codigo || 'S/N'}</span>
+                                  <span className="text-[9px] font-bold text-text-tertiary uppercase tracking-widest">{item.produtos?.codigo || 'S/N'}</span>
                                   <div className="h-2 w-px bg-sunken" />
                                   <span className="text-[9px] font-black text-tech-blue uppercase tracking-widest">Dur: {item.produtos?.duracao_segundos ? `${item.produtos.duracao_segundos}s` : '—'}</span>
                                   {item.produtos?.efeito && (
@@ -2186,7 +2186,7 @@ const AdminOrcamentos = () => {
                             </div>
                             <div className="text-right">
                                <p className="text-sm font-black text-text-primary">R$ {(item.quantidade * item.valor_unitario).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
-                               <p className="text-[9px] font-bold text-muted-foreground/20 uppercase tracking-tighter">R$ {item.valor_unitario.toFixed(2)} un.</p>
+                               <p className="text-[9px] font-bold text-text-tertiary uppercase tracking-tighter">R$ {item.valor_unitario.toFixed(2)} un.</p>
                             </div>
                           </div>
                         ))}
@@ -2194,7 +2194,7 @@ const AdminOrcamentos = () => {
                     ) : (
                       <div className="py-12 border border-dashed border-border rounded-[2rem] text-center bg-app">
                         <Package className="h-12 w-12 mx-auto text-text-primary/5 mb-4" />
-                        <p className="text-muted-foreground/20 text-sm font-bold uppercase tracking-widest">Nenhum item vinculado</p>
+                        <p className="text-text-tertiary text-sm font-bold uppercase tracking-widest">Nenhum item vinculado</p>
                       </div>
                     )}
                   </section>
@@ -2254,7 +2254,7 @@ const AdminOrcamentos = () => {
                 {normalizeOrcamentoStatus(selectedOrcamento.status) === "confirmado" &&
                   !canRunShowConfirmation(selectedOrcamento) && (
                     <div className="absolute bottom-2 left-0 right-0 text-center">
-                       <p className="text-[9px] text-muted-foreground/20 uppercase font-black tracking-widest">
+                       <p className="text-[9px] text-text-tertiary uppercase font-black tracking-widest">
                          O fechamento do show será habilitado na data do evento ou depois.
                        </p>
                     </div>
@@ -2944,7 +2944,7 @@ const AdminOrcamentos = () => {
             {/* Header Ghost Style */}
             <div className="shrink-0 bg-sunken backdrop-blur-xl border-b border-border px-4 pb-4 pt-[calc(1rem+env(safe-area-inset-top))] sm:px-6 sm:py-5 flex items-center justify-between z-50">
               <div className="flex flex-col">
-                <DialogTitle className="text-lg md:text-2xl font-black text-text-text-tertiary tracking-tight uppercase">
+                <DialogTitle className="text-lg md:text-2xl font-black text-text-primary tracking-tight uppercase">
                   Editar Proposta<span className="text-primary">_</span>
                 </DialogTitle>
                 <span className="text-[10px] md:text-xs font-bold text-text-disabled uppercase tracking-[0.2em]">Configuração Estratégica</span>
@@ -2975,7 +2975,7 @@ const AdminOrcamentos = () => {
 
               {/* Status Segmented Control */}
               <section className="space-y-4">
-                <Label className="text-[10px] uppercase font-black text-muted-foreground/20 ml-2 tracking-widest">Fase da Proposta</Label>
+                <Label className="text-[10px] uppercase font-black text-text-tertiary ml-2 tracking-widest">Fase da Proposta</Label>
                 <div className="flex flex-wrap sm:flex-nowrap bg-sunken p-1.5 rounded-[2rem] border border-border-subtle gap-1">
                   {ORCAMENTO_STATUS_OPTIONS.filter(o => o.value !== 'realizado').map((s) => (
                     <button 
@@ -3090,8 +3090,8 @@ const AdminOrcamentos = () => {
                   <div className="flex items-center gap-4">
                     <div className="h-10 w-1.5 bg-primary rounded-full shadow-[0_0_15px_rgba(255,107,0,0.5)]" />
                     <div className="flex flex-col">
-                      <h3 className="text-xl font-black uppercase tracking-[0.2em] text-text-text-tertiary">Composição Técnica</h3>
-                      <span className="text-[10px] font-bold text-muted-foreground/20 uppercase tracking-[0.3em]">Análise e Especificação de Itens</span>
+                      <h3 className="text-xl font-black uppercase tracking-[0.2em] text-text-primary">Composição Técnica</h3>
+                      <span className="text-[10px] font-bold text-text-tertiary uppercase tracking-[0.3em]">Análise e Especificação de Itens</span>
                     </div>
                   </div>
                   <div className="flex items-center gap-3 bg-sunken px-5 py-2 rounded-2xl border border-border-subtle">
@@ -3101,7 +3101,7 @@ const AdminOrcamentos = () => {
                 </div>
 
                 {/* Desktop Header Guide */}
-                <div className="hidden lg:grid grid-cols-[1fr_140px_160px_160px_60px] gap-6 px-8 py-3 border-b border-border-subtle text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/20">
+                <div className="hidden lg:grid grid-cols-[1fr_140px_160px_160px_60px] gap-6 px-8 py-3 border-b border-border-subtle text-[10px] font-black uppercase tracking-[0.2em] text-text-tertiary">
                   <div>Especificação do Produto</div>
                   <div className="text-center">Valor Unitário</div>
                   <div className="text-center">Quantidade</div>
@@ -3125,14 +3125,14 @@ const AdminOrcamentos = () => {
                           {/* Coluna 1: Produto */}
                           <div className="flex items-center gap-5 min-w-0">
                             <div className="hidden lg:flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-muted/60 border border-border-subtle group-hover/item:border-primary/30 transition-colors">
-                              <Package className="h-5 w-5 text-muted-foreground/20 group-hover/item:text-primary transition-colors" />
+                              <Package className="h-5 w-5 text-text-tertiary group-hover/item:text-primary transition-colors" />
                             </div>
                             <div className="flex-1 min-w-0">
                               <h4 className="text-base lg:text-lg font-black text-text-primary truncate group-hover/item:text-primary transition-colors duration-300">
                                 {produto.nome}
                               </h4>
                               <div className="flex items-center gap-2 mt-1">
-                                <span className="text-[9px] font-mono font-bold text-muted-foreground/20 uppercase tracking-widest bg-sunken px-2 py-0.5 rounded">
+                                <span className="text-[9px] font-mono font-bold text-text-tertiary uppercase tracking-widest bg-sunken px-2 py-0.5 rounded">
                                   M5-{produto.produto_id.slice(0, 5).toUpperCase()}
                                 </span>
                                 {produtos.find(p => p.id === produto.produto_id)?.efeito && (
@@ -3146,7 +3146,7 @@ const AdminOrcamentos = () => {
 
                           {/* Coluna 2: Unitário (Mobile label inclusa) */}
                           <div className="mt-6 lg:mt-0 flex flex-row lg:flex-col justify-between items-center lg:text-center">
-                            <span className="lg:hidden text-[9px] font-black text-muted-foreground/20 uppercase tracking-widest">Valor Unitário</span>
+                            <span className="lg:hidden text-[9px] font-black text-text-tertiary uppercase tracking-widest">Valor Unitário</span>
                             <div className="flex flex-col lg:items-center">
                               <span className="text-sm font-bold text-text-secondary tabular-nums">
                                 R$ {produto.valor_unitario.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
@@ -3156,7 +3156,7 @@ const AdminOrcamentos = () => {
 
                           {/* Coluna 3: Stepper Quantidade */}
                           <div className="mt-4 lg:mt-0 flex flex-row lg:flex-col justify-between items-center">
-                            <span className="lg:hidden text-[9px] font-black text-muted-foreground/20 uppercase tracking-widest">Quantidade</span>
+                            <span className="lg:hidden text-[9px] font-black text-text-tertiary uppercase tracking-widest">Quantidade</span>
                             <div className="flex items-center gap-1 bg-muted/60 p-1 rounded-2xl border border-border-subtle shadow-inner">
                               <button 
                                 onClick={() => {
@@ -3188,7 +3188,7 @@ const AdminOrcamentos = () => {
 
                           {/* Coluna 4: Subtotal */}
                           <div className="mt-6 lg:mt-0 flex flex-row lg:flex-col justify-between items-center lg:text-right">
-                            <span className="lg:hidden text-[9px] font-black text-muted-foreground/20 uppercase tracking-widest font-mono">Subtotal do Item</span>
+                            <span className="lg:hidden text-[9px] font-black text-text-tertiary uppercase tracking-widest font-mono">Subtotal do Item</span>
                             <div className="flex flex-col lg:items-end">
                               <span className="text-xl font-black text-white tracking-tighter tabular-nums bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
                                 R$ {(produto.quantidade * produto.valor_unitario).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
@@ -3228,7 +3228,7 @@ const AdminOrcamentos = () => {
                     <div className="h-14 w-14 rounded-full bg-sunken flex items-center justify-center group-hover:bg-primary transition-colors duration-500">
                       <Plus size={28} className="text-primary group-hover:text-text-primary transition-colors duration-500" />
                     </div>
-                    <span className="text-muted-foreground font-black mt-4 uppercase tracking-[0.4em] text-[10px] group-hover:text-text-text-tertiary transition-colors">Expandir Composição</span>
+                    <span className="text-muted-foreground font-black mt-4 uppercase tracking-[0.4em] text-[10px] group-hover:text-text-primary transition-colors">Expandir Composição</span>
                   </motion.button>
                 </div>
               </section>
@@ -3242,7 +3242,7 @@ const AdminOrcamentos = () => {
 
                 <div className="flex flex-col sm:flex-row gap-3 bg-sunken p-3 rounded-2xl border border-border-subtle">
                    <div className="relative flex-1">
-                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/20" />
+                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-text-tertiary" />
                      <Input 
                        placeholder="Pesquisar itens..." 
                        value={productSearchTerm}
@@ -3252,7 +3252,7 @@ const AdminOrcamentos = () => {
                    </div>
                    <button 
                      onClick={() => setProductSearchTerm("")} 
-                     className="h-12 px-6 rounded-xl bg-sunken border border-border text-[10px] font-black uppercase tracking-widest text-text-tertiary hover:text-text-text-tertiary transition-all"
+                     className="h-12 px-6 rounded-xl bg-sunken border border-border text-[10px] font-black uppercase tracking-widest text-text-tertiary hover:text-text-primary transition-all"
                    >
                      Reset
                    </button>
@@ -3311,7 +3311,7 @@ const AdminOrcamentos = () => {
               <div className="flex items-center gap-4 w-full md:w-auto">
                 <button 
                   onClick={() => setIsFullEditOpen(false)}
-                  className="flex-1 md:flex-none h-16 px-10 rounded-2xl font-bold text-text-tertiary hover:text-text-text-tertiary transition-all uppercase tracking-widest text-[10px]"
+                  className="flex-1 md:flex-none h-16 px-10 rounded-2xl font-bold text-text-tertiary hover:text-text-primary transition-all uppercase tracking-widest text-[10px]"
                 >
                   Cancelar
                 </button>

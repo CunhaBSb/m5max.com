@@ -124,8 +124,8 @@
     --admin-border-strong: 18 88% 52%;   /* focus ring laranja */
     --admin-text-primary: 22 20% 9%;     /* #1A1612 marrom-pretado 14.8:1 AAA */
     --admin-text-secondary: 22 10% 38%;  /* #5C544A 6.1:1 AA */
-    --admin-text-tertiary: 22 12% 40%;   /* escurecido p/ legibilidade de eyebrow labels (~5:1) */
-    --admin-text-disabled: 25 10% 55%;   /* escurecido p/ rótulos secundários legíveis */
+    --admin-text-tertiary: 22 14% 30%;   /* escuro p/ rótulos cinza legíveis (~7:1 branco / ~4.5:1 sunken) */
+    --admin-text-disabled: 25 12% 42%;   /* rótulos secundários legíveis */
     --admin-text-inverse: 0 0% 100%;
     --admin-brand-50:  24 100% 97%;
     --admin-brand-100: 24 100% 94%;
@@ -190,7 +190,7 @@
     --secondary: 33 20% 96%;           /* warm gray claro */
     --secondary-foreground: 22 12% 26%;
     --muted: 30 15% 94%;               /* warm sunken */
-    --muted-foreground: 22 10% 38%;    /* texto secundário quente (= --admin-text-secondary) */
+    --muted-foreground: 22 12% 32%;    /* texto secundário quente, mais legível */
     --accent: 24 100% 97%;             /* laranja-soft p/ hover (= --admin-brand-50) */
     --accent-foreground: 16 84% 44%;   /* laranja escuro (= --admin-brand-600) */
 
