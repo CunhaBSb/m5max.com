@@ -102,33 +102,7 @@ const config: Config = {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))',
 				},
-				/* ============ v3 — Tokens semânticos do admin ============ */
-				app: 'hsl(var(--bg-app))',
-				sunken: 'hsl(var(--bg-sunken))',
-				'border-subtle': 'hsl(var(--border-subtle))',
-				'border-strong': 'hsl(var(--border-strong))',
-				'text-primary': 'hsl(var(--text-primary))',
-				'text-secondary': 'hsl(var(--text-secondary))',
-				'text-tertiary': 'hsl(var(--text-tertiary))',
-				'text-disabled': 'hsl(var(--text-disabled))',
-				'text-inverse': 'hsl(var(--text-inverse))',
-				/* ============ v3 — Brand scale (laranja M5) ============ */
-				brand: {
-					50:  'hsl(var(--brand-50))',
-					100: 'hsl(var(--brand-100))',
-					200: 'hsl(var(--brand-200))',
-					300: 'hsl(var(--brand-300))',
-					400: 'hsl(var(--brand-400))',
-					500: 'hsl(var(--brand-500))',
-					600: 'hsl(var(--brand-600))',
-					700: 'hsl(var(--brand-700))',
-					800: 'hsl(var(--brand-800))',
-					900: 'hsl(var(--brand-900))',
-					DEFAULT: 'hsl(var(--brand-500))',
-					foreground: 'hsl(var(--text-inverse))',
-					soft: 'hsl(var(--brand-50))',
-				},
-				// M5 Max — identidade da marca (mantida)
+				// M5 Max — identidade da marca
 				fire: {
 					red: 'hsl(var(--fire-red))',
 					orange: 'hsl(var(--fire-orange))',
@@ -154,6 +128,28 @@ const config: Config = {
 				metal: {
 					silver: 'hsl(var(--metal-silver))',
 					platinum: 'hsl(var(--metal-platinum))',
+				},
+				// Admin escopo: tokens semanticos warm white
+				app: 'hsl(var(--admin-bg-app))',
+				sunken: 'hsl(var(--admin-bg-sunken))',
+				'border-subtle': 'hsl(var(--admin-border-subtle))',
+				'border-strong': 'hsl(var(--admin-border-strong))',
+				'text-primary': 'hsl(var(--admin-text-primary))',
+				'text-secondary': 'hsl(var(--admin-text-secondary))',
+				'text-tertiary': 'hsl(var(--admin-text-tertiary))',
+				'text-disabled': 'hsl(var(--admin-text-disabled))',
+				'text-inverse': 'hsl(var(--admin-text-inverse))',
+				brand: {
+					50:  'hsl(var(--admin-brand-50))',
+					100: 'hsl(var(--admin-brand-100))',
+					200: 'hsl(var(--admin-brand-200))',
+					300: 'hsl(var(--admin-brand-300))',
+					400: 'hsl(var(--admin-brand-400))',
+					500: 'hsl(var(--admin-brand-500))',
+					600: 'hsl(var(--admin-brand-600))',
+					700: 'hsl(var(--admin-brand-700))',
+					800: 'hsl(var(--admin-brand-800))',
+					900: 'hsl(var(--admin-brand-900))',
 				},
 			},
 			borderRadius: {
