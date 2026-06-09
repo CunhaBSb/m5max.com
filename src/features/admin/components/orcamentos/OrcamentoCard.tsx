@@ -81,7 +81,7 @@ export const OrcamentoCard = ({
             {orcamento.evento_hora && (
               <div className="flex flex-col justify-center border-l border-border pl-5 h-12">
                  <span className="text-[9px] font-black text-muted-foreground/20 uppercase tracking-[0.3em] mb-1">Horário</span>
-                 <div className="flex items-center gap-2 text-white group-hover:text-primary transition-colors">
+                 <div className="flex items-center gap-2 text-text-primary group-hover:text-primary transition-colors">
                    <Clock className="h-4 w-4 opacity-40" />
                    <span className="text-xl font-black tracking-tighter">
                      {orcamento.evento_hora.substring(0, 5)}
@@ -94,7 +94,7 @@ export const OrcamentoCard = ({
           {/* Value Section */}
           <div className="flex flex-col md:items-end md:text-right">
              <span className="text-[10px] font-black text-muted-foreground/20 uppercase tracking-[0.3em] mb-1">Investimento Previsto</span>
-             <span className="text-3xl font-black text-white tracking-tighter group-hover:text-primary transition-colors">
+             <span className="text-3xl font-black text-text-primary tracking-tighter group-hover:text-primary transition-colors">
                R$ {(orcamento.valor_total || 0).toLocaleString('pt-BR', { minimumFractionDigits: 0 })}
              </span>
           </div>
@@ -115,7 +115,7 @@ export const OrcamentoCard = ({
             </span>
           </div>
 
-          <h3 className="text-2xl sm:text-3xl font-black leading-tight text-white transition-colors group-hover:text-primary tracking-tighter">
+          <h3 className="text-2xl sm:text-3xl font-black leading-tight text-text-primary transition-colors group-hover:text-primary tracking-tighter">
             {orcamento.nome_contratante}
           </h3>
 

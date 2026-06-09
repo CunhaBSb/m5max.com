@@ -124,8 +124,8 @@
     --admin-border-strong: 18 88% 52%;   /* focus ring laranja */
     --admin-text-primary: 22 20% 9%;     /* #1A1612 marrom-pretado 14.8:1 AAA */
     --admin-text-secondary: 22 10% 38%;  /* #5C544A 6.1:1 AA */
-    --admin-text-tertiary: 22 8% 50%;    /* #807870 4.5:1 AA */
-    --admin-text-disabled: 25 10% 68%;   /* #ADA59A */
+    --admin-text-tertiary: 22 12% 40%;   /* escurecido p/ legibilidade de eyebrow labels (~5:1) */
+    --admin-text-disabled: 25 10% 55%;   /* escurecido p/ rótulos secundários legíveis */
     --admin-text-inverse: 0 0% 100%;
     --admin-brand-50:  24 100% 97%;
     --admin-brand-100: 24 100% 94%;

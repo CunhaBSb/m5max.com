@@ -89,7 +89,7 @@ const EventoCard = ({ evento, onClick }: { evento: EventoResumo; onClick: () => 
   >
     <div className="flex items-center gap-3 md:gap-4 min-w-0">
       <div className="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-lg border border-border bg-sunken">
-        <span className="text-[9px] font-bold uppercase text-primary leading-none mb-0.5">
+        <span className="text-[9px] font-bold uppercase text-text-tertiary leading-none mb-0.5">
           {evento.data ? format(parseISO(evento.data), "MMM", { locale: ptBR }) : "—"}
         </span>
         <span className="text-base font-bold leading-none text-text-primary">

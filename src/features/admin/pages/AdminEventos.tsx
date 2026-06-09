@@ -226,7 +226,7 @@ const AdminEventos = () => {
                 </div>
                 <div className="flex-1 min-w-[104px] bg-sunken border border-border-subtle p-4 sm:p-5 rounded-[24px] sm:rounded-3xl flex flex-col items-center justify-center group hover:bg-sunken transition-all">
                   <span className="text-[9px] font-black uppercase text-muted-foreground/20 tracking-[0.3em] mb-2">Próximos</span>
-                  <span className="text-2xl sm:text-3xl font-black text-white leading-none">{estatisticas.confirmados}</span>
+                  <span className="text-2xl sm:text-3xl font-black text-text-primary leading-none">{estatisticas.confirmados}</span>
                 </div>
                 <div className="flex-1 min-w-[104px] bg-sunken border border-border-subtle p-4 sm:p-5 rounded-[24px] sm:rounded-3xl flex flex-col items-center justify-center group hover:bg-sunken transition-all border-green-500/10 bg-green-500/5">
                   <span className="text-[9px] font-black uppercase text-green-500/40 tracking-[0.3em] mb-2">Finalizados</span>
@@ -292,7 +292,7 @@ const AdminEventos = () => {
                     setSearchTerm('');
                     setStatusFilter('all');
                   }}
-                  className="mt-4 text-primary text-[10px] font-black uppercase tracking-widest"
+                  className="mt-4 text-text-tertiary text-[10px] font-black uppercase tracking-widest"
                 >
                   Limpar todos os filtros
                 </Button>
@@ -348,7 +348,7 @@ const AdminEventos = () => {
                               </span>
                             </div>
 
-                            <h3 className="text-xl sm:text-2xl font-black text-white group-hover:text-primary transition-colors leading-tight mb-4 truncate uppercase tracking-tighter">
+                            <h3 className="text-xl sm:text-2xl font-black text-text-text-tertiary group-hover:text-text-tertiary transition-colors leading-tight mb-4 truncate uppercase tracking-tighter">
                               {evento.orcamentos?.evento_nome}
                             </h3>
 
@@ -378,7 +378,7 @@ const AdminEventos = () => {
                             <div className="mt-8 pt-6 border-t border-border-subtle flex items-center justify-between">
                                <div className="flex flex-col">
                                   <span className="text-[9px] font-black uppercase text-muted-foreground/20 tracking-[0.3em] mb-1">Investimento Show</span>
-                                  <p className="text-xl font-black text-white tracking-tighter">
+                                  <p className="text-xl font-black text-text-primary tracking-tighter">
                                     R$ {Number(evento.orcamentos?.valor_total || 0).toLocaleString('pt-BR')}
                                   </p>
                                </div>
@@ -523,7 +523,7 @@ const AdminEventos = () => {
               <Button
                 variant="ghost"
                 onClick={() => setIsDetailsOpen(false)}
-                className="h-11 rounded-xl bg-sunken hover:bg-sunken text-sm font-medium text-white px-6 transition-colors"
+                className="h-11 rounded-xl bg-sunken hover:bg-sunken text-sm font-medium text-text-primary px-6 transition-colors"
               >
                 Fechar
               </Button>

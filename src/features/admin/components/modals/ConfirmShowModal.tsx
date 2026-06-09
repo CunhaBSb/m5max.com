@@ -214,7 +214,7 @@ export const ConfirmShowModal = ({
               <div className="admin-modal-body space-y-5">
                 <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
                   <div className="admin-stat-card p-4">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary/70">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-text-tertiary/70">
                       Cliente
                     </p>
                     <p className="mt-2 text-sm font-semibold text-foreground">
@@ -223,7 +223,7 @@ export const ConfirmShowModal = ({
                   </div>
 
                   <div className="admin-stat-card p-4">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary/70">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-text-tertiary/70">
                       Evento
                     </p>
                     <p className="mt-2 text-sm font-semibold text-foreground">
@@ -232,7 +232,7 @@ export const ConfirmShowModal = ({
                   </div>
 
                   <div className="admin-stat-card p-4">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary/70">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-text-tertiary/70">
                       Data
                     </p>
                     <p className="mt-2 text-sm font-semibold text-foreground">
@@ -241,7 +241,7 @@ export const ConfirmShowModal = ({
                   </div>
 
                   <div className="admin-stat-card p-4">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary/70">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-text-tertiary/70">
                       Status
                     </p>
                     <div className="mt-2">
@@ -505,7 +505,7 @@ export const ConfirmShowModal = ({
               <div className="admin-modal-footer">
                 <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                   <div className="rounded-2xl border border-border bg-sunken px-4 py-3">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary/70">
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-text-tertiary/70">
                       Consumo informado
                     </p>
                     <p className="mt-1 text-sm font-semibold text-foreground">

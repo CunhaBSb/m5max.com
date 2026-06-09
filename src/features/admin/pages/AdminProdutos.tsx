@@ -270,7 +270,7 @@ export default function AdminProdutos() {
                           </span>
                         </div>
 
-                        <h4 className="truncate text-sm font-black leading-tight tracking-tight text-white uppercase transition-colors group-hover:text-primary sm:text-base">
+                        <h4 className="truncate text-sm font-black leading-tight tracking-tight text-text-text-tertiary uppercase transition-colors group-hover:text-text-tertiary sm:text-base">
                           {produto.nome_produto}
                         </h4>
 
@@ -293,7 +293,7 @@ export default function AdminProdutos() {
                           <span className="block text-[8px] font-black uppercase tracking-[0.18em] text-text-tertiary">
                             Preço
                           </span>
-                          <p className="text-sm font-black tracking-tight text-white group-hover:text-primary transition-colors sm:text-base">
+                          <p className="text-sm font-black tracking-tight text-text-primary group-hover:text-primary transition-colors sm:text-base">
                             {new Intl.NumberFormat("pt-BR", {
                               style: "currency",
                               currency: "BRL",
@@ -331,7 +331,7 @@ export default function AdminProdutos() {
         <DialogContent className="sm:max-w-md p-0">
           <div className="flex flex-col">
             <DialogHeader className="border-b border-border bg-muted/40 p-5 sm:p-6 text-left">
-              <DialogTitle className="flex items-center gap-2 text-lg sm:text-xl font-bold uppercase tracking-tight text-white">
+              <DialogTitle className="flex items-center gap-2 text-lg sm:text-xl font-bold uppercase tracking-tight text-text-text-tertiary">
                 <PackageSearch className="h-5 w-5 text-primary" />
                 Ficha do Produto
               </DialogTitle>
@@ -356,7 +356,7 @@ export default function AdminProdutos() {
 
                 <div className="space-y-5">
                   <div>
-                    <h4 className="text-lg sm:text-xl font-black leading-tight tracking-tight text-white mb-3">{selectedProduct.nome_produto}</h4>
+                    <h4 className="text-lg sm:text-xl font-black leading-tight tracking-tight text-text-primary mb-3">{selectedProduct.nome_produto}</h4>
                     <div className="flex flex-wrap items-center gap-2">
                       <Badge variant="secondary" className="border-none bg-sunken px-3 py-1 font-mono text-[10px] tracking-widest text-text-secondary font-bold">
                         {selectedProduct.codigo}
@@ -391,7 +391,7 @@ export default function AdminProdutos() {
                   <Button 
                     onClick={() => setSelectedProduct(null)} 
                     variant="ghost"
-                    className="h-10 px-6 rounded-xl text-xs font-bold uppercase tracking-widest bg-sunken hover:bg-sunken transition-colors text-white"
+                    className="h-10 px-6 rounded-xl text-xs font-bold uppercase tracking-widest bg-sunken hover:bg-sunken transition-colors text-text-text-tertiary"
                   >
                     Fechar Ficha
                   </Button>

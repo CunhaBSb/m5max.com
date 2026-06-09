@@ -36,7 +36,7 @@ const AdminStart = () => {
         </div>
 
         <div className="space-y-3 text-center">
-          <p className="text-[10px] font-black uppercase tracking-[0.34em] text-primary">M5 MAX PRODUCOES</p>
+          <p className="text-[10px] font-black uppercase tracking-[0.34em] text-text-tertiary">M5 MAX PRODUCOES</p>
           <h1 className="text-3xl font-black leading-tight tracking-tight text-text-primary">
             Painel Administrativo
           </h1>
