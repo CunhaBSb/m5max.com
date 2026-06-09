@@ -168,6 +168,41 @@
 
     --gradient-soft: linear-gradient(180deg, hsl(220 26% 9%) 0%, hsl(220 22% 12%) 100%);
   }
+
+  /* =====================================================================
+     PAINEL ADMIN — tema CLARO unificado (warm white + LARANJA) escopado
+     via AdminRoutes. Resolve o conflito de o admin misturar dois sistemas:
+     tokens globais FRIOS (bg-card branco frio, text-foreground charcoal frio,
+     --primary âmbar) com os tokens --admin-* QUENTES (warm white, marrom,
+     laranja). Aqui remapeamos os tokens globais para a paleta quente +
+     laranja, então TODO o admin (classes globais E --admin-*) fica coerente.
+     Não afeta o site público (.theme-public) nem o :root.
+     ===================================================================== */
+  .theme-admin {
+    --background: 35 30% 98%;          /* warm white (= --admin-bg-app) */
+    --foreground: 22 20% 9%;           /* marrom-pretado (= --admin-text-primary) */
+
+    --card: 0 0% 100%;                 /* cards brancos puros */
+    --card-foreground: 22 20% 9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 22 20% 9%;
+
+    --secondary: 33 20% 96%;           /* warm gray claro */
+    --secondary-foreground: 22 12% 26%;
+    --muted: 30 15% 94%;               /* warm sunken */
+    --muted-foreground: 22 10% 38%;    /* texto secundário quente (= --admin-text-secondary) */
+    --accent: 24 100% 97%;             /* laranja-soft p/ hover (= --admin-brand-50) */
+    --accent-foreground: 16 84% 44%;   /* laranja escuro (= --admin-brand-600) */
+
+    --border: 33 16% 88%;              /* borda quente visível */
+    --input: 33 16% 88%;
+
+    --primary: 18 88% 52%;             /* LARANJA de ação (= --admin-brand-500), não âmbar */
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 18 88% 60%;
+    --primary-soft: 24 100% 97%;
+    --ring: 18 88% 52%;
+  }
 }
 
 @layer base {

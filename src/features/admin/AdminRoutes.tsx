@@ -84,6 +84,7 @@ const AdminShell = () => (
 
 export const AdminRoutes = () => (
   <AuthProvider>
+    <div className="theme-admin">
     <Routes>
       <Route path="/" element={<AdminStart />} />
       <Route path="login" element={<AdminLogin />} />
@@ -98,5 +99,6 @@ export const AdminRoutes = () => (
         <Route index element={<Navigate to="produtos" replace />} />
       </Route>
     </Routes>
+    </div>
   </AuthProvider>
 );
