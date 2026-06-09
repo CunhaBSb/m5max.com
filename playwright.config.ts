@@ -2,7 +2,7 @@ import { defineConfig, devices } from '@playwright/test';
 import path from 'path';
 
 const localChrome = process.env.PLAYWRIGHT_CHROMIUM ||
-  path.join(process.env.HOME || '', '.cache/ms-playwright/chromium-1181/chrome-linux/chrome');
+  path.join(process.env.HOME || '', '.cache/ms-playwright/chromium-1208/chrome-linux64/chrome');
 
 export default defineConfig({
   testDir: 'tests/e2e',

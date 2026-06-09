@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from "react";
 import config from '@/shared/lib/config';
 import { useAppStore } from '@/shared/store/appStore';
 import { 
@@ -43,9 +43,9 @@ export const useAnalytics = () => {
   const pushToDataLayer = (data: DataLayerEvent) => {
     if (typeof window === 'undefined' || !window.dataLayer) return;
 
-    // Consent: em produção respeitamos; em dev/staging liberamos para QA
-    const isProd = config.environment === 'production';
-    if (userConsent && userConsent.analytics_storage === 'denied' && isProd) {
+    // Consent: respeitamos em qualquer ambiente (LGPD/GDPR).
+    // Dev/staging não é exceção — vazamento de UTMs/gclid é PII e quebra auditoria.
+    if (userConsent && userConsent.analytics_storage === 'denied') {
       if (import.meta.env.DEV) {
         console.debug('[Analytics] Tracking blocked - analytics consent denied');
       }
