@@ -1528,16 +1528,16 @@ const AdminOrcamentos = () => {
 
           {/* Tabs de Navegação */}
           <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full">
-            <TabsList className="mb-8 flex h-14 w-full rounded-[20px] border border-border-subtle bg-sunken p-1.5 md:mb-10 md:h-16 md:w-fit md:rounded-full">
+            <TabsList className="mb-8 flex h-14 w-full overflow-x-auto rounded-[20px] border border-border-subtle bg-sunken p-1.5 md:mb-10 md:h-16 md:w-fit md:rounded-full scrollbar-hide">
               <TabsTrigger 
                 value="solicitacoes" 
-                className="flex-1 md:w-60 rounded-full data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-lg font-black tracking-widest text-[10px] uppercase transition-all duration-500 h-full"
+                className="min-w-[140px] flex-1 whitespace-nowrap md:w-60 rounded-full data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-lg font-black tracking-widest text-[10px] uppercase transition-all duration-500 h-full"
               >
                 Entrada de Leads ({solicitacoes.length})
               </TabsTrigger>
               <TabsTrigger 
                 value="orcamentos" 
-                className="flex-1 md:w-60 rounded-full data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-lg font-black tracking-widest text-[10px] uppercase transition-all duration-500 h-full"
+                className="min-w-[140px] flex-1 whitespace-nowrap md:w-60 rounded-full data-[state=active]:bg-primary data-[state=active]:text-white data-[state=active]:shadow-lg font-black tracking-widest text-[10px] uppercase transition-all duration-500 h-full"
               >
                 Propostas ({orcamentos.length})
               </TabsTrigger>
@@ -2287,26 +2287,26 @@ const AdminOrcamentos = () => {
                     {selectedOrcamento.orcamentos_produtos && selectedOrcamento.orcamentos_produtos.length > 0 ? (
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {selectedOrcamento.orcamentos_produtos.map((item, index) => (
-                          <div key={index} className="bg-sunken border border-border-subtle p-6 rounded-3xl flex items-center gap-5 transition-all hover:bg-sunken">
+                          <div key={index} className="bg-sunken border border-border-subtle p-6 rounded-3xl flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-5 transition-all hover:bg-sunken overflow-hidden">
                             <div className="h-12 w-12 rounded-2xl bg-primary/10 flex flex-col items-center justify-center border border-primary/20 shrink-0">
                                <span className="text-[8px] font-black text-text-tertiary uppercase">Qtd</span>
                                <span className="text-xl font-black text-text-primary leading-none">{item.quantidade}</span>
                             </div>
                             <div className="flex-1 min-w-0">
                                <p className="text-sm font-black text-text-primary leading-tight mb-1 truncate">{item.produtos?.nome_produto || 'Item não localizado'}</p>
-                               <div className="flex items-center gap-3">
-                                  <span className="text-[9px] font-bold text-text-tertiary uppercase tracking-widest">{item.produtos?.codigo || 'S/N'}</span>
-                                  <div className="h-2 w-px bg-sunken" />
-                                  <span className="text-[9px] font-black text-tech-blue uppercase tracking-widest">Dur: {item.produtos?.duracao_segundos ? `${item.produtos.duracao_segundos}s` : '—'}</span>
+                               <div className="flex flex-wrap items-center gap-x-2 gap-y-1 sm:gap-3">
+                                  <span className="text-[9px] font-bold text-text-tertiary uppercase tracking-wide whitespace-nowrap">{item.produtos?.codigo || 'S/N'}</span>
+                                  <div className="hidden sm:block h-2 w-px bg-sunken" />
+                                  <span className="text-[9px] font-black text-tech-blue uppercase tracking-wide whitespace-nowrap">Dur: {item.produtos?.duracao_segundos ? `${item.produtos.duracao_segundos}s` : '—'}</span>
                                   {item.produtos?.efeito && (
                                     <>
-                                      <div className="h-2 w-px bg-sunken" />
-                                      <span className="text-[9px] font-black text-success uppercase tracking-widest">{item.produtos.efeito}</span>
+                                      <div className="hidden sm:block h-2 w-px bg-sunken" />
+                                      <span className="text-[9px] font-black text-success uppercase tracking-wide whitespace-nowrap">{item.produtos.efeito}</span>
                                     </>
                                   )}
                                </div>
                             </div>
-                            <div className="text-right">
+                            <div className="text-right shrink-0">
                                <p className="text-sm font-black text-text-primary">R$ {(item.quantidade * item.valor_unitario).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
                                <p className="text-[9px] font-bold text-text-tertiary uppercase tracking-tighter">R$ {item.valor_unitario.toFixed(2)} un.</p>
                             </div>
